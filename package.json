@@ -1,0 +1,21 @@
+{
+  "name": "twic",
+  "version": "0.0.1",
+  "description": "Twitter extension for Chromium based browsers",
+  "keywords": [
+    "twic",
+    "twitter",
+    "client",
+    "extension",
+    "chromium",
+    "browser"
+  ],
+  "author": "Igor Kalashnikov <igor.kalashnikov@me.com>",
+  "license": "GNU GPL v2.0",
+  "devDependencies": {
+    "6to5": "^3.2.1",
+    "lodash": "^3.0.1",
+    "rusha": "^0.8.1",
+    "twitter-text": "^1.11.0"
+  }
+}
