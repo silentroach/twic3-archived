@@ -11,7 +11,8 @@
     "browser"
   ],
   "scripts": {
-    "prepare": "node src/dev/extract.js"
+    "prepare": "node src/dev/extract.js",
+    "build": "node src/dev/manifest.js"
   },
   "author": "Igor Kalashnikov <igor.kalashnikov@me.com>",
   "license": "GNU GPL v2.0",
