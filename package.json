@@ -10,6 +10,9 @@
     "chromium",
     "browser"
   ],
+  "scripts": {
+    "prepare": "node src/dev/extract.js"
+  },
   "author": "Igor Kalashnikov <igor.kalashnikov@me.com>",
   "license": "GNU GPL v2.0",
   "devDependencies": {
