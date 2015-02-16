@@ -23,6 +23,7 @@ var buildPath = path.resolve(__dirname, 'build');
 var loaderBabelParams = [
 	'blacklist[]=useStrict',
 	'blacklist[]=es6.constants',
+	'blacklist[]=react',
 	'loose=all'
 ];
 
