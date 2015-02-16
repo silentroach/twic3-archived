@@ -13,8 +13,6 @@ function changeResultText() {
 	resultElement.innerText = i18n.translate.apply(i18n, arguments);
 }
 
-debugger;
-
 if (pinWrapperElement) {
 	pinElement = pinWrapperElement.querySelector('code');
 
