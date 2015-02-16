@@ -1,4 +1,4 @@
-import React from 'react';
+import Page from '../page';
 
 import AccountList from '../components/accountList';
 import Message from '../../message';
@@ -8,7 +8,7 @@ import device from '../device';
 const MODIFIER_KEY = device.platform === device.platforms.OSX
 	? 'altKey' : 'ctrlKey';
 
-export default class AccountsPage extends React.Component {
+export default class AccountsPage extends Page {
 	constructor(props) {
 		super(props);
 
