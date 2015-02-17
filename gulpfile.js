@@ -96,8 +96,12 @@ if (isProduction) {
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin(
 			{
-				// mangle: true,
-				// compress: true
+				mangle: {
+					screw_ie8: true
+				},
+				compress: {
+					screw_ie8: true
+				}
 			}
 		)
 	);
