@@ -9,7 +9,22 @@ export default class Response {
 	}
 
 	get content() {
-		return this.xhr.responseText;
+		var text = this.xhr.responseText;
+		var contentType = this.getHeader('content-type');
+
+		if (undefined !== contentType) {
+			[contentType] = contentType.split(';')
+			contentType = contentType.trim().toLowerCase();
+
+			switch (contentType) {
+				case 'application/json':
+					return JSON.parse(text);
+				default:
+					return text;
+			}
+		}
+
+		return text;
 	}
 
 	getHeader(name) {
@@ -19,11 +34,7 @@ export default class Response {
 			this.headers = parseHeaders(this.xhr);
 		}
 
-		if (undefined === this.headers[headerName]) {
-			return null;
-		} else {
-			return this.headers[headerName];
-		}
+		return this.headers[headerName];
 	}
 }
 
