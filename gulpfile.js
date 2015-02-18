@@ -51,6 +51,12 @@ if (isProduction) {
 
 var loaderImage = 'image?' + imageLoaderParams.join('&');
 
+/* @todo
+new webpack.DefinePlugin({
+	'process.env.NODE_ENV': JSON.stringify('production')
+}),
+*/
+
 var webpackBasicConfig = {
 	output: {
 		filename: '[name].js',
