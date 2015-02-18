@@ -1,14 +1,27 @@
 import qs from 'querystring';
 
-import RequestOAuth from './requestOAuth';
-import OAuthToken from './oauthToken';
+import RequestOAuth from '../requestOAuth';
+import OAuthToken from '../oauthToken';
+import Limits from './limits';
 
 const BASE_URL = 'https://api.twitter.com/1.1/';
 const AUTH_URL = 'https://api.twitter.com/oauth/';
 
+const TIMELINE_LIMIT = 100;
+
 export default class TwitterAPI {
 	constructor() {
 		this.resetToken();
+
+		this.limits = { };
+	}
+
+	getLimits(token) {
+		if (undefined === this.limits[token.token]) {
+			this.limits[token.token] = new Limits(token);
+		}
+
+		return this.limits[token.token];
 	}
 
 	resetToken() {
@@ -54,6 +67,7 @@ export default class TwitterAPI {
 			});
 	}
 
+	// requestToken нужен только здесь?
 	getAccessToken(pin) {
 		var api = this;
 
@@ -85,15 +99,55 @@ export default class TwitterAPI {
 			});
 	}
 
+	getConfiguration() {
+		var path = BASE_URL + 'help/configuration.json';
+		var req = new RequestOAuth(path);
+
+		req
+			.send()
+			.then(function(response) {
+				return response.content;
+			});
+	}
+
 	getUserInfo(userId) {
-		var req = new RequestOAuth(BASE_URL + 'users/show.json');
+		var path = BASE_URL + 'users/show.json';
+		var req = new RequestOAuth(path);
 
 		return req
 			.setRequestData('user_id', userId)
 			.setRequestData('include_entities', 1)
 			.send()
 			.then(function(response) {
-				return JSON.parse(response.content)
+				return response.content;
+			});
+	}
+
+	getHomeTimeline(token, sinceId = null) {
+		var path = BASE_URL + 'statuses/home_timeline.json';
+		var limits = this.getLimits(token);
+		var req;
+
+		if (limits.isRestricted(path)) {
+			throw new Error('Request rate exceeded');
+		}
+
+		req = new RequestOAuth(path);
+
+		if (sinceId) {
+			req.setRequestData('since_id', sinceId);
+		}
+
+		return req
+			.setRequestData('count', TIMELINE_LIMIT)
+			.setRequestData('include_entities', 1)
+			.send(token)
+			.then(function(response) {
+				limits.update(path, response);
+				return response;
+			})
+			.then(function(response) {
+				return response.content;
 			});
 	}
 }

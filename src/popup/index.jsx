@@ -6,6 +6,7 @@ import i18n from '../i18n';
 import device from './device';
 
 import Toolbar from './components/toolbar';
+import ToolbarIcon from './components/toolbarIcon';
 
 import AccountsPage from './pages/accounts';
 import AboutPage from './pages/about';
@@ -31,11 +32,8 @@ class App extends React.Component {
 		return (
 			<div>
 				<Toolbar>
-					<li>
-						<a href="#about" title={i18n.translate('toolbar.about')}>
-							{i18n.translate('toolbar.about')}
-						</a>
-					</li>
+					<ToolbarIcon href="#accounts" title="Тест" />
+					<ToolbarIcon href="#about" title={i18n.translate('toolbar.about')} />
 				</Toolbar>
 				<Page />
 			</div>
@@ -46,6 +44,8 @@ class App extends React.Component {
 		var hashParts = e.newURL.split('#').pop().split('/');
 		var pageName = hashParts.shift();
 		var page;
+
+		console.info('Handling page change to', pageName, hashParts);
 
 		switch (pageName) {
 			case 'about':

@@ -1,4 +1,4 @@
-import TwitterAPI from './twitterApi';
+import TwitterAPI from './twitter/api';
 
 import User from './model/user';
 

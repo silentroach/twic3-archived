@@ -21,6 +21,15 @@ AccountList
 			console.debug('message received', msg);
 
 			switch (msg.type) {
+				case Message.TYPE_USER:
+					twitter
+						.getUser(msg.data.userId)
+						.then(function(user) {
+							sendResponse(user);
+						});
+
+					return true;
+
 				case Message.TYPE_ACCOUNT_USERS:
 					Promise.all(
 						accountList.map(account => twitter.getUser(account.userId))
@@ -29,8 +38,6 @@ AccountList
 					});
 
 					return true;
-
-					break;
 
 				case Message.TYPE_AUTH_START:
 					twitter.startAuthentication();
@@ -64,7 +71,7 @@ AccountList
 
 							accountList.save(accountListStorage);
 
-							sendResponse(user.getData());
+							sendResponse(user);
 						})
 						.catch(function(e) {
 							console.error('authentication failed', e);
@@ -73,6 +80,8 @@ AccountList
 
 					return true;
 
+				default:
+					console.error('unknown message type', msg.type);
 					break;
 			}
 		});
