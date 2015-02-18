@@ -14,11 +14,11 @@
   "license": "GNU GPL v2.0",
   "devDependencies": {
     "autoprefixer-loader": "1.1.0",
-    "babel-core": "4.0.2",
+    "babel-core": "4.3.0",
     "babel-loader": "4.0.0",
     "chalk": "0.5.1",
     "css-loader": "0.9.1",
-    "evil-icons": "1.7.1",
+    "evil-icons": "1.7.2",
     "extract-text-webpack-plugin": "0.3.8",
     "gulp": "3.8.11",
     "gulp-jade": "1.0.0",
