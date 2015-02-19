@@ -5,15 +5,20 @@ import Message from '../../../message';
 
 import device from '../../device';
 
+// modifier key to use for account removal
 const MODIFIER_KEY = device.platform === device.platforms.OSX
 	? 'altKey' : 'ctrlKey';
+
+// we can cache account users to prevent flicker
+// cause it will never been modified in current popup session
+var usersCache = null;
 
 export default class AccountsPage extends Page {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			users: [],
+			users: usersCache || [],
 			modifierKeyPressed: false
 		};
 	}
@@ -50,16 +55,23 @@ export default class AccountsPage extends Page {
 
 	componentWillMount() {
 		var accountPage = this;
-		var msg = new Message(Message.TYPE_ACCOUNT_USERS);
+		var msg;
 
 		document.addEventListener('keydown', this.handleKeyDown.bind(this));
 		document.addEventListener('keyup', this.handleKeyUp.bind(this));
 
+		if (usersCache) {
+			return;
+		}
+
+		msg = new Message(Message.TYPE_ACCOUNT_USERS);
+
 		msg
 			.send()
 			.then(function(users) {
+				usersCache = users;
 				accountPage.setState({
-					users: users
+					users: usersCache
 				});
 			});
 	}
