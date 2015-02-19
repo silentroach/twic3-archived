@@ -1,11 +1,11 @@
 import Model from '../model';
 
 export default class User extends Model {
-	getCollectionName() {
+	static getCollectionName() {
 		return 'users';
 	}
 
-	getJSONMap() {
+	static getJSONMap() {
 		return {
 			'id_str': 'id',
 			'name': 'name',

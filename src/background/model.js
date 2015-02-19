@@ -7,11 +7,11 @@ export default class Model {
 		this[isChanged] = false;
 	}
 
-	getJSONMap() {
+	static getJSONMap() {
 		return { };
 	}
 
-	getCollectionName() {
+	static getCollectionName() {
 		throw new Error('collection name is not defined');
 	}
 
@@ -37,7 +37,7 @@ export default class Model {
 			return Promise.resolve();
 		}
 
-		collectionName = this.getCollectionName();
+		collectionName = this.constructor.getCollectionName();
 		storeObject = this.getData();
 
 		console.debug('saving to', collectionName, storeObject);
@@ -51,7 +51,7 @@ export default class Model {
 	}
 
 	parseFromJSON(json) {
-		var map = this.getJSONMap();
+		var map = this.constructor.getJSONMap();
 		var model = this;
 		var updateTime;
 
@@ -99,7 +99,7 @@ export default class Model {
 	static getById(db, id) {
 		var obj = new this;
 
-		return db.getById(obj.getCollectionName(), id)
+		return db.getById(obj.constructor.getCollectionName(), id)
 			.then(function(data) {
 				var map;
 
