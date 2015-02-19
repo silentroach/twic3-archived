@@ -20,8 +20,31 @@ export default class AccountList {
 		return this.accounts.map(callback);
 	}
 
+	[Symbol.iterator]() {
+		var list = this;
+		var idx = 0;
+
+		return {
+			next() {
+				var result = {
+					done: true,
+					value: undefined
+				}
+
+				if (undefined === list.accounts[idx]) {
+					return result;
+				}
+
+				result.done = false;
+				result.value = list.accounts[idx++];
+
+				return result;
+			}
+		}
+	}
+
 	getByUserId(userId) {
-		for (let account of this.accounts) {
+		for (let account of this) {
 			if (userId === account.userId) {
 				return account;
 			}
@@ -31,7 +54,7 @@ export default class AccountList {
 	}
 
 	getByScreenName(screenName) {
-		for (let account of this.accounts) {
+		for (let account of this) {
 			if (screenName === account.screenName) {
 				return account;
 			}
