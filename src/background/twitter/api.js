@@ -48,6 +48,8 @@ export default class TwitterAPI {
 			return Promise.resolve(this.token);
 		}
 
+		console.debug('api: requesting token');
+
 		req = new RequestOAuth(AUTH_URL + 'request_token', 'POST');
 
 		return req.send()
@@ -74,6 +76,8 @@ export default class TwitterAPI {
 		return this.getRequestToken()
 			.then(function(token) {
 				var req = new RequestOAuth(AUTH_URL + 'access_token', 'POST');
+
+				console.debug('api: requesting access token');
 
 				return req
 					.setRequestData('oauth_verifier', pin)
@@ -103,6 +107,8 @@ export default class TwitterAPI {
 		var path = BASE_URL + 'help/configuration.json';
 		var req = new RequestOAuth(path);
 
+		console.debug('api: requesting configuration');
+
 		req
 			.send()
 			.then(function(response) {
@@ -113,6 +119,8 @@ export default class TwitterAPI {
 	getUserInfo(userId) {
 		var path = BASE_URL + 'users/show.json';
 		var req = new RequestOAuth(path);
+
+		console.debug('api: requesting user info', userId);
 
 		return req
 			.setRequestData('user_id', userId)
@@ -131,6 +139,8 @@ export default class TwitterAPI {
 		if (limits.isRestricted(path)) {
 			throw new Error('Request rate exceeded');
 		}
+
+		console.debug('api: requesting timeline', sinceId);
 
 		req = new RequestOAuth(path);
 
