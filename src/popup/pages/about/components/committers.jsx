@@ -1,12 +1,12 @@
-import Page from '../page';
+import React from 'react';
 
-import committers from '../../vendor/committers';
+import './committers.styl';
 
-export default class AboutPage extends Page {
+export default class CommitterList extends React.Component {
 	render() {
 		return (
 			<ul>
-				{committers.map(function(committer, idx) {
+				{this.props.list.map(function(committer, idx) {
 					var url = 'mailto:' + committer.email;
 
 					return <li key={idx}>

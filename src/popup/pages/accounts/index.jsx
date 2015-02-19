@@ -1,9 +1,9 @@
-import Page from '../page';
+import Page from '../../page';
 
-import AccountList from '../components/accountList';
-import Message from '../../message';
+import AccountList from './components/accountList';
+import Message from '../../../message';
 
-import device from '../device';
+import device from '../../device';
 
 const MODIFIER_KEY = device.platform === device.platforms.OSX
 	? 'altKey' : 'ctrlKey';

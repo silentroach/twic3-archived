@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar from './avatar';
+import Avatar from '../../../components/avatar';
 
 import './account.styl';
 
