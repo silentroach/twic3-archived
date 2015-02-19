@@ -80,24 +80,19 @@ export default class RequestOAuth extends Request {
 				request.sign();
 			}
 
-			return new Promise(function(resolve, reject) {
-				super.send()
-					.then(resolve)
-					.catch(function(response) {
-						if (!isRetry
-							&& 401 === response.status
-							&& checkTimestamp(response)
-						) {
-							isRetry = true;
+			return super.send()
+				.catch(function(response) {
+					if (!isRetry
+						&& 401 === response.status
+						&& checkTimestamp(response)
+					) {
+						isRetry = true;
 
-							delete request.OAuthData['oauth_signature'];
+						delete request.OAuthData['oauth_signature'];
 
-							sendRequest()
-								.then(resolve)
-								.catch(reject);
-						}
-					});
-			} );
+						return sendRequest();
+					}
+				});
 		}
 
 		return sendRequest();

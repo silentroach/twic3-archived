@@ -1,14 +1,21 @@
 import querystring from 'qs';
 
 import Response from './response';
+import EventEmitter from '../eventEmitter';
 
-export default class Request {
+const XHR_FIELD = Symbol('xhr');
+
+export default class Request extends EventEmitter {
 	constructor(url, method = 'GET') {
+		super();
+
 		this.method = method;
 		this.url = url;
 
 		this.headers = { };
 		this.data = { };
+
+		this[XHR_FIELD] = null;
 	}
 
 	setHeader(name, value) {
@@ -34,13 +41,20 @@ export default class Request {
 			.replace(/\)/g, '%29');
 	}
 
-	send() {
+	abort() {
+		if (this[XHR_FIELD] instanceof XMLHttpRequest) {
+			this[XHR_FIELD].abort();
+			this[XHR_FIELD] = null;
+		}
+	}
+
+	startXMLHttpRequest() {
 		var request = this;
 
 		return new Promise(function(resolve, reject) {
 			var requestData = request.getData();
 			var dataParams = [];
-			var req = new XMLHttpRequest();
+			var req = request[XHR_FIELD] = new XMLHttpRequest();
 			var url = request.url;
 			var data;
 
@@ -54,23 +68,6 @@ export default class Request {
 			}
 
 			data = dataParams.join('&');
-
-			req.onreadystatechange = function() {
-				var req = this;
-
-				if (XMLHttpRequest.DONE === req.readyState) {
-					var response = new Response(req);
-
-					switch (req.status) {
-						case 200:
-							resolve(response);
-							break;
-						default:
-							reject(response);
-							break;
-					}
-				}
-			};
 
 			if ('GET' === request.method
 				&& data.length > 0
@@ -87,6 +84,30 @@ export default class Request {
 			} else {
 				req.send(data);
 			}
+
+			resolve(req);
 		});
+	}
+
+	send() {
+		return this.startXMLHttpRequest()
+			.then(function(req) {
+				return new Promise(function(resolve, reject) {
+					req.onreadystatechange = function() {
+						if (XMLHttpRequest.DONE === req.readyState) {
+							var response = new Response(req);
+
+							switch (req.status) {
+								case 200:
+									resolve(response);
+									break;
+								default:
+									reject(response);
+									break;
+							}
+						}
+					};
+				});
+			});
 	}
 }

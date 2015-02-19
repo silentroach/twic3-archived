@@ -332,7 +332,8 @@ gulp.task('manifest', /*['i18n', 'build:mkdir'], */function(callback) {
 		permissions: [
 			'storage',
 
-			'https://api.twitter.com/1/*',
+			'https://api.twitter.com/1.1/*',
+			'https://userstream.twitter.com/1.1/*',
 			'https://twitter.com/oauth/*'
 		]
 	};

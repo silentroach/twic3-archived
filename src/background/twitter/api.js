@@ -1,11 +1,13 @@
 import qs from 'querystring';
 
-import RequestOAuth from '../requestOAuth';
+import RequestOAuth from '../request/OAuth';
 import OAuthToken from '../oauthToken';
 import Limits from './limits';
+import TwitterStream from './stream';
 
-const BASE_URL = 'https://api.twitter.com/1.1/';
-const AUTH_URL = 'https://api.twitter.com/oauth/';
+const BASE_URL   = 'https://api.twitter.com/1.1/';
+const AUTH_URL   = 'https://api.twitter.com/oauth/';
+const STREAM_URL = 'https://userstream.twitter.com/1.1/';
 
 const TIMELINE_LIMIT = 100;
 
@@ -159,5 +161,12 @@ export default class TwitterAPI {
 			.then(function(response) {
 				return response.content;
 			});
+	}
+
+	getUserStream(token) {
+		var path = STREAM_URL + 'user.json';
+		var stream = new TwitterStream(path, token);
+
+		return stream.setRequestData('stringify_friend_ids', true);
 	}
 }
