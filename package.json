@@ -21,6 +21,7 @@
     "evil-icons": "1.7.2",
     "extract-text-webpack-plugin": "0.3.8",
     "gulp": "3.8.11",
+    "gulp-eslint": "0.4.3",
     "gulp-jade": "1.0.0",
     "gulp-rename": "1.2.0",
     "gulp-svg-sprite": "1.0.16",

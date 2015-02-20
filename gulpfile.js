@@ -8,6 +8,7 @@ var gutil = require('gulp-util');
 var gulpJade = require('gulp-jade');
 var gulpSVG = require('gulp-svg-sprite');
 var gulpRename = require('gulp-rename');
+var gulpEslint = require('gulp-eslint');
 
 var twitterText = require('twitter-text');
 var webpack = require('webpack');
@@ -377,7 +378,7 @@ gulp.task('vendor:twitter-text', function(callback) {
 
 gulp.task('i18n', function(callback) {
 	return gulp.src('src/translations.js', { read: false })
-		.pipe(through.obj(function(file, enc, callback) {
+		.pipe(through.obj(function(file) {
 			var translations = require(file.path);
 			var filepath = path.dirname(file.path);
 			var parsed = { };
@@ -466,7 +467,7 @@ gulp.task('committers', function(callback) {
 				callback
 			);
 		} else {
-			grunt.fail.warn(error);
+			throw error;
 		}
 	});
 });
@@ -488,5 +489,13 @@ gulp.task('build:mkdir', function(callback) {
 });
 
 gulp.task('build', [/*'cleanup', */'vendor', 'i18n', 'committers', 'manifest', 'popup', 'options', 'background']);
+
+gulp.task('lint', function() {
+	gulp.src('src/background/*.js')
+		.pipe(gulpEslint({
+			// @todo wait for normal es6 support
+		}))
+		.pipe(gulpEslint.format());
+});
 
 gulp.task('watch', ['background:watch', 'options:modules:watch', 'popup:modules:watch']);
