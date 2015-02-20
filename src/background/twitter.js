@@ -92,7 +92,11 @@ export default class Twitter {
 								return user;
 							})
 					});
-			})
+			});
+	}
+
+	getHomeTimeline(token, sinceId) {
+		this.api.getHomeTimeline(token, sinceId);
 	}
 }
 

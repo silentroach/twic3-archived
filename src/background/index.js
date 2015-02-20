@@ -63,6 +63,9 @@ AccountList
 
 							console.info('user authenticated', token, user);
 
+							// fetching timeline in a background
+							twitter.getHomeTimeline(token);
+
 							account = accountList.getByUserId(user.id);
 							if (!account) {
 								account = new Account();
