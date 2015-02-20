@@ -7,10 +7,6 @@ export default class Model {
 		this[isChanged] = false;
 	}
 
-	static getJSONMap() {
-		return { };
-	}
-
 	static getCollectionName() {
 		throw new Error('collection name is not defined');
 	}
@@ -29,11 +25,20 @@ export default class Model {
 		return storeObject;
 	}
 
+	markAsChanged() {
+		this[isChanged] = true;
+		this[updateTimeField] = Date.now();
+	}
+
+	isChanged() {
+		return this[isChanged];
+	}
+
 	save(db) {
 		var collectionName;
 		var storeObject;
 
-		if (!this[isChanged]) {
+		if (!this.isChanged()) {
 			return Promise.resolve();
 		}
 
@@ -48,52 +53,6 @@ export default class Model {
 	isOutdated() {
 		return undefined === this[updateTimeField]
 			|| Date.now() - this[updateTimeField] > this.getFreshTime();
-	}
-
-	parseFromJSON(json) {
-		var map = this.constructor.getJSONMap();
-		var model = this;
-		var updateTime;
-
-		if (!json) {
-			throw new Error('invalid json data object');
-		}
-
-		Object.keys(map).forEach(function(jsonField) {
-			var config = map[jsonField];
-			var jsonData = json[jsonField];
-			var field;
-
-			if (Array.isArray(config)) {
-				field = config[0];
-				result = config[1](jsonData);
-			} else {
-				field = config;
-				result = jsonData;
-			}
-
-			if (undefined === model[field]) {
-				Object.defineProperty(model, field, {
-					value: result,
-					writable: false,
-					configurable: false,
-					enumerable: true
-				});
-
-				model[isChanged] = true;
-			} else
-			if (model[field] !== result) {
-				model[field] = result;
-
-				model[isChanged] = true;
-			}
-		});
-
-		if (model[isChanged]
-			|| undefined === model[updateTimeField]
-		) {
-			model[updateTimeField] = Date.now();
-		}
 	}
 
 	static getById(db, id) {

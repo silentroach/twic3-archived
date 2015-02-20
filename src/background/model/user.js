@@ -1,6 +1,6 @@
-import Model from '../model';
+import ModelJSON from '../modelJSON';
 
-export default class User extends Model {
+export default class User extends ModelJSON {
 	static getCollectionName() {
 		return 'users';
 	}

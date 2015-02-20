@@ -85,7 +85,7 @@ export default class Twitter {
 				return twitter.api.getUserInfo(userId)
 					.then(function(userJSON) {
 						var user = new User();
-						user.parseFromJSON(userJSON);
+						user.parse(userJSON);
 
 						return user.save(twitter.db)
 							.then(function() {
