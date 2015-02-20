@@ -15,19 +15,22 @@ export default class RequestOAuthStream extends OAuthRequest {
 
 		return this.startXMLHttpRequest()
 			.then(function(req) {
-				return new Promise(function(resolve, reject) {
-					req.onreadystatechange = function() {
-						var responseLength;
+				req.onreadystatechange = function() {
+					var responseLength;
 
-						if (XMLHttpRequest.LOADING === req.readyState) {
+					switch (req.readyState) {
+						case XMLHttpRequest.LOADING:
 							responseLength = req.responseText.length;
 							if (responseLength > offset) {
 								request.emit('data', req.responseText.substring(offset));
 								offset = responseLength;
 							}
-						}
-					};
-				});
+							break;
+						case XMLHttpRequest.DONE:
+							request.emit('done');
+							break;
+					}
+				};
 			});
 	}
 }

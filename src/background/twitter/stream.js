@@ -14,6 +14,8 @@ export default class TwitterStream extends EventEmitter {
 		this.requestData = { };
 
 		this.errorsCount = 0;
+
+		this.lastUpdateTime = 0;
 	}
 
 	setRequestData(key, value) {
@@ -41,12 +43,13 @@ export default class TwitterStream extends EventEmitter {
 			var chunk;
 			var parsed;
 
+			this.lastUpdateTime = Date.now();
+
 			if ('' === trimmed) {
 				return;
 			}
 
 			buffer = [buffer, data].join(''); // not trimmed!
-			console.log('buffer', buffer);
 
 			delimiterPos = buffer.indexOf('\n');
 			while (delimiterPos >= 0) {
@@ -57,9 +60,7 @@ export default class TwitterStream extends EventEmitter {
 					try {
 						parsed = JSON.parse(chunk);
 
-						console.groupCollapsed('streaming api data');
-						console.log(parsed);
-						console.groupEnd();
+						stream.handleMessage.call(stream, parsed);
 					} catch (e) {
 						console.error('can\'t parse streaming api chunk', data);
 
@@ -73,7 +74,30 @@ export default class TwitterStream extends EventEmitter {
 			}
 		});
 
+		this.request.on('done', function() {
+			stream.request = null;
+			stream.emit('done');
+		});
+
 		this.request.send(this.token);
+	}
+
+	handleMessage(object) {
+		var type;
+		var data;
+
+		if (undefined !== object.friends_str) {
+			type = TwitterStream.TYPE_FRIENDS_LIST;
+			data = object.friends_str;
+		}
+
+		console.groupCollapsed('streaming api data', type || 'unknown type');
+		console.debug(object);
+		console.groupEnd();
+
+		if (type) {
+			this.emit('data', type, data);
+		}
 	}
 
 	stop() {
@@ -81,4 +105,10 @@ export default class TwitterStream extends EventEmitter {
 			this.request.abort();
 		}
 	}
+}
+
+TwitterStream.TYPE_FRIENDS_LIST = 0;
+
+if ('production' !== process.env.NODE_ENV) {
+	TwitterStream.TYPE_FRIENDS_LIST = 'friends_list';
 }
