@@ -1,6 +1,7 @@
 import TwitterAPI from './twitter/api';
 
 import User from './model/user';
+import Friendship from './model/friendship';
 
 const AUTH_SESSION_TIMEOUT = 300;
 

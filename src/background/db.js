@@ -1,4 +1,4 @@
-const VERSION = 1;
+const VERSION = 2;
 const NAME = 'twic';
 
 const MODE_READ_WRITE = 'readwrite';
@@ -13,6 +13,10 @@ function upgrade(event) {
 		db.createObjectStore('tweets', { keyPath: 'id' });
 		db.createObjectStore('timeline', { autoincrement: true });
 		db.createObjectStore('mentions', { autoincrement: true });
+	}
+
+	if (event.oldVersion < 2) {
+		db.createObjectStore('friendship', { keyPath: 'ids' });
 	}
 }
 
