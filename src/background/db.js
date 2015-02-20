@@ -8,7 +8,7 @@ function upgrade(event) {
 	var db = event.target.result;
 	var store;
 
-	if (event.newVersion < 2) {
+	if (event.oldVersion < 1) {
 		db.createObjectStore('users', { keyPath: 'id' });
 		db.createObjectStore('tweets', { keyPath: 'id' });
 		db.createObjectStore('timeline', { autoincrement: true });
