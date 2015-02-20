@@ -11,6 +11,8 @@ mini   => 24x24
 {wo}   => original size
 */
 
+// @todo do not show image until loaded, maybe loader is ok after some timeout
+
 export default class Avatar extends React.Component {
 	render() {
 		var size = ''; // original
