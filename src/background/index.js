@@ -15,6 +15,11 @@ AccountList
 	.then(function(accountList) {
 		console.debug('account list loaded', accountList);
 
+		console.log('api/token exported for debug');
+		window.token = accountList.accounts[0].token;
+		window.api = twitter.api;
+		// ---
+
 		chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 			var msg = new Message(message.type, message.data);
 
