@@ -1,5 +1,3 @@
-import hmacsha1 from 'hmacsha1';
-
 import OAuthRequest from './OAuth';
 
 export default class RequestOAuthStream extends OAuthRequest {

@@ -60,8 +60,6 @@ export default class Model {
 
 		return db.getById(obj.constructor.getCollectionName(), id)
 			.then(function(data) {
-				var map;
-
 				if (!data) {
 					return null;
 				}

@@ -8,7 +8,6 @@ export default class ModelJSON extends Model {
 	parse(json) {
 		var map = this.constructor.getJSONMap();
 		var model = this;
-		var updateTime;
 
 		if (!json) {
 			throw new Error('invalid json data object');

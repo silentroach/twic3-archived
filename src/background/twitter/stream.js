@@ -4,8 +4,6 @@ import OAuthStreamRequest from '../request/OAuthStream';
 // check 420 error (too much requests)
 export default class TwitterStream extends EventEmitter {
 	constructor(url, token) {
-		var request;
-
 		super();
 
 		this.url = url;

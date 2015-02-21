@@ -1,7 +1,6 @@
 // run it with phantomjs
 
 var page = require('webpage').create();
-var system = require('system');
 var fs = require('fs');
 // ---
 var srcPath = fs.absolute(phantom.libraryPath + '/../src/images');

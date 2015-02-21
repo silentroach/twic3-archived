@@ -6,7 +6,6 @@ const MODE_READ_ONLY = 'readonly';
 
 function upgrade(event) {
 	var db = event.target.result;
-	var store;
 
 	if (event.oldVersion < 1) {
 		db.createObjectStore('users', { keyPath: 'id' });

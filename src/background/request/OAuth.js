@@ -1,8 +1,6 @@
 import hmacsha1 from 'hmacsha1';
 
 import Request from '../request';
-import OAuthToken from '../oauthToken';
-
 import keys from '../keys';
 
 var timestampOffset = 0;

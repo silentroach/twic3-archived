@@ -1,5 +1,3 @@
-import querystring from 'qs';
-
 import Response from './response';
 import EventEmitter from '../eventEmitter';
 
