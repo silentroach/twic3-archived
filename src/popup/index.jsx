@@ -30,7 +30,7 @@ class App extends React.Component {
 		var Page = this.state.page;
 
 		return (
-			<div>
+			<div id="content">
 				<Toolbar>
 					<ToolbarIcon href="#accounts" title="Тест" />
 					<ToolbarIcon href="#about" title={i18n.translate('toolbar.about')} />

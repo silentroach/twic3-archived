@@ -1,5 +1,6 @@
 import Page from '../../page';
 
+import Toolbar from '../../components/toolbar';
 import AccountList from './components/accountList';
 import Message from '../../../message';
 
@@ -7,7 +8,7 @@ import device from '../../device';
 
 // modifier key to use for account removal
 const MODIFIER_KEY = device.platform === device.platforms.OSX
-	? 'altKey' : 'ctrlKey';
+	? 'metaKey' : 'ctrlKey';
 
 // we can cache account users to prevent flicker
 // cause it will never been modified in current popup session
@@ -25,10 +26,15 @@ export default class AccountsPage extends Page {
 
 	render() {
 		return (
-			<AccountList
-				users={this.state.users}
-				modifierPressed={this.state.modifierKeyPressed}
-			/>
+			<div>
+				<AccountList
+					users={this.state.users}
+					modifierPressed={this.state.modifierKeyPressed}
+				/>
+				<Toolbar position={Toolbar.POSITION_BOTTOM}>
+					Test
+				</Toolbar>
+			</div>
 		);
 	}
 
