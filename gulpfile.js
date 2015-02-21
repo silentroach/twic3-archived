@@ -377,7 +377,7 @@ gulp.task('vendor:twitter-text', function(callback) {
 });
 
 gulp.task('i18n', function(callback) {
-	return gulp.src('src/translations.js', { read: false })
+	return gulp.src('src/i18n/index.js', { read: false })
 		.pipe(through.obj(function(file) {
 			var translations = require(file.path);
 			var filepath = path.dirname(file.path);

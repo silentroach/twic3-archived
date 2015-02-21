@@ -47,12 +47,12 @@ export default class AccountAdd extends React.Component {
 
 	render() {
 		var title = this.state.disabled
-			? i18n.translate('accounts.errors.connection')
-			: i18n.translate('accounts.add');
+			? i18n.translate('pages.accounts.errors.connection')
+			: i18n.translate('pages.accounts.add');
 
 		return (
 			<a onClick={this.clickHandler.bind(this)} title={title}>
-				{i18n.translate('accounts.add')}
+				{i18n.translate('pages.accounts.add')}
 			</a>
 		);
 	}

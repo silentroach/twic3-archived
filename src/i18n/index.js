@@ -27,23 +27,12 @@ module.exports = {
 		}
 	},
 
-	accounts: {
-		add: {
-			en: 'Add new account',
-			ru: 'Добавить учётную запись'
-		},
-		errors: {
-			connection: {
-				en: 'No internet connection',
-				ru: 'Отсутствует соединение'
-			}
-		}
-	},
-
 	toolbar: {
 		about: {
 			en: 'About',
 			ru: 'О приложении'
 		}
-	}
+	},
+
+	pages: require('./pages')
 }
