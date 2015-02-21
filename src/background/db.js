@@ -19,11 +19,11 @@ function upgrade(event) {
 	}
 }
 
-const dbField = Symbol('db');
+const DB_FIELD = Symbol('db');
 
 export default class DB {
 	constructor() {
-		this[dbField] = null;
+		this[DB_FIELD] = null;
 	}
 
 	getDB() {
@@ -32,14 +32,14 @@ export default class DB {
 		return new Promise(function(resolve, reject) {
 			var request;
 
-			if (self[dbField]) {
-				resolve(self[dbField]);
+			if (self[DB_FIELD]) {
+				resolve(self[DB_FIELD]);
 			} else {
 				request = indexedDB.open(NAME, VERSION);
 				request.onupgradeneeded = upgrade;
 				request.onsuccess = function(event) {
-					self[dbField] = request.result;
-					resolve(self[dbField]);
+					self[DB_FIELD] = request.result;
+					resolve(self[DB_FIELD]);
 				};
 				request.onerror = reject;
 			}

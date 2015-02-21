@@ -1,6 +1,8 @@
+const EVENTS_FIELD = Symbol('events');
+
 export default class EventEmitter {
 	constructor() {
-		this.events = { };
+		this[EVENTS_FIELD] = { };
 	}
 
 	on(type, listener) {
@@ -8,7 +10,7 @@ export default class EventEmitter {
 			throw new TypeError()
 		}
 
-		var listeners = this.events[type] || (this.events[type] = []);
+		var listeners = this[EVENTS_FIELD][type] || (this[EVENTS_FIELD][type] = []);
 		if (listeners.indexOf(listener) >= 0) {
 			return this;
 		}
@@ -30,7 +32,7 @@ export default class EventEmitter {
 
 	off(type, ...args) {
 		if (0 === args.length) {
-			delete this.events[type];
+			delete this[EVENTS_FIELD][type];
 		}
 
 		var listener = args[0];
@@ -38,7 +40,7 @@ export default class EventEmitter {
 			throw new TypeError();
 		}
 
-		var listeners = this.events[type];
+		var listeners = this[EVENTS_FIELD][type];
 		if (!listeners || !listeners.length) {
 			return this;
 		}
@@ -53,7 +55,7 @@ export default class EventEmitter {
 	}
 
 	emit(type, ...args) {
-		var listeners = this.events[type];
+		var listeners = this[EVENTS_FIELD][type];
 		if (!listeners || !listeners.length) {
 			return false;
 		}
