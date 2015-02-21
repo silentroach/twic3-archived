@@ -13,7 +13,7 @@ var accountListStorage = chrome.storage.sync;
 AccountList
 	.load(accountListStorage)
 	.then(function(accountList) {
-		console.debug('account list loaded', accountList);
+		console.log('account list loaded', accountList);
 
 		console.log('api/token exported for debug');
 		window.token = accountList.accounts[0].token;
@@ -23,7 +23,7 @@ AccountList
 		chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 			var msg = new Message(message.type, message.data);
 
-			console.debug('message received', msg);
+			console.log('message received', msg);
 
 			switch (msg.type) {
 				case Message.TYPE_USER:

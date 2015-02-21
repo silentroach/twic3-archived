@@ -45,7 +45,7 @@ export default class Model {
 		collectionName = this.constructor.getCollectionName();
 		storeObject = this.getData();
 
-		console.debug('saving to', collectionName, storeObject);
+		console.log('saving to', collectionName, storeObject);
 
 		return db.put(collectionName, storeObject);
 	}

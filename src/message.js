@@ -8,13 +8,13 @@ export default class Message {
 		var message = this;
 
 		return new Promise(function(resolve, reject) {
-			console.debug('sending message', message);
+			console.log('sending message', message);
 
 			chrome.runtime.sendMessage({
 				type: message.type,
 				data: message.data
 			}, function(reply) {
-				console.debug('reply received', reply);
+				console.log('reply received', reply);
 				resolve(reply);
 			});
 		});

@@ -90,7 +90,7 @@ export default class TwitterStream extends EventEmitter {
 		}
 
 		console.groupCollapsed('streaming api data', type || 'unknown type');
-		console.debug(object);
+		console.log(object);
 		console.groupEnd();
 
 		if (type) {
