@@ -117,7 +117,7 @@ module.exports = function(opts) {
 	if (Array.isArray(options.plugins)) {
 		_.forEach(options.plugins, function(plugin) {
 			config.plugins.push(plugin);
-		})
+		});
 	}
 
 	if (options.entry) {
@@ -130,4 +130,4 @@ module.exports = function(opts) {
 	}
 
 	return config;
-}
+};

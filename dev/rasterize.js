@@ -13,7 +13,7 @@ var settings = {
 	},
 	'toolbar.png': {
 		size: { width: 19, height: 19 },
-		zoom: .5,
+		zoom: 0.5,
 		source: 'toolbar.svg'
 	},
 };
