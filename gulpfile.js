@@ -91,7 +91,7 @@ var webpackBasicConfig = {
 		root: path.resolve(__dirname, 'src'),
 		extensions: ['', '.js', '.jsx']
 	}
-}
+};
 
 if (isProduction) {
 	webpackBasicConfig.plugins.push(
