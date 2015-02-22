@@ -1,5 +1,8 @@
 import React from 'react';
-window.React = React;
+
+if ('production' !== process.env.NODE_ENV) {
+	window.React = React;
+}
 
 import Message from '../message';
 import i18n from '../i18n';
