@@ -6,123 +6,27 @@ var gulpJade = require('gulp-jade');
 var gulpSVG = require('gulp-svg-sprite');
 var gulpRename = require('gulp-rename');
 
-var webpack = require('webpack');
 var rimraf = require('rimraf');
+
+var webpack = require('webpack');
+var webpackConfig = require('./gulp/_webpack');
 
 var packageInfo  = require('./package.json');
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 var isProduction = 'production' === process.env.NODE_ENV;
 var buildPath = path.resolve(__dirname, 'build');
-
-var loaderBabelParams = [
-	'blacklist[]=useStrict',
-	'blacklist[]=es6.constants',
-	'blacklist[]=react',
-	'loose=all'
-];
-
-if (isProduction) {
-	loaderBabelParams
-		.push(
-			'optional[]=minification.removeConsoleCalls',
-			'optional[]=minification.removeDebugger',
-			'optional[]=minification.renameLocalVariables'
-		);
-}
-
-var loaderBabel = 'babel-loader?' + loaderBabelParams.join('&');
-var loaderCSS = ['css-loader', 'autoprefixer-loader?{browsers:["Chrome >= 40"]}'].join('!');
-
-var imageLoaderParams = [
-	'name=images/[name].[ext]'
-];
-
-if (isProduction) {
-	imageLoaderParams.push('optimizationLevel=7');
-} else {
-	imageLoaderParams.push('bypassOnDebug');
-}
-
-var loaderImage = 'image?' + imageLoaderParams.join('&');
-
-/* @todo
-new webpack.DefinePlugin({
-	'process.env.NODE_ENV': JSON.stringify('production')
-}),
-*/
-
-var webpackBasicConfig = {
-	output: {
-		filename: '[name].js',
-		path: buildPath,
-		publicPath: '/'
-	},
-	module: {
-		loaders: [
-			{
-				test: /\.jsx$/,
-				loader: [loaderBabel, 'jsx-loader?stripTypes'].join('!')
-			},
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loader: loaderBabel
-			},
-			{
-				test: /\.css$/,
-				loader: ExtractTextPlugin.extract(loaderCSS)
-			},
-			{
-				test: /\.(jpe?g|png|gif|svg)$/i,
-				loaders: [loaderImage]
-			},
-			{
-				test: /\.styl$/,
-				loader: ExtractTextPlugin.extract([loaderCSS, 'stylus-loader'].join('!'))
-			}
-		]
-	},
-	plugins: [
-		new ExtractTextPlugin("[name].css")
-	],
-	resolve: {
-		root: path.resolve(__dirname, 'src'),
-		extensions: ['', '.js', '.jsx']
-	}
-};
-
-if (isProduction) {
-	webpackBasicConfig.plugins.push(
-		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.UglifyJsPlugin(
-			{
-				mangle: {
-					screw_ie8: true
-				},
-				compress: {
-					screw_ie8: true
-				}
-			}
-		)
-	);
-} else {
-	webpackBasicConfig.debug = true;
-	webpackBasicConfig.devtool = '#source-map';
-}
 
 function buildBackground(watch) {
 	var gulpWebpack = require('gulp-webpack');
 
 	return gulp.src('src/background/index.js')
 		.pipe(gulpWebpack(
-			_.merge(_.clone(webpackBasicConfig), {
+			webpackConfig({
 				watch: watch,
 				output: {
 					filename: 'background.js'
 				}
-			}), webpack
+			})
 		))
 		.pipe(gulp.dest('build/'));
 }
@@ -142,7 +46,7 @@ function buildOptions(watch) {
 
 	return gulp.src('src/options/index.jsx')
 		.pipe(gulpWebpack(
-			_.merge(_.clone(webpackBasicConfig), {
+			webpackConfig({
 				entry: {
 					'index': 'options/index.jsx',
 					'vendor': ['react', /*'react-router', */'normalize.stylus/index.styl']
@@ -154,10 +58,9 @@ function buildOptions(watch) {
 					publicPath: '/options/'
 				},
 				plugins: [
-					new ExtractTextPlugin("[name].css"),
 					new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
 				]
-			}), webpack
+			})
 		))
 		.pipe(gulp.dest('build/options'));
 }
@@ -188,18 +91,14 @@ function buildContentAuth(watch) {
 
 	return gulp.src('src/content/auth/index.js')
 		.pipe(gulpWebpack(
-			_.merge(_.clone(webpackBasicConfig), {
+			webpackConfig({
 				watch: watch,
 				output: {
 					filename: 'index.js',
 					path: path.resolve(buildPath, 'content/auth'),
 				},
-				plugins: [
-					new ExtractTextPlugin("index.css")
-				],
-				debug: false,
-				devtool: false
-			}), webpack
+				disableDebug: true
+			})
 		))
 		.pipe(gulp.dest('build/content/auth'));
 }
@@ -221,7 +120,7 @@ function buildPopup(watch) {
 
 	return gulp.src('src/popup/index.jsx')
 		.pipe(gulpWebpack(
-			_.merge(_.clone(webpackBasicConfig), {
+			webpackConfig({
 				entry: {
 					'index': 'popup/index.jsx',
 					'vendor': ['react', /*'react-router', */'normalize.stylus/index.styl']
@@ -233,10 +132,9 @@ function buildPopup(watch) {
 					publicPath: '/popup/'
 				},
 				plugins: [
-					new ExtractTextPlugin("[name].css"),
 					new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
 				]
-			}), webpack
+			})
 		))
 		.pipe(gulp.dest('build/popup'));
 }
