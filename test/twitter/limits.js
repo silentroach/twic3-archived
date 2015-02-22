@@ -1,8 +1,8 @@
 var chai = require('chai');
 var assert = chai.assert;
 
-var Limits = require('../../src/background/twitter/limits');
-var Response = require('../../src/background/response');
+import Limits from '../../src/background/twitter/limits';
+import Response from '../../src/background/response';
 
 class FakeXHR {
 	constructor(headers) {

@@ -2,4 +2,5 @@
 --recursive
 --inline-diffs
 --check-leaks
+--globals chrome
 -R spec
