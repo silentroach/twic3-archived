@@ -18,12 +18,14 @@ export default class TwitterAPI {
 		this.limits = { };
 	}
 
-	getLimits(token) {
-		if (undefined === this.limits[token.token]) {
-			this.limits[token.token] = new Limits(token);
+	getLimits(token = null) {
+		var key = token ? token.token : '_';
+
+		if (undefined === this.limits[key]) {
+			this.limits[key] = new Limits(token);
 		}
 
-		return this.limits[token.token];
+		return this.limits[key];
 	}
 
 	resetToken() {
@@ -107,12 +109,21 @@ export default class TwitterAPI {
 
 	getConfiguration() {
 		var path = BASE_URL + 'help/configuration.json';
+		var limits = this.getLimits();
 		var req = new RequestOAuth(path);
+
+		if (limits.isRestricted(path)) {
+			throw new Error('Request rate exceeded');
+		}
 
 		console.log('api: requesting configuration');
 
 		req
 			.send()
+			.then(function(response) {
+				limits.update(path, response);
+				return response;
+			})
 			.then(function(response) {
 				return response.content;
 			});

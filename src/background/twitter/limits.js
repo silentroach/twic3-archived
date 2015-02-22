@@ -1,6 +1,6 @@
 export default class Limits {
-	constructor(token) {
-		this.token = token.token;
+	constructor(token = null) {
+		this.token = token ? token.token : null;
 		this.limits = { };
 	}
 
