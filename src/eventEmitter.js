@@ -7,7 +7,7 @@ export default class EventEmitter {
 
 	on(type, listener) {
 		if ('function' !== typeof listener) {
-			throw new TypeError()
+			throw new TypeError();
 		}
 
 		var listeners = this[EVENTS_FIELD][type] || (this[EVENTS_FIELD][type] = []);

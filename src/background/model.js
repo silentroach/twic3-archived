@@ -56,7 +56,7 @@ export default class Model {
 	}
 
 	static getById(db, id) {
-		var obj = new this;
+		var obj = new this();
 
 		return db.getById(obj.constructor.getCollectionName(), id)
 			.then(function(data) {

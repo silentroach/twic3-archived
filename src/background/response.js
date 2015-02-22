@@ -13,7 +13,7 @@ export default class Response {
 		var contentType = this.getHeader('content-type');
 
 		if (undefined !== contentType) {
-			[contentType] = contentType.split(';')
+			[contentType] = contentType.split(';');
 			contentType = contentType.trim().toLowerCase();
 
 			switch (contentType) {

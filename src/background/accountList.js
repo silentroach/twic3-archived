@@ -29,7 +29,7 @@ export default class AccountList {
 				var result = {
 					done: true,
 					value: undefined
-				}
+				};
 
 				if (undefined === list.accounts[idx]) {
 					return result;
@@ -40,7 +40,7 @@ export default class AccountList {
 
 				return result;
 			}
-		}
+		};
 	}
 
 	getByUserId(userId) {
@@ -73,14 +73,14 @@ export default class AccountList {
 				if (chrome.runtime.lastError) {
 					reject(
 						new Error(
-							undefined !== chrome.runtime.lastError.message
-								? chrome.runtime.lastError.message : 'Failed to save data'
+							undefined !== chrome.runtime.lastError.message ?
+								chrome.runtime.lastError.message : 'Failed to save data'
 						)
 					);
 				} else {
 					resolve();
 				}
-			})
+			});
 		});
 	}
 

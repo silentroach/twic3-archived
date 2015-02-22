@@ -86,7 +86,7 @@ export default class RequestOAuth extends Request {
 					) {
 						isRetry = true;
 
-						delete request.OAuthData['oauth_signature'];
+						delete request.OAuthData.oauth_signature;
 
 						return sendRequest();
 					}

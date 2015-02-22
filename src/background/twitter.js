@@ -90,7 +90,7 @@ export default class Twitter {
 						return user.save(twitter.db)
 							.then(function() {
 								return user;
-							})
+							});
 					});
 			});
 	}

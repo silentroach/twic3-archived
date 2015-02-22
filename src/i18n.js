@@ -3,7 +3,7 @@ var i18n = { };
 i18n.translate = function() {
 	arguments[0] = arguments[0].replace(/\./g, '_');
 	return chrome.i18n.getMessage.apply(chrome, arguments);
-}
+};
 
 i18n.plural = function(number, endings) {
 	var mod10  = number % 10;

@@ -62,7 +62,7 @@ export default class Request extends EventEmitter {
 						request.encode(key),
 						request.encode(requestData[key])
 					].join('=')
-				)
+				);
 			}
 
 			data = dataParams.join('&');
