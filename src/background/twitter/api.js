@@ -131,7 +131,12 @@ export default class TwitterAPI {
 
 	getUserInfo(userId) {
 		var path = BASE_URL + 'users/show.json';
+		var limits = this.getLimits();
 		var req = new RequestOAuth(path);
+
+		if (limits.isRestricted(path)) {
+			throw new Error('Request rate exceeded');
+		}
 
 		console.log('api: requesting user info', userId);
 
@@ -139,6 +144,10 @@ export default class TwitterAPI {
 			.setRequestData('user_id', userId)
 			.setRequestData('include_entities', 1)
 			.send()
+			.then(function(response) {
+				limits.update(path, response);
+				return response;
+			})
 			.then(function(response) {
 				return response.content;
 			});
