@@ -4,6 +4,7 @@ var child_process = require('child_process');
 
 var _ = require('lodash');
 var gulp = require('gulp');
+var gulpSVG = require('gulp-svg-sprite');
 
 var twitterText = require('twitter-text');
 
@@ -70,5 +71,34 @@ gulp.task('vendor:contributors', function(callback) {
 	});
 });
 
+gulp.task('vendor:evil-icons', function() {
+	var paths = _.map([
+		'ei-plus.svg',
+		'ei-spinner.svg',
+		'ei-user.svg'
+	], function(path) {
+		return 'node_modules/evil-icons/assets/icons/' + path;
+	} );
 
-gulp.task('vendor', ['vendor:twitter-text', 'vendor:contributors']);
+	return gulp.src(paths)
+		.pipe(gulpSVG({
+			mode: {
+				css: {
+					prefix: '%s',
+					sprite: 'sprite.svg',
+					dest: '',
+					bust: false,
+					render: {
+						styl: true
+					}
+				}
+			}
+		}))
+		.pipe(gulp.dest('src/vendor/evil-icons'));
+});
+
+gulp.task('vendor', [
+	'vendor:twitter-text',
+	'vendor:evil-icons',
+	'vendor:contributors'
+]);

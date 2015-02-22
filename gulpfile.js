@@ -3,7 +3,6 @@ var path = require('path');
 var fs = require('fs');
 var gulp = require('gulp');
 var gulpJade = require('gulp-jade');
-var gulpSVG = require('gulp-svg-sprite');
 var gulpRename = require('gulp-rename');
 
 var rimraf = require('rimraf');
@@ -156,33 +155,7 @@ gulp.task('popup:templates', function() {
 		.pipe(gulp.dest('build/popup'));
 });
 
-gulp.task('popup:sprite', function() {
-	var paths = _.map([
-		'ei-plus.svg',
-		'ei-spinner.svg',
-		'ei-user.svg'
-	], function(path) {
-		return 'node_modules/evil-icons/assets/icons/' + path;
-	} );
-
-	return gulp.src(paths)
-		.pipe(gulpSVG({
-			mode: {
-				css: {
-					prefix: '%s',
-					sprite: 'sprite.svg',
-					dest: '',
-					bust: false,
-					render: {
-						styl: true
-					}
-				}
-			}
-		}))
-		.pipe(gulp.dest('src/vendor/evil-icons'));
-});
-
-gulp.task('popup', ['popup:templates', 'popup:sprite', 'popup:modules']);
+gulp.task('popup', ['popup:templates', 'popup:modules']);
 
 // manifest
 
