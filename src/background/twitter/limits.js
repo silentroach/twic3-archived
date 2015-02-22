@@ -11,6 +11,9 @@ export default class Limits {
 		var oldReset;
 
 		if (remains && reset) {
+			remains = parseInt(remains, 10);
+			reset = parseInt(reset, 10);
+
 			// avoiding race condition
 			if (undefined !== this.limits[path]) {
 				[oldRemains, oldReset] = this.limits[path];
@@ -46,6 +49,6 @@ export default class Limits {
 			return false;
 		}
 
-		return remains > 0;
+		return remains < 1;
 	}
 }

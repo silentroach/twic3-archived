@@ -12,10 +12,16 @@
   ],
   "author": "Igor Kalashnikov <igor.kalashnikov@me.com>",
   "license": "GNU GPL v2.0",
+  "scripts": {
+    "test": "mocha"
+  },
   "devDependencies": {
     "autoprefixer-loader": "1.1.0",
+    "babel": "4.4.5",
     "babel-core": "4.4.5",
     "babel-loader": "4.0.0",
+    "chai": "2.0.0",
+    "chai-as-promised": "4.2.0",
     "chalk": "0.5.1",
     "css-loader": "0.9.1",
     "evil-icons": "1.7.2",
@@ -32,6 +38,7 @@
     "imagemin": "3.1.0",
     "jsx-loader": "0.12.2",
     "lodash": "3.3.0",
+    "mocha": "2.1.0",
     "nib": "1.0.4",
     "normalize.stylus": "0.1.0",
     "qs": "2.3.3",
