@@ -15,14 +15,31 @@ import 'normalize.stylus/index.styl';
 import '../vendor/evil-icons/sprite.styl';
 import './index.styl';
 
-var app;
+function getPageByUrl(url) {
+	var hashParts = url.split('#').pop().split('/');
+	var pageName = hashParts.shift();
+	var page;
+
+	console.info('Handling page change to', pageName, hashParts);
+
+	switch (pageName) {
+		case 'about':
+			page = AboutPage;
+			break;
+		default:
+			page = AccountsPage;
+			break;
+	}
+
+	return page;
+}
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			page: AccountsPage
+			page: getPageByUrl(window.location.href)
 		};
 	}
 
@@ -41,23 +58,8 @@ class App extends React.Component {
 	}
 
 	handleHashChange(e) {
-		var hashParts = e.newURL.split('#').pop().split('/');
-		var pageName = hashParts.shift();
-		var page;
-
-		console.info('Handling page change to', pageName, hashParts);
-
-		switch (pageName) {
-			case 'about':
-				page = AboutPage;
-				break;
-			default:
-				page = AccountsPage;
-				break;
-		}
-
 		this.setState({
-			page: page
+			page: getPageByUrl(window.location.href)
 		});
 	}
 
