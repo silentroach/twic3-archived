@@ -1,10 +1,10 @@
-const isChanged = Symbol('changed');
+const IS_CHANGED_FIELD = Symbol('changed');
 
 const updateTimeField = 'updateTime';
 
 export default class Model {
 	constructor() {
-		this[isChanged] = false;
+		this[IS_CHANGED_FIELD] = false;
 	}
 
 	static getCollectionName() {
@@ -26,12 +26,12 @@ export default class Model {
 	}
 
 	markAsChanged() {
-		this[isChanged] = true;
+		this[IS_CHANGED_FIELD] = true;
 		this[updateTimeField] = Date.now();
 	}
 
 	isChanged() {
-		return this[isChanged];
+		return this[IS_CHANGED_FIELD];
 	}
 
 	save(db) {
