@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './committers.styl';
+import './contributors.styl';
 
 import i18n from '../../../../i18n';
 
@@ -33,7 +33,7 @@ export default class CommitterList extends React.Component {
 		return (
 			<div>
 				<h2>{i18n.translate('pages.about.contributors')}</h2>
-				<ul className="committerList">
+				<ul className="contributorList">
 					{this.props.list.map(function(committer, idx) {
 						var url = 'mailto:' + committer.email;
 

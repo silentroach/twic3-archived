@@ -1,16 +1,11 @@
 var _ = require('lodash');
 var path = require('path');
 var fs = require('fs');
-var child_process = require('child_process');
-var through = require('through2');
 var gulp = require('gulp');
-var gutil = require('gulp-util');
 var gulpJade = require('gulp-jade');
 var gulpSVG = require('gulp-svg-sprite');
 var gulpRename = require('gulp-rename');
-var gulpEslint = require('gulp-eslint');
 
-var twitterText = require('twitter-text');
 var webpack = require('webpack');
 var rimraf = require('rimraf');
 
@@ -342,138 +337,6 @@ gulp.task('manifest', /*['i18n', 'build:mkdir'], */function(callback) {
 	fs.writeFile(targetPath, JSON.stringify(manifest, null, '  '), {}, callback);
 });
 
-// prepare vendors
-
-gulp.task('vendor:twitter-text', function(callback) {
-	var targetPath = path.resolve(__dirname, 'src/vendor/twitter-text.js');
-
-	var content = [
-		'/**',
-		' * @preserve Many thanks to Twitter for their Twitter Text project',
-		' *   https://github.com/twitter/twitter-text-js',
-		' */',
-		'var regexps = { };'
-	];
-
-	_.forEach({
-		url: 'extractUrl',
-		hash: 'validHashtag',
-		mention: 'validMentionOrList'
-	}, function(twitterTextRegexpName, regexpName) {
-		var regexp = twitterText.regexen[twitterTextRegexpName];
-
-		if (undefined === regexp) {
-			throw new Error('Failed to find regexp ' + twitterTextRegexpName);
-		}
-
-		content.push(
-			'regexps.' + regexpName + ' = ' + regexp + ';'
-		);
-	} );
-
-	content.push('export default regexps;');
-
-	fs.writeFile(targetPath, content.join('\n'), {}, callback);
-});
-
-gulp.task('i18n', function(callback) {
-	return gulp.src('src/i18n/index.js', { read: false })
-		.pipe(through.obj(function(file) {
-			var translations = require(file.path);
-			var filepath = path.dirname(file.path);
-			var parsed = { };
-			var self = this;
-
-			function parse(data, prefix) {
-				_.forEach(data, function(value, key) {
-					var data;
-
-					if (_.isPlainObject(value)) {
-						parse(value, [prefix, key].filter(function(val) {
-							return undefined !== val;
-						}).join('_'));
-					} else {
-						if (undefined === parsed[key]) {
-							parsed[key] = { };
-						}
-
-						if (_.isArray(value)) {
-							data = {
-								message: value[0],
-								placeholders: { }
-							};
-
-							_.forEach(value[1], function(value, key) {
-								data.placeholders[key] = {
-									content: value
-								};
-							});
-						} else {
-							data = {
-								message: value
-							};
-						}
-
-						parsed[key][prefix] = data;
-					}
-				});
-			}
-
-			parse(translations);
-
-			_.forEach(parsed, function(values, key) {
-				var filename = path.resolve(filepath, key, 'messages.json');
-
-				gutil.log(
-					gutil.colors.cyan(path.relative(filepath, filename)) + ':',
-					Object.keys(values).length, 'messages'
-				);
-
-				self.push(
-					new gutil.File({
-						base: filepath,
-						path: filename,
-						contents: new Buffer(JSON.stringify(values, null, '  '))
-					})
-				);
-			});
-		}))
-		.pipe(gulp.dest('build/_locales'));
-});
-
-gulp.task('committers', function(callback) {
-	var targetPath = path.resolve(__dirname, 'src/vendor/committers.js');
-
-	child_process.exec('git shortlog -sne < /dev/tty', function(error, stdout) {
-		if (!error) {
-			var committers = [ ];
-
-			stdout
-				.replace(/^\s+|\s+$/g, '')
-				.split('\n')
-				.forEach(function(str) {
-					var matches = str.split('\t')[1].match(/(.*?) <(.*?)>/);
-
-					committers.push({
-						name: matches[1],
-						email: matches[2]
-					});
-				} );
-
-			fs.writeFile(
-				targetPath,
-				'var committers = ' + JSON.stringify(committers) + ';\nexport default committers;',
-				{},
-				callback
-			);
-		} else {
-			throw error;
-		}
-	});
-});
-
-gulp.task('vendor', ['vendor:twitter-text']);
-
 gulp.task('build:cleanup', function(callback) {
 	rimraf('build', callback);
 });
@@ -488,14 +351,10 @@ gulp.task('build:mkdir', function(callback) {
 	});
 });
 
-gulp.task('build', [/*'cleanup', */'vendor', 'i18n', 'committers', 'manifest', 'popup', 'options', 'background']);
-
-gulp.task('lint', function() {
-	gulp.src('src/background/*.js')
-		.pipe(gulpEslint({
-			// @todo wait for normal es6 support
-		}))
-		.pipe(gulpEslint.format());
-});
+gulp.task('build', [/*'cleanup', */'vendor', 'i18n', 'contributors', 'manifest', 'popup', 'options', 'background']);
 
 gulp.task('watch', ['background:watch', 'options:modules:watch', 'popup:modules:watch']);
+
+require('./gulp/i18n');
+require('./gulp/lint');
+require('./gulp/vendor');
