@@ -47,7 +47,11 @@ gulp.task('manifest', function(callback) {
 				]
 			}
 		],
-		options_page: "options/index.html",
+		options_ui: {
+			page: "options/index.html",
+			chrome_style: true,
+			open_in_tab: true // temporary
+		},
 		permissions: [
 			'storage',
 

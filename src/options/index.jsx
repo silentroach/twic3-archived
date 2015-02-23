@@ -1,5 +1,4 @@
 import React from 'react';
-import Router from 'react-router';
 
 import 'normalize.stylus/index.styl';
 import '../vendor/evil-icons/sprite.styl';
