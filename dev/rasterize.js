@@ -13,9 +13,24 @@ var settings = {
 	},
 	'toolbar.png': {
 		size: { width: 19, height: 19 },
-		zoom: 0.5,
+		zoom: 19 / 38,
 		source: 'toolbar.svg'
 	},
+	'app.16.png': {
+		size: { width: 16, height: 16 },
+		zoom: 16 / 38,
+		source: 'toolbar.svg'
+	},
+	'app.48.png': {
+		size: { width: 48, height: 48 },
+		zoom: 48 / 38,
+		source: 'toolbar.svg'
+	},
+	'app.128.png': {
+		size: { width: 128, height: 128 },
+		zoom: 128 / 38,
+		source: 'toolbar.svg'
+	}
 };
 
 function convert(config) {

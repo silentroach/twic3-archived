@@ -1,4 +1,3 @@
-var _ = require('lodash');
 var path = require('path');
 var fs = require('fs');
 var gulp = require('gulp');
@@ -9,8 +8,6 @@ var rimraf = require('rimraf');
 
 var webpack = require('webpack');
 var webpackConfig = require('./gulp/_webpack');
-
-var packageInfo  = require('./package.json');
 
 var isProduction = 'production' === process.env.NODE_ENV;
 var buildPath = path.resolve(__dirname, 'build');
@@ -157,57 +154,6 @@ gulp.task('popup:templates', function() {
 
 gulp.task('popup', ['popup:templates', 'popup:modules']);
 
-// manifest
-
-gulp.task('manifest', /*['i18n', 'build:mkdir'], */function(callback) {
-	var targetPath = path.resolve(buildPath, 'manifest.json');
-
-	var manifest = {
-		manifest_version: 2,
-		name: _.capitalize(packageInfo.name),
-		version: packageInfo.version,
-		minimum_chrome_version: '40',
-		description: '__MSG_manifest_description__',
-		default_locale: 'en',
-		author: packageInfo.author,
-		browser_action: {
-			default_icon: {
-				19: 'images/toolbar.png',
-				38: 'images/toolbar@2x.png'
-			},
-			default_popup: 'popup/index.html'
-		},
-		background: {
-			scripts: [
-				'background.js'
-			]
-		},
-		content_scripts: [
-			{
-				matches: [
-					'https://api.twitter.com/oauth/authorize'
-				],
-				js: [
-					'content/auth/index.js'
-				],
-				css: [
-					'content/auth/index.css'
-				]
-			}
-		],
-		options_page: "options/index.html",
-		permissions: [
-			'storage',
-
-			'https://api.twitter.com/1.1/*',
-			'https://userstream.twitter.com/1.1/*',
-			'https://twitter.com/oauth/*'
-		]
-	};
-
-	fs.writeFile(targetPath, JSON.stringify(manifest, null, '  '), {}, callback);
-});
-
 gulp.task('build:cleanup', function(callback) {
 	rimraf('build', callback);
 });
@@ -229,3 +175,4 @@ gulp.task('watch', ['background:watch', 'options:modules:watch', 'popup:modules:
 require('./gulp/i18n');
 require('./gulp/lint');
 require('./gulp/vendor');
+require('./gulp/manifest');
