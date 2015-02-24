@@ -17,11 +17,11 @@
   },
   "devDependencies": {
     "autoprefixer-loader": "1.1.0",
-    "babel": "4.4.5",
-    "babel-core": "4.4.5",
+    "babel": "4.4.6",
+    "babel-core": "4.4.6",
     "babel-loader": "4.0.0",
-    "chai": "2.0.0",
-    "chalk": "0.5.1",
+    "chai": "2.1.0",
+    "chalk": "1.0.0",
     "css-loader": "0.9.1",
     "evil-icons": "1.7.2",
     "extract-text-webpack-plugin": "0.3.8",
@@ -30,13 +30,13 @@
     "gulp-jade": "1.0.0",
     "gulp-rename": "1.2.0",
     "gulp-svg-sprite": "1.0.18",
-    "gulp-util": "3.0.3",
+    "gulp-util": "3.0.4",
     "gulp-webpack": "1.2.0",
     "hmacsha1": "1.0.0",
     "image-webpack-loader": "1.2.0",
     "imagemin": "3.1.0",
     "jsx-loader": "0.12.2",
-    "lodash": "3.3.0",
+    "lodash": "3.3.1",
     "mocha": "2.1.0",
     "nib": "1.0.4",
     "normalize.stylus": "0.1.0",
@@ -48,6 +48,6 @@
     "through2": "0.6.3",
     "twitter-text": "1.11.0",
     "vinyl": "0.4.6",
-    "webpack": "1.5.3"
+    "webpack": "1.6.0"
   }
 }
