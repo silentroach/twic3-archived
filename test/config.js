@@ -4,6 +4,7 @@ var assert = chai.assert;
 import Config from '../src/config';
 import EventEmitter from '../src/eventEmitter';
 
+// chrome.storage emulation
 class FakeStorage extends EventEmitter {
 	constructor() {
 		var storage = this;
@@ -17,27 +18,28 @@ class FakeStorage extends EventEmitter {
 				storage.on('change', callback);
 			}
 		}
-	}
 
-	set(obj, callback) {
-		for (let key in obj) {
-			this.changes[key] = obj[key];
-		}
+		this.sync = {
+			set: function(obj, callback) {
+				for (let key in obj) {
+					storage.changes[key] = obj[key];
+				}
 
-		this.emit('change', this.changes);
+				storage.emit('change', storage.changes, 'sync');
 
-		callback();
-	}
+				callback();
+			},
+			get(obj, callback) {
+				var results = { };
+				for (let key in obj) {
+					if (undefined !== storage.changes[key]) {
+						results[key] = storage.changes[key];
+					}
+				}
 
-	get(obj, callback) {
-		var results = { };
-		for (let key in obj) {
-			if (undefined !== this.changes[key]) {
-				results[key] = this.changes[key];
+				callback(results);
 			}
 		}
-
-		callback(results);
 	}
 }
 

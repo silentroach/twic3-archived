@@ -7,7 +7,7 @@ import Twitter from './twitter';
 import Message from '../message';
 import Config from '../config';
 
-var config = new Config(chrome.storage.sync);
+var config = new Config(chrome.storage);
 
 var twitter = new Twitter(
 	new DB()

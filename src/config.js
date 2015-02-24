@@ -12,9 +12,13 @@ export default class Config extends EventEmitter {
 
 		super();
 
-		this[STORAGE_FIELD] = storage;
+		this[STORAGE_FIELD] = storage.sync;
 
-		storage.onChanged.addListener(function(changes) {
+		storage.onChanged.addListener(function(changes, namespace) {
+			if ('sync' !== namespace) {
+				return;
+			}
+
 			for (let key in changes) {
 				cache[key] = changes[key].newValue;
 				config.emit([CHANGE_EVENT, key].join('.'), cache[key]);
