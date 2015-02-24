@@ -2,7 +2,7 @@ var chai = require('chai');
 var assert = chai.assert;
 
 import Config from '../src/config';
-import EventEmitter from '../src/EventEmitter';
+import EventEmitter from '../src/eventEmitter';
 
 class FakeStorage extends EventEmitter {
 	constructor() {
