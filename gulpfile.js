@@ -45,7 +45,7 @@ function buildOptions(watch) {
 			webpackConfig({
 				entry: {
 					'index': 'options/index.jsx',
-					'vendor': ['react', 'normalize.stylus/index.styl']
+					'vendor': ['babel/external-helpers', 'react', 'normalize.stylus/index.styl']
 				},
 				watch: watch,
 				output: {
@@ -119,7 +119,7 @@ function buildPopup(watch) {
 			webpackConfig({
 				entry: {
 					'index': 'popup/index.jsx',
-					'vendor': ['react', 'normalize.stylus/index.styl']
+					'vendor': ['babel/external-helpers', 'react', 'normalize.stylus/index.styl']
 				},
 				watch: watch,
 				output: {

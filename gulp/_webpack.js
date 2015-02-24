@@ -10,7 +10,8 @@ var loaderBabelParams = [
 	'blacklist[]=useStrict',
 	'blacklist[]=es6.constants',
 	'blacklist[]=react',
-	'loose=all'
+	'loose=all',
+	'externalHelpers=true'
 ];
 
 if (isProduction) {

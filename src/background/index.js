@@ -1,3 +1,5 @@
+import 'babel/external-helpers';
+
 import AccountList from './accountList';
 import Account from './account';
 import DB from './db';
