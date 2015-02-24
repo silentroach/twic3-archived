@@ -21,7 +21,6 @@
     "babel-core": "4.4.5",
     "babel-loader": "4.0.0",
     "chai": "2.0.0",
-    "chai-as-promised": "4.2.0",
     "chalk": "0.5.1",
     "css-loader": "0.9.1",
     "evil-icons": "1.7.2",
