@@ -3,6 +3,8 @@ import EventEmitter from './eventEmitter';
 var STORAGE_FIELD = Symbol('storage');
 var CACHE_FIELD = Symbol('cache');
 
+var CHANGE_EVENT = 'change';
+
 export default class Config extends EventEmitter {
 	constructor(storage) {
 		var config = this;
@@ -15,9 +17,10 @@ export default class Config extends EventEmitter {
 		storage.onChanged.addListener(function(changes) {
 			for (let key in changes) {
 				cache[key] = changes[key].newValue;
+				config.emit([CHANGE_EVENT, key].join('.'), cache[key]);
 			}
 
-			config.emit('change');
+			config.emit(CHANGE_EVENT);
 		});
 	}
 

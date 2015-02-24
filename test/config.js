@@ -24,6 +24,8 @@ class FakeStorage extends EventEmitter {
 			this.changes[key] = obj[key];
 		}
 
+		this.emit('change', this.changes);
+
 		callback();
 	}
 
@@ -79,5 +81,21 @@ describe('Config', function() {
 					});
 			})
 			.catch(callback);
+	});
+
+	it('should emit global changed event on set', function(callback) {
+		var key = 'testkey';
+
+		config
+			.on('change', callback)
+			.set(key, 'somevalue');
+	});
+
+	it('should emit key changed event on set', function(callback) {
+		var key = 'somekey';
+
+		config
+			.on(['change', key].join('.'), callback)
+			.set(key, 'somevalue');
 	});
 });
