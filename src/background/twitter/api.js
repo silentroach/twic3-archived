@@ -32,6 +32,7 @@ export default class TwitterAPI {
 		this.token = null;
 	}
 
+	// @todo split authorization calls into another module
 	getAuthorizeUrl(token, login = null) {
 		var params = {
 			oauth_token: token.token

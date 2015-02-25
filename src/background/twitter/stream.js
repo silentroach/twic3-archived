@@ -1,7 +1,9 @@
 import EventEmitter from '../../eventEmitter';
 import OAuthStreamRequest from '../request/OAuthStream';
 
-// check 420 error (too much requests)
+// @todo check 420 error (too much requests)
+// @todo handle disconnects
+
 export default class TwitterStream extends EventEmitter {
 	constructor(url, token) {
 		super();
@@ -88,6 +90,21 @@ export default class TwitterStream extends EventEmitter {
 			type = TwitterStream.TYPE_FRIENDS_LIST;
 			data = object.friends_str;
 		}
+		// else if (undefined !== object.delete) {
+			// if (undefined !== object.delete.direct_message) { }
+		//}
+		// else if (undefined !== object.direct_message) { }
+		// else {
+			/*
+			switch (object.event) {
+				case 'follow':
+				case 'unfollow':
+					source (user), target (user)
+				case 'favorite':
+				case 'unfavorite':
+					source (user), target (user), target_object (tweet)
+			}*/
+		// }
 
 		console.groupCollapsed('streaming api data', type || 'unknown type');
 		console.log(object);
