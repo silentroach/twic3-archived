@@ -1,15 +1,24 @@
 .account
-	display: inline-block
-	padding: 0 20px
-	cursor: pointer
-	opacity: .8
-	transition: opacity 0.15s ease-in-out;
+	display inline-block
+	padding 1.5em 1.75em
+	cursor pointer
+	opacity .8
+	transition opacity 0.15s ease-in-out
+	border 1px solid transparent
+	border-radius .5em
 
 	&:hover
-		opacity: 1
-		text-decoration: none
+		opacity 1
+		text-decoration none
 
 	.nick
-		display: block
-		color: black
-		margin-top: .5em
+		display block
+		color black
+		margin-top .5em
+
+	&.account-removing
+		border-color red
+		opacity 1
+
+		.nick
+			text-decoration line-through
