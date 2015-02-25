@@ -1,6 +1,6 @@
 import Account from './account';
 
-const STORAGE_KEY = 'accounts';
+const CONFIG_KEY = 'accounts';
 
 export default class AccountList {
 	constructor() {
@@ -63,40 +63,24 @@ export default class AccountList {
 		return null;
 	}
 
-	save(storage) {
-		var storeObj = { };
-
-		storeObj[STORAGE_KEY] = this.accounts.map(account => account.serialize());
-
-		return new Promise(function(resolve, reject) {
-			storage.set(storeObj, function() {
-				if (chrome.runtime.lastError) {
-					reject(
-						new Error(
-							undefined !== chrome.runtime.lastError.message ?
-								chrome.runtime.lastError.message : 'Failed to save data'
-						)
-					);
-				} else {
-					resolve();
-				}
-			});
-		});
+	save(config) {
+		return config
+			.set(CONFIG_KEY, this.accounts.map(account => account.serialize()));
 	}
 
-	static load(storage) {
+	static load(config) {
 		var list = new AccountList();
 
-		return new Promise(function(resolve) {
-			storage.get(STORAGE_KEY, function(items) {
-				if (undefined !== items[STORAGE_KEY]) {
-					items[STORAGE_KEY].forEach(function(data) {
-						list.add(Account.load(data));
+		return config
+			.get(CONFIG_KEY)
+			.then(function(data) {
+				if (Array.isArray(data)) {
+					data.forEach(function(accountData) {
+						list.add(Account.load(accountData));
 					});
 				}
 
-				resolve(list);
+				return list;
 			});
-		});
 	}
 }

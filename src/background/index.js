@@ -13,10 +13,8 @@ var twitter = new Twitter(
 	new DB()
 );
 
-var accountListStorage = chrome.storage.sync;
-
 AccountList
-	.load(accountListStorage)
+	.load(config)
 	.then(function(accountList) {
 		console.log('account list loaded', accountList);
 
