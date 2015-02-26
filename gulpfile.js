@@ -6,6 +6,7 @@ var gulpRename = require('gulp-rename');
 
 var rimraf = require('rimraf');
 
+var gulpWebpack = require('gulp-webpack');
 var webpack = require('webpack');
 var webpackConfig = require('./gulp/_webpack');
 
@@ -13,8 +14,6 @@ var isProduction = 'production' === process.env.NODE_ENV;
 var buildPath = path.resolve(__dirname, 'build');
 
 function buildBackground(watch) {
-	var gulpWebpack = require('gulp-webpack');
-
 	return gulp.src('src/background/index.js')
 		.pipe(gulpWebpack(
 			webpackConfig({
@@ -22,7 +21,7 @@ function buildBackground(watch) {
 				output: {
 					filename: 'background.js'
 				}
-			})
+			}), webpack
 		))
 		.pipe(gulp.dest('build/'));
 }
@@ -38,8 +37,6 @@ gulp.task('background:watch', function() {
 // options
 
 function buildOptions(watch) {
-	var gulpWebpack = require('gulp-webpack');
-
 	return gulp.src('src/options/index.jsx')
 		.pipe(gulpWebpack(
 			webpackConfig({
@@ -56,7 +53,7 @@ function buildOptions(watch) {
 				plugins: [
 					new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
 				]
-			})
+			}), webpack
 		))
 		.pipe(gulp.dest('build/options'));
 }
@@ -83,8 +80,6 @@ gulp.task('options', ['options:templates', 'options:modules']);
 // content scripts
 
 function buildContentAuth(watch) {
-	var gulpWebpack = require('gulp-webpack');
-
 	return gulp.src('src/content/auth/index.js')
 		.pipe(gulpWebpack(
 			webpackConfig({
@@ -94,7 +89,7 @@ function buildContentAuth(watch) {
 					path: path.resolve(buildPath, 'content/auth'),
 				},
 				disableDebug: true
-			})
+			}), webpack
 		))
 		.pipe(gulp.dest('build/content/auth'));
 }
@@ -112,8 +107,6 @@ gulp.task('content', ['content:auth:modules']);
 // popup
 
 function buildPopup(watch) {
-	var gulpWebpack = require('gulp-webpack');
-
 	return gulp.src('src/popup/index.jsx')
 		.pipe(gulpWebpack(
 			webpackConfig({
@@ -130,7 +123,7 @@ function buildPopup(watch) {
 				plugins: [
 					new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
 				]
-			})
+			}), webpack
 		))
 		.pipe(gulp.dest('build/popup'));
 }
