@@ -33,6 +33,7 @@ export default class EventEmitter {
 	off(type, ...args) {
 		if (0 === args.length) {
 			delete this[EVENTS_FIELD][type];
+			return this;
 		}
 
 		var listener = args[0];
