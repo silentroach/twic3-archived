@@ -2,6 +2,7 @@ import 'babel/external-helpers';
 
 import AccountList from './accountList';
 import Account from './account';
+import AccountWatcher from './accountWatcher';
 import DB from './db';
 import Twitter from './twitter';
 import Message from '../message';
@@ -13,6 +14,8 @@ var twitter = new Twitter(
 	new DB()
 );
 
+var watchers = [];
+
 AccountList
 	.load(config)
 	.then(function(accountList) {
@@ -22,6 +25,12 @@ AccountList
 		window.token = accountList.accounts[0].token;
 		window.api = twitter.api;
 		// ---
+
+		accountList.map(account => {
+			const watcher = new AccountWatcher(twitter, account);
+			watcher.start();
+			watchers.push(watcher);
+		});
 
 		chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 			var msg = new Message(message.type, message.data);

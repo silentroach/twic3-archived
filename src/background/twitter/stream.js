@@ -62,7 +62,7 @@ export default class TwitterStream extends EventEmitter {
 
 						stream.handleMessage.call(stream, parsed);
 					} catch (e) {
-						console.error('can\'t parse streaming api chunk', data);
+						console.error('can\'t parse streaming api chunk', e, data);
 
 						// isn't great, lets flush buffer
 						buffer = '';

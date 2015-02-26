@@ -1,6 +1,7 @@
 import TwitterAPI from './twitter/api';
 
 import User from './model/user';
+import Friendship from './model/friendship';
 
 const AUTH_SESSION_TIMEOUT = 300;
 
@@ -97,6 +98,30 @@ export default class Twitter {
 
 	getHomeTimeline(token, sinceId) {
 		this.api.getHomeTimeline(token, sinceId);
+	}
+
+	updateFriendShip(userId, targetUserId, isFollower) {
+		var twitter = this;
+
+		return Friendship
+			.getByUserIds(this.db, userId, targetUserId)
+			.then(function(friendship) {
+				if (!friendship) {
+					let friendship = new Friendship();
+					friendship.ids = [userId, targetUserId].join('_');
+					friendship.exists = true;
+					friendship.markAsChanged();
+					return friendship.save(twitter.db);
+				} else {
+					if (!friendship.exists) {
+						friendship.exists = true;
+						friendship.markAsChanged();
+						return friendship.save(twitter.db);
+					}
+				}
+
+				return Promise.resolve();
+			});
 	}
 }
 
