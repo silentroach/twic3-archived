@@ -16,6 +16,17 @@ var settings = {
 		zoom: 19 / 38,
 		source: 'toolbar.svg'
 	},
+
+	'toolbar.disconnected@2x.png': {
+		size: { width: 38, height: 38 },
+		source: 'toolbar.disconnected.svg'
+	},
+	'toolbar.disconnected.png': {
+		size: { width: 19, height: 19 },
+		zoom: 19 / 38,
+		source: 'toolbar.disconnected.svg'
+	},
+
 	'app.16.png': {
 		size: { width: 16, height: 16 },
 		zoom: 16 / 38,

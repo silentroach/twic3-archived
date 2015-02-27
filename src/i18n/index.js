@@ -12,6 +12,10 @@ module.exports = {
 		about: {
 			en: 'About',
 			ru: 'О приложении'
+		},
+		disconnected: {
+			en: 'Disconnected',
+			ru: 'Нет соединения'
 		}
 	},
 

@@ -1,0 +1,12 @@
+<svg width="38" height="38" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<pattern id="diagonalHatch" width="3" height="3" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+		<line x1="0" y1="0" x2="0" y2="3" style="stroke: #5d5c5d; stroke-width: 2px" />
+	</pattern>
+
+	<text x="9" y="34" fill="url(#diagonalHatch)" style="stroke: rgba(93, 92, 93, 0.5); stroke-width: 1px"
+		font-family="Tahoma" font-weight="bold" font-size="43"
+		shape-rendering="crispEdges"
+	>
+		t
+	</text>
+</svg>

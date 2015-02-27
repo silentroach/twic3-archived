@@ -8,6 +8,9 @@ import Twitter from './twitter';
 import Message from '../message';
 import Config from '../config';
 
+import connection from '../connection';
+import i18n from '../i18n';
+
 var config = new Config(chrome.storage);
 
 var twitter = new Twitter(
@@ -15,6 +18,29 @@ var twitter = new Twitter(
 );
 
 var watchers = [];
+
+function updateToolbar() {
+	var imagePrefix = 'images/toolbar' + (connection.connected ? '' : '.disconnected');
+	var nameParts = [chrome.runtime.getManifest().name];
+
+	if (!connection.connected) {
+		nameParts.push(i18n.translate('toolbar.disconnected'));
+	}
+
+	chrome.browserAction.setIcon({
+		path: {
+			19: [imagePrefix, '.png'].join(''),
+			38: [imagePrefix, '@2x', '.png'].join('')
+		}
+	});
+
+	chrome.browserAction.setTitle({
+		title: nameParts.join(' - ')
+	});
+}
+
+updateToolbar();
+connection.on('change', updateToolbar);
 
 AccountList
 	.load(config)
