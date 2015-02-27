@@ -1,5 +1,5 @@
-var chai = require('chai');
-var assert = chai.assert;
+import chai from 'chai';
+const assert = chai.assert;
 
 import Config from '../src/config';
 import EventEmitter from '../src/eventEmitter';

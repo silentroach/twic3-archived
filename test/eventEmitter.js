@@ -1,7 +1,7 @@
 import chai from 'chai';
 import sinon from 'sinon';
 
-var assert = chai.assert;
+const assert = chai.assert;
 
 import EventEmitter from '../src/eventEmitter';
 

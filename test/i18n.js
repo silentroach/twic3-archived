@@ -1,5 +1,5 @@
-var chai = require('chai');
-var assert = chai.assert;
+import chai from 'chai';
+const assert = chai.assert;
 
 import i18n from '../src/i18n';
 
