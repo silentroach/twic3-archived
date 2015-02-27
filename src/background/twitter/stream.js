@@ -43,7 +43,7 @@ export default class TwitterStream extends EventEmitter {
 			var chunk;
 			var parsed;
 
-			this.lastUpdateTime = Date.now();
+			stream.lastUpdateTime = Date.now();
 
 			if ('' === trimmed) {
 				return;
