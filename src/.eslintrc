@@ -6,5 +6,8 @@
 	"globals": {
 		"chrome": true,
 		"process": true
+	},
+	"rules": {
+		"complexity": [1, 10]
 	}
 }
