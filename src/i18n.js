@@ -6,7 +6,7 @@ i18n.translate = function() {
 };
 
 i18n.plural = function(number, endings) {
-	var mod10  = number % 10;
+	var mod10 = number % 10;
 	var mod100 = number % 100;
 	var res = '';
 

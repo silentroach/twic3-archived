@@ -1,29 +1,17 @@
 import React from 'react';
 
 import 'normalize.stylus/index.styl';
-import '../vendor/evil-icons/sprite.styl';
 import './index.styl';
 
-import TabList from './components/tabList';
-import OptionsGroup from './components/optionsGroup';
-import Checkbox from './components/checkbox';
-
-var Options = React.createClass({
-	render: function() {
+class Options extends React.Component {
+	render() {
 		return (
 			<div>
-				<TabList />
 
-				<OptionsGroup title="Timeline avatar size">
-					<span>лалки!</span>
-				</OptionsGroup>
-
-				<OptionsGroup title="Additional tweet info">
-					<Checkbox title="Images" id="tweet-images" />
-				</OptionsGroup>
 			</div>
 		);
 	}
-});
+}
 
+/*eslint-disable*/ /* @todo until react clases support */
 React.render(<Options />, document.body);

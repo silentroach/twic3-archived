@@ -5,8 +5,8 @@ import OAuthToken from '../oauthToken';
 import Limits from './limits';
 import TwitterStream from './stream';
 
-const BASE_URL   = 'https://api.twitter.com/1.1/';
-const AUTH_URL   = 'https://api.twitter.com/oauth/';
+const BASE_URL = 'https://api.twitter.com/1.1/';
+const AUTH_URL = 'https://api.twitter.com/oauth/';
 const STREAM_URL = 'https://userstream.twitter.com/1.1/';
 
 const TIMELINE_LIMIT = 100;
@@ -35,11 +35,11 @@ export default class TwitterAPI {
 	// @todo split authorization calls into another module
 	getAuthorizeUrl(token, login = null) {
 		var params = {
-			oauth_token: token.token
+			'oauth_token': token.token
 		};
 
 		if (login) {
-			params.screen_name = login;
+			params['screen_name'] = login;
 		}
 
 		return AUTH_URL + 'authorize?' + qs.encode(params);

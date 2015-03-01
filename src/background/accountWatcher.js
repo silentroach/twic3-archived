@@ -81,7 +81,7 @@ export default class AccountWatcher {
 
 	handleStreamFriendsList(idsList) {
 		idsList.forEach(id => {
-			this.twitter.updateFriendShip(this.account.userId, id, true)
+			this.twitter.updateFriendShip(this.account.userId, id, true);
 		});
 	}
 

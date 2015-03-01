@@ -17,6 +17,7 @@ export default class ModelJSON extends Model {
 			var config = map[jsonField];
 			var jsonData = json[jsonField];
 			var field;
+			var result;
 
 			if (Array.isArray(config)) {
 				field = config[0];

@@ -13,12 +13,14 @@
   "author": "Igor Kalashnikov <igor.kalashnikov@me.com>",
   "license": "GNU GPL v2.0",
   "scripts": {
-    "test": "mocha"
+    "unit": "mocha",
+    "lint": "gulp lint",
+    "test": "npm run unit && npm run lint"
   },
   "devDependencies": {
-    "autoprefixer-loader": "1.1.0",
-    "babel": "4.6.1",
-    "babel-core": "4.6.1",
+    "autoprefixer-loader": "1.2.0",
+    "babel": "4.6.3",
+    "babel-core": "4.6.3",
     "babel-eslint": "1.0.12",
     "babel-loader": "4.0.0",
     "chai": "2.1.0",

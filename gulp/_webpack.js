@@ -69,14 +69,14 @@ var webpackBasicConfig = {
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin("[name].css"),
+		new ExtractTextPlugin('[name].css'),
 		new webpack.DefinePlugin({
 			'process.env': {
 				'NODE_ENV': JSON.stringify(
 					'production' === process.env.NODE_ENV ? 'production' : 'debug'
 				)
 			}
-		}),
+		})
 	],
 	resolve: {
 		root: path.resolve(__dirname, '../src'),
@@ -85,6 +85,7 @@ var webpackBasicConfig = {
 };
 
 if (isProduction) {
+	/*eslint camelcase: 0*/
 	webpackBasicConfig.plugins.push(
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin(

@@ -1,6 +1,6 @@
 var path = require('path');
 var fs = require('fs');
-var child_process = require('child_process');
+var childProcess = require('child_process');
 
 var _ = require('lodash');
 var gulp = require('gulp');
@@ -43,7 +43,7 @@ gulp.task('vendor:twitter-text', function(callback) {
 gulp.task('vendor:contributors', function(callback) {
 	var targetPath = path.resolve(__dirname, '../src/vendor/contributors.js');
 
-	child_process.exec('git shortlog -sne < /dev/tty', function(error, stdout) {
+	childProcess.exec('git shortlog -sne < /dev/tty', function(error, stdout) {
 		if (!error) {
 			var contributors = [ ];
 

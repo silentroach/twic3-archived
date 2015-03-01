@@ -8,6 +8,7 @@ const CLASSNAME = 'twic';
 var pinWrapperElement = document.querySelector('#oauth_pin');
 var pinElement;
 var resultElement;
+var msg;
 
 function changeResultText() {
 	resultElement.innerText = i18n.translate.apply(i18n, arguments);

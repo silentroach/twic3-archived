@@ -115,7 +115,7 @@ AccountList
 								account.token = token;
 							}
 
-							accountList.save(accountListStorage);
+							accountList.save(config);
 
 							sendResponse(user);
 						})

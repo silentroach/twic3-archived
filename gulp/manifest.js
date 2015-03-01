@@ -4,11 +4,12 @@ var fs = require('fs');
 var _ = require('lodash');
 var gulp = require('gulp');
 
-var packageInfo  = require('../package.json');
+var packageInfo = require('../package.json');
 
 gulp.task('manifest', function(callback) {
 	var targetPath = path.resolve(__dirname, '../build/manifest.json');
 
+	/*eslint camelcase: 0*/
 	var manifest = {
 		manifest_version: 2,
 		name: _.capitalize(packageInfo.name),
@@ -48,7 +49,7 @@ gulp.task('manifest', function(callback) {
 			}
 		],
 		options_ui: {
-			page: "options/index.html",
+			page: 'options/index.html',
 			chrome_style: true,
 			open_in_tab: true // temporary
 		},

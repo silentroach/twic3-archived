@@ -77,4 +77,5 @@ class App extends React.Component {
 
 document.body.classList.add(device.platform);
 
+/*eslint-disable*/ /* @todo until react clases support */
 React.render(<App />, document.body);

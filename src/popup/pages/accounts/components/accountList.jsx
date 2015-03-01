@@ -11,7 +11,7 @@ export default class AccountList extends React.Component {
 
 		return (
 			<ul className="accountList">
-				{users.length == 0
+				{users.length === 0
 					? <AccountAdd />
 					: users.map(user =>
 						<Account

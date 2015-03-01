@@ -7,6 +7,41 @@ var timestampOffset = 0;
 
 const NONCE_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
 
+function getNonce() {
+	var result = [];
+
+	for (let i = 0; i < 32; ++i) {
+		result.push(
+			NONCE_CHARS[Math.floor(Math.random() * NONCE_CHARS.length)]
+		);
+	}
+
+	return result.join('');
+}
+
+function checkTimestamp(response) {
+	for (let field of ['Last-Modified', 'Date']) {
+		let value = response.getHeader(field);
+
+		if (value
+			&& 'string' === typeof value
+		) {
+			let remoteDate = Date.parse(value);
+
+			if (remoteDate) {
+				let newOffset = remoteDate - Date.now();
+
+				if (timestampOffset !== newOffset) {
+					timestampOffset = newOffset;
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
 export default class RequestOAuth extends Request {
 	constructor(url, method = 'GET') {
 		super(url, method);
@@ -95,39 +130,4 @@ export default class RequestOAuth extends Request {
 
 		return sendRequest();
 	}
-}
-
-function getNonce() {
-	var result = [];
-
-	for (let i = 0; i < 32; ++i) {
-		result.push(
-			NONCE_CHARS[Math.floor(Math.random() * NONCE_CHARS.length)]
-		);
-	}
-
-	return result.join('');
-}
-
-function checkTimestamp(response) {
-	for (let field of ['Last-Modified', 'Date']) {
-		let value = response.getHeader(field);
-
-		if (value
-			&& 'string' === typeof value
-		) {
-			let remoteDate = Date.parse(value);
-
-			if (remoteDate) {
-				let newOffset = remoteDate - Date.now();
-
-				if (timestampOffset !== newOffset) {
-					timestampOffset = newOffset;
-					return true;
-				}
-			}
-		}
-	}
-
-	return false;
 }

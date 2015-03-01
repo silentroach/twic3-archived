@@ -10,7 +10,7 @@ export default class CommitterList extends React.Component {
 
 		this.state = {
 			compact: true
-		}
+		};
 	}
 
 	handleExpand(e) {

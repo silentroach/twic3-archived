@@ -13,7 +13,7 @@ export default class AccountAdd extends React.Component {
 		this.state = {
 			loading: false,
 			disabled: !connection.connected
-		}
+		};
 	}
 
 	clickHandler() {

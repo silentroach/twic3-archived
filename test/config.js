@@ -17,7 +17,7 @@ class FakeStorage extends EventEmitter {
 			addListener: function(callback) {
 				storage.on('change', callback);
 			}
-		}
+		};
 
 		this.sync = {
 			set: function(obj, callback) {
@@ -39,7 +39,7 @@ class FakeStorage extends EventEmitter {
 
 				callback(results);
 			}
-		}
+		};
 	}
 }
 
@@ -57,7 +57,7 @@ describe('Config', function() {
 
 	after(function() {
 		delete global.chrome;
-	})
+	});
 
 	beforeEach(function() {
 		storage = new FakeStorage();

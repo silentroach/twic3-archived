@@ -36,6 +36,6 @@ describe('i18n', function() {
 		i18n.plural(50, ['single', 'two', 'multiple']);
 		i18n.plural(21, ['single', 'two', 'multiple']);
 
-		assert.deepEqual(keys, ['single','two', 'multiple', 'single']);
+		assert.deepEqual(keys, ['single', 'two', 'multiple', 'single']);
 	});
 });
