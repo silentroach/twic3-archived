@@ -7,6 +7,7 @@ import DB from './db';
 import Twitter from './twitter';
 import Message from '../message';
 import Config from '../config';
+import ConfigWatcher from './twitter/configWatcher';
 
 import connection from '../connection';
 import i18n from '../i18n';
@@ -16,6 +17,8 @@ var config = new Config(chrome.storage);
 var twitter = new Twitter(
 	new DB()
 );
+
+var twitterConfigWatcher = new ConfigWatcher(config, twitter);
 
 var watchers = [];
 
@@ -41,6 +44,8 @@ function updateToolbar() {
 
 updateToolbar();
 connection.on('change', updateToolbar);
+
+twitterConfigWatcher.start();
 
 AccountList
 	.load(config)

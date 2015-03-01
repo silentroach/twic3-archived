@@ -123,6 +123,10 @@ export default class Twitter {
 				return Promise.resolve();
 			});
 	}
+
+	getConfiguration() {
+		return this.api.getConfiguration();
+	}
 }
 
 setInterval(function() {

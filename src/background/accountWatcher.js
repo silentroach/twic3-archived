@@ -31,12 +31,12 @@ export default class AccountWatcher {
 	}
 
 	start() {
-		console.log('starting to watch account', this.account);
-
 		if (!connection.connected) {
 			this.state = AccountWatcher.STATE_DISCONNECTED;
 			return;
 		}
+
+		console.log('starting to watch account', this.account);
 
 		this.state = AccountWatcher.STATE_STARTED;
 

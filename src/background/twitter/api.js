@@ -119,7 +119,7 @@ export default class TwitterAPI {
 
 		console.log('api: requesting configuration');
 
-		req
+		return req
 			.send()
 			.then(function(response) {
 				limits.update(path, response);
