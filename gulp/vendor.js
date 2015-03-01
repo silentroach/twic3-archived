@@ -84,7 +84,7 @@ gulp.task('vendor:evil-icons', function() {
 		.pipe(gulpSVG({
 			mode: {
 				css: {
-					prefix: '%s',
+					prefix: '.%s',
 					sprite: 'sprite.svg',
 					dest: '',
 					bust: false,
