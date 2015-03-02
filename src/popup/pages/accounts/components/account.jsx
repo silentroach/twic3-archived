@@ -17,7 +17,7 @@ export default class Account extends React.Component {
 		return (
 			<li>
 				<a href={url} className={classes.join(' ')} onClick={this.clickHandler.bind(this)}>
-					<Avatar template={user.avatar} type={Account.TYPE_ACCOUNT} />
+					<Avatar template={user.avatar} type={Avatar.TYPE_BIG} />
 					<span className="nick">
 						{user.screenName ? user.screenName : user.name}
 					</span>

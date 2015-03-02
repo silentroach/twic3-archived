@@ -19,7 +19,7 @@ export default class Avatar extends React.Component {
 		var url;
 
 		switch (this.props.type) {
-			case Avatar.TYPE_ACCOUNT: // 64px
+			case Avatar.TYPE_BIG: // 64px
 				if (!device.isRetina) {
 					size = '_bigger';
 				}
@@ -35,7 +35,7 @@ export default class Avatar extends React.Component {
 }
 
 Avatar.TYPE_DEFAULT = 0;
-Avatar.TYPE_ACCOUNT = 1;
+Avatar.TYPE_BIG = 1;
 
 Avatar.propTypes = {
 	template: React.PropTypes.string,
