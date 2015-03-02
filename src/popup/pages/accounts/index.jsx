@@ -1,5 +1,4 @@
 import React from 'react';
-import Page from '../../page';
 
 import Toolbar from '../../components/toolbar';
 import AccountList from './components/accountList';
@@ -19,7 +18,7 @@ const HINT_KEY = device.platform === device.platforms.OSX
 // cause it will never been modified in current popup session
 var usersCache = null;
 
-export default class AccountsPage extends Page {
+export default class AccountsPage extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -39,7 +38,7 @@ export default class AccountsPage extends Page {
 		}
 
 		return (
-			<div>
+			<div className="page">
 				<AccountList
 					users={this.state.users}
 					modifierPressed={this.state.modifierKeyPressed}
