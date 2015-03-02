@@ -2,6 +2,7 @@ import TwitterAPI from './twitter/api';
 
 import User from './model/user';
 import Friendship from './model/friendship';
+import Tweet from './model/tweet';
 
 const AUTH_SESSION_TIMEOUT = 300;
 
@@ -71,6 +72,57 @@ export default class Twitter {
 			});
 	}
 
+	updateUser(userJSON) {
+		var twitter = this;
+
+		return User
+			.getById(this.db, userJSON['id_str'])
+			.then(function(user) {
+				if (!user) {
+					user = new User();
+				}
+
+				user.parse(userJSON);
+
+				user
+					.save(twitter.db)
+					.then(function() {
+						return user;
+					});
+			});
+	}
+
+	updateTweet(tweetJSON) {
+		var twitter = this;
+
+		Tweet
+			.getById(twitter.db, tweetJSON['id_str'])
+			.then(function(tweet) {
+				if (!tweet) {
+					tweet = new Tweet();
+				}
+
+				tweet.parse(tweetJSON);
+
+				return tweet
+					.save(twitter.db)
+					.then(function() {
+						return Promise.all([
+							twitter.updateUser(tweetJSON['user']),
+							function() {
+								if (tweetJSON['retweeted_status']) {
+									return twitter.updateTweet(tweetJSON['retweeted_status']);
+								}
+
+								return Promise.resolve();
+							}
+						]).then(function() {
+							return tweet;
+						});
+					});
+			});
+	}
+
 	getUser(userId) {
 		var twitter = this;
 
@@ -83,21 +135,28 @@ export default class Twitter {
 					return user;
 				}
 
-				return twitter.api.getUserInfo(userId)
-					.then(function(userJSON) {
-						var user = new User();
-						user.parse(userJSON);
+				if (!user) {
+					user = new User();
+				}
 
-						return user.save(twitter.db)
-							.then(function() {
-								return user;
-							});
-					});
+				return twitter.api.getUserInfo(userId)
+					.then(twitter.updateUser.bind(twitter));
 			});
 	}
 
 	getHomeTimeline(token, sinceId) {
-		this.api.getHomeTimeline(token, sinceId);
+		var twitter = this;
+
+		this.api.getHomeTimeline(token, sinceId)
+			.then(function(tweets) {
+				if (!Array.isArray(tweets)) {
+					return [];
+				}
+
+				return Promise.all(
+					tweets.map(tweetJSON => twitter.updateTweet(tweetJSON))
+				);
+			});
 	}
 
 	updateFriendShip(userId, targetUserId, isFollower) {

@@ -52,8 +52,9 @@ AccountList
 	.then(function(accountList) {
 		console.log('account list loaded', accountList);
 
-		console.log('api/token exported for debug');
+		console.log('twitter/api/token exported for debug');
 		window.token = accountList.accounts[0].token;
+		window.twitter = twitter;
 		window.api = twitter.api;
 		// ---
 
