@@ -16,31 +16,33 @@ export default class ModelJSON extends Model {
 		Object.keys(map).forEach(function(jsonField) {
 			var config = map[jsonField];
 			var jsonData = json[jsonField];
+			var result = { };
 			var field;
-			var result;
 
-			if (Array.isArray(config)) {
-				field = config[0];
-				result = config[1](jsonData);
+			if (!(config instanceof Function)) {
+				result[config] = jsonData;
 			} else {
-				field = config;
-				result = jsonData;
+				result = config(jsonData);
 			}
 
-			if (undefined === model[field]) {
-				Object.defineProperty(model, field, {
-					value: result,
-					writable: false,
-					configurable: false,
-					enumerable: true
-				});
+			for (field of Object.keys(result)) {
+				let value = result[field];
 
-				model.markAsChanged();
-			} else
-			if (model[field] !== result) {
-				model[field] = result;
+				if (undefined === model[field]) {
+					Object.defineProperty(model, field, {
+						value: value,
+						writable: false,
+						configurable: false,
+						enumerable: true
+					});
 
-				model.markAsChanged();
+					model.markAsChanged();
+				} else
+				if (model[field] !== value) {
+					model[field] = value;
+
+					model.markAsChanged();
+				}
 			}
 		});
 	}

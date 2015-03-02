@@ -13,41 +13,15 @@ import ToolbarIcon from './components/toolbarIcon';
 
 import AccountsPage from './pages/accounts';
 import AboutPage from './pages/about';
+import UserPage from './pages/user';
 
 import 'normalize.stylus/index.styl';
 import '../vendor/evil-icons/sprite.styl';
 import './index.styl';
 
-function getPageByUrl(url) {
-	var hashParts = url.split('#').pop().split('/');
-	var pageName = hashParts.shift();
-	var page;
-
-	console.info('Handling page change to', pageName, hashParts);
-
-	switch (pageName) {
-		case 'about':
-			page = AboutPage;
-			break;
-		default:
-			page = AccountsPage;
-			break;
-	}
-
-	return page;
-}
-
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			page: getPageByUrl(window.location.href)
-		};
-	}
-
 	render() {
-		var Page = this.state.page;
+		var Page = this.state && this.state.page ? this.state.page : null;
 
 		return (
 			<div id="content">
@@ -55,15 +29,38 @@ class App extends React.Component {
 					<ToolbarIcon href="#accounts" title="Тест" />
 					<ToolbarIcon href="#about" title={i18n.translate('toolbar.about')} />
 				</Toolbar>
-				<Page />
+				{Page ? <Page params={this.state.pageParams} /> : ''}
 			</div>
 		);
 	}
 
-	handleHashChange(e) {
+	handleHashChange() {
+		var hashParts = window.location.href.split('#').pop().split('/');
+		var pageName = hashParts.shift();
+		var page;
+
+		console.info('Handling page change to', pageName, hashParts);
+
+		switch (pageName) {
+			case 'about':
+				page = AboutPage;
+				break;
+			case 'user':
+				page = UserPage;
+				break;
+			default:
+				page = AccountsPage;
+				break;
+		}
+
 		this.setState({
-			page: getPageByUrl(window.location.href)
+			page: page,
+			pageParams: hashParts
 		});
+	}
+
+	componentDidMount() {
+		this.handleHashChange();
 	}
 
 	componentWillUnmount() {

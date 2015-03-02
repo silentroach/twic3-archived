@@ -10,9 +10,11 @@ export default class Tweet extends ModelJSON {
 			'id_str': 'id',
 			'source': 'source', // @todo normalize
 			'text': 'text',
-			'created_at': ['createTime', function(data) {
-				return new Date(data).getTime();
-			}],
+			'created_at': function(data) {
+				return {
+					createTime: new Date(data).getTime()
+				};
+			},
 			'favorited': 'favorited',
 			'favorite_count': 'favoriteCount',
 			'retweeted': 'retweeted',

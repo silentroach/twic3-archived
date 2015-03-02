@@ -9,17 +9,26 @@ export default class User extends ModelJSON {
 		return {
 			'id_str': 'id',
 			'name': 'name',
-			'screen_name': 'screenName',
+			'screen_name': function(data) {
+				return {
+					screenName: data,
+					screenNameNormalized: data.toLowerCase()
+				};
+			},
 			'location': 'location',
-			'created_at': ['registerTime', function(data) {
-				return new Date(data).getTime();
-			}],
+			'created_at': function(data) {
+				return {
+					registerTime: new Date(data).getTime()
+				};
+			},
 			'description': 'description',
 			'url': 'url',
 			'protected': 'isProtected',
-			'profile_image_url_https': ['avatar', function(data) {
-				return data.replace(/_normal\./, '{size}.');
-			}],
+			'profile_image_url_https': function(data) {
+				return {
+					avatar: data.replace(/_normal\./, '{size}.')
+				};
+			},
 			'verified': 'verified',
 			'geo_enabled': 'isGeoEnabled',
 			'followers_count': 'followersCount',

@@ -125,6 +125,8 @@ export default class RequestOAuth extends Request {
 
 						return sendRequest();
 					}
+
+					throw response;
 				});
 		}
 

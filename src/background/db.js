@@ -1,4 +1,4 @@
-const VERSION = 2;
+const VERSION = 1;
 const NAME = 'twic';
 
 const MODE_READ_WRITE = 'readwrite';
@@ -6,15 +6,15 @@ const MODE_READ_ONLY = 'readonly';
 
 function upgrade(event) {
 	var db = event.target.result;
+	var objectStore;
 
 	if (event.oldVersion < 1) {
-		db.createObjectStore('users', { keyPath: 'id' });
+		objectStore = db.createObjectStore('users', { keyPath: 'id' });
+		objectStore.createIndex('screenName', 'screenNameNormalized', { unique: true });
+
 		db.createObjectStore('tweets', { keyPath: 'id' });
 		db.createObjectStore('timeline', { autoincrement: true });
 		db.createObjectStore('mentions', { autoincrement: true });
-	}
-
-	if (event.oldVersion < 2) {
 		db.createObjectStore('friendship', { keyPath: 'ids' });
 	}
 }
