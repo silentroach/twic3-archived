@@ -11,7 +11,9 @@ var loaderBabelParams = [
 	'blacklist[]=es6.constants',
 	'blacklist[]=react',
 	'loose=all',
-	'externalHelpers=true'
+	'externalHelpers=true',
+	'optional[]=validation.react',
+	'optional[]=utility.inlineEnvironmentVariables'
 ];
 
 if (isProduction) {
