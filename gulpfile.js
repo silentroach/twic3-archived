@@ -21,7 +21,7 @@ function buildBackground(watch) {
 				output: {
 					filename: 'background.js'
 				}
-			}), webpack
+			})
 		))
 		.pipe(gulp.dest('build/'));
 }
@@ -53,7 +53,7 @@ function buildOptions(watch) {
 				plugins: [
 					new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
 				]
-			}), webpack
+			})
 		))
 		.pipe(gulp.dest('build/options'));
 }
@@ -89,7 +89,7 @@ function buildContentAuth(watch) {
 					path: path.resolve(buildPath, 'content/auth'),
 				},
 				disableDebug: true
-			}), webpack
+			})
 		))
 		.pipe(gulp.dest('build/content/auth'));
 }
@@ -123,7 +123,7 @@ function buildPopup(watch) {
 				plugins: [
 					new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
 				]
-			}), webpack
+			})
 		))
 		.pipe(gulp.dest('build/popup'));
 }
