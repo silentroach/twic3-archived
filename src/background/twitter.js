@@ -97,7 +97,7 @@ export default class Twitter {
 	updateTweet(tweetJSON) {
 		var twitter = this;
 
-		Tweet
+		return Tweet
 			.getById(twitter.db, tweetJSON['id_str'])
 			.then(function(tweet) {
 				if (!tweet) {

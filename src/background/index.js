@@ -58,11 +58,11 @@ AccountList
 		window.api = twitter.api;
 		// ---
 
-		// accountList.map(account => {
-		// 	const watcher = new AccountWatcher(twitter, account);
-		// 	watcher.start();
-		// 	watchers.push(watcher);
-		// });
+		accountList.map(account => {
+			const watcher = new AccountWatcher(twitter, account);
+			watcher.start();
+			watchers.push(watcher);
+		});
 
 		chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 			var msg = new Message(message.type, message.data);

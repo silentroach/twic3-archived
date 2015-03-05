@@ -79,6 +79,10 @@ export default class AccountWatcher {
 		}
 	}
 
+	handleTweet(tweet) {
+		this.twitter.updateTweet(tweet);
+	}
+
 	handleStreamFriendsList(idsList) {
 		idsList.forEach(id => {
 			this.twitter.updateFriendShip(this.account.userId, id, true);
@@ -87,6 +91,9 @@ export default class AccountWatcher {
 
 	handleStreamData(type, data) {
 		switch (type) {
+			case TwitterStream.TYPE_TWEET:
+				this.handleTweet(data);
+				break;
 			case TwitterStream.TYPE_FRIENDS_LIST:
 				this.handleStreamFriendsList(data);
 				break;

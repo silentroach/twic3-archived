@@ -86,15 +86,7 @@ export default class TwitterStream extends EventEmitter {
 		var type;
 		var data;
 
-		if (undefined !== object.friends_str) {
-			type = TwitterStream.TYPE_FRIENDS_LIST;
-			data = object.friends_str;
-		}
-		// else if (undefined !== object.delete) {
-			// if (undefined !== object.delete.direct_message) { }
-		//}
-		// else if (undefined !== object.direct_message) { }
-		// else {
+		// if (undefined !== object.event) {
 			/*
 			switch (object.event) {
 				case 'follow':
@@ -104,6 +96,21 @@ export default class TwitterStream extends EventEmitter {
 				case 'unfavorite':
 					source (user), target (user), target_object (tweet)
 			}*/
+		// } else
+		if (undefined !== object.text) {
+			type = TwitterStream.TYPE_TWEET;
+			data = object;
+		} else
+		if (undefined !== object.friends_str) {
+			type = TwitterStream.TYPE_FRIENDS_LIST;
+			data = object.friends_str;
+		}
+		// else
+		// if (undefined !== object.direct_message) {
+		// 	// @todo
+		// } else
+		// if (undefined !== object.delete) {
+		// 	// @todo
 		// }
 
 		console.groupCollapsed('streaming api data', type || 'unknown type');
@@ -123,7 +130,9 @@ export default class TwitterStream extends EventEmitter {
 }
 
 TwitterStream.TYPE_FRIENDS_LIST = 0;
+TwitterStream.TYPE_TWEET = 1;
 
 if ('production' !== process.env.NODE_ENV) {
 	TwitterStream.TYPE_FRIENDS_LIST = 'friends_list';
+	TwitterStream.TYPE_TWEET = 'tweet';
 }
