@@ -9,10 +9,10 @@ class Connection extends EventEmitter {
 		var connection = this;
 
 		function stateChange() {
+			console.log('connection is now', connected ? 'on' : 'off');
+
 			connected = navigator.onLine;
 			connection.emit('change', connected);
-
-			console.log('connection is now', connected ? 'on' : 'off');
 		}
 
 		window.addEventListener('online', stateChange);
