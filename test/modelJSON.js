@@ -10,7 +10,7 @@ class Something extends ModelJSON {
 			'something': 'someOtherName',
 			'twice': function(data) {
 				return {
-					twice: data.repeat(2)
+					twice: data ? data.repeat(2) : null
 				};
 			},
 			'someNullValue': 'nullValue'
@@ -49,5 +49,18 @@ describe('ModelJSON', function() {
 		assert.equal(m.twice, twice.repeat(2));
 		assert.notProperty(m, 'nullValue');
 		assert.notProperty(m, 'someNullValue');
+	});
+
+	it('should remove old values while parsing json with null/undefined properties', function() {
+		var m = new Something();
+		var id = 5;
+
+		m.id = id;
+
+		assert.equal(m.id, id);
+
+		m.parse({});
+
+		assert.notProperty(m, 'id');
 	});
 });

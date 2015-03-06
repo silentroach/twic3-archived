@@ -19,10 +19,6 @@ export default class ModelJSON extends Model {
 			var result = { };
 			var field;
 
-			if (undefined === jsonData) {
-				return;
-			}
-
 			if (!(config instanceof Function)) {
 				result[config] = jsonData;
 			} else {
