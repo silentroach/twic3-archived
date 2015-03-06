@@ -19,7 +19,7 @@ class Something extends ModelJSON {
 }
 
 describe('ModelJSON', function() {
-	it('should make new properties be readonly', function() {
+	it('should mark new properties as readonly while parsing', function() {
 		var m = new Something();
 		var id = 5;
 
