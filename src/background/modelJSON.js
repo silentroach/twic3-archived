@@ -19,6 +19,10 @@ export default class ModelJSON extends Model {
 			var result = { };
 			var field;
 
+			if (undefined === jsonData) {
+				return;
+			}
+
 			if (!(config instanceof Function)) {
 				result[config] = jsonData;
 			} else {
@@ -28,6 +32,14 @@ export default class ModelJSON extends Model {
 			for (field of Object.keys(result)) {
 				let value = result[field];
 
+				if (null === value
+					|| undefined === value
+				) {
+					if (undefined !== model[field]) {
+						delete model[field];
+						model.markAsChanged();
+					}
+				} else
 				if (undefined === model[field]) {
 					Object.defineProperty(model, field, {
 						value: value,
