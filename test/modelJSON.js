@@ -2,19 +2,20 @@ import chai from 'chai';
 const assert = chai.assert;
 
 import ModelJSON from '../src/background/modelJSON';
+import Parser from '../src/background/parser';
 
 class Something extends ModelJSON {
-	static getJSONMap() {
-		return {
-			'id': 'id',
-			'something': 'someOtherName',
-			'twice': function(data) {
+	static getParser() {
+		return new Parser({
+			'id': Parser.TYPE_INT,
+			'something': [Parser.TYPE_STRING, 'someOtherName'],
+			'twice': [Parser.TYPE_STRING, function(data) {
 				return {
 					twice: data ? data.repeat(2) : null
 				};
-			},
-			'someNullValue': 'nullValue'
-		};
+			}],
+			'someNullValue': [Parser.TYPE_UNDEFINED, 'nullValue']
+		});
 	}
 }
 
