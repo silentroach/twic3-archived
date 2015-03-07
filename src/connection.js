@@ -8,6 +8,7 @@ class Connection extends EventEmitter {
 
 		var connection = this;
 
+		// @todo trigger change to [on] state after delay in 3-5 seconds
 		function stateChange() {
 			console.log('connection is now', connected ? 'on' : 'off');
 
