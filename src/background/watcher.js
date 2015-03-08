@@ -29,9 +29,9 @@ export default class Watcher {
 			return false;
 		}
 
-		return true;
-
 		this.state = Watcher.STATE_STARTED;
+
+		return true;
 	}
 
 	restart() {

@@ -8,6 +8,6 @@
 		"process": true
 	},
 	"rules": {
-		"complexity": [1, 10]
+		"complexity": [1, 15]
 	}
 }

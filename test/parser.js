@@ -97,7 +97,7 @@ describe('Parser', function() {
 				return {
 					somethingDifferent: original,
 					somethingLowered: original.toLowerCase()
-				}
+				};
 			}]
 		});
 
