@@ -37,7 +37,7 @@ function processRecord(fieldName, data, rules) {
 				data = Boolean(data);
 				break;
 			case Parser.TYPE_DATE:
-				data = new Date(data);
+				data = new Date(data).getTime();
 				break;
 		}
 	}

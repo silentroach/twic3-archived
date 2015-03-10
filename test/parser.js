@@ -26,28 +26,33 @@ describe('Parser', function() {
 		var boolSource = 1;
 		var strSource = 10;
 		var intSource = '50';
+		var dateSource = 'Tue Mar 10 2015 09:26:06 GMT+0300 (MSK)';
 		var parser = new Parser({
 			'bool': Parser.TYPE_BOOLEAN,
 			'str': Parser.TYPE_STRING,
 			'int': Parser.TYPE_INT,
-			'something': Parser.TYPE_INT
+			'something': Parser.TYPE_INT,
+			'date': Parser.TYPE_DATE
 		});
 
 		var result = parser.process({
 			'bool': boolSource,
 			'int': intSource,
-			'str': strSource
+			'str': strSource,
+			'date': dateSource
 		});
 
 		assert.equal(typeof result, 'object');
 		assert.property(result, 'bool');
 		assert.property(result, 'int');
 		assert.property(result, 'str');
+		assert.property(result, 'date');
 
 		assert.strictEqual(result.bool, Boolean(boolSource));
 		assert.strictEqual(result.str, String(strSource));
 		assert.strictEqual(result.int, Number(intSource));
 		assert.strictEqual(result.something, undefined);
+		assert.strictEqual(result.date, 1425968766000);
 	});
 
 	it('should rename fields', function() {
