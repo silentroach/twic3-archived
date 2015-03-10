@@ -38,11 +38,13 @@ export default class AccountsPage extends React.Component {
 		}
 
 		return (
-			<div className="page">
-				<AccountList
-					users={this.state.users}
-					modifierPressed={this.state.modifierKeyPressed}
-				/>
+			<div>
+				<div className="page">
+					<AccountList
+						users={this.state.users}
+						modifierPressed={this.state.modifierKeyPressed}
+					/>
+				</div>
 				<Toolbar position={Toolbar.POSITION_BOTTOM}>
 					{hintTranslation}
 				</Toolbar>
