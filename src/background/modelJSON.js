@@ -1,57 +1,51 @@
 import Model from './model';
 
+function prepareValue(value, type) {
+	if (null === value
+		|| undefined === value
+	) {
+		return undefined;
+	}
+}
+
 export default class ModelJSON extends Model {
 	static getJSONMap() {
 		return { };
 	}
 
+	static getParser() {
+		throw new Error('No parser defined');
+	}
+
 	parse(json) {
-		var map = this.constructor.getJSONMap();
-		var model = this;
+		var data = this.constructor.getParser().process(json);
 
-		if (!json) {
-			throw new Error('invalid json data object');
-		}
+		for (let field of Object.keys(data)) {
+			let value = data[field];
 
-		Object.keys(map).forEach(function(jsonField) {
-			var config = map[jsonField];
-			var jsonData = json[jsonField];
-			var result = { };
-			var field;
-
-			if (!(config instanceof Function)) {
-				result[config] = jsonData;
-			} else {
-				result = config(jsonData);
-			}
-
-			for (field of Object.keys(result)) {
-				let value = result[field];
-
-				if (null === value
-					|| undefined === value
-				) {
-					if (undefined !== model[field]) {
-						delete model[field];
-						model.markAsChanged();
-					}
-				} else
-				if (undefined === model[field]) {
-					Object.defineProperty(model, field, {
-						value: value,
-						writable: false,
-						configurable: false,
-						enumerable: true
-					});
-
-					model.markAsChanged();
-				} else
-				if (model[field] !== value) {
-					model[field] = value;
-
-					model.markAsChanged();
+			if (null === value
+				|| undefined === value
+			) {
+				if (undefined !== this[field]) {
+					delete this[field];
+					this.markAsChanged();
 				}
+			} else
+			if (undefined === this[field]) {
+				Object.defineProperty(this, field, {
+					value: value,
+					writable: false,
+					configurable: false,
+					enumerable: true
+				});
+
+				this.markAsChanged();
+			} else
+			if (this[field] !== value) {
+				this[field] = value;
+
+				this.markAsChanged();
 			}
-		});
+		}
 	}
 }
