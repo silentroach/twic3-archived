@@ -35,11 +35,11 @@ class App extends React.Component {
 	}
 
 	handleHashChange() {
-		var hashParts = window.location.href.split('#').pop().split('/');
-		var pageName = hashParts.shift();
+		var hashParts = window.location.hash.split('/');
+		var pageName = (hashParts.shift() || '').substring(1);
 		var page;
 
-		console.info('Handling page change to', pageName, hashParts);
+		console.info('Handling page change to', pageName || 'default', hashParts);
 
 		switch (pageName) {
 			case 'about':
