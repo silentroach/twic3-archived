@@ -4,6 +4,8 @@ import User from './model/user';
 import Friendship from './model/friendship';
 import Tweet from './model/tweet';
 
+import Url from './model/entities/url';
+
 import Response from './response';
 
 const AUTH_SESSION_TIMEOUT = 300;
@@ -74,6 +76,58 @@ export default class Twitter {
 			});
 	}
 
+	updateUrl(urlJSON) {
+		var twitter = this;
+
+		return Url
+			.getById(this.db, urlJSON['url'])
+			.then(function(url) {
+				if (!url) {
+					url = new Url();
+				}
+
+				url.parse(urlJSON);
+
+				return url
+					.save(twitter.db)
+					.then(function() {
+						return url;
+					});
+			});
+	}
+
+	updateUserEntities(userEntitiesJSON) {
+		var twitter = this;
+
+		if (undefined === userEntitiesJSON) {
+			return Promise.resolve();
+		}
+
+		return Promise.all(
+			Object.keys(userEntitiesJSON).map(key => {
+				var data = userEntitiesJSON[key];
+
+				if (!Array.isArray(data['urls'])) {
+					return Promise.resolve();
+				}
+
+				return Promise.all(data['urls'].map(url => twitter.updateUrl(url)));
+			})
+		);
+	}
+
+	updateTweetEntities(tweetEntitiesJSON) {
+		var twitter = this;
+
+		if (undefined === tweetEntitiesJSON
+			|| undefined === tweetEntitiesJSON['urls']
+		) {
+			return Promise.resolve();
+		}
+
+		return Promise.all(tweetEntitiesJSON['urls'].map(url => twitter.updateUrl(url)));
+	}
+
 	updateUser(userJSON) {
 		var twitter = this;
 
@@ -84,12 +138,16 @@ export default class Twitter {
 					user = new User();
 				}
 
-				user.parse(userJSON);
-
-				return user
-					.save(twitter.db)
+				return twitter
+					.updateUserEntities(userJSON.entities)
 					.then(function() {
-						return user;
+						user.parse(userJSON);
+
+						return user
+							.save(twitter.db)
+							.then(function() {
+								return user;
+							});
 					});
 			});
 	}
@@ -104,23 +162,27 @@ export default class Twitter {
 					tweet = new Tweet();
 				}
 
-				tweet.parse(tweetJSON);
-
-				return tweet
-					.save(twitter.db)
+				return twitter
+					.updateTweetEntities(tweetJSON.entities)
 					.then(function() {
-						return Promise.all([
-							twitter.updateUser(tweetJSON['user']),
-							function() {
-								if (tweetJSON['retweeted_status']) {
-									return twitter.updateTweet(tweetJSON['retweeted_status']);
-								}
+						tweet.parse(tweetJSON);
 
-								return Promise.resolve();
-							}
-						]).then(function() {
-							return tweet;
-						});
+						return tweet
+							.save(twitter.db)
+							.then(function() {
+								return Promise.all([
+									twitter.updateUser(tweetJSON['user']),
+									function() {
+										if (tweetJSON['retweeted_status']) {
+											return twitter.updateTweet(tweetJSON['retweeted_status']);
+										}
+
+										return Promise.resolve();
+									}
+								]).then(function() {
+									return tweet;
+								});
+							});
 					});
 			});
 	}

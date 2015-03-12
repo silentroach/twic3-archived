@@ -16,6 +16,7 @@ function upgrade(event) {
 		db.createObjectStore('timeline', { autoincrement: true });
 		db.createObjectStore('mentions', { autoincrement: true });
 		db.createObjectStore('friendship', { keyPath: 'ids' });
+		db.createObjectStore('urls', { keyPath: 'url' });
 	}
 }
 
