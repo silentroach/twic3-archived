@@ -1,4 +1,5 @@
 const RULES_FIELD = Symbol('parser');
+const GLOBAL_FIELD = Symbol('global');
 
 function processRecord(fieldName, data, rules) {
 	var result = { };
@@ -56,8 +57,9 @@ function processRecord(fieldName, data, rules) {
 }
 
 export default class Parser {
-	constructor(map = { }) {
+	constructor(map = { }, globalCallback) {
 		this[RULES_FIELD] = map;
+		this[GLOBAL_FIELD] = globalCallback;
 	}
 
 	process(object) {
@@ -70,8 +72,12 @@ export default class Parser {
 			return result;
 		}
 
-		for (let key of Object.keys(this[RULES_FIELD])) {
-			let parsedResults = processRecord(key, object[key], this[RULES_FIELD][key]);
+		function processData(key, data, rules) {
+			let parsedResults = processRecord(key, data, rules);
+
+			if (undefined === parsedResults || null === parsedResults) {
+				return;
+			}
 
 			if ('object' !== typeof parsedResults) {
 				throw new Error('Parsed results is not an object');
@@ -80,6 +86,14 @@ export default class Parser {
 			for (let key of Object.keys(parsedResults)) {
 				result[key] = parsedResults[key];
 			}
+		}
+
+		for (let key of Object.keys(this[RULES_FIELD])) {
+			processData(key, object[key], this[RULES_FIELD][key]);
+		}
+
+		if (this[GLOBAL_FIELD]) {
+			processData(undefined, object, [Parser.TYPE_UNDEFINED, this[GLOBAL_FIELD]]);
 		}
 
 		return result;

@@ -4,6 +4,27 @@ const assert = chai.assert;
 import Parser from '../src/background/parser';
 
 describe('Parser', function() {
+	it('should pass the entire object if global key specified', function() {
+		var obj = {
+			'test': 5,
+			'test2': 10
+		};
+		var parser = new Parser({ }, function(object) {
+			assert.deepEqual(object, obj);
+
+			return {
+				'test': object.test * 2
+			};
+		});
+
+		var result = parser.process(obj);
+
+		assert.equal(typeof result, 'object');
+		assert.property(result, 'test');
+		assert.notProperty(result, 'test2');
+		assert.strictEqual(result.test, 10);
+	});
+
 	it('should return empty object if source is not an object', function() {
 		var parser = new Parser();
 		var testReply = parser.process([]);
