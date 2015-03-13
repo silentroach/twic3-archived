@@ -96,6 +96,7 @@ export default class Twitter {
 			});
 	}
 
+	// @depreacted?
 	updateUserEntities(userEntitiesJSON) {
 		var twitter = this;
 
@@ -138,16 +139,12 @@ export default class Twitter {
 					user = new User();
 				}
 
-				return twitter
-					.updateUserEntities(userJSON.entities)
-					.then(function() {
-						user.parse(userJSON);
+				user.parse(userJSON);
 
-						return user
-							.save(twitter.db)
-							.then(function() {
-								return user;
-							});
+				return user
+					.save(twitter.db)
+					.then(function() {
+						return user;
 					});
 			});
 	}

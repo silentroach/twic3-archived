@@ -20,15 +20,13 @@ export default class UserPage extends React.Component {
 			);
 		}
 
-		/* @todo resolve user url */
-
 		return (
 			<div id="profile" className="page">
 				<Avatar template={user.avatar} type={Avatar.TYPE_BIG} />
 
 				<ul id="info">
 					<li>{user.name ? user.name : ''} [{user.screenName}]</li>
-					{user.url ? <li><a href={user.url}>{user.url}</a></li> : ''}
+					{user.url ? <li dangerouslySetInnerHTML={{__html: user.url }} /> : ''}
 					{user.description ? <li id="info-description">{user.description}</li> : ''}
 					{user.location ? <li>{user.location}</li> : ''}
 				</ul>
