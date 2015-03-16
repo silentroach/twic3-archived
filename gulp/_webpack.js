@@ -49,7 +49,7 @@ var webpackBasicConfig = {
 		loaders: [
 			{
 				test: /\.jsx$/,
-				loader: [loaderBabel, 'jsx-loader?stripTypes'].join('!')
+				loader: ['jsx-loader?stripTypes', loaderBabel].join('!')
 			},
 			{
 				test: /\.js$/,
