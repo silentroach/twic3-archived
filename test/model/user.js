@@ -3,14 +3,14 @@ const assert = chai.assert;
 
 import User from '../../src/background/model/user';
 
-describe('User', function() {
+describe('Model.User', function() {
 	let user;
 
 	beforeEach(function() {
 		user = new User();
 	});
 
-	describe('Should use location field as coordinates source', function() {
+	describe('should use location field as coordinates source', function() {
 		it('no coords found', function() {
 			user.parse({
 				location: 'Moscow'
@@ -45,5 +45,29 @@ describe('User', function() {
 			assert.notProperty(user, 'coords');
 		});
 	});
+
+	it('should normalize screen name for index', function() {
+		const screenName = 'SoMeThInG';
+
+		user.parse({
+			screen_name: screenName
+		});
+
+		assert.property(user, 'screenName');
+		assert.property(user, 'screenNameNormalized');
+		assert.strictEqual(user.screenName, screenName);
+		assert.strictEqual(user.screenNameNormalized, screenName.toLowerCase());
+	});
+
+	it('should replace avatar size with {size} template', function() {
+		user.parse({
+			profile_image_url_https: 'https://lalala.ru/someavatar_normal.jpg'
+		});
+
+		assert.property(user, 'avatar');
+		assert.equal(user.avatar.indexOf('{size}') >= 0, true);
+	});
+
+	it('should replace url with <a> element');
 
 });
