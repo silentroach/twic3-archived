@@ -42,6 +42,7 @@
     "jsx-loader": "0.12.2",
     "lodash": "3.5.0",
     "mocha": "2.2.1",
+    "mocha-clean": "0.4.0",
     "normalize.stylus": "0.1.0",
     "qs": "2.4.1",
     "react": "0.13.0",
