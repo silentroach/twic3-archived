@@ -3,6 +3,7 @@ import React from 'react';
 import Message from '../../../message';
 
 import Avatar from '../../components/avatar';
+import Map from '../../components/map';
 
 import './index.styl';
 
@@ -29,6 +30,7 @@ export default class UserPage extends React.Component {
 					{user.url ? <li dangerouslySetInnerHTML={{__html: user.url }} /> : ''}
 					{user.description ? <li id="info-description">{user.description}</li> : ''}
 					{user.location ? <li>{user.location}</li> : ''}
+					{user.coords ? <Map coords={user.coords} /> : ''}
 				</ul>
 			</div>
 		);
