@@ -21,7 +21,8 @@ function processRecord(fieldName, data, rules) {
 
 	if (null === data) {
 		data = undefined;
-	} else
+	}
+
 	if (undefined !== data) {
 		switch (type) {
 			case Parser.TYPE_INT:
@@ -47,7 +48,7 @@ function processRecord(fieldName, data, rules) {
 		name = fieldName;
 	}
 
-	if (callback) {
+	if (callback && undefined !== data) {
 		result = callback(data);
 	} else {
 		result[name] = data;

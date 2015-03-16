@@ -1,7 +1,9 @@
 import ModelJSON from '../modelJSON';
 import Parser from '../parser';
 
-var parser = new Parser({
+const COORDS_REGEXP = /-?[\d.]+/g;
+
+const parser = new Parser({
 	'id_str': [Parser.TYPE_STRING, 'id'],
 	'name': Parser.TYPE_STRING,
 	'screen_name': [Parser.TYPE_STRING, (original) => {
@@ -10,7 +12,32 @@ var parser = new Parser({
 			screenNameNormalized: original.toLowerCase()
 		};
 	}],
-	'location': Parser.TYPE_STRING,
+	'location': [Parser.TYPE_STRING, (original) => {
+		let data = {
+			location: original
+		};
+
+		let coordsMatches = original.match(COORDS_REGEXP);
+
+		if (coordsMatches) {
+			coordsMatches = coordsMatches
+				.map(coord => Number(coord))
+				.filter(coord => coord);
+
+			if (2 === coordsMatches.length) {
+				// @todo or longitude,latitude ? check it
+				let [latitude, longitude] = coordsMatches;
+
+				if (latitude >= -90 && latitude <= 90
+					&& longitude >= -180 && longitude <= 180
+				) {
+					data.coords = [latitude, longitude];
+				}
+			}
+		}
+
+		return data;
+	}],
 	'created_at': [Parser.TYPE_DATE, 'registerTime'],
 	'description': Parser.TYPE_STRING,
 	'protected': [Parser.TYPE_BOOLEAN, 'isProtected'],
@@ -24,7 +51,7 @@ var parser = new Parser({
 	'followers_count': [Parser.TYPE_INT, 'followersCount'],
 	'friends_count': [Parser.TYPE_INT, 'friendsCount']
 }, function(userJSON) {
-	var data = { };
+	let data = { };
 
 	if (userJSON.url
 		&& userJSON.entities

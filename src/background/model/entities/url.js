@@ -1,7 +1,7 @@
 import ModelJSON from '../../modelJSON';
 import Parser from '../../parser';
 
-var parser = new Parser({
+const parser = new Parser({
 	'url': Parser.TYPE_STRING,
 	'expanded_url': [Parser.TYPE_STRING, 'expanded'],
 	'display_url': [Parser.TYPE_STRING, 'display']

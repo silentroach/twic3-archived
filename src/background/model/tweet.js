@@ -1,7 +1,7 @@
 import ModelJSON from '../modelJSON';
 import Parser from '../parser';
 
-var parser = new Parser({
+const parser = new Parser({
 	'id_str': [Parser.TYPE_STRING, 'id'],
 	'text': Parser.TYPE_STRING,
 	'created_at': [Parser.TYPE_DATE, 'createTime']
