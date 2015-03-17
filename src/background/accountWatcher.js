@@ -1,10 +1,12 @@
+import Watcher from './watcher';
 import TwitterStream from './twitter/stream';
-import connection from '../connection';
 
 const STREAM_CHECK_TIMEOUT = 1000 * 60;
 
-export default class AccountWatcher {
+export default class AccountWatcher extends Watcher {
 	constructor(twitter, account) {
+		super();
+
 		this.twitter = twitter;
 		this.account = account;
 
@@ -12,37 +14,16 @@ export default class AccountWatcher {
 
 		this.stream = null;
 		this.streamCheckInterval = null;
-
-		this.state = AccountWatcher.STATE_STOPPED;
-
-		connection.on('change', this.handleConnectedChange.bind(this));
-	}
-
-	handleConnectedChange(connected) {
-		if (!connected
-			&& this.state !== AccountWatcher.STATE_STOPPED
-		) {
-			this.stop();
-			this.state = AccountWatcher.STATE_DISCONNECTED;
-		} else
-		if (connected
-			&& this.state === AccountWatcher.STATE_DISCONNECTED
-		) {
-			this.start();
-		}
 	}
 
 	start() {
 		var watcher = this;
 
-		if (!connection.connected) {
-			this.state = AccountWatcher.STATE_DISCONNECTED;
+		if (!super.start()) {
 			return;
 		}
 
 		console.log('starting to watch account', this.account);
-
-		this.state = AccountWatcher.STATE_STARTED;
 
 		this.stream = this.twitter.api.getUserStream(this.account.token);
 		this.stream.on('data', this.handleStreamData.bind(this));
@@ -53,8 +34,6 @@ export default class AccountWatcher {
 		this.twitter
 			.getHomeTimeline(this.account.token, this.homeTimelineLastTweetId)
 			.then(function(tweets) {
-				debugger;
-
 				const tweet = tweets.shift();
 
 				watcher.homeTimelineLastTweetId = tweet.id;
@@ -62,19 +41,14 @@ export default class AccountWatcher {
 	}
 
 	stop() {
-		console.log('account watch stopped', this.account);
+		super.stop();
 
-		this.state = AccountWatcher.STATE_STOPPED;
+		console.log('account watch stopped', this.account);
 
 		clearInterval(this.streamCheckInterval);
 		this.streamCheckInterval = null;
 
 		this.stream.stop();
-	}
-
-	restart() {
-		this.stop();
-		this.start();
 	}
 
 	streamCheck() {
@@ -120,7 +94,3 @@ export default class AccountWatcher {
 		}
 	}
 }
-
-AccountWatcher.STATE_STARTED = 1;
-AccountWatcher.STATE_DISCONNECTED = 2;
-AccountWatcher.STATE_STOPPED = 3;

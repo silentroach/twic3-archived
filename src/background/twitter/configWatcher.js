@@ -1,36 +1,19 @@
-import connection from '../../connection';
+import Watcher from '../watcher';
 
 const CONFIG_CHECK_TIMEOUT = 1000 * 60 * 60;
 
-export default class TwitterConfigWatcher {
+export default class TwitterConfigWatcher extends Watcher {
 	constructor(config, twitter) {
+		super();
+
 		this.config = config;
 		this.twitter = twitter;
 
-		this.state = TwitterConfigWatcher.STATE_STOPPED;
-
 		this.checkInterval = null;
-
-		connection.on('change', this.handleConnectedChange.bind(this));
-	}
-
-	handleConnectedChange(connected) {
-		if (!connected
-			&& this.state !== TwitterConfigWatcher.STATE_STOPPED
-		) {
-			this.stop();
-			this.state = TwitterConfigWatcher.STATE_DISCONNECTED;
-		} else
-		if (connected
-			&& this.state === TwitterConfigWatcher.STATE_DISCONNECTED
-		) {
-			this.start();
-		}
 	}
 
 	start() {
-		if (!connection.connected) {
-			this.state = TwitterConfigWatcher.STATE_DISCONNECTED;
+		if (!super.start()) {
 			return;
 		}
 
@@ -41,9 +24,9 @@ export default class TwitterConfigWatcher {
 	}
 
 	stop() {
-		console.log('config watcher stopped');
+		super.stop();
 
-		this.state = TwitterConfigWatcher.STATE_STOPPED;
+		console.log('config watcher stopped');
 
 		clearInterval(this.checkInterval);
 		this.checkInterval = null;
@@ -71,7 +54,3 @@ export default class TwitterConfigWatcher {
 			});
 	}
 }
-
-TwitterConfigWatcher.STATE_STARTED = 1;
-TwitterConfigWatcher.STATE_DISCONNECTED = 2;
-TwitterConfigWatcher.STATE_STOPPED = 3;
