@@ -66,6 +66,7 @@ const parser = new Parser({
 		element.href = urlData.url;
 		element.innerText = urlData.display_url;
 		element.title = urlData.expanded_url;
+		element.target = '_blank';
 
 		data.url = element.outerHTML;
 	}
