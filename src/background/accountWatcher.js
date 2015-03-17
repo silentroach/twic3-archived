@@ -8,6 +8,8 @@ export default class AccountWatcher {
 		this.twitter = twitter;
 		this.account = account;
 
+		this.homeTimelineLastTweetId = null;
+
 		this.stream = null;
 		this.streamCheckInterval = null;
 
@@ -31,6 +33,8 @@ export default class AccountWatcher {
 	}
 
 	start() {
+		var watcher = this;
+
 		if (!connection.connected) {
 			this.state = AccountWatcher.STATE_DISCONNECTED;
 			return;
@@ -46,7 +50,15 @@ export default class AccountWatcher {
 
 		this.streamCheckInterval = setInterval(this.streamCheck.bind(this), STREAM_CHECK_TIMEOUT);
 
-		this.twitter.getHomeTimeline(this.account.token/**, @todo sinceId */);
+		this.twitter
+			.getHomeTimeline(this.account.token, this.homeTimelineLastTweetId)
+			.then(function(tweets) {
+				debugger;
+
+				const tweet = tweets.shift();
+
+				watcher.homeTimelineLastTweetId = tweet.id;
+			});
 	}
 
 	stop() {
@@ -80,7 +92,13 @@ export default class AccountWatcher {
 	}
 
 	handleTweet(tweet) {
-		this.twitter.updateTweet(tweet);
+		var watcher = this;
+
+		this.twitter
+			.updateTweet(tweet)
+			.then(function(tweet) {
+				watcher.homeTimelineLastTweetId = tweet.id;
+			});
 	}
 
 	handleStreamFriendsList(idsList) {

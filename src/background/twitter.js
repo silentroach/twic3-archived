@@ -221,7 +221,7 @@ export default class Twitter {
 	getHomeTimeline(token, sinceId) {
 		var twitter = this;
 
-		this.api.getHomeTimeline(token, sinceId)
+		return this.api.getHomeTimeline(token, sinceId)
 			.then(function(tweets) {
 				if (!Array.isArray(tweets)) {
 					return [];
