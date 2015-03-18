@@ -21,15 +21,11 @@ export default class Message {
 	}
 }
 
-Message.TYPE_AUTH_START = 0;
-Message.TYPE_AUTH_CHECK = 1;
-Message.TYPE_AUTH = 2;
-Message.TYPE_ACCOUNT_USERS = 3;
-Message.TYPE_USER = 4;
+Message.TYPE_AUTH = 0;
+Message.TYPE_ACCOUNT_USERS = 1;
+Message.TYPE_USER = 2;
 
 if ('production' !== process.env.NODE_ENV) {
-	Message.TYPE_AUTH_START = 'auth_start';
-	Message.TYPE_AUTH_CHECK = 'auth_check';
 	Message.TYPE_AUTH = 'auth';
 	Message.TYPE_ACCOUNT_USERS = 'account_list';
 	Message.TYPE_USER = 'user';

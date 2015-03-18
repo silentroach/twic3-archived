@@ -52,10 +52,13 @@ AccountList
 	.then(function(accountList) {
 		console.log('account list loaded', accountList);
 
-		console.log('twitter/api/token exported for debug');
-		window.token = accountList.accounts[0].token;
-		window.twitter = twitter;
-		window.api = twitter.api;
+		// ---
+		if (accountList.length) {
+			console.log('twitter/api/token exported for debug');
+			window.token = accountList.accounts[0].token;
+			window.twitter = twitter;
+			window.api = twitter.api;
+		}
 		// ---
 
 		accountList.map(account => {
@@ -88,20 +91,9 @@ AccountList
 
 					return true;
 
-				case Message.TYPE_AUTH_START:
-					twitter.startAuthentication();
-					break;
-
-				case Message.TYPE_AUTH_CHECK:
-					sendResponse(
-						twitter.isAuthenticationWindowRegistered(sender.tab.windowId)
-					);
-
-					break;
-
 				case Message.TYPE_AUTH:
 					twitter
-						.authorize(sender.tab.windowId, msg.data.pin)
+						.authorize()
 						.then(function([token, user]) {
 							var account;
 
@@ -122,8 +114,6 @@ AccountList
 							}
 
 							accountList.save(config);
-
-							sendResponse(user);
 						})
 						.catch(function(e) {
 							console.error('authentication failed', e);
