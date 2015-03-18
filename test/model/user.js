@@ -50,7 +50,7 @@ describe('Model.User', function() {
 		const screenName = 'SoMeThInG';
 
 		user.parse({
-			screen_name: screenName
+			'screen_name': screenName
 		});
 
 		assert.property(user, 'screenName');
@@ -61,7 +61,7 @@ describe('Model.User', function() {
 
 	it('should replace avatar size with {size} template', function() {
 		user.parse({
-			profile_image_url_https: 'https://lalala.ru/someavatar_normal.jpg'
+			'profile_image_url_https': 'https://lalala.ru/someavatar_normal.jpg'
 		});
 
 		assert.property(user, 'avatar');

@@ -29,7 +29,7 @@ class FakeStorage extends EventEmitter {
 
 				callback();
 			},
-			get(obj, callback) {
+			get: function(obj, callback) {
 				var results = { };
 				for (let key in obj) {
 					if (undefined !== storage.changes[key]) {
