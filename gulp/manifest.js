@@ -35,19 +35,6 @@ gulp.task('manifest', function(callback) {
 				'background.js'
 			]
 		},
-		content_scripts: [
-			{
-				matches: [
-					'https://api.twitter.com/oauth/authorize'
-				],
-				js: [
-					'content/auth/index.js'
-				],
-				css: [
-					'content/auth/index.css'
-				]
-			}
-		],
 		options_ui: {
 			page: 'options/index.html',
 			chrome_style: true,
@@ -55,6 +42,7 @@ gulp.task('manifest', function(callback) {
 		},
 		permissions: [
 			'storage',
+			'identity',
 
 			'https://api.twitter.com/1.1/*',
 			'https://userstream.twitter.com/1.1/*',

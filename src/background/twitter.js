@@ -1,4 +1,5 @@
 import TwitterAPI from './twitter/api';
+import getTwitterAuthorizer from './twitter/auth';
 
 import User from './model/user';
 import Friendship from './model/friendship';
@@ -8,9 +9,7 @@ import Url from './model/entities/url';
 
 import Response from './response';
 
-const AUTH_SESSION_TIMEOUT = 300;
-
-var authenticationWindows = { };
+import qs from 'querystring';
 
 export default class Twitter {
 	constructor(db) {
@@ -18,58 +17,50 @@ export default class Twitter {
 		this.db = db;
 	}
 
-	isAuthenticationWindowRegistered(windowId) {
-		var timestamp = authenticationWindows[windowId];
-
-		if (undefined === timestamp) {
-			return false;
-		}
-
-		if (Date.now() - timestamp > AUTH_SESSION_TIMEOUT * 1000) {
-			delete authenticationWindows[windowId];
-			return false;
-		}
-
-		return true;
-	}
-
-	startAuthentication(login = null) {
+	authorize(login = null) {
 		var twitter = this;
 
-		this.api.resetToken();
+		return getTwitterAuthorizer(login)
+			.then(function(auth) {
+				return new Promise(function(resolve) {
+					chrome.identity.launchWebAuthFlow({
+						url: auth.getAuthenticateUrl(),
+						interactive: true
+					}, function(redirectURI) {
+						var linkElement = document.createElement('a');
+						var params;
 
-		return new Promise(function(resolve, reject) {
-			twitter.api.getRequestToken()
-				.then(function(token) {
-					var url = twitter.api.getAuthorizeUrl(token, login);
+						linkElement.href = redirectURI;
 
-					chrome.windows.create({
-						url: url,
-						width: 600,
-						height: 650,
-						focused: true,
-						type: 'popup'
-					}, function(window) {
-						authenticationWindows[window.id] = Date.now();
-						resolve();
+						if (!linkElement.search) {
+							throw new Error('wrong redirect url');
+						}
+
+						params = qs.decode(linkElement.search.substr(1));
+
+						if (undefined !== params.denied) {
+							throw new Error('access denied');
+						}
+
+						if (!params
+							|| undefined === params.oauth_token
+							|| undefined === params.oauth_verifier
+						) {
+							throw new Error('unknown auth reply');
+						}
+
+						if (!auth.isTokenValid(params.oauth_token)) {
+							throw new Error('auth reply token invalid');
+						}
+
+						auth.getAccessToken(params.oauth_verifier)
+							.then(resolve);
 					});
 				});
-		});
-	}
-
-	authorize(windowId, pin) {
-		var twitter = this;
-
-		if (!this.isAuthenticationWindowRegistered(windowId)) {
-			return Promise.reject();
-		}
-
-		delete authenticationWindows[windowId];
-
-		return this.api
-			.getAccessToken(pin)
+			})
 			.then(function([token, userId]) {
-				return twitter.getUser(userId)
+				return twitter
+					.getUser(userId)
 					.then(function(user) {
 						return [token, user];
 					});
@@ -261,11 +252,3 @@ export default class Twitter {
 		return this.api.getConfiguration();
 	}
 }
-
-setInterval(function() {
-	for (let windowId of Object.keys(authenticationWindows)) {
-		if (Date.now() - authenticationWindows[windowId] > AUTH_SESSION_TIMEOUT * 1000) {
-			delete authenticationWindows[windowId];
-		}
-	}
-}, AUTH_SESSION_TIMEOUT * 1000);

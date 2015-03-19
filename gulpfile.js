@@ -77,33 +77,6 @@ gulp.task('options:templates', function() {
 
 gulp.task('options', ['options:templates', 'options:modules']);
 
-// content scripts
-
-function buildContentAuth(watch) {
-	return gulp.src('src/content/auth/index.js')
-		.pipe(gulpWebpack(
-			webpackConfig({
-				watch: watch,
-				output: {
-					filename: 'index.js',
-					path: path.resolve(buildPath, 'content/auth'),
-				},
-				disableDebug: true
-			})
-		))
-		.pipe(gulp.dest('build/content/auth'));
-}
-
-gulp.task('content:auth:modules', function() {
-	return buildContentAuth();
-});
-
-gulp.task('content:auth:modules:watch', function() {
-	return buildContentAuth(true);
-});
-
-gulp.task('content', ['content:auth:modules']);
-
 // popup
 
 function buildPopup(watch) {

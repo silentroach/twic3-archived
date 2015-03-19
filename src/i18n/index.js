@@ -6,8 +6,6 @@ module.exports = {
 		}
 	},
 
-	content: require('./content'),
-
 	toolbar: {
 		about: {
 			en: 'About',

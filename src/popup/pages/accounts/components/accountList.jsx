@@ -12,7 +12,7 @@ export default class AccountList extends React.Component {
 		return (
 			<ul className="accountList">
 				{users.length === 0
-					? <AccountAdd />
+					? ''
 					: users.map(user =>
 						<Account
 							key={user.id}
@@ -21,6 +21,7 @@ export default class AccountList extends React.Component {
 						/>
 					)
 				}
+				<AccountAdd />
 			</ul>
 		);
 	}
