@@ -27,6 +27,10 @@ export default class Twitter {
 						url: auth.getAuthenticateUrl(),
 						interactive: true
 					}, function(redirectURI) {
+						if (chrome.runtime.lastError) {
+							throw new Error(chrome.runtime.lastError.message);
+						}
+
 						var linkElement = document.createElement('a');
 						var params;
 
