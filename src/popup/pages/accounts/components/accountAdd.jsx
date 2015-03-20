@@ -23,8 +23,11 @@ export default class AccountAdd extends React.Component {
 
 		var msg = new Message(Message.TYPE_AUTH);
 
-		msg.send();
-		window.close();
+		msg
+			.send()
+			.then(function() {
+				window.close();
+			});
 	}
 
 	handleConnectionChange() {

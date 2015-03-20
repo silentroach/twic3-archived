@@ -93,7 +93,7 @@ AccountList
 
 				case Message.TYPE_AUTH:
 					twitter
-						.authorize()
+						.authorize(sendResponse)
 						.then(function([token, user]) {
 							var account;
 

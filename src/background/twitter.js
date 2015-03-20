@@ -17,11 +17,15 @@ export default class Twitter {
 		this.db = db;
 	}
 
-	authorize(login = null) {
+	authorize(flowStartCallback = null, login = null) {
 		var twitter = this;
 
 		return getTwitterAuthorizer(login)
 			.then(function(auth) {
+				if (flowStartCallback) {
+					flowStartCallback();
+				}
+
 				return new Promise(function(resolve) {
 					chrome.identity.launchWebAuthFlow({
 						url: auth.getAuthenticateUrl(),
