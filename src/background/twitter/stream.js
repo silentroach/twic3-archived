@@ -104,14 +104,22 @@ export default class TwitterStream extends EventEmitter {
 		if (undefined !== object.friends_str) {
 			type = TwitterStream.TYPE_FRIENDS_LIST;
 			data = object.friends_str;
-		}
-		// else
+		} else
 		// if (undefined !== object.direct_message) {
 		// 	// @todo
 		// } else
 		// if (undefined !== object.delete) {
 		// 	// @todo
 		// }
+		if (undefined === object.disconnect) {
+			this.stop();
+
+			// @see https://dev.twitter.com/streaming/overview/messages-types
+			if (6 === object.disconnect.code) {
+				// token revoked
+				type = TwitterStream.TYPE_TOKEN_REVOKED;
+			}
+		}
 
 		console.groupCollapsed('streaming api data', type || 'unknown type');
 		console.log(object);
@@ -129,10 +137,13 @@ export default class TwitterStream extends EventEmitter {
 	}
 }
 
-TwitterStream.TYPE_FRIENDS_LIST = 0;
-TwitterStream.TYPE_TWEET = 1;
+TwitterStream.TYPE_TOKEN_REVOKED = 0;
+// ---
+TwitterStream.TYPE_FRIENDS_LIST = 1;
+TwitterStream.TYPE_TWEET = 2;
 
 if ('production' !== process.env.NODE_ENV) {
+	TwitterStream.TYPE_TOKEN_REVOKED = 'token_revoked';
 	TwitterStream.TYPE_FRIENDS_LIST = 'friends_list';
 	TwitterStream.TYPE_TWEET = 'tweet';
 }

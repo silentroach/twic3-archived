@@ -1,7 +1,10 @@
 import OAuthToken from './oauthToken';
+import EventEmitter from '../eventEmitter';
 
-export default class Account {
+export default class Account extends EventEmitter {
 	constructor() {
+		super();
+
 		this.userId = null;
 		this.token = null;
 	}
@@ -9,8 +12,17 @@ export default class Account {
 	serialize() {
 		return {
 			userId: this.userId,
-			token: this.token.serialize()
+			token: this.token ? this.token.serialize() : null
 		};
+	}
+
+	unauthorize() {
+		this.token = null;
+		this.emit('change');
+	}
+
+	isAuthorized() {
+		return null !== this.token;
 	}
 }
 
@@ -18,7 +30,9 @@ Account.load = function(data) {
 	var account = new Account();
 
 	account.userId = data.userId;
-	account.token = OAuthToken.load(data.token);
+	if (data.token) {
+		account.token = OAuthToken.load(data.token);
+	}
 
 	return account;
 };

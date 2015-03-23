@@ -17,10 +17,10 @@ export default class Twitter {
 		this.db = db;
 	}
 
-	authorize(flowStartCallback = null, login = null) {
+	authorize(flowStartCallback = null, screenName = null) {
 		var twitter = this;
 
-		return getTwitterAuthorizer(login)
+		return getTwitterAuthorizer(screenName)
 			.then(function(auth) {
 				if (flowStartCallback) {
 					flowStartCallback();

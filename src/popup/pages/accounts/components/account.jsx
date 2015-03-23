@@ -2,6 +2,8 @@ import React from 'react';
 
 import Avatar from '../../../components/avatar';
 
+import Message from '../../../../message.js'
+
 import './account.styl';
 
 export default class Account extends React.Component {
@@ -12,6 +14,10 @@ export default class Account extends React.Component {
 
 		if (this.props.modifierPressed) {
 			classes.push('account-remove');
+		}
+
+		if (!user.isAuthorized) {
+			classes.push('account-need-auth');
 		}
 
 		return (
@@ -27,6 +33,19 @@ export default class Account extends React.Component {
 	}
 
 	clickHandler(e) {
+		if (!this.props.user.isAuthorized) {
+			e.preventDefault();
+
+			var msg = new Message(Message.TYPE_AUTH, {
+				screenName: this.props.user.screenName
+			});
+
+			msg
+				.send()
+				.then(function() {
+					window.close();
+				});
+		} else
 		if (this.props.modifierPressed) {
 			e.preventDefault();
 

@@ -1,9 +1,12 @@
 import Account from './account';
+import EventEmitter from '../eventEmitter';
 
 const CONFIG_KEY = 'accounts';
 
-export default class AccountList {
+export default class AccountList extends EventEmitter {
 	constructor() {
+		super();
+
 		this.accounts = [ ];
 	}
 
@@ -12,7 +15,13 @@ export default class AccountList {
 	}
 
 	add(account) {
+		var list = this;
+
 		this.accounts.push(account);
+		account.on('change', function() {
+			list.emit('change');
+		});
+
 		return this;
 	}
 

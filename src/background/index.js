@@ -52,6 +52,10 @@ AccountList
 	.then(function(accountList) {
 		console.log('account list loaded', accountList);
 
+		accountList.on('change', function() {
+			accountList.save(config);
+		});
+
 		// ---
 		if (accountList.length) {
 			console.log('twitter/api/token exported for debug');
@@ -63,7 +67,9 @@ AccountList
 
 		accountList.map(account => {
 			const watcher = new AccountWatcher(twitter, account);
-			watcher.start();
+			if (account.isAuthorized()) {
+				watcher.start();
+			}
 			watchers.push(watcher);
 		});
 
@@ -84,7 +90,15 @@ AccountList
 
 				case Message.TYPE_ACCOUNT_USERS:
 					Promise.all(
-						accountList.map(account => twitter.getUser(account.userId))
+						accountList.map(account => {
+							return twitter
+								.getUser(account.userId)
+								.then(function(user) {
+									user.isAuthorized = account.isAuthorized();
+
+									return user;
+								});
+						})
 					).then(function(list) {
 						sendResponse(list);
 					});
@@ -93,7 +107,7 @@ AccountList
 
 				case Message.TYPE_AUTH:
 					twitter
-						.authorize(sendResponse)
+						.authorize(sendResponse, msg.data.screenName)
 						.then(function([token, user]) {
 							var account;
 

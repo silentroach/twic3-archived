@@ -33,6 +33,11 @@ export default class AccountWatcher extends Watcher {
 
 		this.twitter
 			.getHomeTimeline(this.account.token, this.homeTimelineLastTweetId)
+			.catch(function(e) {
+				if (401 === e.status) {
+					watcher.handleTokenRevoke();
+				}
+			})
 			.then(function(tweets) {
 				const tweet = tweets.shift();
 
@@ -83,8 +88,18 @@ export default class AccountWatcher extends Watcher {
 		});
 	}
 
+	handleTokenRevoke() {
+		console.warn('token is revoked, stopping watcher');
+
+		this.account.unauthorize();
+		this.stop();
+	}
+
 	handleStreamData(type, data) {
 		switch (type) {
+			case TwitterStream.TYPE_TOKEN_REVOKED:
+				this.handleTokenRevoke();
+				break;
 			case TwitterStream.TYPE_TWEET:
 				this.handleTweet(data);
 				break;
