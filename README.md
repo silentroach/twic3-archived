@@ -14,4 +14,12 @@ It uses client-server architecture with Chrome messaging system to communicate. 
 
 ## Contribute
 
-It is sad, but full project build is currently broken.
+It is sad, but full project build is currently broken, but you can do it with these commands:
+
+	$ gulp vendor
+	$ gulp i18n
+	$ gulp contributors
+	$ gulp manifest
+	$ gulp popup
+	$ gulp options
+	$ gulp background
