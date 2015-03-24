@@ -18,7 +18,6 @@ It is sad, but full project build is currently broken, but you can do it with th
 
 	$ gulp vendor
 	$ gulp i18n
-	$ gulp contributors
 	$ gulp manifest
 	$ gulp popup
 	$ gulp options
