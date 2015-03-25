@@ -10,6 +10,10 @@
     "chromium",
     "browser"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silentroach/twic"
+  },
   "author": "Igor Kalashnikov <igor.kalashnikov@me.com>",
   "license": "GNU GPL v2.0",
   "scripts": {
