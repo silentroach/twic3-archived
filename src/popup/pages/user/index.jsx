@@ -41,9 +41,9 @@ export default class UserPage extends React.Component {
 		var msgParams = { };
 
 		if ('@' === this.props.params[0][0]) {
-			msgParams.userScreenName = this.props.params[0];
+			msgParams.screenName = this.props.params[0].substr(1);
 		} else {
-			msgParams.userId = this.props.params[0];
+			msgParams.id = this.props.params[0];
 		}
 
 		var msg = new Message(Message.TYPE_USER, msgParams);

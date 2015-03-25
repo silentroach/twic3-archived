@@ -82,4 +82,8 @@ export default class User extends ModelJSON {
 	static getParser() {
 		return parser;
 	}
+
+	static getByScreenName(db, screenName) {
+		return this.getByIndex(db, 'screenName', screenName);
+	}
 }

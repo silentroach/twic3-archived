@@ -2,6 +2,23 @@ const IS_CHANGED_FIELD = Symbol('changed');
 
 const updateTimeField = 'updateTime';
 
+function fillData(data) {
+	if (!data) {
+		return null;
+	}
+
+	for (let key of Object.keys(data)) {
+		Object.defineProperty(this, key, {
+			value: data[key],
+			writable: true,
+			configurable: false,
+			enumerable: true
+		});
+	}
+
+	return this;
+}
+
 export default class Model {
 	constructor() {
 		this[IS_CHANGED_FIELD] = false;
@@ -55,25 +72,17 @@ export default class Model {
 			|| Date.now() - this[updateTimeField] > this.getFreshTime();
 	}
 
+	static getByIndex(db, index, value) {
+		var obj = new this();
+
+		return db.getByIndex(obj.constructor.getCollectionName(), index, value)
+			.then(fillData.bind(obj));
+	}
+
 	static getById(db, id) {
 		var obj = new this();
 
 		return db.getById(obj.constructor.getCollectionName(), id)
-			.then(function(data) {
-				if (!data) {
-					return null;
-				}
-
-				for (let key of Object.keys(data)) {
-					Object.defineProperty(obj, key, {
-						value: data[key],
-						writable: true,
-						configurable: false,
-						enumerable: true
-					});
-				}
-
-				return obj;
-			});
+			.then(fillData.bind(obj));
 	}
 }

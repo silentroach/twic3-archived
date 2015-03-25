@@ -46,7 +46,7 @@ export default class TwitterAPI {
 			});
 	}
 
-	getUserInfo(userId) {
+	getUserInfoByParam(param, value) {
 		var path = BASE_URL + 'users/show.json';
 		var limits = this.getLimits();
 		var req = new RequestOAuth(path);
@@ -55,10 +55,10 @@ export default class TwitterAPI {
 			throw new Error('Request rate exceeded');
 		}
 
-		console.log('api: requesting user info', userId);
+		console.log('api: requesting user info', param, value);
 
 		return req
-			.setRequestData('user_id', userId)
+			.setRequestData(param, value)
 			.setRequestData('include_entities', 1)
 			.send()
 			.then(function(response) {
@@ -68,6 +68,14 @@ export default class TwitterAPI {
 			.then(function(response) {
 				return response.content;
 			});
+	}
+
+	getUserInfoById(userId) {
+		return this.getUserInfoByParam('user_id', userId);
+	}
+
+	getUserInfoByScreenName(screenName) {
+		return this.getUserInfoByParam('screen_name', screenName);
 	}
 
 	getHomeTimeline(token, sinceId = null) {
