@@ -22,3 +22,4 @@ It is sad, but full project build is currently broken, but you can do it with th
 	$ gulp popup
 	$ gulp options
 	$ gulp background
+	$ phantomjs dev/rasterize.js
