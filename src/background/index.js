@@ -80,8 +80,18 @@ AccountList
 
 			switch (msg.type) {
 				case Message.TYPE_USER:
-					twitter
-						.getUser(msg.data.userId)
+					let method;
+					let value;
+
+					if (undefined !== msg.data.id) {
+						method = twitter.getUserById;
+						value = msg.data.id;
+					} else {
+						method = twitter.getUserByScreenName;
+						value = msg.data.screenName;
+					}
+
+					method.call(twitter, value)
 						.then(function(user) {
 							sendResponse(user);
 						});

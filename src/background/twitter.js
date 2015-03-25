@@ -183,7 +183,41 @@ export default class Twitter {
 			});
 	}
 
-	getUser(userId) {
+	getUserByScreenName(screenName) {
+		var twitter = this;
+
+		return User
+			.getByScreenName(this.db, screenName)
+			.then(function(user) {
+				if (user
+					&& !user.isOutdated()
+				) {
+					return user;
+				}
+
+				if (!user) {
+					user = new User();
+				}
+
+				return twitter.api.getUserInfoByScreenName(screenName)
+					.then(twitter.updateUser.bind(twitter))
+					.catch(function(response) {
+						if (!(response instanceof Response)) {
+							throw response;
+						}
+
+						if (404 === response.status) {
+							return null;
+						}
+						// error codes @ https://dev.twitter.com/overview/api/response-codes
+						// if (403 === response.status) {
+							// .code == 63 -> user has beed suspended
+						// }
+					});
+			});
+	}
+
+	getUserById(userId) {
 		var twitter = this;
 
 		return User
@@ -199,7 +233,7 @@ export default class Twitter {
 					user = new User();
 				}
 
-				return twitter.api.getUserInfo(userId)
+				return twitter.api.getUserInfoById(userId)
 					.then(twitter.updateUser.bind(twitter))
 					.catch(function(response) {
 						if (!(response instanceof Response)) {

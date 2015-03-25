@@ -72,6 +72,24 @@ export default class DB {
 			});
 	}
 
+	getByIndex(collectionName, indexName, value) {
+		return this.getObjectStore(collectionName, MODE_READ_ONLY)
+			.then(function(store) {
+				return new Promise(function(resolve, reject) {
+					const idx = store.index(indexName);
+					const request = idx.get(value);
+
+					request.onerror = function(event) {
+						reject(event);
+					};
+
+					request.onsuccess = function(event) {
+						resolve(request.result);
+					};
+				});
+			});
+	}
+
 	getById(collectionName, id) {
 		return this.getObjectStore(collectionName, MODE_READ_ONLY)
 			.then(function(store) {
