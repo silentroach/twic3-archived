@@ -3,6 +3,7 @@
 	"node": true,
 	"laxbreak": true,
 	"sub": true,
+	"-W100": true,
 	"globals": {
 		"chrome": true
 	}
