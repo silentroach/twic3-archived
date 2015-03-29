@@ -1,18 +1,23 @@
-import ModelJSON from '../../modelJSON';
-import Parser from '../../parser';
-
-const parser = new Parser({
-	'url': Parser.TYPE_STRING,
-	'expanded_url': [Parser.TYPE_STRING, 'expanded'],
-	'display_url': [Parser.TYPE_STRING, 'display']
-});
-
-export default class Url extends ModelJSON {
-	static getCollectionName() {
-		return 'urls';
+function processText(text, urlEntities) {
+	if (!Array.isArray(urlEntities)) {
+		return text;
 	}
 
-	static getParser() {
-		return parser;
-	}
+	urlEntities.forEach(entity => {
+		const element = document.createElement('a');
+		element.href = entity.url;
+		element.innerHTML = entity.display_url;
+		element.title = entity.expanded_url;
+		element.target = '_blank';
+
+		const html = element.outerHTML;
+
+		text = text.replace(entity.url, html);
+	});
+
+	return text;
 }
+
+export default {
+	processText: processText
+};

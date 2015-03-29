@@ -1,7 +1,7 @@
 const RULES_FIELD = Symbol('parser');
 const GLOBAL_FIELD = Symbol('global');
 
-function processRecord(fieldName, data, rules) {
+function processRecord(fieldName, data, rules, object) {
 	var result = { };
 	var type;
 	var name;
@@ -49,7 +49,7 @@ function processRecord(fieldName, data, rules) {
 	}
 
 	if (callback && undefined !== data) {
-		result = callback(data);
+		result = callback(data, object);
 	} else {
 		result[name] = data;
 	}
@@ -74,7 +74,7 @@ export default class Parser {
 		}
 
 		function processData(key, data, rules) {
-			let parsedResults = processRecord(key, data, rules);
+			let parsedResults = processRecord(key, data, rules, object);
 
 			if (undefined === parsedResults || null === parsedResults) {
 				return;

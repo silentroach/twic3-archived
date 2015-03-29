@@ -1,6 +1,8 @@
 import ModelJSON from '../modelJSON';
 import Parser from '../parser';
 
+import urlEntityHelper from './entities/url';
+
 const COORDS_REGEXP = /-?[\d.]+/g;
 
 const parser = new Parser({
@@ -49,29 +51,16 @@ const parser = new Parser({
 	'verified': [Parser.TYPE_BOOLEAN, 'isVerified'],
 	'geo_enabled': [Parser.TYPE_BOOLEAN, 'isGeoEnabled'],
 	'followers_count': [Parser.TYPE_INT, 'followersCount'],
-	'friends_count': [Parser.TYPE_INT, 'friendsCount']
-}, function(userJSON) {
-	let data = { };
+	'friends_count': [Parser.TYPE_INT, 'friendsCount'],
+	'url': [Parser.TYPE_STRING, (url, userJSON) => {
+		if (userJSON.entities && userJSON.entities.url) {
+			url = urlEntityHelper.processText(url, userJSON.entities.url.urls);
+		}
 
-	if (userJSON.url
-		&& userJSON.entities
-		&& userJSON.entities.url
-		&& Array.isArray(userJSON.entities.url.urls)
-		&& userJSON.entities.url.urls[0]
-		&& userJSON.url === userJSON.entities.url.urls[0].url
-	) {
-		let urlData = userJSON.entities.url.urls[0];
-
-		let element = document.createElement('a');
-		element.href = urlData.url;
-		element.innerText = urlData.display_url;
-		element.title = urlData.expanded_url;
-		element.target = '_blank';
-
-		data.url = element.outerHTML;
-	}
-
-	return data;
+		return {
+			url: url
+		};
+	}]
 });
 
 export default class User extends ModelJSON {
