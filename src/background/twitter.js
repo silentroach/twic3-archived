@@ -183,11 +183,10 @@ export default class Twitter {
 			});
 	}
 
-	getUserByScreenName(screenName) {
+	/* private */ getUser(modelMethod, apiMethod, value) {
 		var twitter = this;
 
-		return User
-			.getByScreenName(this.db, screenName)
+		return modelMethod.call(User, this.db, value)
 			.then(function(user) {
 				if (user
 					&& !user.isOutdated()
@@ -199,7 +198,7 @@ export default class Twitter {
 					user = new User();
 				}
 
-				return twitter.api.getUserInfoByScreenName(screenName)
+				return apiMethod(value)
 					.then(twitter.updateUser.bind(twitter))
 					.catch(function(response) {
 						if (!(response instanceof Response)) {
@@ -217,38 +216,12 @@ export default class Twitter {
 			});
 	}
 
+	getUserByScreenName(screenName) {
+		return this.getUser(User.getByScreenName, this.api.getUserByScreenName, screenName);
+	}
+
 	getUserById(userId) {
-		var twitter = this;
-
-		return User
-			.getById(this.db, userId)
-			.then(function(user) {
-				if (user
-					&& !user.isOutdated()
-				) {
-					return user;
-				}
-
-				if (!user) {
-					user = new User();
-				}
-
-				return twitter.api.getUserInfoById(userId)
-					.then(twitter.updateUser.bind(twitter))
-					.catch(function(response) {
-						if (!(response instanceof Response)) {
-							throw response;
-						}
-
-						if (404 === response.status) {
-							return null;
-						}
-						// error codes @ https://dev.twitter.com/overview/api/response-codes
-						// if (403 === response.status) {
-							// .code == 63 -> user has beed suspended
-						// }
-					});
-			});
+		return this.getUser(User.getById, this.api.getUserInfoById, userId);
 	}
 
 	getHomeTimeline(token, sinceId) {
