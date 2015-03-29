@@ -1,10 +1,21 @@
 import chai from 'chai';
 const assert = chai.assert;
 
+import jsdom from 'jsdom';
+
 import User from '../../src/background/model/user';
 
 describe('Model.User', function() {
 	let user;
+
+	before(function() {
+		const jsdomDocument = jsdom.jsdom('<body />');
+		global.document = jsdomDocument.defaultView.document;
+	});
+
+	after(function() {
+		delete global.document;
+	});
 
 	beforeEach(function() {
 		user = new User();
@@ -68,6 +79,30 @@ describe('Model.User', function() {
 		assert.equal(user.avatar.indexOf('{size}') >= 0, true);
 	});
 
-	it('should replace url with <a> element');
+	it('should replace url with <a> element', function() {
+		const displayUrl = 'dev.twitter.com';
+		const expandedUrl = 'https://dev.twitter.com/';
+		const url = 'https://t.co/66w26cd6ZO';
+
+		user.parse({
+			entities: {
+				url: {
+					urls: [
+						{
+							'display_url': displayUrl,
+							'expanded_url': expandedUrl,
+							url: url
+						}
+					]
+				}
+			},
+			url: url
+		});
+
+		assert.equal(
+			user.url,
+			`<a href="${url}" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
+		);
+	});
 
 });

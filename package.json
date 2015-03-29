@@ -44,6 +44,7 @@
     "image-webpack-loader": "1.2.0",
     "imagemin": "3.1.0",
     "js-string-escape": "1.0.0",
+    "jsdom": "4.1.0",
     "jsx-loader": "0.12.2",
     "lodash": "3.6.0",
     "mocha": "2.2.1",
