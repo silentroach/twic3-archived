@@ -3,4 +3,4 @@ language: node_js
 node_js:
   - "iojs"
 
-before_script: node_modules/.bin/gulp vendor
+before_script: node_modules/.bin/gulp vendor:twitter-text
