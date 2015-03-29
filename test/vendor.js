@@ -11,7 +11,7 @@ describe('Vendor modules', function() {
 			});
 		});
 
-		it('should generate correct regexps', function() {
+		it('should extract correct regexps', function() {
 			const tt = require('twitter-text');
 			const generated = require('../src/vendor/twitter-text');
 
