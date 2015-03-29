@@ -3,6 +3,7 @@ var fs = require('fs');
 var childProcess = require('child_process');
 
 var _ = require('lodash');
+var jsStringEscape = require('js-string-escape');
 var gulp = require('gulp');
 var gulpSVG = require('gulp-svg-sprite');
 
@@ -24,14 +25,17 @@ gulp.task('vendor:twitter-text', function(callback) {
 		hash: 'validHashtag',
 		mention: 'validMentionOrList'
 	}, function(twitterTextRegexpName, regexpName) {
-		var regexp = twitterText.regexen[twitterTextRegexpName];
+		const regexp = twitterText.regexen[twitterTextRegexpName];
 
 		if (undefined === regexp) {
 			throw new Error('Failed to find regexp ' + twitterTextRegexpName);
 		}
 
+		const escaped = jsStringEscape(regexp);
+		const parts = escaped.match(/\/(.*)\/([^\/]*)/);
+
 		content.push(
-			'regexps.' + regexpName + ' = ' + regexp + ';'
+			'regexps.' + regexpName + ' = new RegExp("' + parts[1] + '", "' + parts[2] + '");'
 		);
 	} );
 
