@@ -117,7 +117,7 @@ AccountList
 
 				case Message.TYPE_AUTH:
 					twitter
-						.authorize(sendResponse, msg.data.screenName)
+						.authorize(sendResponse, msg.data ? msg.data.screenName : null)
 						.then(function([token, user]) {
 							var account;
 
