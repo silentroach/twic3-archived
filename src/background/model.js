@@ -73,14 +73,14 @@ export default class Model {
 	}
 
 	static getByIndex(db, index, value) {
-		var obj = new this();
+		var obj = new this(); // @todo this, wtf?!
 
 		return db.getByIndex(obj.constructor.getCollectionName(), index, value)
 			.then(fillData.bind(obj));
 	}
 
 	static getById(db, id) {
-		var obj = new this();
+		var obj = new this(); // @todo this, wtf?!
 
 		return db.getById(obj.constructor.getCollectionName(), id)
 			.then(fillData.bind(obj));
