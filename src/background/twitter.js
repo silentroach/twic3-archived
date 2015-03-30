@@ -140,7 +140,7 @@ export default class Twitter {
 					user = new User();
 				}
 
-				return apiMethod(value)
+				return apiMethod.call(twitter.api, value)
 					.then(twitter.updateUser.bind(twitter))
 					.catch(function(response) {
 						if (!(response instanceof Response)) {

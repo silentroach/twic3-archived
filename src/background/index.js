@@ -102,7 +102,7 @@ AccountList
 					Promise.all(
 						accountList.map(account => {
 							return twitter
-								.getUser(account.userId)
+								.getUserById(account.userId)
 								.then(function(user) {
 									user.isAuthorized = account.isAuthorized();
 
