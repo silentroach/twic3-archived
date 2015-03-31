@@ -14,6 +14,8 @@ It uses client-server architecture with Chrome messaging system to communicate. 
 
 ## Contribute
 
+Please respect the [EditorConfig](http://editorconfig.org/) project settings.
+
 It is sad, but full project build is currently broken, but you can do it with these commands:
 
 	$ gulp vendor
