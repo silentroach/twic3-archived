@@ -1,49 +1,26 @@
 import 'babel/external-helpers';
 
-import AccountList from './accountList';
-import Account from './account';
 import AccountWatcher from './accountWatcher';
 import DB from './db';
 import Twitter from './twitter';
-import Message from '../message';
 import Config from '../config';
 import ConfigWatcher from './twitter/configWatcher';
 
-import connection from '../connection';
-import i18n from '../i18n';
+import App from './app';
 
-var config = new Config(chrome.storage);
-
-var twitter = new Twitter(
+const twitter = new Twitter(
 	new DB()
 );
+
+const config = new Config(chrome.storage);
+
+const app = new App(config, twitter);
+
+/* ---- new
 
 var twitterConfigWatcher = new ConfigWatcher(config, twitter);
 
 var watchers = [];
-
-function updateToolbar() {
-	var imagePrefix = 'images/toolbar' + (connection.connected ? '' : '.disconnected');
-	var nameParts = [chrome.runtime.getManifest().name];
-
-	if (!connection.connected) {
-		nameParts.push(i18n.translate('toolbar.disconnected'));
-	}
-
-	chrome.browserAction.setIcon({
-		path: {
-			19: [imagePrefix, '.png'].join(''),
-			38: [imagePrefix, '@2x', '.png'].join('')
-		}
-	});
-
-	chrome.browserAction.setTitle({
-		title: nameParts.join(' - ')
-	});
-}
-
-updateToolbar();
-connection.on('change', updateToolbar);
 
 twitterConfigWatcher.start();
 
@@ -52,19 +29,6 @@ AccountList
 	.then(function(accountList) {
 		console.log('account list loaded', accountList);
 
-		accountList.on('change', function() {
-			accountList.save(config);
-		});
-
-		// ---
-		if (accountList.length) {
-			console.log('twitter/api/token exported for debug');
-			window.token = accountList.accounts[0].token;
-			window.twitter = twitter;
-			window.api = twitter.api;
-		}
-		// ---
-
 		accountList.map(account => {
 			const watcher = new AccountWatcher(twitter, account);
 			if (account.isAuthorized()) {
@@ -72,83 +36,5 @@ AccountList
 			}
 			watchers.push(watcher);
 		});
-
-		chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-			var msg = new Message(message.type, message.data);
-
-			console.log('message received', msg);
-
-			switch (msg.type) {
-				case Message.TYPE_USER:
-					let method;
-					let value;
-
-					if (undefined !== msg.data.id) {
-						method = twitter.getUserById;
-						value = msg.data.id;
-					} else {
-						method = twitter.getUserByScreenName;
-						value = msg.data.screenName;
-					}
-
-					method.call(twitter, value)
-						.then(function(user) {
-							sendResponse(user);
-						});
-
-					return true;
-
-				case Message.TYPE_ACCOUNT_USERS:
-					Promise.all(
-						accountList.map(account => {
-							return twitter
-								.getUserById(account.userId)
-								.then(function(user) {
-									user.isAuthorized = account.isAuthorized();
-
-									return user;
-								});
-						})
-					).then(function(list) {
-						sendResponse(list);
-					});
-
-					return true;
-
-				case Message.TYPE_AUTH:
-					twitter
-						.authorize(sendResponse, msg.data ? msg.data.screenName : null)
-						.then(function([token, user]) {
-							var account;
-
-							console.info('user authenticated', token, user);
-
-							// fetching timeline in a background
-							twitter.getHomeTimeline(token);
-
-							account = accountList.getByUserId(user.id);
-							if (!account) {
-								account = new Account();
-								account.userId = user.id;
-								account.token = token;
-
-								accountList.add(account);
-							} else {
-								account.token = token;
-							}
-
-							accountList.save(config);
-						})
-						.catch(function(e) {
-							console.error('authentication failed', e);
-							sendResponse(false);
-						});
-
-					return true;
-
-				default:
-					console.error('unknown message type', msg.type);
-					break;
-			}
-		});
 	} );
+*/

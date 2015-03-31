@@ -16,15 +16,11 @@ export default class Twitter {
 	}
 
 	// @todo move to twitter.auth module
-	authorize(flowStartCallback = null, screenName = null) {
+	authorize(screenName = null) {
 		var twitter = this;
 
 		return getTwitterAuthorizer(screenName)
 			.then(function(auth) {
-				if (flowStartCallback) {
-					flowStartCallback();
-				}
-
 				return new Promise(function(resolve) {
 					chrome.identity.launchWebAuthFlow({
 						url: auth.getAuthenticateUrl(),

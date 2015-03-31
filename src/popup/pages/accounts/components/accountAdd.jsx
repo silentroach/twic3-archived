@@ -21,13 +21,12 @@ export default class AccountAdd extends React.Component {
 			loading: true
 		});
 
-		var msg = new Message(Message.TYPE_AUTH);
+		(new Message(Message.TYPE_AUTH)).send();
 
-		msg
-			.send()
-			.then(function() {
-				window.close();
-			});
+		// @todo loader
+		setTimeout(function() {
+			window.close();
+		}, 1000);
 	}
 
 	handleConnectionChange() {
