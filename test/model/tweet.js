@@ -35,6 +35,7 @@ describe('Model.Tweet', function() {
 		const displayUrl = 'youtu.be/SsYY77hxXUE';
 		const expandedUrl = 'http://youtu.be/SsYY77hxXUE';
 		const url = 'http://t.co/tKQrdjr6ag';
+		const originalText = `Visualization of live Twitter updates ${url}`;
 
 		tweet.parse({
 			entities: {
@@ -46,12 +47,25 @@ describe('Model.Tweet', function() {
 					}
 				]
 			},
-			text: `Visualization of live Twitter updates ${url}`
+			text: originalText
 		});
 
 		assert.equal(
 			tweet.text,
 			`Visualization of live Twitter updates <a href="${url}" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
 		);
+
+		assert.equal(tweet.originalText, originalText);
+	});
+
+	it('should not create originalText property if it is not needed', function() {
+		const tweetText = 'test';
+
+		tweet.parse({
+			text: tweetText
+		});
+
+		assert.equal(tweet.text, tweetText);
+		assert.notProperty(tweet, 'originalText');
 	});
 });
