@@ -4,3 +4,7 @@ node_js:
   - "iojs"
 
 before_script: node_modules/.bin/gulp vendor:twitter-text
+
+cache:
+  directories:
+    - node_modules
