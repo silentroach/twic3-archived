@@ -142,3 +142,4 @@ require('./gulp/i18n');
 require('./gulp/lint');
 require('./gulp/vendor');
 require('./gulp/manifest');
+require('./gulp/dev');
