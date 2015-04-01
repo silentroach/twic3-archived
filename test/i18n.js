@@ -4,7 +4,7 @@ const assert = chai.assert;
 import i18n from '../src/i18n';
 
 describe('i18n', function() {
-	var keys = [];
+	let keys = [];
 
 	before(function() {
 		global.chrome = {

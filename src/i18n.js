@@ -1,8 +1,9 @@
 var i18n = { };
 
-i18n.translate = function() {
-	arguments[0] = arguments[0].replace(/\./g, '_');
-	return chrome.i18n.getMessage.apply(chrome, arguments);
+i18n.translate = function(key) {
+	const args = Array.apply(null, arguments);
+	args[0] = key.replace(/\./g, '_');
+	return chrome.i18n.getMessage.apply(chrome, args);
 };
 
 i18n.plural = function(number, endings) {
