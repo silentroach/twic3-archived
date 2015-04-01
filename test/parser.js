@@ -4,25 +4,51 @@ const assert = chai.assert;
 import Parser from '../src/background/parser';
 
 describe('Parser', function() {
-	it('should pass the entire object if global key specified', function() {
-		var obj = {
-			'test': 5,
-			'test2': 10
+	it('should not return empty values', function() {
+		const obj = {
+			'undef': undefined,
+			'null': null,
+			'val': '5'
 		};
-		var parser = new Parser({ }, function(object) {
-			assert.deepEqual(object, obj);
 
-			return {
-				'test': object.test * 2
-			};
+		const parser = new Parser({
+			'undef': Parser.TYPE_INT,
+			'null': [Parser.TYPE_INT, (originalValue) => {
+				assert.fail('called', 'not called');
+			}],
+			'val': Parser.TYPE_INT
+		});
+
+		const result = parser.process(obj);
+
+		assert.equal(typeof result, 'object');
+		assert.notProperty(result, 'undef');
+		assert.notProperty(result, 'null');
+		assert.property(result, 'val');
+		assert.equal(result.val, 5);
+	});
+
+	it('should pass the entire original object for callbacks', function() {
+		const testval = 5;
+		const obj = {
+			'test': testval
+		};
+
+		const parser = new Parser({
+			test: [Parser.TYPE_INT, (originalValue, originalJSON) => {
+				assert.deepEqual(originalJSON, obj);
+				assert.equal(originalValue, testval);
+
+				return {
+					test: originalValue
+				};
+			}]
 		});
 
 		var result = parser.process(obj);
 
 		assert.equal(typeof result, 'object');
 		assert.property(result, 'test');
-		assert.notProperty(result, 'test2');
-		assert.strictEqual(result.test, 10);
 	});
 
 	it('should return empty object if source is not an object', function() {
