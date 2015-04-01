@@ -20,6 +20,17 @@ export default class ModelJSON extends Model {
 	parse(json) {
 		var data = this.constructor.getParser().process(json);
 
+		for (let field of Object.keys(this)) {
+			console.log(field);
+
+			if (null === data[field]
+				|| undefined === data[field]
+			) {
+				delete this[field];
+				this.markAsChanged();
+			}
+		}
+
 		for (let field of Object.keys(data)) {
 			let value = data[field];
 
