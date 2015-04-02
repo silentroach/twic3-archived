@@ -3,7 +3,7 @@ import MessageHandler from '../messageHandler';
 
 export default class UserInfoHandler extends MessageHandler {
 	getMessageType() {
-		return Message.TYPE_ACCOUNT_USERS;
+		return Message.TYPE_USER;
 	}
 
 	handle(messageData) {
