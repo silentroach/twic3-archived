@@ -13,5 +13,4 @@ class Options extends React.Component {
 	}
 }
 
-/*eslint-disable*/ /* @todo until react clases support */
 React.render(<Options />, document.body);
