@@ -34,10 +34,13 @@ class App extends React.Component {
 		);
 	}
 
-	handleHashChange() {
-		var hashParts = window.location.hash.split('/');
-		var pageName = (hashParts.shift() || '').substring(1);
-		var page;
+	handleHashChange(event) {
+		const url = event ? event.newURL : window.location.href;
+		const hashPos = url.indexOf('#');
+		const hash = hashPos ? url.substr(hashPos) : '';
+		const hashParts = hash.split('/');
+		const pageName = (hashParts.shift() || '').substr(1);
+		let page;
 
 		console.info('Handling page change to', pageName || 'default', hashParts);
 
