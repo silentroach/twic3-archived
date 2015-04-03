@@ -9,11 +9,11 @@ import './index.styl';
 
 export default class UserPage extends React.Component {
 	render() {
-		if (!this.state || !this.state.user) {
+		if (!this.state || !this.state.data) {
 			return <div />;
 		}
 
-		var user = this.state.user;
+		var user = this.state.data;
 
 		if (!user) {
 			return (
@@ -36,24 +36,32 @@ export default class UserPage extends React.Component {
 		);
 	}
 
-	componentWillMount() {
-		var page = this;
-		var msgParams = { };
+	fetchUserInfo(user) {
+		const page = this;
+		const msgParams = { };
 
-		if ('@' === this.props.params[0][0]) {
-			msgParams.screenName = this.props.params[0].substr(1);
+		if ('@' === user[0]) {
+			msgParams.screenName = user.substr(1);
 		} else {
-			msgParams.id = this.props.params[0];
+			msgParams.id = user;
 		}
 
-		var msg = new Message(Message.TYPE_USER, msgParams);
+		const msg = new Message(Message.TYPE_USER, msgParams);
 
 		msg
 			.send()
 			.then(function(reply) {
 				page.setState({
-					user: reply
+					data: reply
 				});
 			});
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.fetchUserInfo(nextProps.params[0]);
+	}
+
+	componentWillMount() {
+		this.fetchUserInfo(this.props.params[0]);
 	}
 }

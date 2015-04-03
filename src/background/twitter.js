@@ -155,7 +155,7 @@ export default class Twitter {
 	}
 
 	getUserByScreenName(screenName) {
-		return this.getUser(User.getByScreenName, this.api.getUserByScreenName, screenName);
+		return this.getUser(User.getByScreenName, this.api.getUserInfoByScreenName, screenName);
 	}
 
 	getUserById(userId) {
