@@ -75,7 +75,7 @@ gulp.task('options:templates', function() {
 		.pipe(gulp.dest('build/options'));
 });
 
-gulp.task('options', ['options:templates', 'options:modules']);
+gulp.task('options', gulp.series('options:templates', 'options:modules'));
 
 // popup
 
@@ -118,7 +118,24 @@ gulp.task('popup:templates', function() {
 		.pipe(gulp.dest('build/popup'));
 });
 
-gulp.task('popup', ['popup:templates', 'popup:modules']);
+gulp.task('popup', gulp.series('popup:templates', 'popup:modules'));
+
+// --- includes
+
+require('./gulp/i18n');
+require('./gulp/lint');
+require('./gulp/vendor');
+require('./gulp/manifest');
+require('./gulp/dev');
+
+// --- dev
+
+gulp.task(
+	'watch',
+	gulp.parallel('background:watch', 'options:modules:watch'/*, 'popup:modules:watch'*/)
+);
+
+// --- build
 
 gulp.task('build:cleanup', function(callback) {
 	rimraf('build', callback);
@@ -134,12 +151,12 @@ gulp.task('build:mkdir', function(callback) {
 	});
 });
 
-gulp.task('build', [/*'cleanup', */'vendor', 'i18n', 'contributors', 'manifest', 'popup', 'options', 'background']);
+gulp.task(
+	'build',
+	gulp.series(
+		'build:cleanup', 'build:mkdir',
+		gulp.parallel('vendor', 'i18n', 'manifest', 'popup', 'options', 'background')
+	)
+);
 
-gulp.task('watch', ['background:watch', 'options:modules:watch', 'popup:modules:watch']);
-
-require('./gulp/i18n');
-require('./gulp/lint');
-require('./gulp/vendor');
-require('./gulp/manifest');
-require('./gulp/dev');
+gulp.task('production', gulp.series('build'));
