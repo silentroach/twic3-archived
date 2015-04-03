@@ -52,3 +52,7 @@ gulp.task('manifest', function(callback) {
 
 	fs.writeFile(targetPath, JSON.stringify(manifest, null, '  '), {}, callback);
 });
+
+gulp.task('manifest:watch', function() {
+	gulp.watch(__filename, gulp.series('manifest'));
+});

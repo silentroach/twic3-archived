@@ -69,3 +69,7 @@ gulp.task('i18n', function(callback) {
 		}))
 		.pipe(gulp.dest('build/_locales'));
 });
+
+gulp.task('i18n:watch', function() {
+	gulp.watch('src/i18n/**/*.js', gulp.series('i18n'));
+});

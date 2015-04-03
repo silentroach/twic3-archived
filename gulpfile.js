@@ -133,7 +133,14 @@ require('./gulp/phantom');
 
 gulp.task(
 	'watch',
-	gulp.parallel('background:watch', 'options:modules:watch'/*, 'popup:modules:watch'*/)
+	gulp.parallel(
+		'manifest:watch',
+		'phantom:watch',
+		'i18n:watch',
+		'background:watch',
+		'options:modules:watch'
+		/*, 'popup:modules:watch'*/
+	)
 );
 
 // --- build

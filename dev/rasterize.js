@@ -9,38 +9,38 @@ var trgPath = fs.absolute(phantom.libraryPath + '/../build/images');
 var settings = {
 	'toolbar@2x.png': {
 		size: { width: 38, height: 38 },
-		source: 'toolbar.svg'
+		source: 'toolbar/default.svg'
 	},
 	'toolbar.png': {
 		size: { width: 19, height: 19 },
 		zoom: 19 / 38,
-		source: 'toolbar.svg'
+		source: 'toolbar/default.svg'
 	},
 
 	'toolbar.disconnected@2x.png': {
 		size: { width: 38, height: 38 },
-		source: 'toolbar.disconnected.svg'
+		source: 'toolbar/disconnected.svg'
 	},
 	'toolbar.disconnected.png': {
 		size: { width: 19, height: 19 },
 		zoom: 19 / 38,
-		source: 'toolbar.disconnected.svg'
+		source: 'toolbar/disconnected.svg'
 	},
 
 	'app.16.png': {
 		size: { width: 16, height: 16 },
 		zoom: 16 / 38,
-		source: 'toolbar.svg'
+		source: 'toolbar/default.svg'
 	},
 	'app.48.png': {
 		size: { width: 48, height: 48 },
 		zoom: 48 / 38,
-		source: 'toolbar.svg'
+		source: 'toolbar/default.svg'
 	},
 	'app.128.png': {
 		size: { width: 128, height: 128 },
 		zoom: 128 / 38,
-		source: 'toolbar.svg'
+		source: 'toolbar/default.svg'
 	}
 };
 

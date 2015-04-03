@@ -21,6 +21,7 @@
     "lint": "gulp lint",
     "test": "npm run unit && npm run lint",
     "build": "gulp build",
+    "dev": "gulp build && gulp watch",
     "production": "NODE_ENV=production gulp production"
   },
   "devDependencies": {
