@@ -25,7 +25,7 @@
     "dev": "gulp build && gulp watch",
     "production": "NODE_ENV=production gulp production"
   },
-  "devDependencies": {
+  "dependencies": {
     "autoprefixer-loader": "1.2.0",
     "babel": "5.0.4",
     "babel-core": "5.0.4",
