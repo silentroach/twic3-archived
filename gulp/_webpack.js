@@ -18,9 +18,8 @@ var loaderBabelParams = [
 
 if (isProduction) {
 	loaderBabelParams.push(
-		'optional[]=minification.removeConsoleCalls',
-		'optional[]=minification.removeDebugger',
-		'optional[]=minification.renameLocalVariables'
+		'optional[]=utility.removeConsole',
+		'optional[]=utility.removeDebugger'
 	);
 }
 
