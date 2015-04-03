@@ -14,6 +14,14 @@ It uses client-server architecture with Chrome messaging system to communicate. 
 
 ## Contribute
 
+Feel free to help me build awesome Twitter client.
+
+### Localization 
+
+All translation files are in *src/i18n* folder in simple JSON format.
+
+### Develop
+
 All you need to start develop is to install io.js and run:
 
 	# npm install
@@ -21,4 +29,10 @@ All you need to start develop is to install io.js and run:
 
 It will install all dependencies, build development sources and start to watch changes. Then you can add generated *build* folder to your Chrome browser.
 
-Please respect the [EditorConfig](http://editorconfig.org/) project settings.
+Please respect the [EditorConfig](http://editorconfig.org/) project settings and eslint rules.
+
+### Test
+
+To check your contribution code you need just to run
+
+	# npm run test
