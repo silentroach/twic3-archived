@@ -14,14 +14,11 @@ It uses client-server architecture with Chrome messaging system to communicate. 
 
 ## Contribute
 
+All you need to start develop is to install io.js and run:
+
+	# npm install
+	# npm run dev
+
+It will install all dependencies, build development sources and start to watch changes. Then you can add generated *build* folder to your Chrome browser.
+
 Please respect the [EditorConfig](http://editorconfig.org/) project settings.
-
-It is sad, but full project build is currently broken, but you can do it with these commands:
-
-	$ gulp vendor
-	$ gulp i18n
-	$ gulp manifest
-	$ gulp popup
-	$ gulp options
-	$ gulp background
-	$ phantomjs dev/rasterize.js
