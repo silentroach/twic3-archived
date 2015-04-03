@@ -101,8 +101,7 @@ gulp.task('vendor:evil-icons', function() {
 		.pipe(gulp.dest('src/vendor/evil-icons'));
 });
 
-gulp.task('vendor', [
-	'vendor:twitter-text',
-	'vendor:evil-icons',
-	'vendor:contributors'
-]);
+gulp.task(
+	'vendor',
+	gulp.parallel('vendor:twitter-text', 'vendor:evil-icons', 'vendor:contributors')
+);

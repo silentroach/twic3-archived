@@ -19,7 +19,8 @@
   "scripts": {
     "unit": "mocha",
     "lint": "gulp lint",
-    "test": "npm run unit && npm run lint"
+    "test": "npm run unit && npm run lint",
+    "build": "gulp build"
   },
   "devDependencies": {
     "autoprefixer-loader": "1.2.0",
@@ -33,7 +34,7 @@
     "eslint": "0.18.0",
     "evil-icons": "1.7.2",
     "extract-text-webpack-plugin": "0.5.0",
-    "gulp": "3.8.11",
+    "gulp": "git://github.com/gulpjs/gulp#4.0",
     "gulp-eslint": "0.8.0",
     "gulp-jade": "1.0.0",
     "gulp-rename": "1.2.2",
