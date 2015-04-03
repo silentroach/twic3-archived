@@ -7,9 +7,9 @@ import EventEmitter from '../src/eventEmitter';
 // chrome.storage emulation
 class FakeStorage extends EventEmitter {
 	constructor() {
-		var storage = this;
-
 		super();
+
+		const storage = this;
 
 		this.changes = { };
 

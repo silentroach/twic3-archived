@@ -27,10 +27,10 @@
   },
   "devDependencies": {
     "autoprefixer-loader": "1.2.0",
-    "babel": "4.7.16",
-    "babel-core": "4.7.16",
+    "babel": "5.0.4",
+    "babel-core": "5.0.4",
     "babel-eslint": "2.0.2",
-    "babel-loader": "4.3.0",
+    "babel-loader": "5.0.0",
     "chai": "2.2.0",
     "chalk": "1.0.0",
     "css-loader": "0.9.1",

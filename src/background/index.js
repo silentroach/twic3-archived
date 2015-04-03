@@ -1,4 +1,4 @@
-import 'babel/external-helpers';
+import 'babel-core/external-helpers';
 
 import AccountWatcher from './accountWatcher';
 import DB from './db';

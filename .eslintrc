@@ -1,18 +1,6 @@
 {
-	"ecmaFeatures": {
-		"modules": true,
-		"classes": true,
-		"forOf": true,
-		"blockBindings": true,
-		"arrowFunctions": true,
-		"templateStrings": true,
-		"jsx": true,
-		"superInFunctions": true,
-		"destructing": true,
-		"defaultParams": true
-	},
 	"env": {
-		"browser": true
+		"es6": true
 	},
 	"rules": {
 		"quotes": [2, "single"],
