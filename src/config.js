@@ -7,10 +7,10 @@ var CHANGE_EVENT = 'change';
 
 export default class Config extends EventEmitter {
 	constructor(storage) {
-		var config = this;
-		var cache = this[CACHE_FIELD] = { };
-
 		super();
+
+		const config = this;
+		const cache = this[CACHE_FIELD] = { };
 
 		this[STORAGE_FIELD] = storage.sync;
 
