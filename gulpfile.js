@@ -127,6 +127,7 @@ require('./gulp/lint');
 require('./gulp/vendor');
 require('./gulp/manifest');
 require('./gulp/dev');
+require('./gulp/phantom');
 
 // --- dev
 
@@ -155,7 +156,7 @@ gulp.task(
 	'build',
 	gulp.series(
 		'build:cleanup', 'build:mkdir',
-		gulp.parallel('vendor', 'i18n', 'manifest', 'popup', 'options', 'background')
+		gulp.parallel('phantom', 'vendor', 'i18n', 'manifest', 'popup', 'options', 'background')
 	)
 );
 
