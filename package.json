@@ -20,7 +20,8 @@
     "unit": "mocha",
     "lint": "gulp lint",
     "test": "npm run unit && npm run lint",
-    "build": "gulp build"
+    "build": "gulp build",
+    "production": "NODE_ENV=production gulp production"
   },
   "devDependencies": {
     "autoprefixer-loader": "1.2.0",
