@@ -16,7 +16,7 @@ module.exports = {
 		},
 		osx: {
 			en: 'click on the account to select or ⌘ + click to remove',
-			ru: 'выберите учётную запись, либо удалите с зажатой ⌘'
+			ru: 'выберите учётную запись, либо удалите с зажатым ⌘'
 		}
 	},
 	remove_hint: {
