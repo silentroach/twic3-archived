@@ -9,7 +9,7 @@ var isProduction = 'production' === process.env.NODE_ENV;
 var loaderBabelParams = [
 	'blacklist[]=useStrict',
 	'blacklist[]=es6.constants',
-	'blacklist[]=react',
+	// 'blacklist[]=react', // @todo broken with current babel
 	'loose=all',
 	'externalHelpers=true',
 	'optional[]=validation.react',

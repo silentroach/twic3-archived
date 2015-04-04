@@ -67,11 +67,11 @@ class App extends React.Component {
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener('hashchange', this.handleHashChange.bind(this));
+		window.onhashchange = null;
 	}
 
 	componentWillMount() {
-		window.addEventListener('hashchange', this.handleHashChange.bind(this));
+		window.onhashchange = this.handleHashChange.bind(this);
 	}
 }
 

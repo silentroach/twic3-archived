@@ -69,16 +69,17 @@ export default class AccountsPage extends React.Component {
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('keydown', this.handleKeyDown.bind(this));
-		document.removeEventListener('keyup', this.handleKeyUp.bind(this));
+		document.onkeydown = null;
+		document.onkeyup = null;
 	}
 
 	componentWillMount() {
 		var accountPage = this;
 		var msg;
 
-		document.addEventListener('keydown', this.handleKeyDown.bind(this));
-		document.addEventListener('keyup', this.handleKeyUp.bind(this));
+		// @todo tried with {add,remove}EventListener, but it doesnt work :{
+		document.onkeydown = this.handleKeyDown.bind(this);
+		document.onkeyup = this.handleKeyUp.bind(this);
 
 		if (usersCache) {
 			return;
