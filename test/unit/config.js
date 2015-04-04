@@ -1,8 +1,8 @@
 import chai from 'chai';
 const assert = chai.assert;
 
-import Config from '../src/config';
-import EventEmitter from '../src/eventEmitter';
+import Config from '../../src/config';
+import EventEmitter from '../../src/eventEmitter';
 
 // chrome.storage emulation
 class FakeStorage extends EventEmitter {

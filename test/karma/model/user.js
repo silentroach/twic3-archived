@@ -1,21 +1,10 @@
 import chai from 'chai';
 const assert = chai.assert;
 
-import jsdom from 'jsdom';
-
-import User from '../../src/background/model/user';
+import User from '../../../src/background/model/user';
 
 describe('Model.User', function() {
 	let user;
-
-	before(function() {
-		const jsdomDocument = jsdom.jsdom('<body />');
-		global.document = jsdomDocument.defaultView.document;
-	});
-
-	after(function() {
-		delete global.document;
-	});
 
 	beforeEach(function() {
 		user = new User();

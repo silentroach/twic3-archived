@@ -1,7 +1,7 @@
 import chai from 'chai';
 const assert = chai.assert;
 
-import Model from '../src/background/model';
+import Model from '../../src/background/model';
 
 describe('Model', function() {
 	it('should be marked as changed after markAsChanged called', function() {

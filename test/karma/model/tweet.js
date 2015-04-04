@@ -1,21 +1,10 @@
 import chai from 'chai';
 const assert = chai.assert;
 
-import jsdom from 'jsdom';
-
-import Tweet from '../../src/background/model/tweet';
+import Tweet from '../../../src/background/model/tweet';
 
 describe('Model.Tweet', function() {
 	let tweet;
-
-	before(function() {
-		const jsdomDocument = jsdom.jsdom('<body />');
-		global.document = jsdomDocument.defaultView.document;
-	});
-
-	after(function() {
-		delete global.document;
-	});
 
 	beforeEach(function() {
 		tweet = new Tweet();
