@@ -3,7 +3,7 @@ import sinon from 'sinon';
 
 const assert = chai.assert;
 
-import EventEmitter from '../src/eventEmitter';
+import EventEmitter from '../../src/eventEmitter';
 
 describe('EventEmitter', function() {
 	var em;

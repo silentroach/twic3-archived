@@ -1,8 +1,8 @@
 import chai from 'chai';
 const assert = chai.assert;
 
-import Limits from '../../src/background/twitter/limits';
-import Response from '../../src/background/response';
+import Limits from '../../../src/background/twitter/limits';
+import Response from '../../../src/background/response';
 
 class FakeXHR {
 	constructor(headers) {

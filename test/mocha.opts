@@ -5,3 +5,4 @@
 --check-leaks
 --globals chrome
 -R spec
+test/unit
