@@ -11,7 +11,7 @@ export default {
 	singleRun: true,
 	files: [
 		'karma/**/*.js',
-		'karma/**/*.jsx',
+		'karma/**/*.jsx'
 	],
 	preprocessors: {
 		'karma/**/*.js': 'webpack',
