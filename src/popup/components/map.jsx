@@ -6,25 +6,29 @@ import device from '../device';
 
 export default class Map extends React.Component {
 	render() {
-		// @todo markers? https://developers.google.com/maps/documentation/staticmaps/?hl=ru
+		// @todo move locale to component property
 
-		let imageSource = 'https://maps.google.com/maps/api/staticmap?' + [
+		const coords = this.props.coords.join(',');
+		const imageSource = 'https://maps.google.com/maps/api/staticmap?' + [
 			'sensor=false',
 			'zoom=14',
 			'size=380x200',
 			'maptype=roadmap',
-			'center=' + encodeURIComponent(this.props.coords.join(',')),
+			'center=' + encodeURIComponent(coords),
 			'language=' + encodeURIComponent(chrome.app.getDetails().current_locale),
 			'scale=' + (device.isRetina ? 2 : 1)
 		].join('&');
 
-		let imageLink = 'https://www.google.com/maps/@' + [
+		const imageLink = 'https://www.google.com/maps/@' + [
 			this.props.coords.join(','),
 			'15z'
 		].join(',');
 
 		return (
 			<a className="map" href={imageLink} target="_blank">
+				<div className="marker">
+					<i className="ei-location ei-location-dims" />
+				</div>
 				<img src={imageSource} />
 			</a>
 		);
