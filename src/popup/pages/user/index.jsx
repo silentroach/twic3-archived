@@ -30,7 +30,7 @@ export default class UserPage extends React.Component {
 					{user.url ? <li dangerouslySetInnerHTML={{__html: user.url }} /> : ''}
 					{user.description ? <li id="info-description">{user.description}</li> : ''}
 					{user.location ? <li>{user.location}</li> : ''}
-					{user.coords ? <Map coords={user.coords} /> : ''}
+					{user.coords ? <Map coords={user.coords} locale={chrome.app.getDetails().current_locale} /> : ''}
 				</ul>
 			</div>
 		);

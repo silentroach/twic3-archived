@@ -7,7 +7,7 @@ import device from '../device';
 export default class Map extends React.Component {
 	render() {
 		// @todo move locale to component property
-
+		const locale = this.props.locale || 'en_US';
 		const coords = this.props.coords.join(',');
 		const imageSource = 'https://maps.google.com/maps/api/staticmap?' + [
 			'sensor=false',
@@ -15,7 +15,7 @@ export default class Map extends React.Component {
 			'size=380x200',
 			'maptype=roadmap',
 			'center=' + encodeURIComponent(coords),
-			'language=' + encodeURIComponent(chrome.app.getDetails().current_locale),
+			'language=' + encodeURIComponent(locale),
 			'scale=' + (device.isRetina ? 2 : 1)
 		].join('&');
 

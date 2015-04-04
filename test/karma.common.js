@@ -10,27 +10,33 @@ export default {
 	frameworks: ['mocha'],
 	singleRun: true,
 	files: [
-		'karma/**/*.js'
+		'karma/**/*.js',
+		'karma/**/*.jsx',
 	],
 	preprocessors: {
-		'karma/**/*.js': 'webpack'
+		'karma/**/*.js': 'webpack',
+		'karma/**/*.jsx': 'webpack'
 	},
 	webpack: {
 		cache: true,
 		resolve: {
-			extensions: ['', '.js']
+			extensions: ['', '.js', '.jsx', '.styl']
 		},
 		module: {
 			preLoaders: [
 				{
-					test: /\.js$/,
+					test: /\.(js|jsx)$/,
 					include: path.resolve('test/karma/'),
 					loader: 'babel?' + babelConfig
 				},
 				{
-					test: /\.js$/,
+					test: /\.(js|jsx)$/,
 					include: path.resolve('src/'),
 					loader: 'babel?' + babelConfig
+				},
+				{
+					test: /\.styl$/,
+					loader: 'css-loader!stylus'
 				}
 			]
 		}
