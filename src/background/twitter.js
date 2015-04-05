@@ -139,10 +139,6 @@ export default class Twitter {
 				return apiMethod.call(twitter.api, value)
 					.then(twitter.updateUser.bind(twitter))
 					.catch(function(response) {
-						if (!(response instanceof Response)) {
-							throw response;
-						}
-
 						if (404 === response.status) {
 							return null;
 						}

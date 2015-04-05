@@ -2,38 +2,26 @@ import React from 'react';
 
 import Message from '../../../message';
 
-import Avatar from '../../components/avatar';
-import Map from '../../components/map';
-
-import './index.styl';
+import UserNotFound from './components/userNotFound';
+import UserInfo from './components/userInfo';
 
 export default class UserPage extends React.Component {
-	render() {
-		if (!this.state || !this.state.data) {
-			return <div />;
-		}
+	constructor(props) {
+		super(props);
 
+		this.state = {
+			data: null
+		};
+	}
+
+	render() {
 		var user = this.state.data;
 
 		if (!user) {
-			return (
-				<div>Not found</div>
-			);
+			return <UserNotFound />;
+		} else {
+			return <UserInfo user={user} />;
 		}
-
-		return (
-			<div id="profile" className="page">
-				<Avatar template={user.avatar} type={Avatar.TYPE_BIG} />
-
-				<ul id="info">
-					<li>{user.name ? user.name : ''} [{user.screenName}]</li>
-					{user.url ? <li dangerouslySetInnerHTML={{__html: user.url }} /> : ''}
-					{user.description ? <li id="info-description">{user.description}</li> : ''}
-					{user.location ? <li>{user.location}</li> : ''}
-					{user.coords ? <Map coords={user.coords} locale={chrome.app.getDetails().current_locale} /> : ''}
-				</ul>
-			</div>
-		);
 	}
 
 	fetchUserInfo(user) {
