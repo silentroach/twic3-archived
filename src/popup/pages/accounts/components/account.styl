@@ -8,39 +8,54 @@
 	display inline-block
 	padding 1.5em 1.75em
 	cursor pointer
-	opacity .8
-	transition opacity 0.15s ease-in-out
 	border 1px solid transparent
 	border-radius .5em
 	will-change opacity
-
-	&:hover
-		opacity 1
-		text-decoration none
+	position relative
 
 	.nick
 		display block
 		color black
 		margin-top .5em
 
-	&.account-remove
+	.avatar
+		opacity .8
+		transition opacity 0.15s ease-in-out
+
+	&:hover
+		opacity 1
+		text-decoration none
+
+		.avatar
+			opacity 1
+
+	.account-remover
+		display none
+		background-color #2f2f2f
+		border 1px solid white
+		border-radius 12px
+		box-shadow 0 0 1px #333
+		color white
+		font-size 11px
+		position absolute
+		width 16px
+		height 16px
+		left 13px
+		top 10px
+		opacity .8
+		transform rotate(45deg)
+		transition all .5s ease-in-out
+
+		&:hover
+			opacity 1
+			background-color black
+			box-shadow 0 0 3px #333
+
+	&.account-remove-candidate
 		animation jiggle .2s infinite
 
-		&:before
-			background-color black
-			border 1px solid white
-			border-radius 12px
-			box-shadow 0 0 3px #333
-			content "x"
-			color white
-			display inline-block
-			font-size 11px
-			position absolute
-			text-align center
-			width 16px
-			height 16px
-			left 14px
-			top 12px
+		.account-remover
+			display block
 
 	&.account-removing
 		border-color red

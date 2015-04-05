@@ -13,7 +13,7 @@ export default class Account extends React.Component {
 		var classes = ['account'];
 
 		if (this.props.modifierPressed) {
-			classes.push('account-remove');
+			classes.push('account-remove-candidate');
 		}
 
 		if (!user.isAuthorized) {
@@ -24,12 +24,19 @@ export default class Account extends React.Component {
 			<li>
 				<a href={url} className={classes.join(' ')} onClick={this.clickHandler.bind(this)}>
 					<Avatar template={user.avatar} type={Avatar.TYPE_BIG} />
+					<span className="account-remover" onClick={this.removeClickHandler.bind(this)}>+</span>
 					<span className="nick">
 						{user.screenName ? user.screenName : user.name}
 					</span>
 				</a>
 			</li>
 		);
+	}
+
+	removeClickHandler(e) {
+		e.preventDefault();
+
+		console.log('remove');
 	}
 
 	clickHandler(e) {
@@ -45,11 +52,6 @@ export default class Account extends React.Component {
 				.then(function() {
 					window.close();
 				});
-		} else
-		if (this.props.modifierPressed) {
-			e.preventDefault();
-
-			console.log('remove');
 		}
 	}
 }
