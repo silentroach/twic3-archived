@@ -1,10 +1,10 @@
 const RULES_FIELD = Symbol('parser');
 
 function processRecord(fieldName, data, rules, object) {
-	var result = { };
-	var type;
-	var name;
-	var callback;
+	let result = { };
+	let type;
+	let name;
+	let callback;
 
 	// can by just a type or an array [type, callback] / [type, name]
 	if ('number' === typeof rules) {
@@ -16,6 +16,10 @@ function processRecord(fieldName, data, rules, object) {
 	if ('function' !== typeof callback) {
 		name = callback;
 		callback = null;
+	}
+
+	if (!name) {
+		name = fieldName;
 	}
 
 	if (null === data) {
@@ -41,17 +45,12 @@ function processRecord(fieldName, data, rules, object) {
 				data = new Date(data).getTime();
 				break;
 		}
-	}
 
-	if (!name) {
-		name = fieldName;
-	}
-
-	if (callback && undefined !== data) {
-		result = callback(data, object);
-	} else
-	if (undefined !== data) {
-		result[name] = data;
+		if (callback) {
+			result = callback(data, object);
+		} else {
+			result[name] = data;
+		}
 	}
 
 	return result;
