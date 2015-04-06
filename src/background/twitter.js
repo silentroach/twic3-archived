@@ -90,7 +90,7 @@ export default class Twitter {
 			});
 	}
 
-	updateTweet(tweetJSON) {
+	updateTweet(tweetJSON, skipUserUpdate = false) {
 		var twitter = this;
 
 		return Tweet
@@ -106,7 +106,9 @@ export default class Twitter {
 					.save(twitter.db)
 					.then(function() {
 						return Promise.all([
-							twitter.updateUser(tweetJSON['user']),
+							skipUserUpdate
+								? Promise.resolve()
+								: twitter.updateUser(tweetJSON['user']),
 							function() {
 								if (tweetJSON['retweeted_status']) {
 									return twitter.updateTweet(tweetJSON['retweeted_status']);
@@ -159,7 +161,8 @@ export default class Twitter {
 	}
 
 	getHomeTimeline(token, sinceId) {
-		var twitter = this;
+		const twitter = this;
+		const userIds = { };
 
 		return this.api.getHomeTimeline(token, sinceId)
 			.then(function(tweets) {
@@ -168,7 +171,14 @@ export default class Twitter {
 				}
 
 				return Promise.all(
-					tweets.map(tweetJSON => twitter.updateTweet(tweetJSON))
+					tweets.map(tweetJSON => {
+						const userId = tweetJSON.user.id;
+						const skipUserUpdate = undefined !== userIds[userId];
+
+						userIds[userId] = true;
+
+						twitter.updateTweet(tweetJSON, skipUserUpdate);
+					})
 				);
 			});
 	}
