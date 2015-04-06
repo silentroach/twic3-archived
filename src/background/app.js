@@ -1,4 +1,6 @@
 import AccountList from './accountList';
+import AccountWatcher from './accountWatcher';
+import ConfigWatcher from './twitter/configWatcher';
 import Message from '../message';
 
 import i18n from '../i18n';
@@ -16,12 +18,18 @@ export default class App {
 		this.config = config;
 		this.twitter = twitter;
 
-		this.updateToolbar();
-		connection.on('change', this.updateToolbar.bind(this));
-
 		this.accounts = null;
 
 		this.messageHandlers = { };
+	}
+
+	start() {
+		const app = this;
+		const twitterConfigWatcher = new ConfigWatcher(this.config, this.twitter);
+		twitterConfigWatcher.start();
+
+		this.updateToolbar();
+		connection.on('change', this.updateToolbar.bind(this));
 
 		[
 			UserInfoHandler,
@@ -37,19 +45,25 @@ export default class App {
 			.then(function(accountList) {
 				console.log('account list loaded', accountList);
 
+				accountList.map(account => {
+					const watcher = new AccountWatcher(app.twitter, account);
+					if (account.isAuthorized()) {
+						watcher.start();
+					}
+				});
+
 				app.accounts = accountList;
 
 				accountList.on('change', function() {
-					accountList.save(config);
+					accountList.save(app.config);
 				});
 
 				// ---
 				if (accountList.length) {
 					console.log('twitter/api/token exported for debug');
 					window.token = accountList.accounts[0].token;
-					window.twitter = twitter;
-					window.api = twitter.api;
-					window.accounts = app.accounts;
+					window.twitter = app.twitter;
+					window.api = app.twitter.api;
 				}
 				// ---
 
