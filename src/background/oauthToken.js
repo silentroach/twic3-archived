@@ -21,8 +21,8 @@ export default class OAuthToken {
 			secret: this.secret
 		};
 	}
-}
 
-OAuthToken.load = function(data) {
-	return new OAuthToken(data.token, data.secret);
-};
+	static load(data) {
+		return new OAuthToken(data.token, data.secret);
+	}
+}

@@ -197,6 +197,7 @@ export default class Twitter {
 			});
 	}
 
+	// @todo store it
 	getConfiguration() {
 		return this.api.getConfiguration();
 	}
