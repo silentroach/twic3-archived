@@ -173,15 +173,20 @@ export default class Twitter {
 			});
 	}
 
+	flushFriendShip(userId) {
+		return Friendship.flush(this.db, userId);
+	}
+
 	updateFriendShip(userId, targetUserId, isFollower) {
-		var twitter = this;
+		const twitter = this;
 
 		return Friendship
 			.getByUserIds(this.db, userId, targetUserId)
 			.then(function(friendship) {
 				if (!friendship) {
-					let friendship = new Friendship();
+					friendship = new Friendship();
 					friendship.ids = [userId, targetUserId].join('_');
+					friendship.userId = userId;
 					friendship.exists = true;
 					friendship.markAsChanged();
 					return friendship.save(twitter.db);

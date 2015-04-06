@@ -83,9 +83,15 @@ export default class AccountWatcher extends Watcher {
 	}
 
 	handleStreamFriendsList(idsList) {
-		idsList.forEach(id => {
-			this.twitter.updateFriendShip(this.account.userId, id, true);
-		});
+		const watcher = this;
+
+		this.twitter
+			.flushFriendShip(this.account.userId)
+			.then(function() {
+				idsList.forEach(id => {
+					watcher.twitter.updateFriendShip(watcher.account.userId, id, true);
+				});
+			});
 	}
 
 	handleTokenRevoke() {

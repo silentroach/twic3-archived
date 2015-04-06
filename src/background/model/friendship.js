@@ -21,4 +21,17 @@ export default class Friendship extends Model {
 				return friendship.exists;
 			});
 	}
+
+	static flush(db, userId) {
+		return db
+			.updateByCursor(
+				Friendship.getCollectionName(),
+				'userId',
+				IDBKeyRange.only(userId),
+				function(store, cursor) {
+					store.delete(cursor.primaryKey);
+					cursor.continue();
+				}
+			);
+	}
 }

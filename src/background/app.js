@@ -49,6 +49,7 @@ export default class App {
 					window.token = accountList.accounts[0].token;
 					window.twitter = twitter;
 					window.api = twitter.api;
+					window.accounts = app.accounts;
 				}
 				// ---
 

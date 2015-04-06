@@ -5,17 +5,21 @@ const MODE_READ_WRITE = 'readwrite';
 const MODE_READ_ONLY = 'readonly';
 
 function upgrade(event) {
-	var db = event.target.result;
-	var objectStore;
+	const db = event.target.result;
+	let objectStore;
 
 	if (event.oldVersion < 1) {
+		console.log('updating database to version 1');
+
 		objectStore = db.createObjectStore('users', { keyPath: 'id' });
 		objectStore.createIndex('screenName', 'screenNameNormalized', { unique: true });
 
 		db.createObjectStore('tweets', { keyPath: 'id' });
 		db.createObjectStore('timeline', { autoincrement: true });
 		db.createObjectStore('mentions', { autoincrement: true });
-		db.createObjectStore('friendship', { keyPath: 'ids' });
+
+		objectStore = db.createObjectStore('friendship', { keyPath: 'ids' });
+		objectStore.createIndex('userId', 'userId', { unique: false });
 	}
 }
 
@@ -66,6 +70,29 @@ export default class DB {
 
 					request.onsuccess = function(event) {
 						resolve();
+					};
+				});
+			});
+	}
+
+	// @todo rethink
+	updateByCursor(collectionName, indexName, range, callback) {
+		return this.getObjectStore(collectionName, MODE_READ_WRITE)
+			.then(function(store) {
+				return new Promise(function(resolve, reject) {
+					const idx = store.index(indexName);
+					const request = idx.openKeyCursor(range);
+
+					request.onerror = function(event) {
+						reject(event);
+					};
+
+					request.onsuccess = function(event) {
+						if (!request.result) {
+							resolve();
+						} else {
+							callback(store, request.result);
+						}
 					};
 				});
 			});
