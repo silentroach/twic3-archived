@@ -11,7 +11,7 @@ var twitterText = require('twitter-text');
 
 gulp.task('vendor:babel-helpers', function(callback) {
 	var targetPath = path.resolve(__dirname, '../src/vendor/babel-helpers.js');
-	var helpers = require("babel").buildExternalHelpers();
+	var helpers = require('babel').buildExternalHelpers();
 
 	fs.writeFile(targetPath, helpers, {}, callback);
 });
