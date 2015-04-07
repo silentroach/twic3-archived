@@ -90,7 +90,7 @@ describe('Model.User', function() {
 
 		assert.equal(
 			user.url,
-			`<a href="${url}" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
+			`<a href="${url}" class="tweet-url" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
 		);
 	});
 

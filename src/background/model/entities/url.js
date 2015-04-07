@@ -10,6 +10,7 @@ function processText(text, urlEntities) {
 	urlEntities.forEach(entity => {
 		const element = document.createElement('a');
 		element.href = entity.url;
+		element.className = 'tweet-url';
 		element.innerText = entity.display_url;
 		element.title = entity.expanded_url;
 		element.target = '_blank';
@@ -24,7 +25,7 @@ function processText(text, urlEntities) {
 				return all;
 			}
 
-			return before + entities[url];
+			return `${before}${entities[url]}`;
 		}
 	);
 

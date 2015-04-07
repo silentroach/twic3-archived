@@ -41,7 +41,7 @@ describe('Model.Tweet', function() {
 
 		assert.equal(
 			tweet.text,
-			`Visualization of live Twitter updates <a href="${url}" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
+			`Visualization of live Twitter updates <a href="${url}" class="tweet-url" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
 		);
 
 		assert.equal(tweet.originalText, originalText);
