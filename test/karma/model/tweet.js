@@ -20,7 +20,7 @@ describe('Model.Tweet', function() {
 		assert.strictEqual(tweet.id, id);
 	});
 
-	it('should prepare urls for display', function() {
+	it('should prepare url entities for display', function() {
 		const displayUrl = 'youtu.be/SsYY77hxXUE';
 		const expandedUrl = 'http://youtu.be/SsYY77hxXUE';
 		const url = 'http://t.co/tKQrdjr6ag';

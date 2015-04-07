@@ -68,7 +68,7 @@ describe('Model.User', function() {
 		assert.equal(user.avatar.indexOf('{size}') >= 0, true);
 	});
 
-	it('should replace url with <a> element', function() {
+	it('should replace url entity with <a> element', function() {
 		const displayUrl = 'dev.twitter.com';
 		const expandedUrl = 'https://dev.twitter.com/';
 		const url = 'https://t.co/66w26cd6ZO';
