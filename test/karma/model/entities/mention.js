@@ -24,7 +24,30 @@ describe('Model.Entities.Mention', function() {
 
 		assert.equal(
 			result,
-			`say hello to <a href="#user/${id}" class="tweet-mention" title="${name}">${screenName}</a>`
+			`say hello to <a href="#user/${id}" class="tweet-mention" title="${name}">@${screenName}</a>`
+		);
+	});
+
+	it('should transform double mentions', function() {
+		const id = '12345';
+		const name = 'Twitter minimalist client';
+		const screenName = 'twic';
+		const entities = [
+			{
+				'id_str': String(id),
+				name,
+				'screen_name': screenName
+			}
+		];
+
+		const result = MentionEntities.processText(
+			'@twic @twic',
+			entities
+		);
+
+		assert.equal(
+			result,
+			`<a href="#user/${id}" class="tweet-mention" title="${name}">@${screenName}</a> <a href="#user/${id}" class="tweet-mention" title="${name}">@${screenName}</a>`
 		);
 	});
 

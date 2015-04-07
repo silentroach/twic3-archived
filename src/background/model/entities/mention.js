@@ -11,7 +11,7 @@ function processText(text, mentionEntities) {
 		const element = document.createElement('a');
 		element.href = `#user/${entity.id_str}`;
 		element.className = 'tweet-mention';
-		element.innerText = entity.screen_name;
+		element.innerText = `@${entity.screen_name}`;
 		element.title = entity.name;
 
 		entities[entity.screen_name] = element.outerHTML;

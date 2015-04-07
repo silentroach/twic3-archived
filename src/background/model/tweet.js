@@ -2,6 +2,7 @@ import ModelJSON from '../modelJSON';
 import Parser from '../parser';
 
 import urlEntityHelper from './entities/url';
+import mentionEntityHelper from './entities/mention';
 
 const parser = new Parser({
 	'id_str': [Parser.TYPE_STRING, 'id'],
@@ -10,7 +11,9 @@ const parser = new Parser({
 		let text = original;
 
 		if (tweetJSON.entities) {
-			text = urlEntityHelper.processText(original, tweetJSON.entities.urls);
+			// @todo merge entity helpers
+			text = mentionEntityHelper.processText(original, tweetJSON.entities.user_mentions);
+			text = urlEntityHelper.processText(text, tweetJSON.entities.urls);
 
 			if (original !== text) {
 				data.originalText = original;
