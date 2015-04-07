@@ -42,7 +42,7 @@ function buildOptions(watch) {
 			webpackConfig({
 				entry: {
 					'index': 'options/index.jsx',
-					'vendor': ['babel-core/external-helpers', 'react', 'normalize.stylus/index.styl']
+					'vendor': ['./src/vendor/babel-helpers', 'react', 'normalize.stylus/index.styl']
 				},
 				watch: watch,
 				output: {
@@ -85,7 +85,7 @@ function buildPopup(watch) {
 			webpackConfig({
 				entry: {
 					'index': 'popup/index.jsx',
-					'vendor': ['babel-core/external-helpers', 'react', 'normalize.stylus/index.styl']
+					'vendor': ['./src/vendor/babel-helpers', 'react', 'normalize.stylus/index.styl']
 				},
 				watch: watch,
 				output: {
@@ -162,8 +162,8 @@ gulp.task('build:mkdir', function(callback) {
 gulp.task(
 	'build',
 	gulp.series(
-		'build:cleanup', 'build:mkdir',
-		gulp.parallel('phantom', 'vendor', 'i18n', 'manifest', 'popup', 'options', 'background')
+		'build:cleanup', 'build:mkdir', 'vendor',
+		gulp.parallel('phantom', 'i18n', 'manifest', 'popup', 'options', 'background')
 	)
 );
 

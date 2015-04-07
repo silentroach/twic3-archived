@@ -9,6 +9,13 @@ var gulpSVG = require('gulp-svg-sprite');
 
 var twitterText = require('twitter-text');
 
+gulp.task('vendor:babel-helpers', function(callback) {
+	var targetPath = path.resolve(__dirname, '../src/vendor/babel-helpers.js');
+	var helpers = require("babel").buildExternalHelpers();
+
+	fs.writeFile(targetPath, helpers, {}, callback);
+});
+
 gulp.task('vendor:twitter-text', function(callback) {
 	var targetPath = path.resolve(__dirname, '../src/vendor/twitter-text.js');
 
@@ -101,5 +108,10 @@ gulp.task('vendor:evil-icons', function() {
 
 gulp.task(
 	'vendor',
-	gulp.parallel('vendor:twitter-text', 'vendor:evil-icons', 'vendor:contributors')
+	gulp.parallel(
+		'vendor:babel-helpers',
+		'vendor:twitter-text',
+		'vendor:evil-icons',
+		'vendor:contributors'
+	)
 );
