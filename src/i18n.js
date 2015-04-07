@@ -1,4 +1,4 @@
-var i18n = { };
+const i18n = { };
 
 i18n.translate = function(key) {
 	const args = Array.apply(null, arguments);
@@ -7,9 +7,9 @@ i18n.translate = function(key) {
 };
 
 i18n.plural = function(number, endings) {
-	var mod10 = number % 10;
-	var mod100 = number % 100;
-	var res = '';
+	const mod10 = number % 10;
+	const mod100 = number % 100;
+	let res = '';
 
 	if (1 === mod10
 		&& 11 !== mod100

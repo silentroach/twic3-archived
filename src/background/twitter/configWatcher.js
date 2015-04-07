@@ -33,7 +33,7 @@ export default class TwitterConfigWatcher extends Watcher {
 	}
 
 	fetchNewConfigData() {
-		var watcher = this;
+		const watcher = this;
 
 		this.config
 			.get('short_url_limits')

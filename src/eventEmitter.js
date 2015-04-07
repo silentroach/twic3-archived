@@ -20,7 +20,7 @@ export default class EventEmitter {
 	}
 
 	once(type, listener) {
-		var emitter = this;
+		const emitter = this;
 
 		function callback() {
 			emitter.off(type, callback);

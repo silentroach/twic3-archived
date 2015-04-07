@@ -5,7 +5,7 @@ export default class Message {
 	}
 
 	send() {
-		var message = this;
+		const message = this;
 
 		return new Promise(function(resolve, reject) {
 			console.log('sending message', message);
