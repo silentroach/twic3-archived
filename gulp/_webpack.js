@@ -13,7 +13,8 @@ var loaderBabelParams = [
 	'loose=all',
 	'externalHelpers=true',
 	'optional[]=validation.react',
-	'optional[]=utility.inlineEnvironmentVariables'
+	'optional[]=utility.inlineEnvironmentVariables',
+	'cacheDirectory=true'
 ];
 
 if (isProduction) {
