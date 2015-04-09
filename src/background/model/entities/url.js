@@ -8,6 +8,7 @@ function processText(text, urlEntities) {
 	const entities = { };
 
 	urlEntities.forEach(entity => {
+		const url = entity.url.toLowerCase();
 		const element = document.createElement('a');
 		element.href = entity.url;
 		element.className = 'tweet-url';
@@ -15,17 +16,19 @@ function processText(text, urlEntities) {
 		element.title = entity.expanded_url;
 		element.target = '_blank';
 
-		entities[entity.url] = element.outerHTML;
+		entities[url] = element.outerHTML;
 	});
 
 	text = text.replace(
 		twitterText.url,
 		function(match, all, before, url, protocol, domain, path, query) {
-			if (undefined === entities[url]) {
+			const urlNormalized = url.toLowerCase();
+
+			if (undefined === entities[urlNormalized]) {
 				return all;
 			}
 
-			return `${before}${entities[url]}`;
+			return `${before}${entities[urlNormalized]}`;
 		}
 	);
 
