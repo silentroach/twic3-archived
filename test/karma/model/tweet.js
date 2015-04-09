@@ -20,11 +20,12 @@ describe('Model.Tweet', function() {
 		assert.strictEqual(tweet.id, id);
 	});
 
-	it('should prepare url entities for display', function() {
+	it('should prepare entities for display', function() {
 		const displayUrl = 'youtu.be/SsYY77hxXUE';
 		const expandedUrl = 'http://youtu.be/SsYY77hxXUE';
 		const url = 'http://t.co/tKQrdjr6ag';
-		const originalText = `Visualization of live Twitter updates ${url}`;
+		const originalText = `Visualization of #live Twitter updates ${url}`;
+		const hashtag = 'live';
 
 		tweet.parse({
 			entities: {
@@ -34,6 +35,11 @@ describe('Model.Tweet', function() {
 						'expanded_url': expandedUrl,
 						url: url
 					}
+				],
+				hashtags: [
+					{
+						text: hashtag
+					}
 				]
 			},
 			text: originalText
@@ -41,7 +47,7 @@ describe('Model.Tweet', function() {
 
 		assert.equal(
 			tweet.text,
-			`Visualization of live Twitter updates <a href="${url}" class="tweet-url" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
+			`Visualization of <span class="tweet-hashtag">#${hashtag}</span> Twitter updates <a href="${url}" class="tweet-url" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
 		);
 
 		assert.equal(tweet.originalText, originalText);
