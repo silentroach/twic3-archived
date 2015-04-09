@@ -1,11 +1,22 @@
 import twitterText from '../../../vendor/twitter-text';
 
-function processText(text, urlEntities) {
+function processText(text, urlEntities = []) {
 	if (!Array.isArray(urlEntities)) {
 		return text;
 	}
 
 	const entities = { };
+
+	function getLinkText(url, text, title) {
+		const element = document.createElement('a');
+		element.href = url;
+		element.className = 'tweet-url';
+		element.innerText = text;
+		element.title = title;
+		element.target = '_blank';
+
+		return element.outerHTML;
+	}
 
 	urlEntities.forEach(entity => {
 		const url = entity.url.toLowerCase();
@@ -16,19 +27,28 @@ function processText(text, urlEntities) {
 		element.title = entity.expanded_url;
 		element.target = '_blank';
 
-		entities[url] = element.outerHTML;
+		entities[url] = getLinkText(
+			entity.url,
+			entity.display_url,
+			entity.expanded_url
+		);
 	});
 
 	text = text.replace(
 		twitterText.url,
 		function(match, all, before, url, protocol, domain, path, query) {
 			const urlNormalized = url.toLowerCase();
+			let linkText;
 
-			if (undefined === entities[urlNormalized]) {
-				return all;
+			if (undefined !== entities[urlNormalized]) {
+				linkText = entities[urlNormalized];
+			} else {
+				linkText = getLinkText(
+					url, url, url
+				);
 			}
 
-			return `${before}${entities[urlNormalized]}`;
+			return `${before}${linkText}`;
 		}
 	);
 

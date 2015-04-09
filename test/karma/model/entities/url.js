@@ -108,5 +108,16 @@ describe('Model.Entities.Url', function() {
 		);
 	});
 
+	it('should process undescribed urls', function() {
+		const result = UrlEntities.processText(
+			'testing undescribed links http://twic.com'
+		);
+
+		assert.equal(
+			result,
+			'testing undescribed links <a href="http://twic.com" class="tweet-url" title="http://twic.com" target="_blank">http://twic.com</a>'
+		);
+	});
+
 });
 

@@ -1,6 +1,6 @@
 import twitterText from '../../../vendor/twitter-text';
 
-function processText(text, mentionEntities) {
+function processText(text, mentionEntities = []) {
 	if (!Array.isArray(mentionEntities)) {
 		return text;
 	}
