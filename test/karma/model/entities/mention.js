@@ -51,4 +51,27 @@ describe('Model.Entities.Mention', function() {
 		);
 	});
 
+	it('should work with case insensitive data', function() {
+		const id = '12345';
+		const name = 'Twitter minimalist client';
+		const screenName = 'twic';
+		const entities = [
+			{
+				'id_str': String(id),
+				name,
+				'screen_name': screenName
+			}
+		];
+
+		const result = MentionEntities.processText(
+			'@twic @Twic',
+			entities
+		);
+
+		assert.equal(
+			result,
+			`<a href="#user/${id}" class="tweet-mention" title="${name}">@twic</a> <a href="#user/${id}" class="tweet-mention" title="${name}">@Twic</a>`
+		);
+	});
+
 });

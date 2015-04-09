@@ -8,25 +8,30 @@ function processText(text, mentionEntities) {
 	const entities = { };
 
 	mentionEntities.forEach(entity => {
+		const screenName = entity.screen_name.toLowerCase();
 		const element = document.createElement('a');
 		element.href = `#user/${entity.id_str}`;
 		element.className = 'tweet-mention';
-		element.innerText = `@${entity.screen_name}`;
 		element.title = entity.name;
 
-		entities[entity.screen_name] = element.outerHTML;
+		// screen name must be case insensitive, so we just store the node
+		// and add name after while replacing
+		entities[screenName] = element;
 	});
-
-	console.dir(entities);
 
 	text = text.replace(
 		twitterText.mention,
 		function(match, before, sign, name) {
-			if (undefined === entities[name]) {
+			const screenName = name.toLowerCase();
+
+			if (undefined === entities[screenName]) {
 				return match;
 			}
 
-			return `${before}${entities[name]}`;
+			const node = entities[screenName].cloneNode();
+			node.innerText = `@${name}`;
+
+			return `${before}${node.outerHTML}`;
 		}
 	);
 
