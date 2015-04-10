@@ -33,7 +33,7 @@ export default class Model {
 	}
 
 	getData() {
-		var storeObject = { };
+		const storeObject = { };
 
 		for (let key of Object.keys(this)) {
 			storeObject[key] = this[key];
@@ -52,15 +52,12 @@ export default class Model {
 	}
 
 	save(db) {
-		var collectionName;
-		var storeObject;
+		const collectionName = this.constructor.getCollectionName();
+		const storeObject = this.getData();
 
 		if (!this.isChanged()) {
 			return Promise.resolve();
 		}
-
-		collectionName = this.constructor.getCollectionName();
-		storeObject = this.getData();
 
 		console.log('saving to', collectionName, storeObject);
 
@@ -73,14 +70,14 @@ export default class Model {
 	}
 
 	static getByIndex(db, index, value) {
-		var obj = new this(); // @todo this, wtf?!
+		const obj = new this(); // @todo this, wtf?!
 
 		return db.getByIndex(obj.constructor.getCollectionName(), index, value)
 			.then(fillData.bind(obj));
 	}
 
 	static getById(db, id) {
-		var obj = new this(); // @todo this, wtf?!
+		const obj = new this(); // @todo this, wtf?!
 
 		return db.getById(obj.constructor.getCollectionName(), id)
 			.then(fillData.bind(obj));

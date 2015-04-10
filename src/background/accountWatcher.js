@@ -17,7 +17,7 @@ export default class AccountWatcher extends Watcher {
 	}
 
 	start() {
-		var watcher = this;
+		const watcher = this;
 
 		if (!super.start()) {
 			return;
@@ -73,7 +73,7 @@ export default class AccountWatcher extends Watcher {
 	}
 
 	handleTweet(tweet) {
-		var watcher = this;
+		const watcher = this;
 
 		this.twitter
 			.updateTweet(tweet)

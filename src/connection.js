@@ -6,7 +6,7 @@ class Connection extends EventEmitter {
 	constructor() {
 		super();
 
-		var connection = this;
+		const connection = this;
 
 		function stateChange() {
 			connected = navigator.onLine;

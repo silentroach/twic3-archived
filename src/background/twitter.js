@@ -17,7 +17,7 @@ export default class Twitter {
 
 	// @todo move to twitter.auth module
 	authorize(screenName = null) {
-		var twitter = this;
+		const twitter = this;
 
 		return getTwitterAuthorizer(screenName)
 			.then(function(auth) {
@@ -71,7 +71,7 @@ export default class Twitter {
 	}
 
 	updateUser(userJSON) {
-		var twitter = this;
+		const twitter = this;
 
 		return User
 			.getById(this.db, userJSON['id_str'])
@@ -91,7 +91,7 @@ export default class Twitter {
 	}
 
 	updateTweet(tweetJSON, skipUserUpdate = false) {
-		var twitter = this;
+		const twitter = this;
 
 		return Tweet
 			.getById(twitter.db, tweetJSON['id_str'])
@@ -124,7 +124,7 @@ export default class Twitter {
 	}
 
 	/* private */ getUser(modelMethod, apiMethod, value) {
-		var twitter = this;
+		const twitter = this;
 
 		return modelMethod.call(User, this.db, value)
 			.then(function(user) {

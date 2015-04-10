@@ -30,8 +30,8 @@ export default class AccountList extends EventEmitter {
 	}
 
 	[Symbol.iterator]() {
-		var list = this;
-		var idx = 0;
+		const list = this;
+		let idx = 0;
 
 		return {
 			next() {
@@ -78,7 +78,7 @@ export default class AccountList extends EventEmitter {
 	}
 
 	static load(config) {
-		var list = new AccountList();
+		const list = new AccountList();
 
 		return config
 			.get(CONFIG_KEY)

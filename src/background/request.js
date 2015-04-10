@@ -47,7 +47,7 @@ export default class Request extends EventEmitter {
 	}
 
 	startXMLHttpRequest() {
-		var request = this;
+		const request = this;
 
 		return new Promise(function(resolve, reject) {
 			var requestData = request.getData();

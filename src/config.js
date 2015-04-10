@@ -29,7 +29,7 @@ export default class Config extends EventEmitter {
 	}
 
 	get(key) {
-		var config = this;
+		const config = this;
 
 		if (undefined !== config[CACHE_FIELD][key]) {
 			return Promise.resolve(config[CACHE_FIELD][key]);
@@ -43,8 +43,8 @@ export default class Config extends EventEmitter {
 	}
 
 	set(key, value) {
-		var config = this;
-		var storeObj = { };
+		const config = this;
+		const storeObj = { };
 
 		storeObj[key] = value;
 

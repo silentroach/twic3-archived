@@ -24,15 +24,15 @@ export default class Account extends EventEmitter {
 	isAuthorized() {
 		return null !== this.token;
 	}
-}
 
-Account.load = function(data) {
-	var account = new Account();
+	static load(data) {
+		const account = new Account();
 
-	account.userId = data.userId;
-	if (data.token) {
-		account.token = OAuthToken.load(data.token);
+		account.userId = data.userId;
+		if (data.token) {
+			account.token = OAuthToken.load(data.token);
+		}
+
+		return account;
 	}
-
-	return account;
-};
+}

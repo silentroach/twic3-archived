@@ -9,8 +9,8 @@ export default class Response {
 	}
 
 	get content() {
-		var text = this.xhr.responseText;
-		var contentType = this.getHeader('content-type');
+		const text = this.xhr.responseText;
+		let contentType = this.getHeader('content-type');
 
 		if (undefined !== contentType) {
 			[contentType] = contentType.split(';');
@@ -28,7 +28,7 @@ export default class Response {
 	}
 
 	getHeader(name) {
-		var headerName = name.toLowerCase();
+		const headerName = name.toLowerCase();
 
 		if (null === this.headers) {
 			this.headers = parseHeaders(this.xhr);
@@ -39,18 +39,18 @@ export default class Response {
 }
 
 function parseHeaders(xhr) {
-	var headers = xhr.getAllResponseHeaders();
-	var result = { };
+	const headers = xhr.getAllResponseHeaders();
+	const result = { };
 
 	if (!headers) {
 		return result;
 	}
 
 	headers.split('\n').forEach(function(hdr) {
-		var header = hdr.trim();
-		var idx;
-		var name;
-		var value;
+		const header = hdr.trim();
+		let idx;
+		let name;
+		let value;
 
 		if ('' === header) {
 			return;

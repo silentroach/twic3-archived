@@ -62,7 +62,7 @@ export default class Parser {
 	}
 
 	process(object) {
-		var result = { };
+		const result = { };
 
 		if (!object
 			|| 'object' !== typeof object
@@ -72,7 +72,7 @@ export default class Parser {
 		}
 
 		function processData(key, data, rules) {
-			let parsedResults = processRecord(key, data, rules, object);
+			const parsedResults = processRecord(key, data, rules, object);
 
 			if (undefined === parsedResults || null === parsedResults) {
 				return;
