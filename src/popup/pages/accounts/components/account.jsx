@@ -9,7 +9,7 @@ import './account.styl';
 export default class Account extends React.Component {
 	render() {
 		var user = this.props.user;
-		var url = [/*'#timeline',*/ '#user', user.id].join('/');
+		var url = ['#timeline', user.id].join('/');
 		var classes = ['account'];
 
 		if (this.props.modifierPressed) {

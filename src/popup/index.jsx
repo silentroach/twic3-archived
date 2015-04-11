@@ -14,6 +14,7 @@ import ToolbarIcon from './components/toolbarIcon';
 import AccountsPage from './pages/accounts';
 import AboutPage from './pages/about';
 import UserPage from './pages/user';
+import TimelinePage from './pages/timeline';
 
 import 'normalize.stylus/index.styl';
 import '../vendor/evil-icons/sprite.styl';
@@ -48,8 +49,11 @@ class App extends React.Component {
 			case 'about':
 				page = AboutPage;
 				break;
-			case 'user':
+			case 'users':
 				page = UserPage;
+				break;
+			case 'timeline':
+				page = TimelinePage;
 				break;
 			default:
 				page = AccountsPage;

@@ -16,6 +16,22 @@ export default class AccountWatcher extends Watcher {
 		this.streamCheckInterval = null;
 	}
 
+	getHomeTimelineLastTweetId() {
+		const watcher = this;
+
+		return new Promise(function(resolve) {
+			if (null !== watcher.homeTimelineLastTweetId) {
+				resolve(watcher.homeTimelineLastTweetId);
+			} else {
+				watcher.twitter.getHomeTimelineLastCachedId(watcher.account.userId)
+					.then(function(id) {
+						watcher.homeTimelineLastTweetId = id;
+						resolve(id);
+					});
+			}
+		});
+	}
+
 	start() {
 		const watcher = this;
 
@@ -31,19 +47,22 @@ export default class AccountWatcher extends Watcher {
 
 		this.streamCheckInterval = setInterval(this.streamCheck.bind(this), STREAM_CHECK_TIMEOUT);
 
-		this.twitter
-			.getHomeTimeline(this.account.token, this.homeTimelineLastTweetId)
-			.catch(function(e) {
-				if (401 === e.status) {
-					watcher.handleTokenRevoke();
-				}
-			})
-			.then(function(tweets) {
-				const tweet = tweets.shift();
+		this.getHomeTimelineLastTweetId()
+			.then(function(id) {
+				watcher.twitter
+					.getHomeTimeline(watcher.account.userId, watcher.account.token, id)
+					.catch(function(e) {
+						if (401 === e.status) {
+							watcher.handleTokenRevoke();
+						}
+					})
+					.then(function(tweets) {
+						const tweet = tweets.shift();
 
-				if (tweet) {
-					watcher.homeTimelineLastTweetId = tweet.id;
-				}
+						if (tweet) {
+							watcher.homeTimelineLastTweetId = tweet.id;
+						}
+					});
 			});
 	}
 
@@ -78,6 +97,10 @@ export default class AccountWatcher extends Watcher {
 		this.twitter
 			.updateTweet(tweet)
 			.then(function(tweet) {
+				tweet
+					.addTimelineUserId(watcher.account.userId)
+					.save(watcher.twitter.db);  // @todo rethink this shit
+
 				watcher.homeTimelineLastTweetId = tweet.id;
 			});
 	}

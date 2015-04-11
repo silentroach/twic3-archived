@@ -52,6 +52,7 @@ export default class Model {
 	}
 
 	save(db) {
+		const object = this;
 		const collectionName = this.constructor.getCollectionName();
 		const storeObject = this.getData();
 
@@ -61,7 +62,10 @@ export default class Model {
 
 		console.log('saving to', collectionName, storeObject);
 
-		return db.put(collectionName, storeObject);
+		return db.put(collectionName, storeObject)
+			.then(function() {
+				return object;
+			});
 	}
 
 	isOutdated() {

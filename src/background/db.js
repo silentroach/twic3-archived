@@ -14,9 +14,9 @@ function upgrade(event) {
 		objectStore = db.createObjectStore('users', { keyPath: 'id' });
 		objectStore.createIndex('screenName', 'screenNameNormalized', { unique: true });
 
-		db.createObjectStore('tweets', { keyPath: 'id' });
-		db.createObjectStore('timeline', { autoincrement: true });
-		db.createObjectStore('mentions', { autoincrement: true });
+		objectStore = db.createObjectStore('tweets', { keyPath: 'id' });
+		objectStore.createIndex('timeline', 'timelineUserIds', { unique: false, multiEntry: true });
+		objectStore.createIndex('mention', 'mentionUserId', { unique: false, multiEntry: true });
 
 		objectStore = db.createObjectStore('friendship', { keyPath: 'ids' });
 		objectStore.createIndex('userId', 'userId', { unique: false });
@@ -75,6 +75,13 @@ export default class DB {
 			});
 	}
 
+	getIndex(collectionName, indexName, mode = MODE_READ_ONLY) {
+		return this.getObjectStore(collectionName, mode)
+			.then(function(store) {
+				return store.index(indexName);
+			});
+	}
+
 	// @todo rethink
 	updateByCursor(collectionName, indexName, range, callback) {
 		return this.getObjectStore(collectionName, MODE_READ_WRITE)
@@ -99,10 +106,9 @@ export default class DB {
 	}
 
 	getByIndex(collectionName, indexName, value) {
-		return this.getObjectStore(collectionName, MODE_READ_ONLY)
-			.then(function(store) {
+		return this.getIndex(collectionName, indexName)
+			.then(function(idx) {
 				return new Promise(function(resolve, reject) {
-					const idx = store.index(indexName);
 					const request = idx.get(value);
 
 					request.onerror = function(event) {
