@@ -172,7 +172,7 @@ export default class Twitter {
 
 				return Promise.all(
 					tweets.map(tweetJSON => {
-						const userId = tweetJSON.user.id;
+						const userId = tweetJSON.user.id_str;
 						const skipUserUpdate = undefined !== userIds[userId];
 
 						userIds[userId] = true;
