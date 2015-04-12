@@ -111,7 +111,7 @@ export default class TwitterStream extends EventEmitter {
 		// if (undefined !== object.delete) {
 		// 	// @todo
 		// }
-		if (undefined === object.disconnect) {
+		if (undefined !== object.disconnect) {
 			this.stop();
 
 			// @see https://dev.twitter.com/streaming/overview/messages-types
