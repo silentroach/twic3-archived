@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '../../../components/avatar';
 
-import Message from '../../../../message.js'
+import Message from '../../../../message.js';
 
 import './account.styl';
 

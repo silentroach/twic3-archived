@@ -1,7 +1,7 @@
 import React from 'react';
 
 import i18n from '../../../../i18n';
-import Message from '../../../../message.js'
+import Message from '../../../../message.js';
 import connection from '../../../../connection';
 
 import './accountAdd.styl';

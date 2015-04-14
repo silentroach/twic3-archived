@@ -45,4 +45,4 @@ export default {
 		noInfo: true,
 		quiet: true
 	}
-}
+};
