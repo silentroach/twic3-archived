@@ -88,9 +88,12 @@ export default class AccountWatcher extends Watcher {
 		this.twitter
 			.flushFriendShip(this.account.userId)
 			.then(function() {
-				idsList.forEach(id => {
-					watcher.twitter.updateFriendShip(watcher.account.userId, id, true);
-				});
+				return Promise.all(
+					idsList.map(id => {
+						return watcher.twitter
+							.updateFriendShip(watcher.account.userId, id, true);
+					})
+				)
 			});
 	}
 
