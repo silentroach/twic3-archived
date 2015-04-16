@@ -93,7 +93,7 @@ export default class AccountWatcher extends Watcher {
 						return watcher.twitter
 							.updateFriendShip(watcher.account.userId, id, true);
 					})
-				)
+				);
 			});
 	}
 
