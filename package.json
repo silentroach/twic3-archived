@@ -53,6 +53,7 @@
     "js-string-escape": "1.0.0",
     "jsx-loader": "0.13.1",
     "lodash": "3.7.0",
+    "moment": "2.10.2",
     "normalize.stylus": "0.1.0",
     "qs": "2.4.1",
     "react": "0.13.2",

@@ -24,7 +24,7 @@ describe('Model.Entities.Url', function() {
 
 		assert.equal(
 			result,
-			`testing url <a href="${url}" class="tweet-url" title="${expandedUrl}" target="_blank">${displayUrl}</a> preparements`
+			`testing url <a href="${url}" class="tweet-link" title="${expandedUrl}" target="_blank">${displayUrl}</a> preparements`
 		);
 	});
 
@@ -47,7 +47,7 @@ describe('Model.Entities.Url', function() {
 
 		assert.equal(
 			result,
-			`testing <a href="${url}" class="tweet-url" title="${expandedUrl}" target="_blank">${displayUrl}</a> twice <a href="${url}" class="tweet-url" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
+			`testing <a href="${url}" class="tweet-link" title="${expandedUrl}" target="_blank">${displayUrl}</a> twice <a href="${url}" class="tweet-link" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
 		);
 	});
 
@@ -81,7 +81,7 @@ describe('Model.Entities.Url', function() {
 
 		assert.equal(
 			result,
-			`testing <a href="${secondUrl}" class="tweet-url" title="${secondExpandedUrl}" target="_blank">${secondDisplayUrl}</a> multiple <a href="${url}" class="tweet-url" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
+			`testing <a href="${secondUrl}" class="tweet-link" title="${secondExpandedUrl}" target="_blank">${secondDisplayUrl}</a> multiple <a href="${url}" class="tweet-link" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
 		);
 	});
 
@@ -104,7 +104,7 @@ describe('Model.Entities.Url', function() {
 
 		assert.equal(
 			result,
-			`testing url <a href="${url}" class="tweet-url" title="${expandedUrl}" target="_blank">${displayUrl}</a> preparements`
+			`testing url <a href="${url}" class="tweet-link" title="${expandedUrl}" target="_blank">${displayUrl}</a> preparements`
 		);
 	});
 

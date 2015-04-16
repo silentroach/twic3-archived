@@ -19,7 +19,7 @@ describe('Model.Entities.Hashtag', function() {
 
 		assert.equal(
 			result,
-			'testing <span class="tweet-hashtag">#hashtag</span> processing'
+			'testing <span class="tweet-link-hashtag">#hashtag</span> processing'
 		);
 	});
 
@@ -37,7 +37,7 @@ describe('Model.Entities.Hashtag', function() {
 
 		assert.equal(
 			result,
-			'testing <span class="tweet-hashtag">#HashTag</span> processing'
+			'testing <span class="tweet-link-hashtag">#HashTag</span> processing'
 		);
 	});
 
