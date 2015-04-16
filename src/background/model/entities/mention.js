@@ -10,7 +10,7 @@ function processText(text, mentionEntities = []) {
 	mentionEntities.forEach(entity => {
 		const screenName = entity.screen_name.toLowerCase();
 		const element = document.createElement('a');
-		element.href = `#user/${entity.id_str}`;
+		element.href = `#users/${entity.id_str}`;
 		element.className = 'tweet-mention';
 		element.title = entity.name;
 

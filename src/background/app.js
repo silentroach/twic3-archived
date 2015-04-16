@@ -10,6 +10,8 @@ import connection from '../connection';
 import UserInfoHandler from './handlers/userInfo';
 import AccountListHandler from './handlers/accountList';
 import AuthHandler from './handlers/auth';
+import TimelineHandler from './handlers/timeline';
+/** ---------------- */
 
 export default class App {
 	constructor(config, twitter) {
@@ -34,7 +36,8 @@ export default class App {
 		[
 			UserInfoHandler,
 			AccountListHandler,
-			AuthHandler
+			AuthHandler,
+			TimelineHandler
 		].forEach(HandlerClass => {
 			const handler = new HandlerClass(app);
 			this.messageHandlers[handler.getMessageType()] = handler;

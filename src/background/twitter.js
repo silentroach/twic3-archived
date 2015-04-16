@@ -106,9 +106,13 @@ export default class Twitter {
 					.save(twitter.db)
 					.then(function() {
 						return Promise.all([
-							skipUserUpdate
-								? Promise.resolve()
-								: twitter.updateUser(tweetJSON['user']),
+							function() {
+								if (skipUserUpdate) {
+									return Promise.resolve();
+								}
+
+								return twitter.updateUser(tweetJSON['user']);
+							},
 							function() {
 								if (tweetJSON['retweeted_status']) {
 									return twitter.updateTweet(tweetJSON['retweeted_status']);
@@ -123,13 +127,15 @@ export default class Twitter {
 			});
 	}
 
-	/* private */ getUser(modelMethod, apiMethod, value) {
+	/* private */ getUser(modelMethod, apiMethod, value, allowOutdated) {
 		const twitter = this;
 
 		return modelMethod.call(User, this.db, value)
 			.then(function(user) {
 				if (user
-					&& !user.isOutdated()
+					&& (allowOutdated
+						|| !user.isOutdated()
+					)
 				) {
 					return user;
 				}
@@ -152,17 +158,30 @@ export default class Twitter {
 			});
 	}
 
-	getUserByScreenName(screenName) {
-		return this.getUser(User.getByScreenName, this.api.getUserInfoByScreenName, screenName);
+	getUserByScreenName(screenName, allowOutdated = false) {
+		return this.getUser(
+			User.getByScreenName, this.api.getUserInfoByScreenName, screenName, allowOutdated
+		);
 	}
 
-	getUserById(userId) {
-		return this.getUser(User.getById, this.api.getUserInfoById, userId);
+	getUserById(userId, allowOutdated = false) {
+		return this.getUser(
+			User.getById, this.api.getUserInfoById, userId, allowOutdated
+		);
 	}
 
-	getHomeTimeline(token, sinceId) {
+	getHomeTimelineLastCachedId(userId) {
+		return Tweet.getLastTimelineId(this.db, userId);
+	}
+
+	// @todo rethink it all
+	getCachedHomeTimeline(userId) {
+		return Tweet.getHomeTimeline(this.db, userId);
+	}
+
+	getHomeTimeline(userId, token, sinceId) {
 		const twitter = this;
-		const userIds = { };
+		const tweetUserIds = new Set();
 
 		return this.api.getHomeTimeline(token, sinceId)
 			.then(function(tweets) {
@@ -172,12 +191,20 @@ export default class Twitter {
 
 				return Promise.all(
 					tweets.map(tweetJSON => {
-						const userId = tweetJSON.user.id_str;
-						const skipUserUpdate = undefined !== userIds[userId];
+						const tweetUserId = tweetJSON.user['id_str'];
+						const skipUserUpdate = tweetUserIds.has(tweetUserId);
 
-						userIds[userId] = true;
+						if (!skipUserUpdate) {
+							tweetUserIds.add(tweetUserId);
+						}
 
-						twitter.updateTweet(tweetJSON, skipUserUpdate);
+						return twitter
+							.updateTweet(tweetJSON, skipUserUpdate)
+							.then(function(tweet) {
+								return tweet
+									.addTimelineUserId(userId)
+									.save(twitter.db);
+							});
 					})
 				);
 			});

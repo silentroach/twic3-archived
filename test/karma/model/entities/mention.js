@@ -24,7 +24,7 @@ describe('Model.Entities.Mention', function() {
 
 		assert.equal(
 			result,
-			`say hello to <a href="#user/${id}" class="tweet-mention" title="${name}">@${screenName}</a>`
+			`say hello to <a href="#users/${id}" class="tweet-mention" title="${name}">@${screenName}</a>`
 		);
 	});
 
@@ -47,7 +47,7 @@ describe('Model.Entities.Mention', function() {
 
 		assert.equal(
 			result,
-			`<a href="#user/${id}" class="tweet-mention" title="${name}">@${screenName}</a> <a href="#user/${id}" class="tweet-mention" title="${name}">@${screenName}</a>`
+			`<a href="#users/${id}" class="tweet-mention" title="${name}">@${screenName}</a> <a href="#users/${id}" class="tweet-mention" title="${name}">@${screenName}</a>`
 		);
 	});
 
@@ -70,7 +70,7 @@ describe('Model.Entities.Mention', function() {
 
 		assert.equal(
 			result,
-			`<a href="#user/${id}" class="tweet-mention" title="${name}">@twic</a> <a href="#user/${id}" class="tweet-mention" title="${name}">@Twic</a>`
+			`<a href="#users/${id}" class="tweet-mention" title="${name}">@twic</a> <a href="#users/${id}" class="tweet-mention" title="${name}">@Twic</a>`
 		);
 	});
 

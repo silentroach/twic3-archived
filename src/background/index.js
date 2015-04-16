@@ -6,6 +6,7 @@ import Config from '../config';
 
 import App from './app';
 
+// @todo move db to app
 const twitter = new Twitter(
 	new DB()
 );

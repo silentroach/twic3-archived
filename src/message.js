@@ -24,9 +24,11 @@ export default class Message {
 Message.TYPE_AUTH = 0;
 Message.TYPE_ACCOUNT_USERS = 1;
 Message.TYPE_USER = 2;
+Message.TYPE_TIMELINE = 3;
 
 if ('production' !== process.env.NODE_ENV) {
 	Message.TYPE_AUTH = 'auth';
 	Message.TYPE_ACCOUNT_USERS = 'account_list';
 	Message.TYPE_USER = 'user';
+	Message.TYPE_TIMELINE = 'timeline';
 }

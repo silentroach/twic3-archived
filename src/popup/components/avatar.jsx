@@ -15,21 +15,27 @@ mini   => 24x24
 
 export default class Avatar extends React.Component {
 	render() {
-		var size = ''; // original
-		var url;
+		let size = ''; // original
+		let classes = ['avatar'];
 
 		switch (this.props.type) {
 			case Avatar.TYPE_BIG: // 64px
+				classes.push('avatar-big');
+
 				if (!device.isRetina) {
 					size = '_bigger';
 				}
 				break;
+			default:
+				size = device.isRetina ? '_bigger' : '_normal';
+				break;
 		}
 
-		url = this.props.template.replace(/{size}/, size);
-
 		return (
-			<img className="avatar" src={url} />
+			<img
+				className={classes.join(' ')}
+				src={this.props.template.replace(/{size}/, size)}
+			/>
 		);
 	}
 }
