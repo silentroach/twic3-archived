@@ -33,6 +33,11 @@ const parser = new Parser({
 		return {
 			userId: original.id_str
 		};
+	}],
+	'retweeted_status': [Parser.TYPE_UNDEFINED, (original, tweetJSON) => {
+		return {
+			retweetedId: original['id_str']
+		};
 	}]
 });
 
