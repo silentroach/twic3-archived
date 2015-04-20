@@ -57,9 +57,10 @@ export default class AccountWatcher extends Watcher {
 						}
 					})
 					.then(function(tweets) {
-						const tweet = tweets.shift();
-
-						if (tweet) {
+						if (Array.isArray(tweets)
+							&& tweets.length
+						) {
+							const tweet = tweets.shift();
 							watcher.homeTimelineLastTweetId = tweet.id;
 						}
 					});
