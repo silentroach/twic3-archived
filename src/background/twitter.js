@@ -106,20 +106,12 @@ export default class Twitter {
 					.save(twitter.db)
 					.then(function() {
 						return Promise.all([
-							function() {
-								if (skipUserUpdate) {
-									return Promise.resolve();
-								}
-
-								return twitter.updateUser(tweetJSON['user']);
-							},
-							function() {
-								if (tweetJSON['retweeted_status']) {
-									return twitter.updateTweet(tweetJSON['retweeted_status']);
-								}
-
-								return Promise.resolve();
-							}
+							skipUserUpdate
+								? Promise.resolve()
+								: twitter.updateUser(tweetJSON['user']),
+							undefined === tweetJSON['retweeted_status']
+								? Promise.resolve()
+								: twitter.updateTweet(tweetJSON['retweeted_status'])
 						]).then(function() {
 							return tweet;
 						});
@@ -168,6 +160,10 @@ export default class Twitter {
 		return this.getUser(
 			User.getById, this.api.getUserInfoById, userId, allowOutdated
 		);
+	}
+
+	getTweetById(tweetId) {
+		return Tweet.getById(this.db, tweetId);
 	}
 
 	getHomeTimelineLastCachedId(userId) {
