@@ -4,6 +4,7 @@ import Parser from '../parser';
 import hashtagEntityHelper from './entities/hashtag';
 import urlEntityHelper from './entities/url';
 import mentionEntityHelper from './entities/mention';
+import mediaEntityHelper from './entities/media';
 
 const parser = new Parser({
 	'id_str': [Parser.TYPE_STRING, 'id'],
@@ -15,6 +16,7 @@ const parser = new Parser({
 			// @todo merge entity helpers
 			text = hashtagEntityHelper.processText(original, tweetJSON.entities.hashtags);
 			text = mentionEntityHelper.processText(text, tweetJSON.entities.user_mentions);
+			text = mediaEntityHelper.processText(text, tweetJSON.entities.media);
 			text = urlEntityHelper.processText(text, tweetJSON.entities.urls);
 
 			if (original !== text) {
