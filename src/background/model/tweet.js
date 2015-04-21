@@ -24,7 +24,10 @@ const parser = new Parser({
 			}
 		}
 
-		data.text = text;
+		data.text = text
+			.replace(/[\r\n]/g, '\n')
+			.replace(/\n{2,}/g, '\n\n')  // convert 3+ breaks to 2
+			.replace(/\n/g, '<br />');
 
 		return data;
 	}],

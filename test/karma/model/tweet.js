@@ -20,6 +20,26 @@ describe('Model.Tweet', function() {
 		assert.strictEqual(tweet.id, id);
 	});
 
+	it('should convert breaks to br tag', function() {
+		const text = 'test\nbr tag';
+
+		tweet.parse({
+			text
+		});
+
+		assert.equal(tweet.text, 'test<br />br tag');
+	});
+
+	it('should convert 3+ breaks to 2 brs', function() {
+		const text = 'test multiple\n\n\nbreaks';
+
+		tweet.parse({
+			text
+		});
+
+		assert.equal(tweet.text, 'test multiple<br /><br />breaks');
+	});
+
 	it('should prepare entities for display', function() {
 		const displayUrl = 'youtu.be/SsYY77hxXUE';
 		const expandedUrl = 'http://youtu.be/SsYY77hxXUE';
