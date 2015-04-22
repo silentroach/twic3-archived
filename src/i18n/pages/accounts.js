@@ -22,5 +22,9 @@ module.exports = {
 	remove_hint: {
 		en: 'click on the account to remove',
 		ru: 'выберите учётную запись для удаления'
+	},
+	authenticate: {
+		en: 'authenticate user',
+		ru: 'авторизировать пользователя'
 	}
 };

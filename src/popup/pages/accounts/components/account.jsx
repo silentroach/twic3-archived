@@ -3,14 +3,16 @@ import React from 'react';
 import Avatar from '../../../components/avatar';
 
 import Message from '../../../../message.js';
+import i18n from '../../../../i18n';
 
 import './account.styl';
 
 export default class Account extends React.Component {
 	render() {
-		var user = this.props.user;
-		var url = ['#timeline', user.id].join('/');
-		var classes = ['account'];
+		const user = this.props.user;
+		const url = ['#timeline', user.id].join('/');
+		const classes = ['account'];
+		let title;
 
 		if (this.props.modifierPressed) {
 			classes.push('account-remove-candidate');
@@ -18,11 +20,12 @@ export default class Account extends React.Component {
 
 		if (!user.isAuthorized) {
 			classes.push('account-need-auth');
+			title = i18n.translate('pages.accounts.authenticate');
 		}
 
 		return (
 			<li>
-				<a href={url} className={classes.join(' ')} onClick={this.clickHandler.bind(this)}>
+				<a href={url} className={classes.join(' ')} title={title} onClick={this.clickHandler.bind(this)}>
 					<Avatar template={user.avatar} type={Avatar.TYPE_BIG} />
 					<span className="account-remover" onClick={this.removeClickHandler.bind(this)}>+</span>
 					<span className="nick">
