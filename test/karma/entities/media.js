@@ -1,7 +1,7 @@
 import chai from 'chai';
 const assert = chai.assert;
 
-import MediaEntities from '../../../../src/background/model/entities/media';
+import MediaEntities from '../../../src/background/entities/media';
 
 describe('Model.Entities.Media', function() {
 

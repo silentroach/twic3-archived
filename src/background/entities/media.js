@@ -1,7 +1,9 @@
-import twitterText from '../../../vendor/twitter-text';
+import twitterText from '../../vendor/twitter-text';
 
-function processText(text, urlEntities = []) {
-	if (!Array.isArray(urlEntities)) {
+// @todo inherit from url entities?
+
+function processText(text, mediaEntities = []) {
+	if (!Array.isArray(mediaEntities)) {
 		return text;
 	}
 
@@ -18,7 +20,13 @@ function processText(text, urlEntities = []) {
 		return element.outerHTML;
 	}
 
-	urlEntities.forEach(entity => {
+	mediaEntities.forEach(entity => {
+		// only photo is supported by twitter now
+		if ('photo' !== entity.type) {
+			console.error('Unknown media type ' + entity.type);
+			return;
+		}
+
 		const url = entity.url.toLowerCase();
 		const element = document.createElement('a');
 		element.href = entity.url;

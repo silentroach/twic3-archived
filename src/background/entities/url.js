@@ -1,9 +1,7 @@
-import twitterText from '../../../vendor/twitter-text';
+import twitterText from '../../vendor/twitter-text';
 
-// @todo inherit from url entities?
-
-function processText(text, mediaEntities = []) {
-	if (!Array.isArray(mediaEntities)) {
+function processText(text, urlEntities = []) {
+	if (!Array.isArray(urlEntities)) {
 		return text;
 	}
 
@@ -20,13 +18,7 @@ function processText(text, mediaEntities = []) {
 		return element.outerHTML;
 	}
 
-	mediaEntities.forEach(entity => {
-		// only photo is supported by twitter now
-		if ('photo' !== entity.type) {
-			console.error('Unknown media type ' + entity.type);
-			return;
-		}
-
+	urlEntities.forEach(entity => {
 		const url = entity.url.toLowerCase();
 		const element = document.createElement('a');
 		element.href = entity.url;

@@ -1,4 +1,4 @@
-import twitterText from '../../../vendor/twitter-text';
+import twitterText from '../../vendor/twitter-text';
 
 function processText(text, hashTagEntities) {
 	if (!Array.isArray(hashTagEntities)) {

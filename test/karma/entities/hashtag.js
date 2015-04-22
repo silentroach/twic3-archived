@@ -1,7 +1,7 @@
 import chai from 'chai';
 const assert = chai.assert;
 
-import HashtagEntities from '../../../../src/background/model/entities/hashtag';
+import HashtagEntities from '../../../src/background/entities/hashtag';
 
 describe('Model.Entities.Hashtag', function() {
 

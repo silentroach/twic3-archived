@@ -1,7 +1,7 @@
 import chai from 'chai';
 const assert = chai.assert;
 
-import UrlEntities from '../../../../src/background/model/entities/url';
+import UrlEntities from '../../../src/background/entities/url';
 
 describe('Model.Entities.Url', function() {
 

@@ -1,10 +1,10 @@
 import ModelJSON from '../modelJSON';
 import Parser from '../parser';
 
-import hashtagEntityHelper from './entities/hashtag';
-import urlEntityHelper from './entities/url';
-import mentionEntityHelper from './entities/mention';
-import mediaEntityHelper from './entities/media';
+import hashtagEntityHelper from '../entities/hashtag';
+import urlEntityHelper from '../entities/url';
+import mentionEntityHelper from '../entities/mention';
+import mediaEntityHelper from '../entities/media';
 
 const parser = new Parser({
 	'id_str': [Parser.TYPE_STRING, 'id'],

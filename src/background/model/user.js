@@ -1,7 +1,7 @@
 import ModelJSON from '../modelJSON';
 import Parser from '../parser';
 
-import urlEntityHelper from './entities/url';
+import urlEntityHelper from '../entities/url';
 
 const COORDS_REGEXP = /-?[\d.]+/g;
 

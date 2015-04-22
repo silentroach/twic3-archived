@@ -1,7 +1,7 @@
 import chai from 'chai';
 const assert = chai.assert;
 
-import MentionEntities from '../../../../src/background/model/entities/mention';
+import MentionEntities from '../../../src/background/entities/mention';
 
 describe('Model.Entities.Mention', function() {
 
