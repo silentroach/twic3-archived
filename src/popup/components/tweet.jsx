@@ -11,10 +11,12 @@ export default class Tweet extends React.Component {
 
 		return (
 			<li className="tweet">
-				<a href={'#users/' + tweetData.user.id} title={'@' + tweetData.user.screenName}>
+				<a className="tweet-avatar" href={'#users/' + tweetData.user.id} title={'@' + tweetData.user.screenName}>
 					<Avatar template={tweetData.user.avatar} />
 				</a>
-				<span className="tweet-text" dangerouslySetInnerHTML={{ __html: tweetData.text }} />
+				<div className="tweet-content">
+					<span className="tweet-text" dangerouslySetInnerHTML={{ __html: tweetData.text }} />
+				</div>
 			</li>
 		);
 	}

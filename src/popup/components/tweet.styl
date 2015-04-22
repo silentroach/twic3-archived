@@ -8,10 +8,13 @@
 	&:last-child
 		box-shadow initial
 
-	.tweet-text
-		user-select initial
-		word-wrap break-word /* split long words */
-
-	.avatar
+	.tweet-avatar
 		float left
-		margin-right .5em
+
+	.tweet-content
+		display block
+		margin-left 54px
+
+		.tweet-text
+			user-select initial
+			word-wrap break-word /* split long words */
