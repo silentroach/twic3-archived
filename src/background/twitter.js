@@ -63,7 +63,7 @@ export default class Twitter {
 			})
 			.then(function([token, userId]) {
 				return twitter
-					.getUser(userId)
+					.getUserById(userId)
 					.then(function(user) {
 						return [token, user];
 					});
