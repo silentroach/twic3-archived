@@ -10,13 +10,13 @@ export default class TweetList extends React.Component {
 		const list = (this.props.tweets || []).map(tweet => <Tweet data={tweet} />);
 
 		return (
-			<ul className="tweetlist">
+			<section className="tweetlist">
 				{
 					(this.props.tweets || []).map(tweet =>
 						<Tweet data={tweet} key={tweet.id} />
 					)
 				}
-			</ul>
+			</section>
 		);
 	}
 }

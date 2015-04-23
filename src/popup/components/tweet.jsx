@@ -10,14 +10,14 @@ export default class Tweet extends React.Component {
 		const tweetData = tweet.retweeted ? tweet.retweeted : tweet;
 
 		return (
-			<li className="tweet">
+			<article className="tweet">
 				<a className="tweet-avatar" href={'#users/' + tweetData.user.id} title={'@' + tweetData.user.screenName}>
 					<Avatar template={tweetData.user.avatar} />
 				</a>
 				<div className="tweet-content">
-					<span className="tweet-text" dangerouslySetInnerHTML={{ __html: tweetData.text }} />
+					<div className="tweet-text" dangerouslySetInnerHTML={{ __html: tweetData.text }} />
 				</div>
-			</li>
+			</article>
 		);
 	}
 }
