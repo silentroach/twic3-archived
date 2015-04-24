@@ -66,16 +66,38 @@ class App extends React.Component {
 		});
 	}
 
+	// hack to open links in background tab if modifier key is pressed
+	handleLinkClick(event) {
+		const target = event.target;
+
+		if ('A' !== target.nodeName
+			|| !event[device.modifierKey]
+			|| '_blank' !== target.getAttribute('target')
+		) {
+			return;
+		}
+
+		event.preventDefault();
+		event.stopPropagation();
+
+		chrome.tabs.create({
+			url: target.getAttribute('href'),
+			active: false
+		});
+	}
+
 	componentDidMount() {
 		this.handleHashChange();
 	}
 
 	componentWillUnmount() {
 		window.onhashchange = null;
+		document.onclick = null;
 	}
 
 	componentWillMount() {
 		window.onhashchange = this.handleHashChange.bind(this);
+		document.onclick = this.handleLinkClick.bind(this);
 	}
 }
 

@@ -17,4 +17,7 @@ if (navigator.appVersion.indexOf('Windows') < 0) {
 
 device.isRetina = window.devicePixelRatio > 1;
 
+device.modifierKey = device.platform === device.platforms.OSX
+	? 'metaKey' : 'ctrlKey';
+
 export default device;

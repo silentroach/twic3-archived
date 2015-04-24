@@ -7,10 +7,6 @@ import Message from '../../../message';
 import device from '../../device';
 import i18n from '../../../i18n';
 
-// modifier key to use for account removal
-const MODIFIER_KEY = device.platform === device.platforms.OSX
-	? 'metaKey' : 'ctrlKey';
-
 const HINT_KEY = device.platform === device.platforms.OSX
 	? 'osx' : 'default';
 
@@ -53,7 +49,7 @@ export default class AccountsPage extends React.Component {
 	}
 
 	handleKeyDown(e) {
-		if (e[MODIFIER_KEY]) {
+		if (e[device.modifierKey]) {
 			this.setState({
 				modifierKeyPressed: true
 			});
@@ -61,7 +57,7 @@ export default class AccountsPage extends React.Component {
 	}
 
 	handleKeyUp(e) {
-		if (!e[MODIFIER_KEY]) {
+		if (!e[device.modifierKey]) {
 			this.setState({
 				modifierKeyPressed: false
 			});
