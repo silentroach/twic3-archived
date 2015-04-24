@@ -14,7 +14,10 @@ export default class UserInfo extends React.Component {
 				<Avatar template={user.avatar} type={Avatar.TYPE_BIG} />
 
 				<ul id="info">
-					<li>{user.name ? user.name : ''} [{user.screenName}]</li>
+					<li>
+						{user.name ? user.name : ''}
+						{user.name !== user.screenName ? ' [' + user.screenName + ']' : ''}
+					</li>
 					{user.url ? <li dangerouslySetInnerHTML={{__html: user.url }} /> : ''}
 					{user.description ? <li id="info-description">{user.description}</li> : ''}
 					{user.location ? <li>{user.location}</li> : ''}

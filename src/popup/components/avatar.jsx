@@ -19,7 +19,7 @@ export default class Avatar extends React.Component {
 		let classes = ['avatar'];
 
 		switch (this.props.type) {
-			case Avatar.TYPE_BIG: // 64px
+			case Avatar.TYPE_BIG: // 73px
 				classes.push('avatar-big');
 
 				if (!device.isRetina) {
