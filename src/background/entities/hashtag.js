@@ -10,7 +10,7 @@ function processText(text, hashTagEntities) {
 	hashTagEntities.forEach(entity => {
 		const hashtag = entity.text.toLowerCase();
 		const element = document.createElement('span');
-		element.className = 'tweet-hashtag';
+		element.className = 'tweet-link-hashtag';
 
 		// hashtag name must be case insensitive, so we just store the node
 		// and add name after while replacing

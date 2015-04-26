@@ -12,7 +12,7 @@ function processText(text, mediaEntities = []) {
 	function getLinkText(url, text, title) {
 		const element = document.createElement('a');
 		element.href = url;
-		element.className = 'tweet-url';
+		element.className = 'tweet-link-media';
 		element.innerText = text;
 		element.title = title;
 		element.target = '_blank';
@@ -28,12 +28,6 @@ function processText(text, mediaEntities = []) {
 		}
 
 		const url = entity.url.toLowerCase();
-		const element = document.createElement('a');
-		element.href = entity.url;
-		element.className = 'tweet-url';
-		element.innerText = entity.display_url;
-		element.title = entity.expanded_url;
-		element.target = '_blank';
 
 		entities[url] = getLinkText(
 			entity.url,

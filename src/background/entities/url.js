@@ -10,7 +10,7 @@ function processText(text, urlEntities = []) {
 	function getLinkText(url, text, title) {
 		const element = document.createElement('a');
 		element.href = url;
-		element.className = 'tweet-url';
+		element.className = 'tweet-link';
 		element.innerText = text;
 		element.title = title;
 		element.target = '_blank';

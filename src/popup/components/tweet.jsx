@@ -3,6 +3,7 @@ import React from 'react';
 import './tweet.styl';
 
 import Avatar from './avatar';
+import TimeAgo from './timeAgo';
 
 export default class Tweet extends React.Component {
 	render() {
@@ -16,6 +17,18 @@ export default class Tweet extends React.Component {
 				</a>
 				<div className="tweet-content">
 					<div className="tweet-text" dangerouslySetInnerHTML={{ __html: tweetData.text }} />
+
+					<a href={
+						[
+							'https://twitter.com',
+							tweetData.user.screenName,
+							'status',
+							tweetData.id
+						].join('/')
+					} className="tweet-time" target="_blank">
+						{/* will show retweet date even if it is retweet */}
+						<TimeAgo timestamp={tweet.createTime} />
+					</a>
 				</div>
 			</article>
 		);

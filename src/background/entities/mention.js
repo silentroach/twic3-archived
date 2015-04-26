@@ -11,7 +11,7 @@ function processText(text, mentionEntities = []) {
 		const screenName = entity.screen_name.toLowerCase();
 		const element = document.createElement('a');
 		element.href = `#users/${entity.id_str}`;
-		element.className = 'tweet-mention';
+		element.className = 'tweet-link-mention';
 		element.title = entity.name;
 
 		// screen name must be case insensitive, so we just store the node

@@ -67,7 +67,7 @@ describe('Model.Tweet', function() {
 
 		assert.equal(
 			tweet.text,
-			`Visualization of <span class="tweet-hashtag">#${hashtag}</span> Twitter updates <a href="${url}" class="tweet-url" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
+			`Visualization of <span class="tweet-link-hashtag">#${hashtag}</span> Twitter updates <a href="${url}" class="tweet-link" title="${expandedUrl}" target="_blank">${displayUrl}</a>`
 		);
 
 		assert.equal(tweet.originalText, originalText);
