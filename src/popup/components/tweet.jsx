@@ -18,7 +18,7 @@ export default class Tweet extends React.Component {
 				<div className="tweet-content">
 					<div className="tweet-text" dangerouslySetInnerHTML={{ __html: tweetData.text }} />
 
-					<a href={
+					<a href={ // using tweetdata for link cause retweets are redirected to source
 						[
 							'https://twitter.com',
 							tweetData.user.screenName,
