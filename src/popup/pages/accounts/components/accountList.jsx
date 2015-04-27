@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Account from './account';
-import AccountAdd from './accountAdd';
 
 import './accountList.styl';
 
@@ -21,7 +20,6 @@ export default class AccountList extends React.Component {
 						/>
 					)
 				}
-				<AccountAdd />
 			</ul>
 		);
 	}
