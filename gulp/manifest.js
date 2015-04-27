@@ -32,6 +32,7 @@ gulp.task('manifest', function(callback) {
 		},
 		background: {
 			scripts: [
+				'vendor.js',
 				'background.js'
 			]
 		},

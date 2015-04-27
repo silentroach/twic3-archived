@@ -17,10 +17,17 @@ function buildBackground(watch) {
 	return gulp.src('src/background/index.js')
 		.pipe(gulpWebpack(
 			webpackConfig({
+				entry: {
+					'index': 'background/index.js',
+					'vendor': ['vendor/babel-helpers', 'vendor/twitter-text', 'hmacsha1']
+				},
 				watch: watch,
 				output: {
 					filename: 'background.js'
-				}
+				},
+				plugins: [
+					new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
+				]
 			})
 		))
 		.pipe(gulp.dest('build/'));
@@ -42,7 +49,7 @@ function buildOptions(watch) {
 			webpackConfig({
 				entry: {
 					'index': 'options/index.jsx',
-					'vendor': ['./src/vendor/babel-helpers', 'react', 'normalize.stylus/index.styl']
+					'vendor': ['vendor/babel-helpers', 'react', 'normalize.stylus/index.styl']
 				},
 				watch: watch,
 				output: {
@@ -85,7 +92,7 @@ function buildPopup(watch) {
 			webpackConfig({
 				entry: {
 					'index': 'popup/index.jsx',
-					'vendor': ['./src/vendor/babel-helpers', 'react', 'moment', 'normalize.stylus/index.styl']
+					'vendor': ['vendor/babel-helpers', 'react', 'moment', 'normalize.stylus/index.styl']
 				},
 				watch: watch,
 				output: {
