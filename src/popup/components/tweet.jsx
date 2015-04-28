@@ -5,13 +5,36 @@ import './tweet.styl';
 import Avatar from './avatar';
 import TimeAgo from './timeAgo';
 
+import i18n from '../../i18n';
+
 export default class Tweet extends React.Component {
 	render() {
 		const tweet = this.props.data;
 		const tweetData = tweet.retweeted ? tweet.retweeted : tweet;
 
+		let retweetInfo;
+
+		if (tweet.retweeted) {
+			// @todo userlink component?
+			const userLink = React.renderToStaticMarkup(
+				<a href={['#users', tweet.user.id].join('/')}>{'@' + tweet.user.screenName}</a>
+			);
+
+			retweetInfo = (
+				<div className="tweet-retweet-info">
+					<i className="ei-retweet ei-retweet-dims" />
+					<span
+						dangerouslySetInnerHTML={{
+							__html: i18n.translate('components.tweet.retweeted', userLink)
+						}}
+					/>
+				</div>
+			);
+		}
+
 		return (
 			<article className="tweet">
+				{retweetInfo}
 				<a className="tweet-avatar" href={'#users/' + tweetData.user.id} title={'@' + tweetData.user.screenName}>
 					<Avatar template={tweetData.user.avatar} />
 				</a>

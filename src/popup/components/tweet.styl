@@ -1,11 +1,24 @@
 .tweet
 	padding 6px 6px 4px 6px
-	border-top 1px solid rgba(192, 192, 192, .4)
 	clear both
 	display box
 
-	&:first-child
-		border-top initial
+	.tweet-retweet-info
+		display flex
+		margin-left 56px
+		margin-bottom .5em
+		font-size 8pt
+		color #808080
+
+		a
+			color #808080
+
+		i
+			display inline-block
+			zoom .3
+			// @todo think about this shit
+			margin-right 14px
+			margin-left -64px
 
 	.tweet-avatar
 		float left
