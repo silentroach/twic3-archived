@@ -15,9 +15,13 @@ export default class UserInfo extends React.Component {
 			<div id="profile" className="page">
 				<Avatar template={user.avatar} type={Avatar.TYPE_BIG} />
 				<div className="profile-badges">
+					{user.isProtected     // @todo move to ul
+						&& <i className="ei-lock ei-lock-dims"
+							title={i18n.translate('pages.user.protected')} />
+					}
 					{user.isVerified
-						? <i className="ei-check ei-check-dims" title={i18n.translate('pages.user.verified')} />
-						: ''
+						&& <i className="ei-check ei-check-dims"
+							title={i18n.translate('pages.user.verified')} />
 					}
 				</div>
 

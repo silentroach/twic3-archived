@@ -86,7 +86,8 @@ gulp.task('vendor:evil-icons', function() {
 	var paths = _.map([
 		'ei-location.svg',
 		'ei-retweet.svg',
-		'ei-check.svg'
+		'ei-check.svg',
+		'ei-lock.svg'
 	], function(path) {
 		return 'node_modules/evil-icons/assets/icons/' + path;
 	} );

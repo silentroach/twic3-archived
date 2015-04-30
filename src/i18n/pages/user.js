@@ -6,5 +6,9 @@ module.exports = {
 	verified: {
 		en: 'Verified account',
 		ru: 'Подлинная учетная запись'
+	},
+	protected: {
+		en: 'Protected account',
+		ru: 'Приватная учетная запись' // ?
 	}
 };
