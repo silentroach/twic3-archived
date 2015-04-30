@@ -29,7 +29,8 @@
     "watch": "gulp watch",
     "dev": "gulp build && gulp watch",
     "production": "NODE_ENV=production gulp production",
-    "postmerge": "npm install"
+    "postmerge": "npm install",
+    "todo": "gulp todo"
   },
   "dependencies": {
     "autoprefixer-loader": "1.2.0",
