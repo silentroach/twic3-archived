@@ -1,13 +1,13 @@
-var path = require('path');
-var fs = require('fs');
-var childProcess = require('child_process');
+const path = require('path');
+const fs = require('fs');
+const childProcess = require('child_process');
 
-var _ = require('lodash');
-var jsStringEscape = require('js-string-escape');
-var gulp = require('gulp');
-var gulpSVG = require('gulp-svg-sprite');
+const _ = require('lodash');
+const jsStringEscape = require('js-string-escape');
+const gulp = require('gulp');
+const gulpSVG = require('gulp-svg-sprite');
 
-var twitterText = require('twitter-text');
+const twitterText = require('twitter-text');
 
 gulp.task('vendor:babel-helpers', function(callback) {
 	var targetPath = path.resolve(__dirname, '../src/vendor/babel-helpers.js');

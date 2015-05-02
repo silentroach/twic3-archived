@@ -1,8 +1,8 @@
-var path = require('path');
+const path = require('path');
 
-var _ = require('lodash');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const _ = require('lodash');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var isProduction = 'production' === process.env.NODE_ENV;
 

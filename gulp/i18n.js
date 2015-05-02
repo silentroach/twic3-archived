@@ -1,9 +1,9 @@
-var path = require('path');
+const path = require('path');
 
-var _ = require('lodash');
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var through = require('through2');
+const _ = require('lodash');
+const gulp = require('gulp');
+const gutil = require('gulp-util');
+const through = require('through2');
 
 gulp.task('i18n', function(callback) {
 	return gulp.src('src/i18n/index.js', { read: false })

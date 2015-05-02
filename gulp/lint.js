@@ -1,5 +1,5 @@
-var gulp = require('gulp');
-var gulpEslint = require('gulp-eslint');
+const gulp = require('gulp');
+const gulpEslint = require('gulp-eslint');
 
 gulp.task('lint', function() {
 	return gulp.src([

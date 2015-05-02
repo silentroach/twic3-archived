@@ -1,6 +1,6 @@
-var gulp = require('gulp');
-var gulpTodos = require('gulp-todo');
-var through = require('through2');
+const gulp = require('gulp');
+const gulpTodos = require('gulp-todo');
+const through = require('through2');
 
 gulp.task('todo', function() {
 	return gulp.src([

@@ -1,10 +1,10 @@
-var path = require('path');
-var fs = require('fs');
+const path = require('path');
+const fs = require('fs');
 
-var _ = require('lodash');
-var gulp = require('gulp');
+const _ = require('lodash');
+const gulp = require('gulp');
 
-var packageInfo = require('../package.json');
+const packageInfo = require('../package.json');
 
 gulp.task('manifest', function(callback) {
 	var targetPath = path.resolve(__dirname, '../build/manifest.json');

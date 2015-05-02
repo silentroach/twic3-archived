@@ -1,5 +1,5 @@
-var gulp = require('gulp');
-var childProcess = require('child_process');
+const gulp = require('gulp');
+const childProcess = require('child_process');
 
 gulp.task('phantom:rasterize', function(callback) {
 	console.log('generating raster icons...');

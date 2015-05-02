@@ -1,17 +1,19 @@
-var path = require('path');
-var fs = require('fs');
-var gulp = require('gulp');
-var gulpJade = require('gulp-jade');
-var gulpRename = require('gulp-rename');
+require('babel/register');
 
-var rimraf = require('rimraf');
+const path = require('path');
+const fs = require('fs');
+const gulp = require('gulp');
+const gulpJade = require('gulp-jade');
+const gulpRename = require('gulp-rename');
 
-var gulpWebpack = require('gulp-webpack');
-var webpack = require('webpack');
-var webpackConfig = require('./gulp/_webpack');
+const rimraf = require('rimraf');
 
-var isProduction = 'production' === process.env.NODE_ENV;
-var buildPath = path.resolve(__dirname, 'build');
+const gulpWebpack = require('gulp-webpack');
+const webpack = require('webpack');
+const webpackConfig = require('./gulp/_webpack');
+
+const isProduction = 'production' === process.env.NODE_ENV;
+const buildPath = path.resolve(__dirname, 'build');
 
 function buildBackground(watch) {
 	return gulp.src('src/background/index.js')
