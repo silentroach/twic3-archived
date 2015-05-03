@@ -39,7 +39,7 @@
     "babel-loader": "5.0.0",
     "babel-runtime": "5.2.6",
     "css-loader": "0.11.0",
-    "evil-icons": "1.7.4",
+    "evil-icons": "1.7.6",
     "extract-text-webpack-plugin": "0.7.0",
     "gulp": "git://github.com/gulpjs/gulp#4.0",
     "gulp-jade": "1.0.0",
