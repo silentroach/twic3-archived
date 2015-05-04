@@ -16,7 +16,12 @@ const parser = new Parser({
 			// @todo merge entity helpers
 			text = hashtagEntityHelper.processText(original, tweetJSON.entities.hashtags);
 			text = mentionEntityHelper.processText(text, tweetJSON.entities.user_mentions);
-			text = mediaEntityHelper.processText(text, tweetJSON.entities.media);
+
+			// @todo temporary
+			if (tweetJSON.extended_entities) {
+				text = mediaEntityHelper.processText(text, tweetJSON.extended_entities.media);
+			}
+
 			text = urlEntityHelper.processText(text, tweetJSON.entities.urls);
 
 			if (original !== text) {
