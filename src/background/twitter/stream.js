@@ -4,6 +4,9 @@ import OAuthStreamRequest from '../request/OAuthStream';
 // @todo check 420 error (too much requests)
 // @todo handle disconnects
 
+// @see https://dev.twitter.com/streaming/overview/messages-types
+const DISCONNECT_CODE_TOKEN_REVOKED = 6;
+
 export default class TwitterStream extends EventEmitter {
 	constructor(url, token) {
 		super();
@@ -83,8 +86,8 @@ export default class TwitterStream extends EventEmitter {
 	}
 
 	handleMessage(object) {
-		var type;
-		var data;
+		let type;
+		let data;
 
 		// if (undefined !== object.event) {
 			/*
@@ -108,14 +111,17 @@ export default class TwitterStream extends EventEmitter {
 		// if (undefined !== object.direct_message) {
 		// 	// @todo
 		// } else
-		// if (undefined !== object.delete) {
-		// 	// @todo
-		// }
+		if (undefined !== object.delete) {
+			// @todo more
+			if (undefined !== object.delete.status) {
+				type = TwitterStream.TYPE_DELETE_TWEET;
+				data = object.delete.status.id_str;
+			}
+		}
 		if (undefined !== object.disconnect) {
 			this.stop();
 
-			// @see https://dev.twitter.com/streaming/overview/messages-types
-			if (6 === object.disconnect.code) {
+			if (DISCONNECT_CODE_TOKEN_REVOKED === object.disconnect.code) {
 				// token revoked
 				type = TwitterStream.TYPE_TOKEN_REVOKED;
 			}
@@ -141,9 +147,12 @@ TwitterStream.TYPE_TOKEN_REVOKED = 0;
 // ---
 TwitterStream.TYPE_FRIENDS_LIST = 1;
 TwitterStream.TYPE_TWEET = 2;
+// ---
+TwitterStream.TYPE_DELETE_TWEET = 3;
 
 if ('production' !== process.env.NODE_ENV) {
 	TwitterStream.TYPE_TOKEN_REVOKED = 'token_revoked';
 	TwitterStream.TYPE_FRIENDS_LIST = 'friends_list';
 	TwitterStream.TYPE_TWEET = 'tweet';
+	TwitterStream.TYPE_DELETE_TWEET = 'delete_tweet';
 }

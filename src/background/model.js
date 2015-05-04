@@ -73,6 +73,12 @@ export default class Model {
 			|| Date.now() - this[updateTimeField] > this.getFreshTime();
 	}
 
+	static delete(db, id) {
+		const obj = new this(); // @todo this, wtf?!
+
+		return db.delete(obj.constructor.getCollectionName(), id);
+	}
+
 	static getByIndex(db, index, value) {
 		const obj = new this(); // @todo this, wtf?!
 

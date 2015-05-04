@@ -58,6 +58,23 @@ export default class DB {
 			});
 	}
 
+	delete(collectionName, id) {
+		return this.getObjectStore(collectionName, MODE_READ_WRITE)
+			.then(function(store) {
+				return new Promise(function(resolve, reject) {
+					var request = store.delete(id);
+
+					request.onerror = function(event) {
+						reject(event);
+					};
+
+					request.onsuccess = function(event) {
+						resolve();
+					};
+				});
+			});
+	}
+
 	put(collectionName, object) {
 		return this.getObjectStore(collectionName, MODE_READ_WRITE)
 			.then(function(store) {

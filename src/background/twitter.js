@@ -90,6 +90,10 @@ export default class Twitter {
 			});
 	}
 
+	deleteTweet(id) {
+		return Tweet.delete(this.db, id);
+	}
+
 	updateTweet(tweetJSON, skipUserUpdate = false) {
 		const twitter = this;
 

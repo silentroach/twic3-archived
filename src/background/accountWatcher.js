@@ -106,6 +106,12 @@ export default class AccountWatcher extends Watcher {
 			});
 	}
 
+	handleTweetDelete(id) {
+		const watcher = this;
+
+		this.twitter.deleteTweet(id);
+	}
+
 	handleStreamFriendsList(idsList) {
 		const watcher = this;
 
@@ -138,6 +144,9 @@ export default class AccountWatcher extends Watcher {
 				break;
 			case TwitterStream.TYPE_FRIENDS_LIST:
 				this.handleStreamFriendsList(data);
+				break;
+			case TwitterStream.TYPE_DELETE_TWEET:
+				this.handleTweetDelete(data);
 				break;
 			default:
 				console.warn('unhandled stream data update', type, data);
