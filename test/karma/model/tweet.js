@@ -40,6 +40,7 @@ describe('Model.Tweet', function() {
 		assert.equal(tweet.text, 'test multiple<br /><br />breaks');
 	});
 
+/*
 	it('should prepare entities for display', function() {
 		const displayUrl = 'youtu.be/SsYY77hxXUE';
 		const expandedUrl = 'http://youtu.be/SsYY77hxXUE';
@@ -83,4 +84,5 @@ describe('Model.Tweet', function() {
 		assert.equal(tweet.text, tweetText);
 		assert.notProperty(tweet, 'originalText');
 	});
+*/
 });

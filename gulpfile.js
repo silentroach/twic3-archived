@@ -97,7 +97,7 @@ function buildPopup(watch) {
 					'vendor': [
 						'vendor/babel-helpers',
 						'react',
-						'react-pure-render',
+						'react-pure-render/component',
 						'moment',
 						'normalize.stylus/index.styl'
 					]
