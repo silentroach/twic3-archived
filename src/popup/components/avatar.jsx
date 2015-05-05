@@ -1,6 +1,7 @@
 import './avatar.styl';
 
 import React from 'react';
+import PureComponent from 'react-pure-render/component';
 
 import device from '../device';
 
@@ -13,7 +14,7 @@ mini   => 24x24
 
 // @todo do not show image until loaded, maybe loader is ok after some timeout
 
-export default class Avatar extends React.Component {
+export default class Avatar extends PureComponent {
 	render() {
 		let size = ''; // original
 		let classes = ['avatar'];

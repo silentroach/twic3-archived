@@ -1,10 +1,11 @@
 import React from 'react';
+import PureComponent from 'react-pure-render/component';
 
 import moment from '../moment';
 
 import './timeAgo.styl';
 
-export default class TimeAgo extends React.Component {
+export default class TimeAgo extends PureComponent {
 	constructor(props) {
 		super(props);
 

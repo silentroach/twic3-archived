@@ -57,6 +57,7 @@
     "normalize.stylus": "0.1.0",
     "qs": "2.4.1",
     "react": "0.13.2",
+    "react-pure-render": "^1.0.1",
     "rimraf": "2.3.3",
     "stylus-loader": "1.0.0",
     "through2": "0.6.5",

@@ -94,7 +94,13 @@ function buildPopup(watch) {
 			webpackConfig({
 				entry: {
 					'index': 'popup/index.jsx',
-					'vendor': ['vendor/babel-helpers', 'react', 'moment', 'normalize.stylus/index.styl']
+					'vendor': [
+						'vendor/babel-helpers',
+						'react',
+						'react-pure-render',
+						'moment',
+						'normalize.stylus/index.styl'
+					]
 				},
 				watch: watch,
 				output: {
