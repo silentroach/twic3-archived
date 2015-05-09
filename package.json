@@ -56,8 +56,8 @@
     "moment": "2.10.2",
     "normalize.stylus": "0.1.0",
     "qs": "2.4.1",
-    "react": "0.13.2",
-    "react-pure-render": "^1.0.1",
+    "react": "0.13.3",
+    "react-pure-render": "1.0.1",
     "rimraf": "2.3.3",
     "stylus-loader": "1.0.0",
     "through2": "0.6.5",
@@ -66,9 +66,9 @@
     "webpack": "1.8.11"
   },
   "devDependencies": {
-    "babel-eslint": "3.1.0",
+    "babel-eslint": "3.1.1",
     "chai": "2.3.0",
-    "eslint": "0.20.0",
+    "eslint": "0.21.0",
     "gulp-eslint": "0.11.1",
     "gulp-todo": "2.6.0",
     "husky": "0.7.0",
