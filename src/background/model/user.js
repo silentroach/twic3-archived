@@ -1,7 +1,7 @@
 import ModelJSON from '../modelJSON';
 import Parser from '../parser';
 
-import urlEntityHelper from '../entities/url';
+import Entities from '../entities';
 
 const COORDS_REGEXP = /-?[\d.]+/g;
 
@@ -54,7 +54,10 @@ const parser = new Parser({
 	'friends_count': [Parser.TYPE_INT, 'friendsCount'],
 	'url': [Parser.TYPE_STRING, (url, userJSON) => {
 		if (userJSON.entities && userJSON.entities.url) {
-			url = urlEntityHelper.processText(url, userJSON.entities.url.urls);
+			const entities = new Entities();
+			entities.parseUrls(userJSON.entities.url.urls);
+
+			url = entities.processText(url);
 		}
 
 		return {

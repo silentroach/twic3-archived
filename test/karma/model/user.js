@@ -78,6 +78,7 @@ describe('Model.User', function() {
 				url: {
 					urls: [
 						{
+							indices: [0, 23],
 							'display_url': displayUrl,
 							'expanded_url': expandedUrl,
 							url: url

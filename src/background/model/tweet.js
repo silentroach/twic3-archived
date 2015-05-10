@@ -1,38 +1,35 @@
 import ModelJSON from '../modelJSON';
 import Parser from '../parser';
 
-import hashtagEntityHelper from '../entities/hashtag';
-import urlEntityHelper from '../entities/url';
-import mentionEntityHelper from '../entities/mention';
-import mediaEntityHelper from '../entities/media';
+import Entities from '../entities';
 
 const parser = new Parser({
 	'id_str': [Parser.TYPE_STRING, 'id'],
 	'text': [Parser.TYPE_STRING, (original, tweetJSON) => {
+		const entities = new Entities();
 		const data = { };
-		let text = original;
 
 		if (tweetJSON.entities) {
-			// @todo merge entity helpers
-			text = hashtagEntityHelper.processText(original, tweetJSON.entities.hashtags);
-			text = mentionEntityHelper.processText(text, tweetJSON.entities.user_mentions);
-
-			// @todo temporary
-			if (tweetJSON.extended_entities) {
-				text = mediaEntityHelper.processText(text, tweetJSON.extended_entities.media);
-			}
-
-			text = urlEntityHelper.processText(text, tweetJSON.entities.urls);
-
-			if (original !== text) {
-				data.originalText = original;
-			}
+			entities
+				.parseMentions(tweetJSON.entities.user_mentions)
+				.parseUrls(tweetJSON.entities.urls)
+				.parseHashtags(tweetJSON.entities.hashtags);
 		}
 
-		data.text = text
+		if (tweetJSON.extended_entities) {
+			entities.parseMedia(tweetJSON.extended_entities.media);
+		}
+
+		let text = entities.processText(original)
 			.replace(/[\r\n]/g, '\n')
 			.replace(/\n{2,}/g, '\n\n')  // convert 3+ breaks to 2
 			.replace(/\n/g, '<br />');
+
+		if (original !== text) {
+			data.originalText = original;
+		}
+
+		data.text = text;
 
 		return data;
 	}],
