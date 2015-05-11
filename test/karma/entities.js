@@ -5,7 +5,37 @@ import Entities from '../../src/background/entities';
 
 describe('Entities', function() {
 
-	it('should render entities to text correctly', function() {
+	it('should render entities to text with urls', function() {
+		const text = 'Write markdown, extract metadata, commonmark-helpers is out! https://t.co/QjTIqiPqzs and article about release https://t.co/AY663NwHtW';
+		const urlEntitiesData = [
+			{
+				indices: [61, 84],
+				url: 'https://t.co/QjTIqiPqzs',
+				'expanded_url': 'https://www.npmjs.com/package/commonmark-helpers',
+				'display_url': 'npmjs.com/package/common…'
+			},
+			{
+				indices: [111, 134],
+				url: 'https://t.co/AY663NwHtW',
+				'expanded_url': 'https://iamstarkov.com/commonmark-helpers-release/',
+				'display_url': 'iamstarkov.com/commonmark-hel…'
+			}
+		];
+
+		const entities = new Entities();
+
+		entities
+			.parseUrls(urlEntitiesData);
+
+		const output = entities.processText(text);
+
+		assert.equal(
+			output,
+			'Write markdown, extract metadata, commonmark-helpers is out! <a href="https://t.co/QjTIqiPqzs" class="tweet-link" title="https://www.npmjs.com/package/commonmark-helpers" target="_blank">npmjs.com/package/common…</a> and article about release <a href="https://t.co/AY663NwHtW" class="tweet-link" title="https://iamstarkov.com/commonmark-helpers-release/" target="_blank">iamstarkov.com/commonmark-hel…</a>'
+		);
+	});
+
+	it('should render entities to text with hashes and mentions', function() {
 		const text = 'RT @GoT_Dany: Jon Snow on Mother\'s Day. #HappyMothersDay';
 
 		const hashEntitiesData = [
@@ -36,5 +66,6 @@ describe('Entities', function() {
 			'RT <a class="tweet-link-mention" href="#users/543128024" title="Daenerys Targaryen">@GoT_Dany</a>: Jon Snow on Mother\'s Day. <span class="tweet-link-hashtag">#HappyMothersDay</span>'
 		);
 	});
+
 
 });

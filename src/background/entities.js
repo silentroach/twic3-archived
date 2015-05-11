@@ -52,20 +52,24 @@ export default class Entities {
 	}
 
 	processText(input) {
+		const self = this;
 		const entitiesPos = Object
 			.keys(this[MAP_FIELD])
 			.map(Number)
-			.sort();
+			.sort(function(a, b) {
+				// reversing for correct replacement order
+				return b - a;
+			});
 
 		let pos;
 		let output = input;
 
-		while (undefined !== (pos = entitiesPos.pop())) {
-			output = this.processTextByEntity(
+		entitiesPos.forEach(function(pos) {
+			output = self.processTextByEntity(
 				output,
-				this[MAP_FIELD][pos]
+				self[MAP_FIELD][pos]
 			);
-		}
+		});
 
 		return output;
 	}
