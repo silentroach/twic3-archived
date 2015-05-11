@@ -85,9 +85,9 @@ export default class Model {
 	}
 
 	static getByIndex(db, index, value) {
-		const self = this;
+		const ClassRef = this;
 
-		return db.getStore(this.getCollectionName(), DB.MODE_READ_ONLY)
+		return db.getStore(ClassRef.getCollectionName(), DB.MODE_READ_ONLY)
 			.then(function(store) {
 				return store
 					.getIndex(index)
@@ -97,7 +97,7 @@ export default class Model {
 				let obj;
 
 				if (data) {
-					obj = new self();
+					obj = new ClassRef();
 					fillData.call(obj, data);
 				}
 
@@ -106,9 +106,9 @@ export default class Model {
 	}
 
 	static getById(db, id) {
-		const self = this;
+		const ClassRef = this;
 
-		return db.getStore(this.getCollectionName(), DB.MODE_READ_ONLY)
+		return db.getStore(ClassRef.getCollectionName(), DB.MODE_READ_ONLY)
 			.then(function(store) {
 				return store.getById(id);
 			})
@@ -116,7 +116,7 @@ export default class Model {
 				let obj;
 
 				if (data) {
-					obj = new self();
+					obj = new ClassRef();
 					fillData.call(obj, data);
 				}
 
