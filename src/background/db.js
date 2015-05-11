@@ -1,9 +1,6 @@
-const VERSION = 1;
-const NAME = 'twic';
+import DBStore from './db/store';
 
-const MODE_READ_WRITE = 'readwrite';
-const MODE_READ_ONLY = 'readonly';
-
+// @todo move migrations to -> registerMigration (call from app)
 function upgrade(event) {
 	const db = event.target.result;
 	let objectStore;
@@ -30,7 +27,7 @@ export default class DB {
 		this[DB_FIELD] = null;
 	}
 
-	getDB() {
+	/** @private */ getDB() {
 		var self = this;
 
 		return new Promise(function(resolve, reject) {
@@ -39,7 +36,7 @@ export default class DB {
 			if (self[DB_FIELD]) {
 				resolve(self[DB_FIELD]);
 			} else {
-				request = indexedDB.open(NAME, VERSION);
+				request = indexedDB.open(DB.NAME, DB.VERSION);
 				request.onupgradeneeded = upgrade;
 				request.onsuccess = function(event) {
 					self[DB_FIELD] = request.result;
@@ -50,7 +47,18 @@ export default class DB {
 		});
 	}
 
-	getObjectStore(collectionName, mode) {
+	getStore(collectionName, mode) {
+		return this.getDB()
+			.then(function(db) {
+				const objectStore = db
+					.transaction(collectionName, mode)
+					.objectStore(collectionName);
+
+				return new DBStore(objectStore);
+			});
+	}
+
+	/** @deprecated */ getObjectStore(collectionName, mode) {
 		return this.getDB()
 			.then(function(db) {
 				return db.transaction(collectionName, mode)
@@ -58,41 +66,7 @@ export default class DB {
 			});
 	}
 
-	delete(collectionName, id) {
-		return this.getObjectStore(collectionName, MODE_READ_WRITE)
-			.then(function(store) {
-				return new Promise(function(resolve, reject) {
-					var request = store.delete(id);
-
-					request.onerror = function(event) {
-						reject(event);
-					};
-
-					request.onsuccess = function(event) {
-						resolve();
-					};
-				});
-			});
-	}
-
-	put(collectionName, object) {
-		return this.getObjectStore(collectionName, MODE_READ_WRITE)
-			.then(function(store) {
-				return new Promise(function(resolve, reject) {
-					var request = store.put(object);
-
-					request.onerror = function(event) {
-						reject(event);
-					};
-
-					request.onsuccess = function(event) {
-						resolve();
-					};
-				});
-			});
-	}
-
-	getIndex(collectionName, indexName, mode = MODE_READ_ONLY) {
+	getIndex(collectionName, indexName, mode = DB.MODE_READ_ONLY) {
 		return this.getObjectStore(collectionName, mode)
 			.then(function(store) {
 				return store.index(indexName);
@@ -101,7 +75,7 @@ export default class DB {
 
 	// @todo rethink
 	updateByCursor(collectionName, indexName, range, callback) {
-		return this.getObjectStore(collectionName, MODE_READ_WRITE)
+		return this.getObjectStore(collectionName, DB.MODE_READ_WRITE)
 			.then(function(store) {
 				return new Promise(function(resolve, reject) {
 					const idx = store.index(indexName);
@@ -138,21 +112,10 @@ export default class DB {
 				});
 			});
 	}
-
-	getById(collectionName, id) {
-		return this.getObjectStore(collectionName, MODE_READ_ONLY)
-			.then(function(store) {
-				return new Promise(function(resolve, reject) {
-					var request = store.get(id);
-
-					request.onerror = function(event) {
-						reject(event);
-					};
-
-					request.onsuccess = function(event) {
-						resolve(request.result);
-					};
-				});
-			});
-	}
 }
+
+DB.VERSION = 1;
+DB.NAME = 'twic';
+
+DB.MODE_READ_WRITE = 'readwrite';
+DB.MODE_READ_ONLY = 'readonly';
