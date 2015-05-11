@@ -5,7 +5,12 @@ import Entities from '../entities';
 
 const COORDS_REGEXP = /-?[\d.]+/g;
 
-const parser = new Parser({
+/**
+ * In streaming api we have no entities info for users
+ * so we need to split parsers into two
+ */
+
+const commonParserRules = {
 	'id_str': [Parser.TYPE_STRING, 'id'],
 	'name': Parser.TYPE_STRING,
 	'screen_name': [Parser.TYPE_STRING, (original) => {
@@ -41,7 +46,6 @@ const parser = new Parser({
 		return data;
 	}],
 	'created_at': [Parser.TYPE_DATE, 'registerTime'],
-	'description': Parser.TYPE_STRING,
 	'protected': [Parser.TYPE_BOOLEAN, 'isProtected'],
 	'profile_image_url_https': [Parser.TYPE_STRING, (original) => {
 		return {
@@ -51,31 +55,55 @@ const parser = new Parser({
 	'verified': [Parser.TYPE_BOOLEAN, 'isVerified'],
 	'geo_enabled': [Parser.TYPE_BOOLEAN, 'isGeoEnabled'],
 	'followers_count': [Parser.TYPE_INT, 'followersCount'],
-	'friends_count': [Parser.TYPE_INT, 'friendsCount'],
-	'url': [Parser.TYPE_STRING, (url, userJSON) => {
-		if (userJSON.entities && userJSON.entities.url) {
-			const entities = new Entities();
-			entities.parseUrls(userJSON.entities.url.urls);
+	'friends_count': [Parser.TYPE_INT, 'friendsCount']
+};
 
-			url = entities.processText(url);
-		}
+const fullParserRules = Object.create(commonParserRules);
 
-		return {
-			url: url
-		};
-	}]
-});
+fullParserRules.description = Parser.TYPE_STRING;
+
+fullParserRules.url = [Parser.TYPE_STRING, (url, userJSON) => {
+	if (userJSON.entities && userJSON.entities.url) {
+		const entities = new Entities();
+		entities.parseUrls(userJSON.entities.url.urls);
+
+		url = entities.processText(url);
+	}
+
+	return {
+		url: url
+	};
+}];
+
+const simpleParser = new Parser(commonParserRules);
+const parser = new Parser(fullParserRules);
+
+const FULL_UPDATE_TIME_FIELD_NAME = 'fullUpdateTime';
 
 export default class User extends ModelJSON {
 	static getCollectionName() {
 		return 'users';
 	}
 
-	static getParser() {
-		return parser;
+	static getParser(isFull = true) {
+		return isFull ? parser : simpleParser;
 	}
 
 	static getByScreenName(db, screenName) {
 		return this.getByIndex(db, 'screenName', screenName);
+	}
+
+	parse(json, isFull = true) {
+		super.parse(json, isFull);
+
+		if (isFull) {
+			this[FULL_UPDATE_TIME_FIELD_NAME] = Date.now();
+			this.markAsChanged();
+		}
+	}
+
+	isOutdated() {
+		return undefined === this[FULL_UPDATE_TIME_FIELD_NAME]
+			|| Date.now() - this[FULL_UPDATE_TIME_FIELD_NAME] > this.getFreshTime();
 	}
 }

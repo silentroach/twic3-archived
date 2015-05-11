@@ -70,7 +70,7 @@ export default class Twitter {
 			});
 	}
 
-	updateUser(userJSON) {
+	updateUser(userJSON, isStreaming = false) {
 		const twitter = this;
 
 		return User
@@ -80,7 +80,7 @@ export default class Twitter {
 					user = new User();
 				}
 
-				user.parse(userJSON);
+				user.parse(userJSON, !isStreaming);
 
 				return user
 					.save(twitter.db)
@@ -94,7 +94,11 @@ export default class Twitter {
 		return Tweet.deleteById(this.db, id);
 	}
 
-	updateTweet(tweetJSON, skipUserUpdate = false) {
+	updateTweet(
+		tweetJSON,
+		skipUserUpdate = false,
+		isStreaming = false
+	) {
 		const twitter = this;
 
 		return Tweet
@@ -112,10 +116,17 @@ export default class Twitter {
 						return Promise.all([
 							skipUserUpdate
 								? Promise.resolve()
-								: twitter.updateUser(tweetJSON['user']),
+								: twitter.updateUser(
+									tweetJSON['user'],
+									isStreaming
+								),
 							undefined === tweetJSON['retweeted_status']
 								? Promise.resolve()
-								: twitter.updateTweet(tweetJSON['retweeted_status'])
+								: twitter.updateTweet(
+									tweetJSON['retweeted_status'],
+									skipUserUpdate,
+									isStreaming
+								)
 						]).then(function() {
 							return tweet;
 						});

@@ -17,8 +17,10 @@ export default class ModelJSON extends Model {
 		throw new Error('No parser defined');
 	}
 
-	parse(json) {
-		var data = this.constructor.getParser().process(json);
+	parse(json, ...args) {
+		var data = this.constructor
+			.getParser(...args)
+			.process(json);
 
 		for (let field of Object.keys(this)) {
 			if (null === data[field]

@@ -82,12 +82,13 @@ export default class Parser {
 				throw new Error('Parsed results is not an object');
 			}
 
-			for (let key of Object.keys(parsedResults)) {
+			for (let key in parsedResults) {
 				result[key] = parsedResults[key];
 			}
 		}
 
-		for (let key of Object.keys(this[RULES_FIELD])) {
+		// not Object.keys cause it can be inherited
+		for (let key in this[RULES_FIELD]) {
 			processData(key, object[key], this[RULES_FIELD][key]);
 		}
 
