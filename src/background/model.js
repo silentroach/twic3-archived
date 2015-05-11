@@ -1,6 +1,7 @@
-const IS_CHANGED_FIELD = Symbol('changed');
+import DB from './db';
 
-const updateTimeField = 'updateTime';
+const IS_CHANGED_FIELD = Symbol('changed');
+const UPDATE_TIME_FIELD_NAME = 'updateTime';
 
 function fillData(data) {
 	if (!data) {
@@ -44,7 +45,7 @@ export default class Model {
 
 	markAsChanged() {
 		this[IS_CHANGED_FIELD] = true;
-		this[updateTimeField] = Date.now();
+		this[UPDATE_TIME_FIELD_NAME] = Date.now();
 	}
 
 	isChanged() {
@@ -62,34 +63,64 @@ export default class Model {
 
 		console.log('saving to', collectionName, storeObject);
 
-		return db.put(collectionName, storeObject)
+		return db.getStore(collectionName, DB.MODE_READ_WRITE)
+			.then(function(store) {
+				return store.put(storeObject);
+			})
 			.then(function() {
 				return object;
 			});
 	}
 
 	isOutdated() {
-		return undefined === this[updateTimeField]
-			|| Date.now() - this[updateTimeField] > this.getFreshTime();
+		return undefined === this[UPDATE_TIME_FIELD_NAME]
+			|| Date.now() - this[UPDATE_TIME_FIELD_NAME] > this.getFreshTime();
 	}
 
-	static delete(db, id) {
-		const obj = new this(); // @todo this, wtf?!
-
-		return db.delete(obj.constructor.getCollectionName(), id);
+	static deleteById(db, id) {
+		return db.getStore(this.getCollectionName(), DB.MODE_READ_WRITE)
+			.then(function(store) {
+				return store.deleteById(id);
+			});
 	}
 
 	static getByIndex(db, index, value) {
-		const obj = new this(); // @todo this, wtf?!
+		const self = this;
 
-		return db.getByIndex(obj.constructor.getCollectionName(), index, value)
-			.then(fillData.bind(obj));
+		return db.getStore(this.getCollectionName(), DB.MODE_READ_ONLY)
+			.then(function(store) {
+				return store
+					.getIndex(index)
+					.getByValue(value);
+			})
+			.then(function(data) {
+				let obj;
+
+				if (data) {
+					obj = new self();
+					fillData.call(obj, data);
+				}
+
+				return obj;
+			});
 	}
 
 	static getById(db, id) {
-		const obj = new this(); // @todo this, wtf?!
+		const self = this;
 
-		return db.getById(obj.constructor.getCollectionName(), id)
-			.then(fillData.bind(obj));
+		return db.getStore(this.getCollectionName(), DB.MODE_READ_ONLY)
+			.then(function(store) {
+				return store.getById(id);
+			})
+			.then(function(data) {
+				let obj;
+
+				if (data) {
+					obj = new self();
+					fillData.call(obj, data);
+				}
+
+				return obj;
+			});
 	}
 }
