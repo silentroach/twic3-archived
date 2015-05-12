@@ -77,10 +77,11 @@ export default class DB {
 	updateByCursor(collectionName, indexName, range, callback) {
 		return this.getObjectStore(collectionName, DB.MODE_READ_WRITE)
 			.then(function(store) {
-				return new Promise(function(resolve, reject) {
-					const idx = store.index(indexName);
-					const request = idx.openKeyCursor(range);
+				const request = store
+					.index(indexName)
+					.openKeyCursor(range);
 
+				return new Promise(function(resolve, reject) {
 					request.onerror = function(event) {
 						reject(event);
 					};
@@ -91,23 +92,6 @@ export default class DB {
 						} else {
 							callback(store, request.result);
 						}
-					};
-				});
-			});
-	}
-
-	getByIndex(collectionName, indexName, value) {
-		return this.getIndex(collectionName, indexName)
-			.then(function(idx) {
-				return new Promise(function(resolve, reject) {
-					const request = idx.get(value);
-
-					request.onerror = function(event) {
-						reject(event);
-					};
-
-					request.onsuccess = function(event) {
-						resolve(request.result);
 					};
 				});
 			});
