@@ -3,6 +3,8 @@ import Parser from '../parser';
 
 import Entities from '../entities';
 
+import textUtils from '../twitter/text';
+
 const parser = new Parser({
 	'id_str': [Parser.TYPE_STRING, 'id'],
 	'text': [Parser.TYPE_STRING, (original, tweetJSON) => {
@@ -20,10 +22,9 @@ const parser = new Parser({
 			entities.parseMedia(tweetJSON.extended_entities.media);
 		}
 
-		let text = entities.processText(original)
-			.replace(/[\r\n]/g, '\n')
-			.replace(/\n{2,}/g, '\n\n')  // convert 3+ breaks to 2
-			.replace(/\n/g, '<br />');
+		let text = textUtils.processLineBreaks(
+			entities.processText(original)
+		);
 
 		if (original !== text) {
 			data.originalText = original;

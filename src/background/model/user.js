@@ -3,6 +3,8 @@ import Parser from '../parser';
 
 import Entities from '../entities';
 
+import textUtils from '../twitter/text';
+
 const COORDS_REGEXP = /-?[\d.]+/g;
 
 /**
@@ -60,7 +62,13 @@ const commonParserRules = {
 
 const fullParserRules = Object.create(commonParserRules);
 
-fullParserRules.description = Parser.TYPE_STRING;
+fullParserRules.description = [Parser.TYPE_STRING, (description, userJSON) => {
+	return {
+		description: textUtils.processLineBreaks(
+			description
+		)
+	};
+}];
 
 fullParserRules.url = [Parser.TYPE_STRING, (url, userJSON) => {
 	if (userJSON.entities && userJSON.entities.url) {

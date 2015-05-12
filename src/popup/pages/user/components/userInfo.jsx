@@ -31,7 +31,11 @@ export default class UserInfo extends React.Component {
 						{user.name !== user.screenName ? ' [' + user.screenName + ']' : ''}
 					</li>
 					{user.url ? <li dangerouslySetInnerHTML={{__html: user.url }} /> : ''}
-					{user.description ? <li id="info-description">{user.description}</li> : ''}
+					{user.description ? <li id="info-description"
+						dangerouslySetInnerHTML={{
+							__html: user.description
+						}}
+					/> : ''}
 					{user.location ? <li>{user.location}</li> : ''}
 					{user.coords ? <Map coords={user.coords} locale={chrome.app.getDetails().current_locale} /> : ''}
 				</ul>
