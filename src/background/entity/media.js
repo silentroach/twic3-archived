@@ -36,15 +36,18 @@ export default class EntityMedia extends Entity {
 	static parse(data) {
 		const type = data.type;
 
-		if ('photo' !== type) {
-			// @todo +animated_gif
-			// @todo +video
-
-			console.warn(
-				'unknown media entity type',
-				type,
-				data
-			);
+		switch (type) {
+			case 'photo':
+			case 'animated_gif':
+			case 'video':
+				break;
+			default:
+				console.warn(
+					'unknown media entity type',
+					type,
+					data
+				);
+				return null;
 		}
 
 		return new EntityMedia(

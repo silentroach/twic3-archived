@@ -17,9 +17,12 @@ export default class Entities {
 
 		entityList.forEach(entityData => {
 			const entity = typeClass.parse(entityData);
-			const startPos = entity.indices[0];
 
-			this[MAP_FIELD][startPos] = entity;
+			if (entity) {
+				this[MAP_FIELD][
+					entity.indices[0]
+				] = entity;
+			}
 		});
 
 		return this;
