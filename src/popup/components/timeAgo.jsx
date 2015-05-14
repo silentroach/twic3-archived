@@ -43,13 +43,10 @@ export default class TimeAgo extends PureComponent {
 		this.recalculateText();
 
 		if (offset < 60 * 1000) { // less than minute
-			timeout = 1000;
+			timeout = 250;
 		} else
 		if (offset < 60 * 60 * 1000) { // less than hour
 			timeout = 60 * 1000;
-		// } else
-		// if (offset < 24 * 60 * 60 * 1000) { // less than day
-		// 	timeout = 60 * 60 * 1000;
 		} else {
 			timeout = null;
 		}
