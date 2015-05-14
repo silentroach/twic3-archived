@@ -96,7 +96,7 @@ export default class Twitter {
 
 	updateTweet(
 		tweetJSON,
-		skipUserUpdate = false,
+		skipUpdateUserIds,
 		isStreaming = false
 	) {
 		const twitter = this;
@@ -113,23 +113,38 @@ export default class Twitter {
 				return tweet
 					.save(twitter.db)
 					.then(function() {
-						return Promise.all([
-							skipUserUpdate
-								? Promise.resolve()
-								: twitter.updateUser(
+						const promises = [];
+						const tweetUserId = tweetJSON['user']['id_str'];
+
+						if (!skipUpdateUserIds
+							|| !skipUpdateUserIds.has(tweetUserId)
+						) {
+							skipUpdateUserIds.add(tweetUserId);
+
+							promises.push(
+								twitter.updateUser(
 									tweetJSON['user'],
 									isStreaming
-								),
-							undefined === tweetJSON['retweeted_status']
-								? Promise.resolve()
-								: twitter.updateTweet(
+								)
+							);
+						}
+
+						if (undefined !== tweetJSON['retweeted_status']) {
+							promises.push(
+								twitter.updateTweet(
 									tweetJSON['retweeted_status'],
-									skipUserUpdate,
+									skipUpdateUserIds,
 									isStreaming
 								)
-						]).then(function() {
-							return tweet;
-						});
+							);
+						}
+
+
+						return Promise
+							.all(promises)
+							.then(function() {
+								return tweet;
+							});
 					});
 			});
 	}
@@ -192,7 +207,7 @@ export default class Twitter {
 
 	getHomeTimeline(userId, token, sinceId) {
 		const twitter = this;
-		const tweetUserIds = new Set();
+		const skipUpdateUserIds = new Set();
 
 		return this.api.getHomeTimeline(token, sinceId)
 			.then(function(tweets) {
@@ -203,14 +218,9 @@ export default class Twitter {
 				return Promise.all(
 					tweets.map(tweetJSON => {
 						const tweetUserId = tweetJSON.user['id_str'];
-						const skipUserUpdate = tweetUserIds.has(tweetUserId);
-
-						if (!skipUserUpdate) {
-							tweetUserIds.add(tweetUserId);
-						}
 
 						return twitter
-							.updateTweet(tweetJSON, skipUserUpdate)
+							.updateTweet(tweetJSON, skipUpdateUserIds)
 							.then(function(tweet) {
 								return tweet
 									.addTimelineUserId(userId)

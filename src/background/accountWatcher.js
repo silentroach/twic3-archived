@@ -96,7 +96,7 @@ export default class AccountWatcher extends Watcher {
 		const watcher = this;
 
 		this.twitter
-			.updateTweet(tweet, false, true)
+			.updateTweet(tweet, null, true)
 			.then(function(tweet) {
 				tweet
 					.addTimelineUserId(watcher.account.userId)
