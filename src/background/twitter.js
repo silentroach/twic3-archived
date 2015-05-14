@@ -119,7 +119,9 @@ export default class Twitter {
 						if (!skipUpdateUserIds
 							|| !skipUpdateUserIds.has(tweetUserId)
 						) {
-							skipUpdateUserIds.add(tweetUserId);
+							if (skipUpdateUserIds) {
+								skipUpdateUserIds.add(tweetUserId);
+							}
 
 							promises.push(
 								twitter.updateUser(
