@@ -34,7 +34,6 @@ const commonParserRules = {
 				.filter(coord => coord);
 
 			if (2 === coordsMatches.length) {
-				// @todo or longitude,latitude ? check it
 				let [latitude, longitude] = coordsMatches;
 
 				if (latitude >= -90 && latitude <= 90

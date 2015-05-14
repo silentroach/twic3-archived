@@ -7,7 +7,6 @@ import device from '../device';
 
 export default class Map extends PureComponent {
 	render() {
-		// @todo move locale to component property
 		const locale = this.props.locale || 'en_US';
 		const coords = this.props.coords.join(',');
 		const imageSource = 'https://maps.google.com/maps/api/staticmap?' + [
