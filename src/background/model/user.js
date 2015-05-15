@@ -22,7 +22,7 @@ const commonParserRules = {
 		};
 	}],
 	'location': [Parser.TYPE_STRING, (original) => {
-		let data = {
+		const data = {
 			location: original
 		};
 

@@ -36,7 +36,14 @@ function processRecord(fieldName, data, rules, object) {
 
 				break;
 			case Parser.TYPE_STRING:
-				data = String(data);
+				if ('string' === typeof data
+					&& '' === data.trim()
+				) {
+					data = undefined;
+				} else {
+					data = String(data);
+				}
+
 				break;
 			case Parser.TYPE_BOOLEAN:
 				data = Boolean(data);
@@ -45,7 +52,10 @@ function processRecord(fieldName, data, rules, object) {
 				data = new Date(data).getTime();
 				break;
 		}
+	}
 
+	// can be overwritten to undefined
+	if (undefined !== data) {
 		if (callback) {
 			result = callback(data, object);
 		} else {

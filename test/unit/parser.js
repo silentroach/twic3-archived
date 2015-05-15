@@ -139,4 +139,20 @@ describe('Parser', function() {
 		assert.strictEqual(result.somethingDifferent, 'SiLeNt');
 		assert.strictEqual(result.somethingLowered, 'silent');
 	});
+
+	it('should not pass string to object if it is empty', function() {
+		const parser = new Parser({
+			'empty': Parser.TYPE_STRING,
+			'not': Parser.TYPE_STRING
+		});
+
+		const result = parser.process({
+			'empty': '    ',
+			'not': 'not empty'
+		});
+
+		assert.equal(typeof result, 'object');
+		assert.property(result, 'not');
+		assert.notProperty(result, 'empty');
+	});
 });
