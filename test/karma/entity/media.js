@@ -1,6 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
 import EntityMedia from '../../../src/background/entity/media';
 
 describe('Entity.Media', function() {

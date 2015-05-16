@@ -1,5 +1,5 @@
 --compilers js:babel/register
---require mocha-clean
+--require test/mocha.config.js
 --recursive
 --inline-diffs
 --check-leaks

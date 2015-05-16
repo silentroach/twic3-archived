@@ -1,6 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
 import Parser from '../../src/background/parser';
 
 describe('Parser', function() {

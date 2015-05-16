@@ -74,6 +74,7 @@
     "gulp-todo": "2.6.1",
     "husky": "0.7.0",
     "karma": "0.12.31",
+    "karma-chai": "0.1.0",
     "karma-chrome-launcher": "0.1.12",
     "karma-clear-screen-reporter": "0.0.1",
     "karma-mocha": "0.1.10",

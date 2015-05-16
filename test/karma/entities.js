@@ -1,9 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
-// @todo make global
-chai.config.truncateThreshold = 0;
-
 import Entities from '../../src/background/entities';
 
 describe('Entities', function() {

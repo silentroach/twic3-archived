@@ -1,6 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
 import Tweet from '../../../src/background/model/tweet';
 
 describe('Model.Tweet', function() {

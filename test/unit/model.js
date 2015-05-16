@@ -1,6 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
 import Model from '../../src/background/model';
 
 describe('Model', function() {

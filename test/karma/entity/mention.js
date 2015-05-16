@@ -1,6 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
 import EntityMention from '../../../src/background/entity/mention';
 
 describe('Entity.Mention', function() {

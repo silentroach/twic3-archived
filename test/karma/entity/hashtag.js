@@ -1,6 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
 import EntityHashtag from '../../../src/background/entity/hashtag';
 
 describe('Entity.Hashtag', function() {

@@ -1,6 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
 import i18n from '../../src/i18n';
 
 describe('i18n', function() {

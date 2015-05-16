@@ -7,9 +7,10 @@ const babelConfig = JSON.stringify({
 
 export default {
 	colors: true,
-	frameworks: ['mocha'],
+	frameworks: ['mocha', 'chai'],
 	singleRun: true,
 	files: [
+		'karma.config.js',
 		'karma/**/*.js',
 		'karma/**/*.jsx'
 	],

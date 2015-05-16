@@ -2,5 +2,11 @@
 	"parser": "babel-eslint",
 	"env": {
 		"mocha": true
+	},
+	"globals": {
+		"assert": true,
+		"chai": true,
+		"sinon": true,
+		"global": true
 	}
 }

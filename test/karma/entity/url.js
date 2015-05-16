@@ -1,6 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
 import EntityUrl from '../../../src/background/entity/url';
 
 describe('Entity.Url', function() {

@@ -1,11 +1,8 @@
 import React from 'react/addons';
 
-const TestUtils = React.addons.TestUtils;
-
-import chai from 'chai';
-const assert = chai.assert;
-
 import Map from '../../../src/popup/components/map';
+
+const TestUtils = React.addons.TestUtils;
 
 describe('Components.Map', function() {
 

@@ -1,6 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
 import ModelJSON from '../../src/background/modelJSON';
 import Parser from '../../src/background/parser';
 

@@ -1,6 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
 describe('Vendor modules', function() {
 
 	describe('Twitter Text', function() {

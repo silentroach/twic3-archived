@@ -1,8 +1,3 @@
-import chai from 'chai';
-import sinon from 'sinon';
-
-const assert = chai.assert;
-
 import EventEmitter from '../../src/eventEmitter';
 
 describe('EventEmitter', function() {

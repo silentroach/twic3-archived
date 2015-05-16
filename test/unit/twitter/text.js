@@ -1,6 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
 import text from '../../../src/background/twitter/text';
 
 describe('Twitter.Text', function() {

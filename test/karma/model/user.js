@@ -1,6 +1,3 @@
-import chai from 'chai';
-const assert = chai.assert;
-
 import User from '../../../src/background/model/user';
 
 describe('Model.User', function() {
