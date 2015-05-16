@@ -19,7 +19,7 @@ Feel free to help me build awesome Twitter client.
 
 ### Localization
 
-All translation files are in [src/i18n](/silentroach/twic/tree/master/src/i18n) folder in simple JSON format.
+All translation files are in [src/i18n](/src/i18n) folder in simple JSON format.
 
 ### Develop
 
