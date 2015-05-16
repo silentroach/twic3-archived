@@ -12,4 +12,8 @@ export default class Entity {
 	render() {
 		console.error('entity render function undefined');
 	}
+
+	getAdditionalData() {
+		return null;
+	}
 }

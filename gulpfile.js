@@ -21,7 +21,12 @@ function buildBackground(watch) {
 			webpackConfig({
 				entry: {
 					'index': 'background/index.js',
-					'vendor': ['vendor/babel-helpers', 'vendor/twitter-text', 'hmacsha1']
+					'vendor': [
+						'vendor/babel-helpers',
+						'vendor/twitter-text',
+						'hmacsha1',
+						'object-assign'
+					]
 				},
 				watch: watch,
 				output: {

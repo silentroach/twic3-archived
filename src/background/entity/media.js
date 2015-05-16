@@ -29,8 +29,14 @@ export default class EntityMedia extends Entity {
 
 		this.url = url;
 		this.imageUrl = imageUrl;
-		this.sizes = sizes;
 		this.type = type;
+
+		this.sizes = { };
+
+		for (let key of Object.keys(sizes)) {
+			let info = sizes[key];
+			this.sizes[key] = [info.w, info.h];
+		}
 	}
 
 	static parse(data) {
@@ -66,5 +72,17 @@ export default class EntityMedia extends Entity {
 		element.target = '_blank';
 
 		return element.outerHTML;
+	}
+
+	getAdditionalData() {
+		return {
+			gallery: [
+				{
+					url: this.imageUrl,
+					sizes: this.sizes,
+					type: this.type
+				}
+			]
+		};
 	}
 }

@@ -32,6 +32,11 @@ const parser = new Parser({
 
 		data.text = text;
 
+		const additionalData = entities.getAdditionalData();
+		if (additionalData) {
+			data.additional = additionalData;
+		}
+
 		return data;
 	}],
 	'created_at': [Parser.TYPE_DATE, 'createTime'],

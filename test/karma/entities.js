@@ -67,5 +67,44 @@ describe('Entities', function() {
 		);
 	});
 
+	it('should return merged additional data', function() {
+		const url = 'http://t.co/sBOkw1ynch/test.jpg';
+		const type = 'photo';
+		const mediaEntities = [
+			{
+				indices: [10, 15],
+				type,
+				'media_url_https': url,
+				url: 'http://t.co/sBOkw1ynch',
+				sizes: {
+					alias: {
+						h: 10, w: 10, resize: 'fit'
+					}
+				}
+			}
+		];
+
+		const entities = new Entities();
+
+		entities
+			.parseMedia(mediaEntities);
+
+		const output = entities.getAdditionalData();
+
+		assert.deepEqual(
+			output,
+			{
+				gallery: [
+					{
+						url,
+						sizes: {
+							alias: [10, 10]
+						},
+						type
+					}
+				]
+			}
+		);
+	});
 
 });

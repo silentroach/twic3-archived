@@ -28,7 +28,9 @@ describe('Entity.Media', function() {
 	});
 
 	it('should parse data', function() {
-		assert.deepEqual(entity.sizes, sizes);
+		assert.deepEqual(entity.sizes, {
+			alias: [10, 10]
+		});
 		assert.deepEqual(entity.indices, indices);
 		assert.equal(entity.url, url);
 		assert.equal(entity.imageUrl, fullUrl);
@@ -39,6 +41,23 @@ describe('Entity.Media', function() {
 		assert.equal(
 			entity.render(),
 			`<a href="${url}" class="tweet-link-media" target="_blank"></a>`
+		);
+	});
+
+	it('should return additional data', function() {
+		assert.deepEqual(
+			entity.getAdditionalData(),
+			{
+				gallery: [
+					{
+						url: fullUrl,
+						sizes: {
+							alias: [10, 10]
+						},
+						type
+					}
+				]
+			}
 		);
 	});
 
