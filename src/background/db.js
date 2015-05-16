@@ -28,15 +28,13 @@ export default class DB {
 	}
 
 	/** @private */ getDB() {
-		var self = this;
+		const self = this;
 
 		return new Promise(function(resolve, reject) {
-			var request;
-
 			if (self[DB_FIELD]) {
 				resolve(self[DB_FIELD]);
 			} else {
-				request = indexedDB.open(DB.NAME, DB.VERSION);
+				const request = indexedDB.open(DB.NAME, DB.VERSION);
 				request.onupgradeneeded = upgrade;
 				request.onsuccess = function(event) {
 					self[DB_FIELD] = request.result;

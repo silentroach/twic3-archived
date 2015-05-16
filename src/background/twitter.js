@@ -102,7 +102,6 @@ export default class Twitter {
 							);
 						}
 
-
 						return Promise
 							.all(promises)
 							.then(function() {

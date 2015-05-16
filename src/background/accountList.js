@@ -15,7 +15,7 @@ export default class AccountList extends EventEmitter {
 	}
 
 	add(account) {
-		var list = this;
+		const list = this;
 
 		this.accounts.push(account);
 		account.on('change', function() {

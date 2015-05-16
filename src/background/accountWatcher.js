@@ -79,7 +79,7 @@ export default class AccountWatcher extends Watcher {
 	}
 
 	streamCheck() {
-		var updateDiff = Date.now() - this.stream.lastUpdateTime;
+		const updateDiff = Date.now() - this.stream.lastUpdateTime;
 		if (updateDiff > STREAM_CHECK_TIMEOUT
 			|| this.stream.errorsCount > 0
 		) {
@@ -98,11 +98,11 @@ export default class AccountWatcher extends Watcher {
 		this.twitter
 			.updateTweet(tweet, null, true)
 			.then(function(tweet) {
+				watcher.homeTimelineLastTweetId = tweet.id;
+
 				tweet
 					.addTimelineUserId(watcher.account.userId)
 					.save(watcher.twitter.db);  // @todo rethink this shit
-
-				watcher.homeTimelineLastTweetId = tweet.id;
 			});
 	}
 
