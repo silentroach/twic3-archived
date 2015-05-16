@@ -15,51 +15,12 @@ export default class Twitter {
 		this.db = db;
 	}
 
-	// @todo move to twitter.auth module
 	authorize(screenName = null) {
 		const twitter = this;
 
 		return getTwitterAuthorizer(screenName)
 			.then(function(auth) {
-				return new Promise(function(resolve) {
-					chrome.identity.launchWebAuthFlow({
-						url: auth.getAuthenticateUrl(),
-						interactive: true
-					}, function(redirectURI) {
-						if (chrome.runtime.lastError) {
-							throw new Error(chrome.runtime.lastError.message);
-						}
-
-						var linkElement = document.createElement('a');
-						var params;
-
-						linkElement.href = redirectURI;
-
-						if (!linkElement.search) {
-							throw new Error('wrong redirect url');
-						}
-
-						params = qs.decode(linkElement.search.substr(1));
-
-						if (undefined !== params.denied) {
-							throw new Error('access denied');
-						}
-
-						if (!params
-							|| undefined === params.oauth_token
-							|| undefined === params.oauth_verifier
-						) {
-							throw new Error('unknown auth reply');
-						}
-
-						if (!auth.isTokenValid(params.oauth_token)) {
-							throw new Error('auth reply token invalid');
-						}
-
-						auth.getAccessToken(params.oauth_verifier)
-							.then(resolve);
-					});
-				});
+				return auth.authorize();
 			})
 			.then(function([token, userId]) {
 				return twitter
