@@ -34,6 +34,8 @@ Please respect the [EditorConfig](http://editorconfig.org) project settings and 
 
 ### Test
 
+We use [Mocha](http://mochajs.org) and [Karma](http://karma-runner.github.io) to test code.
+
 To check your contribution code you need just to run
 
 	# npm run test
