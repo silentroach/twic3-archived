@@ -3,7 +3,7 @@ import EntityMedia from './entity/media';
 import EntityUrl from './entity/url';
 import EntityHashtag from './entity/hashtag';
 
-import objectAssign from 'object-assign';
+import objectMerge from 'lodash/object/merge';
 
 const MAP_FIELD = Symbol('map');
 
@@ -56,19 +56,18 @@ export default class Entities {
 		].join('');
 	}
 
-	/** @private */ getEntitiesPositions() {
+	/** @private */ getEntitiesPositions(reversed = false) {
 		return Object
 			.keys(this[MAP_FIELD])
 			.map(Number)
 			.sort(function(a, b) {
-				// reversing for correct replacement order
-				return b - a;
+				return reversed ? b - a : a - b;
 			});
 	}
 
 	processText(input) {
 		const self = this;
-		const entitiesPos = this.getEntitiesPositions();
+		const entitiesPos = this.getEntitiesPositions(true);
 
 		let output = input;
 
@@ -91,7 +90,15 @@ export default class Entities {
 			let additionalData = self[MAP_FIELD][pos].getAdditionalData();
 
 			if (additionalData) {
-				result = objectAssign(result, additionalData);
+				result = objectMerge(
+					result,
+					additionalData,
+					function(a, b) {
+						if (Array.isArray(a)) {
+							return a.concat(b);
+						}
+					}
+				);
 			}
 		});
 

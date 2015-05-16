@@ -25,7 +25,7 @@ function buildBackground(watch) {
 						'vendor/babel-helpers',
 						'vendor/twitter-text',
 						'hmacsha1',
-						'object-assign'
+						'lodash/object/merge'
 					]
 				},
 				watch: watch,

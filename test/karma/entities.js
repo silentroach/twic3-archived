@@ -1,6 +1,9 @@
 import chai from 'chai';
 const assert = chai.assert;
 
+// @todo make global
+chai.config.truncateThreshold = 0;
+
 import Entities from '../../src/background/entities';
 
 describe('Entities', function() {
@@ -81,6 +84,16 @@ describe('Entities', function() {
 						h: 10, w: 10, resize: 'fit'
 					}
 				}
+			}, {
+				indices: [20, 25],
+				type,
+				'media_url_https': url,
+				url: 'http://t.co/sBOkw1ynch',
+				sizes: {
+					alias: {
+						h: 20, w: 20, resize: 'fit'
+					}
+				}
 			}
 		];
 
@@ -99,6 +112,12 @@ describe('Entities', function() {
 						url,
 						sizes: {
 							alias: [10, 10]
+						},
+						type
+					}, {
+						url,
+						sizes: {
+							alias: [20, 20]
 						},
 						type
 					}
