@@ -5,7 +5,7 @@
 [![David](https://img.shields.io/david/silentroach/twic.svg?style=flat-square)](https://david-dm.org/silentroach/twic)
 [![David](https://img.shields.io/david/dev/silentroach/twic.svg?style=flat-square)](https://david-dm.org/silentroach/twic#info=devDependencies)
 
-Twitter client for Chromium based browsers written with [ES6](https://babeljs.io/) and [React](http://facebook.github.io/react/).
+Twitter client for Chromium based browsers written with [ES6](https://babeljs.io) and [React](http://facebook.github.io/react).
 
 ## Inside
 
@@ -19,18 +19,18 @@ Feel free to help me build awesome Twitter client.
 
 ### Localization
 
-All translation files are in *src/i18n* folder in simple JSON format.
+All translation files are in [src/i18n](/silentroach/twic/tree/master/src/i18n) folder in simple JSON format.
 
 ### Develop
 
-All you need to start develop is to install io.js and run:
+All you need to start develop is to install [Node.js](https://nodejs.org) and run:
 
 	# npm install
 	# npm run dev
 
 It will install all dependencies, build development sources and start to watch changes. Then you can add generated *build* folder to your Chrome browser.
 
-Please respect the [EditorConfig](http://editorconfig.org/) project settings and eslint rules.
+Please respect the [EditorConfig](http://editorconfig.org) project settings and eslint rules.
 
 ### Test
 
