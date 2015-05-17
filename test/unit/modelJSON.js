@@ -8,7 +8,7 @@ class Something extends ModelJSON {
 			'something': [Parser.TYPE_STRING, 'someOtherName'],
 			'twice': [Parser.TYPE_STRING, function(data) {
 				return {
-					twice: data ? data.repeat(2) : null
+					twice: data ? data + data : null
 				};
 			}],
 			'someNullValue': [Parser.TYPE_UNDEFINED, 'nullValue']
@@ -44,7 +44,7 @@ describe('ModelJSON', function() {
 
 		assert.equal(m.id, id);
 		assert.equal(m.someOtherName, something);
-		assert.equal(m.twice, twice.repeat(2));
+		assert.equal(m.twice, twice + twice);
 		assert.notProperty(m, 'nullValue');
 		assert.notProperty(m, 'someNullValue');
 	});
