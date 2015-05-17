@@ -7,16 +7,18 @@ const babelConfig = JSON.stringify({
 
 export default {
 	colors: true,
-	frameworks: ['mocha', 'chai'],
+	frameworks: ['mocha', 'sinon-chai'],
 	singleRun: true,
 	files: [
 		'karma.config.js',
 		'karma/**/*.js',
-		'karma/**/*.jsx'
+		'karma/**/*.jsx',
+		'unit/**/*.js'
 	],
 	preprocessors: {
 		'karma/**/*.js': 'webpack',
-		'karma/**/*.jsx': 'webpack'
+		'karma/**/*.jsx': 'webpack',
+		'unit/**/*.js': 'webpack'
 	},
 	webpack: {
 		cache: true,
@@ -28,6 +30,11 @@ export default {
 				{
 					test: /\.(js|jsx)$/,
 					include: path.resolve('test/karma/'),
+					loader: 'babel?' + babelConfig
+				},
+				{
+					test: /\.(js|jsx)$/,
+					include: path.resolve('test/unit/'),
 					loader: 'babel?' + babelConfig
 				},
 				{

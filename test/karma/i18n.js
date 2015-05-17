@@ -4,7 +4,7 @@ describe('i18n', function() {
 	let keys = [];
 
 	before(function() {
-		global.chrome = {
+		chrome = {
 			i18n: {
 				getMessage: function(key) {
 					keys.push(key);
@@ -18,7 +18,7 @@ describe('i18n', function() {
 	});
 
 	after(function() {
-		delete global.chrome;
+		delete chrome.i18n;
 	});
 
 	it('should translate key dots to underscore', function() {

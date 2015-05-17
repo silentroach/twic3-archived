@@ -44,18 +44,6 @@ describe('Config', function() {
 	var storage;
 	var config;
 
-	before(function() {
-		global.chrome = {
-			runtime: {
-				lastError: 0
-			}
-		};
-	});
-
-	after(function() {
-		delete global.chrome;
-	});
-
 	beforeEach(function() {
 		storage = new FakeStorage();
 		config = new Config(storage);
