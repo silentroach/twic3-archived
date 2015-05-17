@@ -1,5 +1,8 @@
 import connection from '../connection';
 
+// time to wait before triggering [start] after connection is on
+const AFTER_CONNECT_WAIT = 10 * 1000;
+
 export default class Watcher {
 	constructor() {
 		this.state = Watcher.STATE_STOPPED;
@@ -15,7 +18,12 @@ export default class Watcher {
 			if (connected
 				&& this.state === Watcher.STATE_DISCONNECTED
 			) {
-				this.start();
+				const state = connected;
+				setTimeout(() => {
+					if (connected === state) {
+						this.start();
+					}
+				}, AFTER_CONNECT_WAIT);
 			}
 		});
 	}
