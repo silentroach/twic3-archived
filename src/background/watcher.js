@@ -5,12 +5,17 @@ const AFTER_CONNECT_WAIT = 10 * 1000;
 
 export default class Watcher {
 	constructor() {
+		let timeout;
+
 		this.state = Watcher.STATE_STOPPED;
 
 		// @todo handle [on] state change after some delay
 		connection.on('change', (connected) => {
+			clearTimeout(timeout);
+
 			if (!connected
 				&& this.state !== Watcher.STATE_STOPPED
+				&& this.state !== Watcher.STATE_DISCONNECTED
 			) {
 				this.stop();
 				this.state = Watcher.STATE_DISCONNECTED;
@@ -19,8 +24,8 @@ export default class Watcher {
 				&& this.state === Watcher.STATE_DISCONNECTED
 			) {
 				const state = connected;
-				setTimeout(() => {
-					if (connected === state) {
+				timeout = setTimeout(() => {
+					if (connection.connected === state) {
 						this.start();
 					}
 				}, AFTER_CONNECT_WAIT);
