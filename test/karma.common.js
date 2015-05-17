@@ -1,9 +1,12 @@
 import path from 'path';
 
-const babelConfig = JSON.stringify({
+const babelConfig = {
 	optional: 'runtime',
-	stage: 1
-});
+	stage: 1,
+	loose: 'all'
+};
+
+const babelConfigSerialized = JSON.stringify(babelConfig);
 
 export default {
 	colors: true,
@@ -20,6 +23,7 @@ export default {
 		'karma/**/*.jsx': 'webpack',
 		'unit/**/*.js': 'webpack'
 	},
+	reporters: ['mocha'],
 	webpack: {
 		cache: true,
 		resolve: {
@@ -28,19 +32,19 @@ export default {
 		module: {
 			preLoaders: [
 				{
-					test: /\.(js|jsx)$/,
+					test: /\.jsx?$/,
 					include: path.resolve('test/karma/'),
-					loader: 'babel?' + babelConfig
+					loader: 'babel?' + babelConfigSerialized
 				},
 				{
-					test: /\.(js|jsx)$/,
+					test: /\.jsx?$/,
 					include: path.resolve('test/unit/'),
-					loader: 'babel?' + babelConfig
+					loader: 'babel?' + babelConfigSerialized
 				},
 				{
-					test: /\.(js|jsx)$/,
+					test: /\.jsx?$/,
 					include: path.resolve('src/'),
-					loader: 'babel?' + babelConfig
+					loader: 'babel?' + babelConfigSerialized
 				},
 				{
 					test: /\.styl$/,
