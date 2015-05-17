@@ -4,7 +4,7 @@ describe('Entity.Media', function() {
 
 	const indices = [10, 15];
 	const type = 'photo';
-	const url = 'http://t.co/sBOkw1ynch';
+	const url = 'http://www.twitter.com/lalala/photo/1';
 	const fullUrl = 'http://t.co/sBOkw1ynch/test.jpg';
 	const sizes = {
 		alias: {
@@ -17,7 +17,7 @@ describe('Entity.Media', function() {
 	beforeEach(function() {
 		entity = EntityMedia.parse({
 			indices,
-			url,
+			'expanded_url': url,
 			'media_url_https': fullUrl,
 			sizes,
 			type
@@ -47,7 +47,8 @@ describe('Entity.Media', function() {
 			{
 				gallery: [
 					{
-						url: fullUrl,
+						imageUrl: fullUrl,
+						url,
 						sizes: {
 							alias: [10, 10]
 						},
