@@ -44,6 +44,14 @@ describe('Config', function() {
 	var storage;
 	var config;
 
+	before(function() {
+		if (!chrome.runtime) {
+			chrome.runtime = {
+				lastError: 0
+			};
+		}
+	});
+
 	beforeEach(function() {
 		storage = new FakeStorage();
 		config = new Config(storage);
