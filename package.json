@@ -29,8 +29,10 @@
     "watch": "gulp watch",
     "dev": "gulp build && gulp watch",
     "production": "NODE_ENV=production gulp production",
+    "todo": "gulp todo",
+
     "postmerge": "npm install",
-    "todo": "gulp todo"
+    "prepush": "npm test"
   },
   "dependencies": {
     "autoprefixer-loader": "1.2.0",
@@ -64,15 +66,15 @@
     "through2": "0.6.5",
     "twitter-text": "1.12.0",
     "vinyl": "0.4.6",
-    "webpack": "1.9.6"
+    "webpack": "1.9.7"
   },
   "devDependencies": {
-    "babel-eslint": "3.1.4",
+    "babel-eslint": "3.1.5",
     "chai": "2.3.0",
     "eslint": "0.21.1",
     "gulp-eslint": "0.12.0",
     "gulp-todo": "2.6.1",
-    "husky": "0.7.0",
+    "husky": "0.8.0",
     "karma": "0.12.31",
     "karma-sinon-chai": "0.3.0",
     "karma-chrome-launcher": "0.1.12",
