@@ -65,14 +65,15 @@ describe('Entities', function() {
 	});
 
 	it('should return merged additional data', function() {
+		const imageUrl = 'http://twitter.com/sBOkw1ynch/photo/1';
 		const url = 'http://t.co/sBOkw1ynch/test.jpg';
 		const type = 'photo';
 		const mediaEntities = [
 			{
 				indices: [10, 15],
 				type,
-				'media_url_https': url,
-				url: 'http://t.co/sBOkw1ynch',
+				'media_url_https': imageUrl,
+				'expanded_url': url,
 				sizes: {
 					alias: {
 						h: 10, w: 10, resize: 'fit'
@@ -81,8 +82,8 @@ describe('Entities', function() {
 			}, {
 				indices: [20, 25],
 				type,
-				'media_url_https': url,
-				url: 'http://t.co/sBOkw1ynch',
+				'media_url_https': imageUrl,
+				'expanded_url': url,
 				sizes: {
 					alias: {
 						h: 20, w: 20, resize: 'fit'
@@ -103,12 +104,14 @@ describe('Entities', function() {
 			{
 				gallery: [
 					{
+						imageUrl,
 						url,
 						sizes: {
 							alias: [10, 10]
 						},
 						type
 					}, {
+						imageUrl,
 						url,
 						sizes: {
 							alias: [20, 20]

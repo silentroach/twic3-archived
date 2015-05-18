@@ -58,7 +58,7 @@ export default class EntityMedia extends Entity {
 
 		return new EntityMedia(
 			data.indices,
-			data.url,
+			data.expanded_url,
 			data.media_url_https,
 			data.sizes,
 			type
@@ -78,7 +78,8 @@ export default class EntityMedia extends Entity {
 		return {
 			gallery: [
 				{
-					url: this.imageUrl,
+					url: this.url,
+					imageUrl: this.imageUrl,
 					sizes: this.sizes,
 					type: this.type
 				}
