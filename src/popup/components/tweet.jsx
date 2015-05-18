@@ -45,7 +45,7 @@ export default class Tweet extends React.Component {
 
 		if (tweetData.additional) {
 			if (tweetData.additional.gallery) {
-				gallery = <Gallery items={tweetData.additional.gallery} />
+				gallery = <Gallery items={tweetData.additional.gallery} />;
 			}
 		}
 
