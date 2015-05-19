@@ -30,7 +30,6 @@
     "dev": "gulp build && gulp watch",
     "production": "NODE_ENV=production gulp production",
     "todo": "gulp todo",
-
     "postmerge": "npm install",
     "prepush": "npm test"
   },
@@ -61,7 +60,7 @@
     "qs": "2.4.2",
     "react": "0.13.3",
     "react-pure-render": "1.0.1",
-    "rimraf": "2.3.3",
+    "rimraf": "2.3.4",
     "stylus-loader": "1.0.0",
     "through2": "0.6.5",
     "twitter-text": "1.12.0",
@@ -71,7 +70,7 @@
   "devDependencies": {
     "babel-eslint": "3.1.5",
     "chai": "2.3.0",
-    "eslint": "0.21.1",
+    "eslint": "0.21.2",
     "gulp-eslint": "0.12.0",
     "gulp-todo": "2.6.1",
     "husky": "0.8.0",
