@@ -23,4 +23,4 @@ test_script:
   - node --version
   - npm --version
   - node_modules/.bin/gulp vendor:twitter-text
-  - npm run travis
+  - npm run ci-appveyor

@@ -17,6 +17,8 @@
   "author": "Igor Kalashnikov <igor.kalashnikov@me.com>",
   "license": "GNU GPL v2.0",
   "scripts": {
+    "ci-travis": "npm run test-karma && npm run lint",
+    "ci-appveyor": "npm run test-karma",
     "test-unit": "mocha",
     "karma": "babel-node ./node_modules/karma/bin/karma",
     "test-karma-dev": "npm run karma start test/karma.dev.js",
@@ -24,7 +26,6 @@
     "test-karma": "npm run karma start test/karma.travis.js",
     "lint": "gulp lint",
     "test": "npm run test-karma-dev && npm run lint",
-    "travis": "npm run test-karma && npm run lint",
     "build": "gulp build",
     "watch": "gulp watch",
     "dev": "gulp build && gulp watch",
