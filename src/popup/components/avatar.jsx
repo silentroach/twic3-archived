@@ -19,6 +19,10 @@ export default class Avatar extends PureComponent {
 		let size = ''; // original
 		let classes = ['avatar'];
 
+		if (this.props.border) {
+			classes.push('avatar-bordered');
+		}
+
 		switch (this.props.type) {
 			case Avatar.TYPE_BIG: // 73px
 				classes.push('avatar-big');
@@ -46,9 +50,11 @@ Avatar.TYPE_BIG = 1;
 
 Avatar.propTypes = {
 	template: React.PropTypes.string,
-	type: React.PropTypes.number
+	type: React.PropTypes.number,
+	border: React.PropTypes.bool
 };
 
 Avatar.defaultProps = {
-	type: Avatar.TYPE_DEFAULT
+	type: Avatar.TYPE_DEFAULT,
+	border: false
 };
