@@ -26,6 +26,7 @@ describe('Entities', function() {
 
 		const output = entities.processText(text);
 
+		assert.equal(entities.getUrlCount(), 2);
 		assert.equal(
 			output,
 			'Write markdown, extract metadata, commonmark-helpers is out! <a href="https://t.co/QjTIqiPqzs" class="tweet-link" title="https://www.npmjs.com/package/commonmark-helpers" target="_blank">npmjs.com/package/common…</a> and article about release <a href="https://t.co/AY663NwHtW" class="tweet-link" title="https://iamstarkov.com/commonmark-helpers-release/" target="_blank">iamstarkov.com/commonmark-hel…</a>'
@@ -58,6 +59,8 @@ describe('Entities', function() {
 
 		const output = entities.processText(text);
 
+		assert.equal(entities.getHashCount(), 1);
+		assert.equal(entities.getMentionsCount(), 1);
 		assert.equal(
 			output,
 			'RT <a class="tweet-link-mention" href="#users/543128024" title="Daenerys Targaryen">@GoT_Dany</a>: Jon Snow on Mother\'s Day. <span class="tweet-link-hashtag">#HappyMothersDay</span>'
@@ -99,6 +102,7 @@ describe('Entities', function() {
 
 		const output = entities.getAdditionalData();
 
+		assert.equal(entities.getMediaCount(), 2);
 		assert.deepEqual(
 			output,
 			{

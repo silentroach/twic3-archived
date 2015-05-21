@@ -6,44 +6,68 @@ import EntityHashtag from './entity/hashtag';
 import objectMerge from 'lodash/object/merge';
 
 const MAP_FIELD = Symbol('map');
+const COUNTERS_FIELD = Symbol('counters');
+
+const TYPE_MENTION = 'mention';
+const TYPE_MEDIA = 'media';
+const TYPE_HASH = 'hash';
+const TYPE_URL = 'url';
+
+const TYPES_MAP = {
+	[TYPE_MENTION]: EntityMention,
+	[TYPE_MEDIA]: EntityMedia,
+	[TYPE_HASH]: EntityHashtag,
+	[TYPE_URL]: EntityUrl
+};
 
 export default class Entities {
 	constructor() {
 		this[MAP_FIELD] = { };
+		this[COUNTERS_FIELD] = { };
 	}
 
-	/** @private */ parseData(entityList, typeClass) {
+	/** @private */ parseData(entityList, type) {
+		const TypeClass = TYPES_MAP[type];
+		let changedCount = 0;
+
 		if (!Array.isArray(entityList)) {
-			return this;
+			return changedCount;
 		}
 
 		entityList.forEach(entityData => {
-			const entity = typeClass.parse(entityData);
+			const entity = TypeClass.parse(entityData);
+			const startIdx = entity.indices[0];
 
 			if (entity) {
-				this[MAP_FIELD][
-					entity.indices[0]
-				] = entity;
+				if (undefined === this[MAP_FIELD][startIdx]) {
+					++changedCount;
+				}
+
+				this[MAP_FIELD][startIdx] = entity;
 			}
 		});
+
+		if (changedCount) {
+			this[COUNTERS_FIELD][type] = (this[COUNTERS_FIELD][type] || 0) + changedCount;
+		}
 
 		return this;
 	}
 
 	parseMentions(entityList) {
-		return this.parseData(entityList, EntityMention);
+		return this.parseData(entityList, TYPE_MENTION);
 	}
 
 	parseMedia(entityList) {
-		return this.parseData(entityList, EntityMedia);
+		return this.parseData(entityList, TYPE_MEDIA);
 	}
 
 	parseUrls(entityList) {
-		return this.parseData(entityList, EntityUrl);
+		return this.parseData(entityList, TYPE_URL);
 	}
 
 	parseHashtags(entityList) {
-		return this.parseData(entityList, EntityHashtag);
+		return this.parseData(entityList, TYPE_HASH);
 	}
 
 	/** @private */ processTextByEntity(text, entity) {
@@ -107,5 +131,21 @@ export default class Entities {
 		}
 
 		return result;
+	}
+
+	getUrlCount() {
+		return this[COUNTERS_FIELD][TYPE_URL] || 0;
+	}
+
+	getHashCount() {
+		return this[COUNTERS_FIELD][TYPE_HASH] || 0;
+	}
+
+	getMediaCount() {
+		return this[COUNTERS_FIELD][TYPE_MEDIA] || 0;
+	}
+
+	getMentionsCount() {
+		return this[COUNTERS_FIELD][TYPE_MENTION] || 0;
 	}
 }
