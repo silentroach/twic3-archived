@@ -1,0 +1,17 @@
+branches:
+  only:
+    -master
+
+version: "{build}"
+
+install:
+  - ps: Install-Product node 0.12.3 amd64
+  - npm install
+
+build: off
+
+test_script:
+  - node --version
+  - npm --version
+  - cmd: node_modules/.bin/gulp vendor:twitter-text
+  - cmd: npm run travis
