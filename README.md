@@ -1,6 +1,7 @@
 # Twic <a href="https://github.com/silentroach/twic"><img align="right" src="https://cdn.rawgit.com/silentroach/twic/master/src/images/toolbar.svg" width="48px" /></a>
 
-[![Travis](https://img.shields.io/travis/silentroach/twic.svg?style=flat-square)](https://travis-ci.org/silentroach/twic)
+[![Travis](https://img.shields.io/travis/silentroach/twic.svg?style=flat-square&label=linux-build)](https://travis-ci.org/silentroach/twic)
+[![AppVeyor](https://img.shields.io/appveyor/ci/silentroach/twic.svg?style=flat-square&label=windows-build)](https://ci.appveyor.com/project/silentroach/twic)
 [![Code Climate](https://img.shields.io/codeclimate/github/silentroach/twic.svg?style=flat-square)](https://codeclimate.com/github/silentroach/twic)
 [![David](https://img.shields.io/david/silentroach/twic.svg?style=flat-square)](https://david-dm.org/silentroach/twic)
 [![David](https://img.shields.io/david/dev/silentroach/twic.svg?style=flat-square)](https://david-dm.org/silentroach/twic#info=devDependencies)
