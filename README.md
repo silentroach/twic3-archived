@@ -1,11 +1,9 @@
 # Twic <a href="https://github.com/silentroach/twic"><img align="right" src="https://cdn.rawgit.com/silentroach/twic/master/src/images/toolbar.svg" width="48px" /></a>
 
-[![Travis](https://img.shields.io/travis/silentroach/twic.svg?style=flat-square&label=linux-build)](https://travis-ci.org/silentroach/twic)
-[![AppVeyor](https://img.shields.io/appveyor/ci/silentroach/twic.svg?style=flat-square&label=windows-build)](https://ci.appveyor.com/project/silentroach/twic)
-
-[![David](https://img.shields.io/david/silentroach/twic.svg?style=flat-square)](https://david-dm.org/silentroach/twic)
-[![David](https://img.shields.io/david/dev/silentroach/twic.svg?style=flat-square)](https://david-dm.org/silentroach/twic#info=devDependencies)
-
+[![Travis](https://img.shields.io/travis/silentroach/twic.svg?style=flat-square&label=travis)](https://travis-ci.org/silentroach/twic)
+[![AppVeyor](https://img.shields.io/appveyor/ci/silentroach/twic.svg?style=flat-square&label=appveyor)](https://ci.appveyor.com/project/silentroach/twic)
+[![David](https://img.shields.io/david/silentroach/twic.svg?style=flat-square&label=deps)](https://david-dm.org/silentroach/twic)
+[![David](https://img.shields.io/david/dev/silentroach/twic.svg?style=flat-square&label=dev-deps)](https://david-dm.org/silentroach/twic#info=devDependencies)
 [![Code Climate](https://img.shields.io/codeclimate/github/silentroach/twic.svg?style=flat-square)](https://codeclimate.com/github/silentroach/twic)
 
 Twitter client for Chromium based browsers written with [ES6](https://babeljs.io) and [React](http://facebook.github.io/react).
