@@ -133,6 +133,13 @@ export default class Entities {
 		return result;
 	}
 
+	getCount() {
+		return this.getUrlCount()
+			+ this.getHashCount()
+			+ this.getMediaCount()
+			+ this.getMentionsCount();
+	}
+
 	getUrlCount() {
 		return this[COUNTERS_FIELD][TYPE_URL] || 0;
 	}

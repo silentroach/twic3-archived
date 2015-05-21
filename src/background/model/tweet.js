@@ -22,6 +22,10 @@ const parser = new Parser({
 			entities.parseMedia(tweetJSON.extended_entities.media);
 		}
 
+		//if (entities.getCount() === entities.getMediaCount()) {
+			// @todo make tweet text empty if there is nothing more than media links
+		//}
+
 		let text = textUtils.processLineBreaks(
 			entities.processText(original)
 		);
