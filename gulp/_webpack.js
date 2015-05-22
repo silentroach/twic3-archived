@@ -27,18 +27,6 @@ if (isProduction) {
 var loaderBabel = 'babel-loader?' + loaderBabelParams.join('&');
 var loaderCSS = ['css-loader', 'autoprefixer-loader?{browsers:["Chrome >= 40"]}'].join('!');
 
-var imageLoaderParams = [
-	'name=images/[name].[ext]'
-];
-
-if (isProduction) {
-	imageLoaderParams.push('optimizationLevel=7');
-} else {
-	imageLoaderParams.push('bypassOnDebug');
-}
-
-var loaderImage = 'image?' + imageLoaderParams.join('&');
-
 var webpackBasicConfig = {
 	output: {
 		filename: '[name].js',
@@ -62,7 +50,9 @@ var webpackBasicConfig = {
 			},
 			{
 				test: /\.(jpe?g|png|gif|svg)$/i,
-				loaders: [loaderImage]
+				loaders: [
+					'file?name=images/[name].[ext]'
+				]
 			},
 			{
 				test: /\.styl$/,
