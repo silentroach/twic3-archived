@@ -100,6 +100,36 @@ export default class AccountWatcher extends Watcher {
 			.then(function(tweet) {
 				watcher.homeTimelineLastTweetId = tweet.id;
 
+				// do not add retweet to timeline if we already have its source
+				// @todo also check we have no retweets for the same source yet (tweet.retweeted index)
+				if (tweet.retweetedId) {
+					return this.twitter
+						.getTweetById(tweet.retweetedId)
+						.then(function(retweet) {
+							if (retweet
+								&& Array.isArray(retweet.timelineUserIds)
+								&& retweet.timelineUserIds.indexOf(watcher.account.userId) >= 0
+							) {
+								console.info(
+									'already have retweet in timeline, skipping',
+									tweet,
+									retweet
+								);
+
+								return null;
+							}
+
+							return tweet;
+						});
+				} else {
+					return tweet;
+				}
+			})
+			.then(function(tweet) {
+				if (!tweet) {
+					return null;
+				}
+
 				tweet
 					.addTimelineUserId(watcher.account.userId)
 					.save(watcher.twitter.db);  // @todo rethink this shit

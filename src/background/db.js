@@ -14,12 +14,14 @@ function upgrade(event) {
 		objectStore = db.createObjectStore('tweets', { keyPath: 'id' });
 		objectStore.createIndex('timeline', 'timelineUserIds', { unique: false, multiEntry: true });
 		objectStore.createIndex('mention', 'mentionUserId', { unique: false, multiEntry: true });
+		objectStore.createIndex('retweeted', 'retweetedId', { unique: false, multiEntry: true });
 
 		objectStore = db.createObjectStore('friendship', { keyPath: 'ids' });
 		objectStore.createIndex('userId', 'userId', { unique: false });
 	}
 }
 
+const VERSION = 1;
 const DB_FIELD = Symbol('db');
 
 export default class DB {
@@ -96,7 +98,7 @@ export default class DB {
 	}
 }
 
-DB.VERSION = 1;
+DB.VERSION = VERSION;
 DB.NAME = 'twic';
 
 DB.MODE_READ_WRITE = 'readwrite';
