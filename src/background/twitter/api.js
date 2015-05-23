@@ -1,4 +1,4 @@
-import qs from 'querystring';
+import qs from 'qs';
 
 import RequestOAuth from '../request/OAuth';
 import Limits from './limits';

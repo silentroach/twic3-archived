@@ -7,7 +7,7 @@ import Tweet from './model/tweet';
 
 import Response from './response';
 
-import qs from 'querystring';
+import qs from 'qs';
 
 export default class Twitter {
 	constructor(db) {
