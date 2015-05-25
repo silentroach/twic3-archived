@@ -4,7 +4,7 @@ const _ = require('lodash');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var isProduction = 'production' === process.env.NODE_ENV;
+const isProduction = 'production' === process.env.NODE_ENV;
 
 var loaderBabelParams = [
 	'blacklist[]=useStrict',
@@ -27,7 +27,7 @@ if (isProduction) {
 var loaderBabel = 'babel-loader?' + loaderBabelParams.join('&');
 var loaderCSS = ['css-loader', 'autoprefixer-loader?{browsers:["Chrome >= 40"]}'].join('!');
 
-var webpackBasicConfig = {
+const webpackBasicConfig = {
 	output: {
 		filename: '[name].js',
 		path: path.resolve(__dirname, '../build'),
