@@ -39,11 +39,18 @@ export default class Entities {
 			const startIdx = entity.indices[0];
 
 			if (entity) {
-				if (undefined === this[MAP_FIELD][startIdx]) {
-					++changedCount;
-				}
+				++changedCount;
 
-				this[MAP_FIELD][startIdx] = entity;
+				// can be multiple media entities with same indices
+				if (TYPE_MEDIA === type) {
+					if (undefined === this[MAP_FIELD][startIdx]) {
+						this[MAP_FIELD][startIdx] = [];
+					}
+
+					this[MAP_FIELD][startIdx].push(entity);
+				} else {
+					this[MAP_FIELD][startIdx] = entity;
+				}
 			}
 		});
 
@@ -96,10 +103,10 @@ export default class Entities {
 		let output = input;
 
 		entitiesPos.forEach(function(pos) {
-			output = self.processTextByEntity(
-				output,
-				self[MAP_FIELD][pos]
-			);
+			const entry = self[MAP_FIELD][pos];
+			const entity = Array.isArray(entry) ? entry[0] : entry;
+
+			output = self.processTextByEntity(output, entity);
 		});
 
 		return output;
@@ -111,19 +118,24 @@ export default class Entities {
 		let result = { };
 
 		entitiesPos.forEach(function(pos) {
-			let additionalData = self[MAP_FIELD][pos].getAdditionalData();
+			const entry = self[MAP_FIELD][pos];
+			const entities = Array.isArray(entry) ? entry : [entry];
 
-			if (additionalData) {
-				result = objectMerge(
-					result,
-					additionalData,
-					function(a, b) {
-						if (Array.isArray(a)) {
-							return a.concat(b);
+			entities.forEach(function(entity) {
+				const additionalData = entity.getAdditionalData();
+
+				if (additionalData) {
+					result = objectMerge(
+						result,
+						additionalData,
+						function(a, b) {
+							if (Array.isArray(a)) {
+								return a.concat(b);
+							}
 						}
-					}
-				);
-			}
+					);
+				}
+			});
 		});
 
 		if (!Object.keys(result).length) {

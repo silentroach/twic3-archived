@@ -85,7 +85,7 @@ describe('Entities', function() {
 					}
 				}
 			}, {
-				indices: [20, 25],
+				indices: [10, 15],
 				type,
 				'media_url_https': imageUrl,
 				'expanded_url': url,

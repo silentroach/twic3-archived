@@ -28,8 +28,8 @@ export default class Gallery extends React.Component {
 						}
 
 						return (
-							<li key={key}>
-								<a className="gallery-item" target="_blank" href={item.url} key={key}>
+							<li className="gallery-item" key={key}>
+								<a target="_blank" href={item.url} key={key}>
 									<img src={item.imageUrl + (minSizeAlias ? ':' + minSizeAlias : '')} />
 								</a>
 							</li>
