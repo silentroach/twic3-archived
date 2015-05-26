@@ -15,7 +15,7 @@
     "url": "https://github.com/silentroach/twic"
   },
   "author": "Igor Kalashnikov <igor.kalashnikov@me.com>",
-  "license": "GNU GPL v2.0",
+  "license": "GPL-3.0",
   "scripts": {
     "ci-travis": "npm run test-karma && npm run lint",
     "ci-appveyor": "npm run test-karma",
