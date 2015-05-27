@@ -72,7 +72,7 @@
     "gulp-eslint": "0.12.0",
     "gulp-todo": "*",
     "husky": "0.x",
-    "karma": "0.12.32",
+    "karma": "0.12.33",
     "karma-sinon-chai": "0.3.0",
     "karma-chrome-launcher": "0.1.12",
     "karma-clear-screen-reporter": "0.0.1",
