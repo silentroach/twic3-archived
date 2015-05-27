@@ -1,19 +1,40 @@
+item-max-width = 300px
+item-margin = 4px
+
+getImagesRowCount(count)
+	if count == 4
+		2
+	else if count > 4
+		3
+	else
+		count
+
+getImageWidth(count)
+	rowCount = getImagesRowCount(count)
+	item-max-width / rowCount - item-margin * rowCount
+
+getImageHeight(count)
+	getImageWidth(count) / 100 * 75
+
+// --------------------------
+
 .gallery
 	margin-top .5em
 
 	.gallery-item
 		display inline-block
-		margin-right 4px
+		margin-right item-margin
 
 		&:last-child
 			margin-right 0
 
 		img
-			max-width = 70px  // @todo ? 4 x 1, 150px = 2 x 2
-
-			width max-width
-			height (max-width / 100 * 75)
 			object-position center
 			object-fit cover
 
 			border 1px solid rgba(0, 0, 0, .05)
+
+	for i in 1..5
+		&.gallery-{i} img
+			width getImageWidth(i)
+			height getImageHeight(i)

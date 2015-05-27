@@ -8,8 +8,13 @@ const MAX_WIDTH = 100 * (device.isRetina ? 2 : 1);
 
 export default class Gallery extends React.Component {
 	render() {
+		const classNames = ['gallery'];
+		const classCount = this.props.items.length < 5 ? this.props.items.length : 5;
+
+		classNames.push('gallery-' + classCount);
+
 		return (
-			<ul className="gallery">
+			<ul className={classNames.join(' ')}>
 				{
 					this.props.items.map((item, key) => {
 						let minSize, minSizeAlias;
