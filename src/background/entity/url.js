@@ -18,10 +18,13 @@ export default class EntityUrl extends Entity {
 	}
 
 	static parse(data) {
+		// removing trailing slashes
+		const displayUrl = data['display_url'].replace(/\/+$/, '');
+
 		return new EntityUrl(
 			data.indices,
 			data.url,
-			data.display_url,
+			displayUrl,
 			data.expanded_url
 		);
 	}
