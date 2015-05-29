@@ -1,5 +1,5 @@
-item-max-width = 310px
-item-margin = 4px
+$item-max-width = 310px
+$item-margin = 4px
 
 getImagesRowCount(count)
 	if count == 4
@@ -10,11 +10,11 @@ getImagesRowCount(count)
 		count
 
 getImageWidth(count)
-	rowCount = getImagesRowCount(count)
-	item-max-width / rowCount - item-margin * rowCount
+	$rowCount = getImagesRowCount(count)
+	$item-max-width / $rowCount - $item-margin * $rowCount
 
 getImageHeight(count)
-	getImageWidth(count) / 100 * 70
+	getImageWidth(count) / 100 * 60
 
 // --------------------------
 
@@ -23,7 +23,8 @@ getImageHeight(count)
 
 	.gallery-item
 		display inline-block
-		margin-right item-margin
+		margin-right $item-margin
+		vertical-align top
 
 		&:last-child
 			margin-right 0

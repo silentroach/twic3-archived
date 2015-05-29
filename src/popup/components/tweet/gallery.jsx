@@ -13,6 +13,8 @@ export default class Gallery extends React.Component {
 
 		classNames.push('gallery-' + classCount);
 
+		// @todo try to calculate gallery images sizes
+
 		return (
 			<ul className={classNames.join(' ')}>
 				{
