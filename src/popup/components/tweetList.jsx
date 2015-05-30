@@ -6,7 +6,6 @@ import Tweet from './tweet';
 
 export default class TweetList extends React.Component {
 	render() {
-		// @todo why tweets can be null?
 		const list = (this.props.tweets || []).map(tweet => <Tweet data={tweet} />);
 
 		return (

@@ -9,7 +9,7 @@ export default class TimelinePage extends React.Component {
 		super(props);
 
 		this.state = {
-			data: null
+			data: undefined
 		};
 	}
 
