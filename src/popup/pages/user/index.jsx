@@ -4,29 +4,36 @@ import Message from '../../../message';
 
 import UserNotFound from './components/userNotFound';
 import UserInfo from './components/userInfo';
+import Loader from './../../components/loader';
 
 export default class UserPage extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			data: null
+			data: null,
+			loading: true
 		};
 	}
 
 	render() {
-		var user = this.state.data;
-
-		if (!user) {
+		if (this.state.loading) {
+			return <Loader />;
+		} else
+		if (!this.state.data) {
 			return <UserNotFound />;
 		} else {
-			return <UserInfo user={user} />;
+			return <UserInfo user={this.state.data} />;
 		}
 	}
 
 	fetchUserInfo(user) {
 		const page = this;
 		const msgParams = { };
+
+		this.setState({
+			loading: true
+		});
 
 		if ('@' === user[0]) {
 			msgParams.screenName = user.substr(1);
@@ -40,7 +47,8 @@ export default class UserPage extends React.Component {
 			.send()
 			.then(function(reply) {
 				page.setState({
-					data: reply
+					data: reply,
+					loading: false
 				});
 			});
 	}

@@ -1,0 +1,16 @@
+@keyframes spin
+    100%
+        transform rotate(360deg)
+
+.loader
+	width 100%
+	opacity 1
+	transition opacity .25s ease-in-out
+
+	i
+		display block
+		margin 5% auto
+		animation spin .75s steps(12) infinite
+
+	&.loader-hidden
+		opacity 0
