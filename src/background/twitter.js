@@ -197,7 +197,7 @@ export default class Twitter {
 		return Friendship.flush(this.db, userId);
 	}
 
-	updateFriendShip(userId, targetUserId, isFollower) {
+	updateFriendShip(userId, targetUserId, exists = true) {
 		const twitter = this;
 
 		return Friendship
@@ -207,15 +207,14 @@ export default class Twitter {
 					friendship = new Friendship();
 					friendship.ids = [userId, targetUserId].join('_');
 					friendship.userId = userId;
-					friendship.exists = true;
+					friendship.exists = exists;
 					friendship.markAsChanged();
 					return friendship.save(twitter.db);
-				} else {
-					if (!friendship.exists) {
-						friendship.exists = true;
-						friendship.markAsChanged();
-						return friendship.save(twitter.db);
-					}
+				} else
+				if (friendship.exists !== exists) {
+					friendship.exists = exists;
+					friendship.markAsChanged();
+					return friendship.save(twitter.db);
 				}
 
 				return Promise.resolve();

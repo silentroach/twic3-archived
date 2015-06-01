@@ -89,17 +89,21 @@ export default class TwitterStream extends EventEmitter {
 		let type;
 		let data;
 
-		// if (undefined !== object.event) {
-			/*
+		if (undefined !== object.event) {
 			switch (object.event) {
 				case 'follow':
+					type = TwitterStream.TYPE_FOLLOW;
+					data = [object.source.id_str, object.target.id_str];
+					break;
 				case 'unfollow':
-					source (user), target (user)
-				case 'favorite':
-				case 'unfavorite':
-					source (user), target (user), target_object (tweet)
-			}*/
-		// } else
+					type = TwitterStream.TYPE_UNFOLLOW;
+					data = [object.source.id_str, object.target.id_str];
+					break;
+				// case 'favorite':
+				// case 'unfavorite':
+				// 	source (user), target (user), target_object (tweet)
+			}
+		} else
 		if (undefined !== object.text) {
 			type = TwitterStream.TYPE_TWEET;
 			data = object;
@@ -146,13 +150,18 @@ export default class TwitterStream extends EventEmitter {
 TwitterStream.TYPE_TOKEN_REVOKED = 0;
 // ---
 TwitterStream.TYPE_FRIENDS_LIST = 1;
-TwitterStream.TYPE_TWEET = 2;
+TwitterStream.TYPE_FOLLOW = 2;
+TwitterStream.TYPE_UNFOLLOW = 3;
+// ---
+TwitterStream.TYPE_TWEET = 4;
 // ---
 TwitterStream.TYPE_DELETE_TWEET = 3;
 
 if ('production' !== process.env.NODE_ENV) {
 	TwitterStream.TYPE_TOKEN_REVOKED = 'token_revoked';
 	TwitterStream.TYPE_FRIENDS_LIST = 'friends_list';
+	TwitterStream.TYPE_FOLLOW = 'follow';
+	TwitterStream.TYPE_UNFOLLOW = 'unfollow';
 	TwitterStream.TYPE_TWEET = 'tweet';
 	TwitterStream.TYPE_DELETE_TWEET = 'delete_tweet';
 }

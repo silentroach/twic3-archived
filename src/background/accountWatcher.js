@@ -151,10 +151,24 @@ export default class AccountWatcher extends Watcher {
 				return Promise.all(
 					idsList.map(id => {
 						return watcher.twitter
-							.updateFriendShip(watcher.account.userId, id, true);
+							.updateFriendShip(watcher.account.userId, id);
 					})
 				);
 			});
+	}
+
+	handleUserFollow(userIdsList) {
+		const [fromUserId, toUserId] = userIdsList;
+
+		return this.twitter
+			.updateFriendShip(fromUserId, toUserId);
+	}
+
+	handleUserUnfollow(userIdsList) {
+		const [fromUserId, toUserId] = userIdsList;
+
+		return this.twitter
+			.updateFriendShip(fromUserId, toUserId, false);
 	}
 
 	handleTokenRevoke() {
@@ -177,6 +191,12 @@ export default class AccountWatcher extends Watcher {
 				break;
 			case TwitterStream.TYPE_DELETE_TWEET:
 				this.handleTweetDelete(data);
+				break;
+			case TwitterStream.TYPE_FOLLOW:
+				this.handleUserFollow(data);
+				break;
+			case TwitterStream.TYPE_UNFOLLOW:
+				this.handleUserUnfollow(data);
 				break;
 			default:
 				console.warn('unhandled stream data update', type, data);
