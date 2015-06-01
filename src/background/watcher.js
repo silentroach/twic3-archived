@@ -9,7 +9,6 @@ export default class Watcher {
 
 		this.state = Watcher.STATE_STOPPED;
 
-		// @todo handle [on] state change after some delay
 		connection.on('change', (connected) => {
 			clearTimeout(timeout);
 
