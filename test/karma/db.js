@@ -1,4 +1,4 @@
-import DB from '../../src/background/db';
+import DB from '../../src/common/background/db';
 
 describe('DB', function() {
 

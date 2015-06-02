@@ -1,4 +1,4 @@
-import Tweet from '../../../src/background/model/tweet';
+import Tweet from '../../../src/common/background/model/tweet';
 
 describe('Model.Tweet', function() {
 	let tweet;

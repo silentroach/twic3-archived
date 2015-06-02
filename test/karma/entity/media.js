@@ -1,4 +1,4 @@
-import EntityMedia from '../../../src/background/entity/media';
+import EntityMedia from '../../../src/common/background/entity/media';
 
 describe('Entity.Media', function() {
 

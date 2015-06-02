@@ -1,4 +1,4 @@
-import EventEmitter from '../../src/eventEmitter';
+import EventEmitter from '../../src/common/eventEmitter';
 
 describe('EventEmitter', function() {
 	var em;

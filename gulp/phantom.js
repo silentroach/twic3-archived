@@ -16,5 +16,5 @@ gulp.task('phantom:rasterize', function(callback) {
 gulp.task('phantom', gulp.parallel('phantom:rasterize'));
 
 gulp.task('phantom:watch', function() {
-	gulp.watch('src/images/toolbar/*.svg', gulp.series('phantom'));
+	gulp.watch('src/common/images/toolbar/*.svg', gulp.series('phantom'));
 });

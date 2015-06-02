@@ -1,4 +1,4 @@
 node_modules
-src/vendor/*
-!src/vendor/.gitkeep
+src/common/vendor/*
+!src/common/vendor/.gitkeep
 build/*

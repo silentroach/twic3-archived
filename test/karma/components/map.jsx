@@ -1,6 +1,6 @@
 import React from 'react/addons';
 
-import Map from '../../../src/popup/components/map';
+import Map from '../../../src/common/popup/components/map';
 
 const TestUtils = React.addons.TestUtils;
 

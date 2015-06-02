@@ -9,15 +9,17 @@ const gulpSVG = require('gulp-svg-sprite');
 
 const twitterText = require('twitter-text');
 
+const buildPath = path.resolve(__dirname, '../src/common/vendor');
+
 gulp.task('vendor:babel-helpers', function(callback) {
-	var targetPath = path.resolve(__dirname, '../src/vendor/babel-helpers.js');
+	var targetPath = path.resolve(buildPath, './babel-helpers.js');
 	var helpers = require('babel').buildExternalHelpers();
 
 	fs.writeFile(targetPath, helpers, {}, callback);
 });
 
 gulp.task('vendor:twitter-text', function(callback) {
-	var targetPath = path.resolve(__dirname, '../src/vendor/twitter-text.js');
+	var targetPath = path.resolve(buildPath, './twitter-text.js');
 
 	var content = [
 		'/**',
@@ -52,7 +54,7 @@ gulp.task('vendor:twitter-text', function(callback) {
 });
 
 gulp.task('vendor:contributors', function(callback) {
-	var targetPath = path.resolve(__dirname, '../src/vendor/contributors.js');
+	var targetPath = path.resolve(buildPath, './contributors.js');
 
 	childProcess.exec('git shortlog -sne < /dev/tty', function(error, stdout) {
 		if (!error) {
@@ -107,7 +109,7 @@ gulp.task('vendor:evil-icons', function() {
 				}
 			}
 		}))
-		.pipe(gulp.dest('src/vendor/evil-icons'));
+		.pipe(gulp.dest('src/common/vendor/evil-icons'));
 });
 
 gulp.task(

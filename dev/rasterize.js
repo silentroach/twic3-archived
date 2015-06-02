@@ -3,7 +3,7 @@
 var page = require('webpage').create();
 var fs = require('fs');
 // ---
-var srcPath = fs.absolute(phantom.libraryPath + '/../src/images');
+var srcPath = fs.absolute(phantom.libraryPath + '/../src/common/images');
 var trgPath = fs.absolute(phantom.libraryPath + '/../build/images');
 
 var settings = {

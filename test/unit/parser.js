@@ -1,4 +1,4 @@
-import Parser from '../../src/background/parser';
+import Parser from '../../src/common/background/parser';
 
 describe('Parser', function() {
 	it('should not return empty values', function() {

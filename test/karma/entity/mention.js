@@ -1,4 +1,4 @@
-import EntityMention from '../../../src/background/entity/mention';
+import EntityMention from '../../../src/common/background/entity/mention';
 
 describe('Entity.Mention', function() {
 

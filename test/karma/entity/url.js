@@ -1,4 +1,4 @@
-import EntityUrl from '../../../src/background/entity/url';
+import EntityUrl from '../../../src/common/background/entity/url';
 
 describe('Entity.Url', function() {
 

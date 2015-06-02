@@ -1,5 +1,5 @@
-import ModelJSON from '../../src/background/modelJSON';
-import Parser from '../../src/background/parser';
+import ModelJSON from '../../src/common/background/modelJSON';
+import Parser from '../../src/common/background/parser';
 
 class Something extends ModelJSON {
 	static getParser() {

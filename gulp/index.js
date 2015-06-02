@@ -25,7 +25,7 @@ require('./phantom');
 // ---
 
 function buildBackground(watch) {
-	return gulp.src('src/background/index.js')
+	return gulp.src('src/common/background/index.js')
 		.pipe(gulpWebpack(
 			webpackConfig({
 				entry: {
@@ -56,7 +56,7 @@ gulp.task('background:watch', () => buildBackground(true));
 // options
 
 function buildOptions(watch) {
-	return gulp.src('src/options/index.jsx')
+	return gulp.src('src/common/options/index.jsx')
 		.pipe(gulpWebpack(
 			webpackConfig({
 				entry: {
@@ -81,7 +81,7 @@ gulp.task('options:modules', () => buildOptions());
 gulp.task('options:modules:watch', () => buildOptions(true));
 
 gulp.task('options:templates', function() {
-	return gulp.src('src/options/template.jade')
+	return gulp.src('src/common/options/template.jade')
 		.pipe(gulpJade({
 			pretty: true
 		}))
@@ -94,7 +94,7 @@ gulp.task('options', gulp.series('options:templates', 'options:modules'));
 // popup
 
 function buildPopup(watch) {
-	return gulp.src('src/popup/index.jsx')
+	return gulp.src('src/common/popup/index.jsx')
 		.pipe(gulpWebpack(
 			webpackConfig({
 				entry: {
@@ -125,7 +125,7 @@ gulp.task('popup:modules', () => buildPopup());
 gulp.task('popup:modules:watch', () => buildPopup(true));
 
 gulp.task('popup:templates', function() {
-	return gulp.src('src/popup/template.jade')
+	return gulp.src('src/common/popup/template.jade')
 		.pipe(gulpJade({
 			pretty: true
 		}))
