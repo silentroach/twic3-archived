@@ -3,7 +3,7 @@ import EntityMedia from './entity/media';
 import EntityUrl from './entity/url';
 import EntityHashtag from './entity/hashtag';
 
-import objectMerge from 'lodash/object/merge';
+import objectMerge from 'lodash.merge';
 
 const MAP_FIELD = Symbol('map');
 const COUNTERS_FIELD = Symbol('counters');
