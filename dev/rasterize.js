@@ -3,8 +3,8 @@
 var page = require('webpage').create();
 var fs = require('fs');
 // ---
-var srcPath = fs.absolute(phantom.libraryPath + '/../src/common/images');
-var trgPath = fs.absolute(phantom.libraryPath + '/../build/images');
+var srcPath = fs.absolute(phantom.libraryPath + '/../src/_chaos/images');
+var trgPath = fs.absolute(phantom.libraryPath + '/../build/chrome/images');
 
 var settings = {
 	'toolbar@2x.png': {

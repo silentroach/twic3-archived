@@ -5,8 +5,8 @@ import './index.styl';
 
 import ContributorList from './components/contributors';
 
-import i18n from '../../../i18n';
-import contributorList from '../../../vendor/contributors';
+import i18n from 'i18n';
+import contributorList from 'vendor/contributors';
 
 export default class AboutPage extends PureComponent {
 	render() {

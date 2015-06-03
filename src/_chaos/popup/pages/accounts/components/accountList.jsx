@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Account from './account';
-// import AccountAdd from './accountAdd';
+import AccountAdd from './accountAdd';
 
 import './accountList.styl';
 
@@ -12,7 +12,7 @@ export default class AccountList extends React.Component {
 		return (
 			<ul className="accountList">
 				{users.length === 0
-					? ''
+					? <AccountAdd />
 					: users.map(user =>
 						<Account
 							key={user.id}
@@ -20,9 +20,6 @@ export default class AccountList extends React.Component {
 							modifierPressed={this.props.modifierPressed}
 						/>
 					)
-				}
-				{
-				//<AccountAdd />
 				}
 			</ul>
 		);

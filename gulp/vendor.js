@@ -9,7 +9,7 @@ const gulpSVG = require('gulp-svg-sprite');
 
 const twitterText = require('twitter-text');
 
-const buildPath = path.resolve(__dirname, '../src/common/vendor');
+const buildPath = path.resolve(__dirname, '../src/base/vendor');
 
 gulp.task('vendor:babel-helpers', function(callback) {
 	var targetPath = path.resolve(buildPath, './babel-helpers.js');
@@ -85,15 +85,13 @@ gulp.task('vendor:contributors', function(callback) {
 });
 
 gulp.task('vendor:evil-icons', function() {
-	var paths = _.map([
+	const paths = [
 		'ei-location.svg',
 		'ei-retweet.svg',
 		'ei-check.svg',
 		'ei-lock.svg',
 		'ei-spinner.svg'
-	], function(path) {
-		return 'node_modules/evil-icons/assets/icons/' + path;
-	} );
+	].map(path => 'node_modules/evil-icons/assets/icons/' + path);
 
 	return gulp.src(paths)
 		.pipe(gulpSVG({
@@ -109,7 +107,7 @@ gulp.task('vendor:evil-icons', function() {
 				}
 			}
 		}))
-		.pipe(gulp.dest('src/common/vendor/evil-icons'));
+		.pipe(gulp.dest('src/base/vendor/evil-icons'));
 });
 
 gulp.task(

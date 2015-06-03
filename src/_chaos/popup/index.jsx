@@ -17,7 +17,7 @@ import UserPage from './pages/user';
 import TimelinePage from './pages/timeline';
 
 import 'normalize.stylus/index.styl';
-import '../vendor/evil-icons/sprite.styl';
+import 'vendor/evil-icons/sprite.styl';
 import './index.styl';
 
 class App extends React.Component {

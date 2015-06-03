@@ -7,12 +7,12 @@ const gulp = require('gulp');
 const packageInfo = require('../package.json');
 
 gulp.task('manifest', function(callback) {
-	var targetPath = path.resolve(__dirname, '../build/manifest.json');
+	var targetPath = path.resolve(__dirname, '../build/chrome/manifest.json');
 
 	/*eslint camelcase: 0*/
 	var manifest = {
 		manifest_version: 2,
-		name: _.capitalize(packageInfo.name),
+		name: packageInfo.name,
 		version: packageInfo.version,
 		minimum_chrome_version: '40',
 		description: '__MSG_manifest_description__',
@@ -35,11 +35,6 @@ gulp.task('manifest', function(callback) {
 				'vendor.js',
 				'background.js'
 			]
-		},
-		options_ui: {
-			page: 'options/index.html',
-			chrome_style: true,
-			open_in_tab: true // temporary
 		},
 		permissions: [
 			'storage',

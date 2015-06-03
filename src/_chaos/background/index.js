@@ -1,4 +1,4 @@
-import '../vendor/babel-helpers';
+import 'vendor/babel-helpers';
 
 import DB from './db';
 import Twitter from './twitter';

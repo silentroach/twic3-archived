@@ -6,7 +6,7 @@ const gutil = require('gulp-util');
 const through = require('through2');
 
 gulp.task('i18n', function(callback) {
-	return gulp.src('src/common/i18n/index.js', { read: false })
+	return gulp.src('src/_chaos/i18n/index.js', { read: false })
 		.pipe(through.obj(function(file) {
 			var translations = require(file.path);
 			var filepath = path.dirname(file.path);
@@ -26,7 +26,7 @@ gulp.task('i18n', function(callback) {
 							parsed[key] = { };
 						}
 
-						if (_.isArray(value)) {
+						if (Array.isArray(value)) {
 							data = {
 								message: value[0],
 								placeholders: { }
@@ -67,9 +67,9 @@ gulp.task('i18n', function(callback) {
 				);
 			});
 		}))
-		.pipe(gulp.dest('build/_locales'));
+		.pipe(gulp.dest('build/chrome/_locales'));
 });
 
 gulp.task('i18n:watch', function() {
-	gulp.watch('src/common/i18n/**/*.js', gulp.series('i18n'));
+	gulp.watch('src/_chaos/i18n/**/*.js', gulp.series('i18n'));
 });

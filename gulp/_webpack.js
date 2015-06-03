@@ -71,7 +71,11 @@ const webpackBasicConfig = {
 		})
 	],
 	resolve: {
-		root: path.resolve(__dirname, '../src/common'),
+		root: [
+			path.resolve(__dirname, '../src/chrome'),
+			path.resolve(__dirname, '../src/base'),
+			path.resolve(__dirname, '../src/_chaos')
+		],
 		extensions: ['', '.js', '.jsx']
 	}
 };

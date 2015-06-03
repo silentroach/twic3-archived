@@ -1,10 +1,6 @@
 {
 	"parser": "babel-eslint",
-	"env": {
-		"browser": true
-	},
 	"globals": {
-		"chrome": true,
 		"process": true
 	},
 	"rules": {

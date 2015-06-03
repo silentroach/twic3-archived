@@ -6,7 +6,7 @@ gulp.task('lint', function() {
 		'src/**/*.*(js|jsx)',
 		'gulp/*.js',
 		'test/**/*.js',
-		'!src/common/vendor/*'
+		'!src/base/vendor/*'
 	])
 	.pipe(gulpEslint())
 	.pipe(gulpEslint.format())
