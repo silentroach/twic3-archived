@@ -1,5 +1,5 @@
 import OAuthToken from './oauthToken';
-import EventEmitter from '../eventEmitter';
+import EventEmitter from 'eventEmitter';
 
 export default class Account extends EventEmitter {
 	constructor() {

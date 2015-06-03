@@ -1,4 +1,4 @@
-import EventEmitter from './eventEmitter';
+import EventEmitter from 'eventEmitter';
 
 var connected = navigator.onLine;
 

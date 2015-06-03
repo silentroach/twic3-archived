@@ -1,4 +1,4 @@
-import EventEmitter from './eventEmitter';
+import EventEmitter from 'eventEmitter';
 
 const STORAGE_FIELD = Symbol('storage');
 

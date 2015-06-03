@@ -1,4 +1,4 @@
-import EventEmitter from '../../eventEmitter';
+import EventEmitter from 'eventEmitter';
 import OAuthStreamRequest from '../request/OAuthStream';
 
 // @todo check 420 error (too much requests)
