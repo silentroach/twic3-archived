@@ -1,4 +1,4 @@
-import DB from '../../src/common/background/db';
+import DB from '../../src/_chaos/background/db';
 
 describe('DB', function() {
 

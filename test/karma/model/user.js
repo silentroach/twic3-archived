@@ -1,4 +1,4 @@
-import User from '../../../src/common/background/model/user';
+import User from '../../../src/_chaos/background/model/user';
 
 describe('Model.User', function() {
 	let user;

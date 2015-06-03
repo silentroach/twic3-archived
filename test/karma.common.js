@@ -43,12 +43,19 @@ export default {
 				},
 				{
 					test: /\.jsx?$/,
-					include: path.resolve('src/'),
-					loader: 'babel?' + babelConfigSerialized
+					include: path.resolve('src'),
+					loader: 'babel?' + babelConfigSerialized,
+					resolve: {
+						root: [
+							path.resolve(__dirname, '../src/chrome'),
+							path.resolve(__dirname, '../src/base'),
+							path.resolve(__dirname, '../src/_chaos')
+						]
+					}
 				},
 				{
 					test: /\.styl$/,
-					loader: 'css-loader!stylus'
+					loaders: ['css-loader', 'stylus']
 				}
 			]
 		}

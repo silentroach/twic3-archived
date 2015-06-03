@@ -1,4 +1,4 @@
-import i18n from '../../src/common/i18n';
+import i18n from '../../src/_chaos/i18n';
 
 describe('i18n', function() {
 	let keys = [];

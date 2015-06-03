@@ -1,4 +1,4 @@
-import Model from '../../src/common/background/model';
+import Model from '../../src/_chaos/background/model';
 
 describe('Model', function() {
 	it('should be marked as changed after markAsChanged called', function() {

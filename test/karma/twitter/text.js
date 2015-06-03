@@ -1,4 +1,4 @@
-import text from '../../../src/common/background/twitter/text';
+import text from '../../../src/_chaos/background/twitter/text';
 
 describe('Twitter.Text', function() {
 

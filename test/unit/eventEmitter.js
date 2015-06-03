@@ -1,4 +1,4 @@
-import EventEmitter from '../../src/common/eventEmitter';
+import EventEmitter from '../../src/_chaos/eventEmitter';
 
 describe('EventEmitter', function() {
 	var em;

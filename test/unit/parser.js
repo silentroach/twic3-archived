@@ -1,4 +1,4 @@
-import Parser from '../../src/common/background/parser';
+import Parser from '../../src/_chaos/background/parser';
 
 describe('Parser', function() {
 	it('should not return empty values', function() {

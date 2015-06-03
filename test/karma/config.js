@@ -1,5 +1,5 @@
-import Config from '../../src/common/config';
-import EventEmitter from '../../src/common/eventEmitter';
+import Config from '../../src/_chaos/config';
+import EventEmitter from '../../src/_chaos/eventEmitter';
 
 // chrome.storage emulation
 class FakeStorage extends EventEmitter {

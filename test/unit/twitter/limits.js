@@ -1,5 +1,5 @@
-import Limits from '../../../src/common/background/twitter/limits';
-import Response from '../../../src/common/background/response';
+import Limits from '../../../src/_chaos/background/twitter/limits';
+import Response from '../../../src/_chaos/background/response';
 
 class FakeXHR {
 	constructor(headers) {
