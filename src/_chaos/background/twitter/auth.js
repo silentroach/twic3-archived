@@ -17,7 +17,7 @@ function getRequestToken() {
 		.setRequestData('oauth_callback', redirectUrl)
 		.send()
 		.then(function(response) {
-			var data = qs.decode(response.content);
+			var data = qs.parse(response.content);
 
 			if (!data
 				|| undefined === data.oauth_token
@@ -46,7 +46,7 @@ class TwitterAuth {
 			params['screen_name'] = this.login;
 		}
 
-		return AUTH_URL + 'authenticate?' + qs.encode(params);
+		return AUTH_URL + 'authenticate?' + qs.stringify(params);
 	}
 
 	isTokenValid(token) {
@@ -62,7 +62,7 @@ class TwitterAuth {
 			.setRequestData('oauth_verifier', verifier)
 			.send(this.token)
 			.then(function(response) {
-				var data = qs.decode(response.content);
+				var data = qs.parse(response.content);
 				var token;
 
 				if (!data
@@ -98,7 +98,7 @@ class TwitterAuth {
 					throw new Error('wrong redirect url');
 				}
 
-				const params = qs.decode(linkElement.search.substr(1));
+				const params = qs.parse(linkElement.search.substr(1));
 
 				if (undefined !== params.denied) {
 					throw new Error('access denied');
