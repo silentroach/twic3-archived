@@ -1,8 +1,14 @@
+const backendSymbol = Symbol('backend');
+
 class Localization {
-	translate(key) {
-		const args = Array.apply(null, arguments);
-		args[0] = key.replace(/\./g, '_');
-		return chrome.i18n.getMessage.apply(chrome, args);
+	constructor(backend) {
+		this[backendSymbol] = backend;
+	}
+
+	translate(originalKey, ...args) {
+		const key = originalKey.replace(/\./g, '_');
+
+		return this[backendSymbol].translate.apply(this, [key, ...args]);
 	}
 
 	plural(number, endings) {
@@ -30,4 +36,13 @@ class Localization {
 	}
 }
 
-export default new Localization();
+export default new Localization(
+	{
+		// @todo move backend to chrome folder
+		translate(...args) {
+			return chrome.i18n.getMessage.apply(
+				chrome, args
+			);
+		}
+	}
+);
