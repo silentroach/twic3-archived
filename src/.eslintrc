@@ -1,7 +1,10 @@
 {
 	"parser": "babel-eslint",
 	"globals": {
-		"process": true
+		"process": true,
+	},
+	"env": {
+		"browser": true
 	},
 	"rules": {
 		"complexity": [1, 15]

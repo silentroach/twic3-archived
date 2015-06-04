@@ -4,7 +4,7 @@ import ConfigWatcher from './twitter/configWatcher';
 import Message from '../message';
 
 import i18n from '../i18n';
-import connection from '../connection';
+import connection from 'connection';
 
 /** message handlers */
 import UserInfoHandler from './handlers/userInfo';

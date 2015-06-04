@@ -1,7 +1,10 @@
-import EventEmitter from 'eventEmitter';
+import EventEmitter from './eventEmitter';
 
-var connected = navigator.onLine;
+let connected = navigator.onLine;
 
+/**
+ * Internet connection watcher
+ */
 class Connection extends EventEmitter {
 	constructor() {
 		super();

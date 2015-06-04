@@ -1,5 +1,8 @@
 const EVENTS_FIELD = Symbol('events');
 
+/**
+ * Event emitter base class
+ */
 export default class EventEmitter {
 	constructor() {
 		this[EVENTS_FIELD] = { };
