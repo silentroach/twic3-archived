@@ -6,7 +6,7 @@ const gutil = require('gulp-util');
 const through = require('through2');
 
 gulp.task('i18n', function(callback) {
-	return gulp.src('src/_chaos/i18n/index.js', { read: false })
+	return gulp.src('src/base/i18n/index.js', { read: false })
 		.pipe(through.obj(function(file) {
 			var translations = require(file.path);
 			var filepath = path.dirname(file.path);
@@ -71,5 +71,5 @@ gulp.task('i18n', function(callback) {
 });
 
 gulp.task('i18n:watch', function() {
-	gulp.watch('src/_chaos/i18n/**/*.js', gulp.series('i18n'));
+	gulp.watch('src/base/i18n/**/*.js', gulp.series('i18n'));
 });
