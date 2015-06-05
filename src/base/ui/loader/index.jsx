@@ -1,11 +1,10 @@
+import './vendor/sprite.styl';
 import './index.styl';
 
 import React from 'react';
 import PureComponent from 'react-pure-render/component';
 
-import i18n from '../../../i18n';
-
-export default class Avatar extends PureComponent {
+export default class Loader extends PureComponent {
 	constructor(props) {
 		super(props);
 
@@ -24,7 +23,7 @@ export default class Avatar extends PureComponent {
 		}
 
 		return (
-			<div className={classes.join(' ')} title={i18n.translate('components.loader.loading')}>
+			<div className={classes.join(' ')}>
 				<i className="ei-spinner ei-spinner-dims" />
 			</div>
 		);
@@ -40,3 +39,7 @@ export default class Avatar extends PureComponent {
 		clearTimeout(this.timer);
 	}
 }
+
+Loader.propTypes = {
+	title: React.PropTypes.string
+};

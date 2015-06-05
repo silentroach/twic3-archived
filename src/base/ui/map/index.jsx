@@ -1,5 +1,5 @@
-import './index.styl';
 import './vendor/sprite.styl';
+import './index.styl';
 
 import React from 'react';
 import PureComponent from 'react-pure-render/component';

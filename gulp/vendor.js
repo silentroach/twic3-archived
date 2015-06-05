@@ -84,17 +84,18 @@ gulp.task('vendor:contributors', function(callback) {
 	});
 });
 
-gulp.task('vendor:icons-map', function() {
-	const paths = [
-		'ei-location.svg'
-	].map(path => 'node_modules/evil-icons/assets/icons/' + path);
+function renderSVGSprite(icons, destination, filename = 'sprite.svg') {
+	if (!Array.isArray(icons)) {
+		icons = [icons];
+	}
 
-	return gulp.src(paths)
+	return gulp
+		.src(icons.map(path => 'node_modules/evil-icons/assets/icons/' + path))
 		.pipe(gulpSVG({
 			mode: {
 				css: {
 					prefix: '.%s',
-					sprite: 'sprite.svg',
+					sprite: filename,
 					dest: '',
 					bust: false,
 					render: {
@@ -103,37 +104,36 @@ gulp.task('vendor:icons-map', function() {
 				}
 			}
 		}))
-		.pipe(gulp.dest('src/base/ui/map/vendor'));
+		.pipe(
+			gulp.dest(destination)
+		);
+}
+
+gulp.task('vendor:icons-map', function() {
+	return renderSVGSprite(
+		'ei-location.svg',
+		'src/base/ui/map/vendor'
+	);
+});
+
+gulp.task('vendor:icons-loader', function() {
+	return renderSVGSprite(
+		'ei-spinner.svg',
+		'src/base/ui/loader/vendor'
+	);
 });
 
 gulp.task('vendor:icons-other', function() {
-	const paths = [
+	return renderSVGSprite([
 		'ei-retweet.svg',
 		'ei-check.svg',
-		'ei-lock.svg',
-		'ei-spinner.svg'
-	].map(path => 'node_modules/evil-icons/assets/icons/' + path);
-
-	return gulp.src(paths)
-		.pipe(gulpSVG({
-			mode: {
-				css: {
-					prefix: '.%s',
-					sprite: 'sprite.svg',
-					dest: '',
-					bust: false,
-					render: {
-						styl: true
-					}
-				}
-			}
-		}))
-		.pipe(gulp.dest('src/base/vendor/evil-icons'));
+		'ei-lock.svg'
+	], 'src/base/vendor/evil-icons');
 });
 
 gulp.task(
 	'vendor:icons',
-	gulp.parallel('vendor:icons-map', 'vendor:icons-other')
+	gulp.parallel('vendor:icons-map', 'vendor:icons-loader', 'vendor:icons-other')
 );
 
 gulp.task(

@@ -4,7 +4,9 @@ import Message from '../../../message';
 
 import UserNotFound from './components/userNotFound';
 import UserInfo from './components/userInfo';
-import Loader from './../../components/loader';
+import Loader from 'ui/loader';
+
+import i18n from '../../../i18n';
 
 export default class UserPage extends React.Component {
 	constructor(props) {
@@ -18,7 +20,7 @@ export default class UserPage extends React.Component {
 
 	render() {
 		if (this.state.loading) {
-			return <Loader />;
+			return <Loader title={i18n.translate('components.loader.loading')} />;
 		} else
 		if (!this.state.data) {
 			return <UserNotFound />;
