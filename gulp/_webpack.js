@@ -52,7 +52,7 @@ const webpackBasicConfig = {
 			{
 				test: /\.(jpe?g|png|gif|svg)$/i,
 				loaders: [
-					'file?name=images/[name].[ext]'
+					'file?name=images/[path][name].[ext]'
 				]
 			},
 			{
