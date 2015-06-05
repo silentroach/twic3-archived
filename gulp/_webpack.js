@@ -19,7 +19,7 @@ var loaderBabelParams = [
 
 if (isProduction) {
 	loaderBabelParams.push(
-		'optional[]=utility.removeConsole',
+		//'optional[]=utility.removeConsole',
 		'optional[]=utility.removeDebugger'
 	);
 }
