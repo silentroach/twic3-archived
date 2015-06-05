@@ -56,7 +56,7 @@ gulp.task('vendor:twitter-text', function(callback) {
 gulp.task('vendor:contributors', function(callback) {
 	var targetPath = path.resolve(buildPath, './contributors.js');
 
-	childProcess.exec('`which git` shortlog -sne < /dev/tty', function(error, stdout) {
+	childProcess.exec('git shortlog -sne < /dev/tty', function(error, stdout) {
 		if (!error) {
 			var contributors = [ ];
 
