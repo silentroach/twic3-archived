@@ -24,8 +24,9 @@ if (isProduction) {
 	);
 }
 
+const supportedBrowsers = 'Chrome >= 40';
 var loaderBabel = 'babel-loader?' + loaderBabelParams.join('&');
-var loaderCSS = ['css-loader', 'autoprefixer-loader?{browsers:["Chrome >= 40"]}'].join('!');
+var loaderCSS = ['css-loader', `autoprefixer-loader?{browsers:["${supportedBrowsers}"]}`].join('!');
 
 const webpackBasicConfig = {
 	output: {

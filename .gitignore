@@ -1,4 +1,6 @@
 node_modules
 src/base/vendor/*
 !src/base/vendor/.gitkeep
+src/base/ui/map/vendor/*
+!src/base/ui/map/vendor/.gitkeep
 build/*

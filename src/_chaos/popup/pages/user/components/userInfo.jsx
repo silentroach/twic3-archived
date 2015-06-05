@@ -3,7 +3,7 @@ import React from 'react';
 import './userInfo.styl';
 
 import Avatar from '../../../components/avatar';
-import Map from '../../../components/map';
+import Map from 'ui/map';
 
 import i18n from '../../../../i18n';
 
@@ -37,7 +37,14 @@ export default class UserInfo extends React.Component {
 						}}
 					/> : ''}
 					{user.location ? <li>{user.location}</li> : ''}
-					{user.coords ? <Map coords={user.coords} locale={chrome.app.getDetails().current_locale} /> : ''}
+					{user.coords
+						? <Map
+							coords={user.coords}
+							locale={chrome.app.getDetails().current_locale}
+							width={380} height={200}
+						/>
+						: ''
+					}
 				</ul>
 			</div>
 		);

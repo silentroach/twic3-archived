@@ -84,9 +84,30 @@ gulp.task('vendor:contributors', function(callback) {
 	});
 });
 
-gulp.task('vendor:evil-icons', function() {
+gulp.task('vendor:icons-map', function() {
 	const paths = [
-		'ei-location.svg',
+		'ei-location.svg'
+	].map(path => 'node_modules/evil-icons/assets/icons/' + path);
+
+	return gulp.src(paths)
+		.pipe(gulpSVG({
+			mode: {
+				css: {
+					prefix: '.%s',
+					sprite: 'sprite.svg',
+					dest: '',
+					bust: false,
+					render: {
+						styl: true
+					}
+				}
+			}
+		}))
+		.pipe(gulp.dest('src/base/ui/map/vendor'));
+});
+
+gulp.task('vendor:icons-other', function() {
+	const paths = [
 		'ei-retweet.svg',
 		'ei-check.svg',
 		'ei-lock.svg',
@@ -111,11 +132,16 @@ gulp.task('vendor:evil-icons', function() {
 });
 
 gulp.task(
+	'vendor:icons',
+	gulp.parallel('vendor:icons-map', 'vendor:icons-other')
+);
+
+gulp.task(
 	'vendor',
 	gulp.parallel(
 		'vendor:babel-helpers',
 		'vendor:twitter-text',
-		'vendor:evil-icons',
+		'vendor:icons',
 		'vendor:contributors'
 	)
 );

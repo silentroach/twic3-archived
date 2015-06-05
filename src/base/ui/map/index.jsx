@@ -1,31 +1,24 @@
-import './map.styl';
+import './index.styl';
+import './vendor/sprite.styl';
 
 import React from 'react';
 import PureComponent from 'react-pure-render/component';
 
-import device from '../device';
-
 export default class Map extends PureComponent {
 	render() {
-		const locale = this.props.locale || 'en_US';
 		const coords = this.props.coords.join(',');
 		const imageSource = 'https://maps.google.com/maps/api/staticmap?' + [
 			'sensor=false',
 			'zoom=14',
-			'size=380x200',
+			'size=' + [this.props.width, this.props.height].join('x'),
 			'maptype=roadmap',
 			'center=' + encodeURIComponent(coords),
-			'language=' + encodeURIComponent(locale),
-			'scale=' + (device.isRetina ? 2 : 1)
+			'language=' + encodeURIComponent(this.props.locale),
+			'scale=' + window.devicePixelRatio
 		].join('&');
 
-		const imageLink = 'https://www.google.com/maps/@' + [
-			this.props.coords.join(','),
-			'15z'
-		].join(',');
-
 		return (
-			<a className="map" href={imageLink} target="_blank">
+			<a href={'https://www.google.com/maps/@' + [coords, '15z'].join(',')} className="map" target="_blank">
 				<div className="marker">
 					<i className="ei-location ei-location-dims" />
 				</div>
@@ -36,5 +29,14 @@ export default class Map extends PureComponent {
 }
 
 Map.propTypes = {
-	coords: React.PropTypes.array
+	locale: React.PropTypes.string,
+	coords: React.PropTypes.array,
+	width: React.PropTypes.number,
+	height: React.PropTypes.number
+};
+
+Map.defaultProps = {
+	locale: 'en_US',
+	width: 380,
+	height: 200
 };

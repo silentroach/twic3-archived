@@ -56,6 +56,10 @@ export default {
 				{
 					test: /\.styl$/,
 					loaders: ['css-loader', 'stylus']
+				},
+				{
+					test: /\.svg$/,
+					loaders: ['file-loader']
 				}
 			]
 		}
