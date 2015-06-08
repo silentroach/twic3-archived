@@ -1,9 +1,7 @@
-import './avatar.styl';
+import './index.styl';
 
 import React from 'react';
 import PureComponent from 'react-pure-render/component';
-
-import device from '../device';
 
 /** sizes
 normal => 48x48
@@ -27,12 +25,12 @@ export default class Avatar extends PureComponent {
 			case Avatar.TYPE_BIG: // 73px
 				classes.push('avatar-big');
 
-				if (!device.isRetina) {
+				if (window.devicePixelRatio < 2) {
 					size = '_bigger';
 				}
 				break;
 			default:
-				size = device.isRetina ? '_bigger' : '_normal';
+				size = window.devicePixelRatio >= 2 ? '_bigger' : '_normal';
 				break;
 		}
 

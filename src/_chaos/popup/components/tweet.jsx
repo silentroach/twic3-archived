@@ -2,7 +2,7 @@ import React from 'react';
 
 import './tweet.styl';
 
-import Avatar from './avatar';
+import Avatar from 'ui/avatar';
 import TimeAgo from './timeAgo';
 
 import Gallery from './tweet/gallery';

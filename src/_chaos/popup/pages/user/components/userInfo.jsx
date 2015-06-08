@@ -2,7 +2,7 @@ import React from 'react';
 
 import './userInfo.styl';
 
-import Avatar from '../../../components/avatar';
+import Avatar from 'ui/avatar';
 import Map from 'ui/map';
 
 import i18n from '../../../../i18n';
