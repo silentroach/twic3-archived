@@ -23,6 +23,8 @@ require('./manifest');
 require('./dev');
 require('./phantom');
 
+require('../src/electron/gulp');
+
 // ---
 
 function buildBackground(watch) {
