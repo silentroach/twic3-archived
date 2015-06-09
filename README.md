@@ -1,5 +1,3 @@
-# Twic <a href="https://github.com/silentroach/twic"><img align="right" src="https://cdn.rawgit.com/silentroach/twic/master/src/images/toolbar.svg" width="48px" /></a>
-
 [![Travis](https://img.shields.io/travis/silentroach/twic.svg?style=flat-square&label=travis)](https://travis-ci.org/silentroach/twic)
 [![AppVeyor](https://img.shields.io/appveyor/ci/silentroach/twic.svg?style=flat-square&label=appveyor)](https://ci.appveyor.com/project/silentroach/twic)
 [![David](https://img.shields.io/david/silentroach/twic.svg?style=flat-square&label=deps)](https://david-dm.org/silentroach/twic)
