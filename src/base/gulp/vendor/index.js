@@ -1,0 +1,26 @@
+const path = require('path');
+
+module.exports = function(gulp, config) {
+
+	config.paths.vendor = {
+		root: path.resolve(config.paths.src, 'base/vendor')
+	};
+
+	// ---
+	require('./icons')(gulp, config);
+	require('./babel')(gulp, config);
+	require('./twitter-text')(gulp, config);
+	require('./contributors')(gulp, config);
+	// ---
+
+	gulp.task(
+		'build:vendor',
+		gulp.parallel(
+			'build:vendor:icons',
+			'build:vendor:babel',
+			'build:vendor:twitter-text',
+			'build:vendor:contributors'
+		)
+	);
+
+};
