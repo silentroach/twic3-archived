@@ -4,28 +4,8 @@ const _ = require('lodash');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const isProduction = 'production' === process.env.NODE_ENV;
-
-var loaderBabelParams = [
-	'blacklist[]=useStrict',
-	'blacklist[]=es6.constants',
-	// 'blacklist[]=react', // @todo broken with current babel
-	'loose=all',
-	'externalHelpers=true',
-	'optional[]=validation.react',
-	'optional[]=utility.inlineEnvironmentVariables',
-	'cacheDirectory=true'
-];
-
-if (isProduction) {
-	loaderBabelParams.push(
-		//'optional[]=utility.removeConsole',
-		'optional[]=utility.removeDebugger'
-	);
-}
-
 const supportedBrowsers = 'Chrome >= 40';
-var loaderBabel = 'babel-loader?' + loaderBabelParams.join('&');
+var loaderBabel = 'babel-loader';
 var loaderCSS = ['css-loader', `autoprefixer-loader?{browsers:["${supportedBrowsers}"]}`].join('!');
 
 const webpackBasicConfig = {
@@ -37,11 +17,7 @@ const webpackBasicConfig = {
 	module: {
 		loaders: [
 			{
-				test: /\.jsx$/,
-				loader: ['jsx-loader?stripTypes', loaderBabel].join('!')
-			},
-			{
-				test: /\.js$/,
+				test: /\.js?x$/,
 				exclude: /node_modules/,
 				loader: loaderBabel
 			},
@@ -80,26 +56,6 @@ const webpackBasicConfig = {
 		extensions: ['', '.js', '.jsx']
 	}
 };
-
-if (isProduction) {
-	/*eslint camelcase: 0*/
-	webpackBasicConfig.plugins.push(
-		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.UglifyJsPlugin(
-			{
-				mangle: {
-					screw_ie8: true
-				},
-				compress: {
-					screw_ie8: true
-				}
-			}
-		)
-	);
-} else {
-	webpackBasicConfig.debug = true;
-	webpackBasicConfig.devtool = '#source-map';
-}
 
 module.exports = function(opts) {
 	var options = opts || { };

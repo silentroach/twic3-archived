@@ -1,20 +1,26 @@
-const gulp = require('gulp');
 const mkdirp = require('mkdirp');
+const path = require('path');
 
-// ---
+module.exports = function(gulp, config) {
 
-require('./package');
+	config.paths.build.electron = path.resolve(config.paths.build.root, 'electron');
 
-// ---
+	// ---
 
-gulp.task('build:electron:mkdir', function(callback) {
-	mkdirp('build/electron', callback);
-});
+	require('./package')(gulp, config);
 
-gulp.task(
-	'build:electron',
-	gulp.series(
-		'build:electron:mkdir',
-		'build:electron:package'
-	)
-);
+	// ---
+
+	gulp.task('build:electron:mkdirp', function(callback) {
+		mkdirp(config.paths.build.electron, callback);
+	});
+
+	gulp.task(
+		'build:electron',
+		gulp.series(
+			'build:electron:mkdirp',
+			'build:electron:package'
+		)
+	);
+
+};

@@ -1,22 +1,18 @@
 const path = require('path');
 const fs = require('fs');
 
-const _ = require('lodash');
-const gulp = require('gulp');
+module.exports = function(gulp, config) {
 
-const rootPath = path.resolve(__dirname, '../../../');
+	gulp.task('build:electron:package', function(callback) {
+		const targetPath = path.resolve(config.paths.build.electron, 'package.json');
 
-const packageInfo = require(path.resolve(rootPath, './package.json'));
+		const appInfo = {
+			productName: config.package.name,
+			version: config.package.version,
+			main: 'index.js'
+		};
 
-gulp.task('build:electron:package', function(callback) {
-	const targetPath = path.resolve(rootPath, 'build/electron/package.json');
+		fs.writeFile(targetPath, JSON.stringify(appInfo, null, '  '), {}, callback);
+	});
 
-	const appInfo = {
-		productName: packageInfo.name,
-		version: packageInfo.version,
-		main: 'index.js'
-	};
-
-	fs.writeFile(targetPath, JSON.stringify(appInfo, null, '  '), {}, callback);
-});
-
+};

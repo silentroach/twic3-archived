@@ -16,45 +16,8 @@ const buildPath = path.resolve(__dirname, '../build/chrome');
 
 // --- includes
 
-require('./i18n');
-require('./lint');
 require('./vendor');
-require('./manifest');
-require('./dev');
 require('./phantom');
-
-require('../src/electron/gulp');
-
-// ---
-
-function buildBackground(watch) {
-	return gulp.src('src/_chaos/background/index.js')
-		.pipe(gulpWebpack(
-			webpackConfig({
-				entry: {
-					'index': 'background/index.js',
-					'vendor': [
-						'vendor/babel-helpers',
-						'vendor/twitter-text',
-						'hmacsha1',
-						'lodash.merge',
-						'qs'
-					]
-				},
-				watch: watch,
-				output: {
-					filename: 'background.js'
-				},
-				plugins: [
-					new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
-				]
-			})
-		))
-		.pipe(gulp.dest('build/chrome'));
-}
-
-gulp.task('background', () => buildBackground());
-gulp.task('background:watch', () => buildBackground(true));
 
 // popup
 
@@ -105,27 +68,18 @@ gulp.task('popup', gulp.series('popup:templates', 'popup:modules'));
 gulp.task(
 	'watch',
 	gulp.parallel(
-		'manifest:watch',
 		'phantom:watch',
-		'i18n:watch',
-		'background:watch',
 		'popup:modules:watch'
 	)
 );
 
 // --- build
 
-gulp.task('build:cleanup', (callback) => rimraf('build', callback));
-
-gulp.task('build:mkdir', function(callback) {
-	mkdirp(buildPath, callback);
-});
-
 gulp.task(
 	'build',
 	gulp.series(
 		'build:cleanup', 'build:mkdir', 'vendor',
-		gulp.parallel('phantom', 'i18n', 'manifest', 'popup', 'background')
+		gulp.parallel('phantom', 'popup')
 	)
 );
 

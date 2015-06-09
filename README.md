@@ -19,7 +19,7 @@ Feel free to help me build awesome Twitter client.
 
 All translation files are in [src/base/i18n](/src/base/i18n) folder in simple JSON format.
 
-### Develop
+### Develop (currently broken for day or two)
 
 All you need to start develop is to install [Node.js](https://nodejs.org) and run:
 
