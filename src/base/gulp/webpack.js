@@ -30,7 +30,7 @@ module.exports = function(gulp, config) {
 	);
 
 	if (config.production) {
-		babelOptions.optional.push('utility.removeDebugger');
+		babelOptions.optional.push('minification.removeDebugger');
 
 		/*eslint camelcase: 0*/
 		plugins.push(
