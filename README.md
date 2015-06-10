@@ -17,14 +17,14 @@ Feel free to help me build awesome Twitter client.
 
 All translation files are in [src/base/i18n](/src/base/i18n) folder in simple JSON format.
 
-### Develop (currently broken for day or two)
+### Develop
 
 All you need to start develop is to install [Node.js](https://nodejs.org) and run:
 
 	# npm install
-	# npm run dev
+	# npm run build
 
-It will install all dependencies, build development sources and start to watch changes.
+It will install all dependencies, and build development sources to build folder.
 
 Please respect the [EditorConfig](http://editorconfig.org) project settings and eslint rules.
 
