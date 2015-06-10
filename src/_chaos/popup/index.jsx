@@ -16,6 +16,7 @@ import AboutPage from './pages/about';
 import UserPage from './pages/user';
 import TimelinePage from './pages/timeline';
 
+import 'ui/base.styl';
 import 'normalize.stylus/index.styl';
 import 'vendor/evil-icons/sprite.styl';
 import './index.styl';

@@ -70,6 +70,7 @@ export default class Tweet extends React.Component {
 						<TimeAgo timestamp={tweet.createTime} />
 					</a>
 				</div>
+				<div className="clearer" />
 			</article>
 		);
 	}
