@@ -7,7 +7,7 @@ import TimeAgo from './timeAgo';
 
 import Gallery from './tweet/gallery';
 
-import i18n from '../../i18n';
+import i18n from 'i18n';
 
 export default class Tweet extends React.Component {
 	render() {

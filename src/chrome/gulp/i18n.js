@@ -13,7 +13,7 @@ module.exports = function(gulp, config) {
 	});
 
 	gulp.task('build:chrome:i18n:generate', function(callback) {
-		const translations = require(path.resolve(config.paths.src, 'chrome/i18n'));
+		const translations = require(path.resolve(config.paths.src, 'chrome/i18n/index.js'));
 		const parsed = { };
 
 		function parse(data, prefix) {

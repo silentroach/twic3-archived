@@ -5,7 +5,7 @@ import './userInfo.styl';
 import Avatar from 'ui/avatar';
 import Map from 'ui/map';
 
-import i18n from '../../../../i18n';
+import i18n from 'i18n';
 
 export default class UserInfo extends React.Component {
 	render() {

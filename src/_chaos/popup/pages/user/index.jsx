@@ -6,7 +6,7 @@ import UserNotFound from './components/userNotFound';
 import UserInfo from './components/userInfo';
 import Loader from 'ui/loader';
 
-import i18n from '../../../i18n';
+import i18n from 'i18n';
 
 export default class UserPage extends React.Component {
 	constructor(props) {
