@@ -5,7 +5,7 @@ const webpack = require('webpack');
 
 module.exports = function(gulp, config) {
 
-	const webpackConfig = Object.create(config.webpack);
+	const webpackConfig = config.webpack();
 
 	webpackConfig.entry = {
 		'index': 'background/index.js',
