@@ -66,12 +66,7 @@ export default class EntityMedia extends Entity {
 	}
 
 	render() {
-		const element = document.createElement('a');
-		element.href = this.url;
-		element.className = 'tweet-link-media';
-		element.target = '_blank';
-
-		return element.outerHTML;
+		return '';
 	}
 
 	getAdditionalData() {

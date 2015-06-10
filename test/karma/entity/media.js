@@ -34,11 +34,8 @@ describe('Entity.Media', function() {
 		assert.equal(entity.type, type);
 	});
 
-	it('should render', function() {
-		assert.equal(
-			entity.render(),
-			`<a href="${url}" class="tweet-link-media" target="_blank"></a>`
-		);
+	it('should render to nothing', function() {
+		assert.equal(entity.render(), '');
 	});
 
 	it('should return additional data', function() {

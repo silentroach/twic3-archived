@@ -24,6 +24,11 @@ export default class Tweet extends React.Component {
 
 		let retweetInfo;
 		let gallery;
+		let tweetText;
+
+		if (tweetData.text) {
+			tweetText = <div className="tweet-text" dangerouslySetInnerHTML={{ __html: tweetData.text }} />;
+		}
 
 		if (tweet.retweeted) {
 			// @todo userlink component?
@@ -57,8 +62,7 @@ export default class Tweet extends React.Component {
 					<Avatar template={tweetData.user.avatar} border={true} />
 				</a>
 				<div className="tweet-content">
-					<div className="tweet-text" dangerouslySetInnerHTML={{ __html: tweetData.text }} />
-
+					{tweetText}
 					{gallery}
 
 					<a href={tweetLink} className="tweet-time" target="_blank">
