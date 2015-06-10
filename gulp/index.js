@@ -17,7 +17,6 @@ const buildPath = path.resolve(__dirname, '../build/chrome');
 // --- includes
 
 require('./vendor');
-require('./phantom');
 
 // popup
 
@@ -68,7 +67,6 @@ gulp.task('popup', gulp.series('popup:templates', 'popup:modules'));
 gulp.task(
 	'watch',
 	gulp.parallel(
-		'phantom:watch',
 		'popup:modules:watch'
 	)
 );
@@ -79,7 +77,7 @@ gulp.task(
 	'build',
 	gulp.series(
 		'build:cleanup', 'build:mkdir', 'vendor',
-		gulp.parallel('phantom', 'popup')
+		gulp.parallel('popup')
 	)
 );
 

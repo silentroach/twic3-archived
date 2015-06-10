@@ -8,6 +8,7 @@ module.exports = function(gulp, config) {
 	// ---
 
 	require('./manifest')(gulp, config);
+	require('./icons')(gulp, config);
 	require('./i18n')(gulp, config);
 	require('./background')(gulp, config);
 
@@ -22,6 +23,7 @@ module.exports = function(gulp, config) {
 		gulp.series(
 			'build:chrome:mkdirp',
 			gulp.parallel(
+				'build:chrome:icons',
 				'build:chrome:manifest',
 				'build:chrome:i18n',
 				'build:chrome:background'
