@@ -12,15 +12,21 @@ class Connection extends EventEmitter {
 		const connection = this;
 
 		function stateChange() {
-			connected = navigator.onLine;
+			if (connected !== navigator.onLine) {
+				connected = navigator.onLine;
 
-			console.log('connection is now', connected ? 'on' : 'off');
+				console.log('connection is now', connected ? 'on' : 'off');
 
-			connection.emit('change', connected);
+				connection.emit('change', connected);
+			}
 		}
 
 		window.addEventListener('online', stateChange);
 		window.addEventListener('offline', stateChange);
+
+		// connected state can be switched without online/offline events triggering,
+		// so will check it every minute
+		setInterval(stateChange, 60 * 1000);
 	}
 
 	get connected() {
