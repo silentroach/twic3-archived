@@ -9,9 +9,9 @@ module.exports = function(gulp, config) {
 		externalHelpers: true,
 		cacheDirectory: true
 	};
-	const cssOptions = {
+	const autoprefixerOptions = JSON.stringify({
 		'browsers': 'Chrome >= 40'
-	};
+	});
 	const webpackConfig = { };
 	const plugins = [ ];
 
@@ -75,8 +75,8 @@ module.exports = function(gulp, config) {
 			{
 				test: /\.styl$/,
 				loader: ExtractTextPlugin.extract(
-					'stylus',
-					/* autoprefixer */ 'css-loader!stylus-loader'
+					'style-loader',
+					`css-loader?sourceMap!autoprefixer-loader?${autoprefixerOptions}!stylus-loader`
 				)
 			}
 		]

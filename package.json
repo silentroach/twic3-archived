@@ -61,6 +61,7 @@
     "react": "0.13.3",
     "react-pure-render": "1.0.1",
     "rimraf": "2.3.4",
+    "style-loader": "0.12.3",
     "stylus-loader": "1.0.0",
     "through2": "0.6.5",
     "twitter-text": "1.12.0",

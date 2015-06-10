@@ -11,6 +11,7 @@ module.exports = function(gulp, config) {
 	require('./icons')(gulp, config);
 	require('./i18n')(gulp, config);
 	require('./background')(gulp, config);
+	require('./popup')(gulp, config);
 
 	// ---
 
@@ -26,7 +27,8 @@ module.exports = function(gulp, config) {
 				'build:chrome:icons',
 				'build:chrome:manifest',
 				'build:chrome:i18n',
-				'build:chrome:background'
+				'build:chrome:background',
+				'build:chrome:popup'
 			)
 		)
 	);
