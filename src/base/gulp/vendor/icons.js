@@ -45,11 +45,24 @@ module.exports = function(gulp, config) {
 		);
 	});
 
+	gulp.task('build:vendor:icons-other', function() {
+		return renderSVGSprite(
+			[
+				'ei-retweet.svg',
+				'ei-check.svg',
+				'ei-lock.svg'
+			],
+			path.resolve(config.paths.src, 'base/vendor/evil-icons')
+		);
+	});
+
 	gulp.task(
 		'build:vendor:icons',
 		gulp.parallel(
 			'build:vendor:icons-map',
-			'build:vendor:icons-loader'
+			'build:vendor:icons-loader',
+			// ---
+			'build:vendor:icons-other'
 		)
 	);
 
