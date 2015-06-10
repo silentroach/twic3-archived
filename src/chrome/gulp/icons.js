@@ -44,7 +44,7 @@ module.exports = function(gulp, config) {
 				size: { width: 19, height: 19 },
 				zoom: 19 / 38
 			}
-		},
+		}
 	};
 
 	function render(sourcePath, targetPath, settings) {
@@ -78,7 +78,7 @@ module.exports = function(gulp, config) {
 				});
 			});
 		});
-	};
+	}
 
 	gulp.task('build:chrome:icons', function(callback) {
 		Promise.all(
