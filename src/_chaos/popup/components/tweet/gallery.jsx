@@ -2,9 +2,7 @@ import React from 'react';
 
 import './gallery.styl';
 
-import device from '../../device';
-
-const MAX_WIDTH = 100 * (device.isRetina ? 2 : 1);
+const MAX_WIDTH = 100 * window.devicePixelRatio;
 
 export default class Gallery extends React.Component {
 	render() {

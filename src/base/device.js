@@ -15,8 +15,6 @@ if (navigator.appVersion.indexOf('Windows') < 0) {
 	device.platform = device.platforms.LINUX;
 }
 
-device.isRetina = window.devicePixelRatio > 1;
-
 device.modifierKey = device.platform === device.platforms.OSX
 	? 'metaKey' : 'ctrlKey';
 
