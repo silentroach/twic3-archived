@@ -2,7 +2,7 @@ import 'vendor/babel-helpers';
 
 import DB from './db';
 import Twitter from './twitter';
-import Config from '../config';
+import Config from 'config';
 
 import App from './app';
 

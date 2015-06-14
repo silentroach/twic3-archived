@@ -31,7 +31,7 @@ export default class Config extends EventEmitter {
 	get(key) {
 		const config = this;
 
-		return new Promise(function(resolve, reject) {
+		return new Promise(function(resolve) {
 			config[STORAGE_FIELD].get(key, function(items) {
 				resolve(items[key]);
 			});
@@ -44,13 +44,9 @@ export default class Config extends EventEmitter {
 
 		storeObj[key] = value;
 
-		return new Promise(function(resolve, reject) {
+		return new Promise(function(resolve) {
 			config[STORAGE_FIELD].set(storeObj, function() {
-				if (chrome.runtime.lastError) {
-					reject();
-				} else {
-					resolve();
-				}
+				resolve();
 			});
 		});
 	}
