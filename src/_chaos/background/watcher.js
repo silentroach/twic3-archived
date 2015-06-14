@@ -1,4 +1,4 @@
-import connection from 'connection';
+import connection from 'core/connection';
 
 // time to wait before triggering [start] after connection is on
 const AFTER_CONNECT_WAIT = 10 * 1000;

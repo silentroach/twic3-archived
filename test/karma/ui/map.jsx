@@ -1,6 +1,6 @@
 import React from 'react/addons';
 
-import Map from '../../../src/base/ui/map';
+import Map from 'ui/map';
 
 const TestUtils = React.addons.TestUtils;
 

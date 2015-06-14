@@ -1,4 +1,4 @@
-import EntityUrl from '../../../src/_chaos/background/entity/url';
+import EntityUrl from 'core/entity/url';
 
 describe('Entity.Url', function() {
 

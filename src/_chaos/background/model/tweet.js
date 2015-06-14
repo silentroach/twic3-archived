@@ -1,7 +1,7 @@
 import ModelJSON from '../modelJSON';
 import Parser from '../parser';
 
-import Entities from '../entities';
+import Entities from 'core/entities';
 
 import textUtils from '../twitter/text';
 

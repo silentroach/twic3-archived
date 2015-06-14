@@ -1,5 +1,5 @@
 import Response from './response';
-import EventEmitter from 'eventEmitter';
+import EventEmitter from 'core/eventEmitter';
 
 const XHR_FIELD = Symbol('xhr');
 

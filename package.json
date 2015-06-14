@@ -19,7 +19,6 @@
   "scripts": {
     "ci-travis": "npm run test-karma && npm run lint",
     "ci-appveyor": "npm run test-karma",
-    "test-unit": "mocha",
     "karma": "babel-node ./node_modules/karma/bin/karma",
     "test-karma-dev": "npm run karma start test/karma.dev.js",
     "test-karma-dev-watch": "npm run karma start test/karma.dev.watch.js",

@@ -1,4 +1,4 @@
-import EntityMedia from '../../../src/_chaos/background/entity/media';
+import EntityMedia from 'core/entity/media';
 
 describe('Entity.Media', function() {
 

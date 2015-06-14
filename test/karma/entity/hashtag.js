@@ -1,4 +1,4 @@
-import EntityHashtag from '../../../src/_chaos/background/entity/hashtag';
+import EntityHashtag from 'core/entity/hashtag';
 
 describe('Entity.Hashtag', function() {
 

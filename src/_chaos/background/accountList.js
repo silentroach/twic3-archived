@@ -1,5 +1,5 @@
 import Account from './account';
-import EventEmitter from 'eventEmitter';
+import EventEmitter from 'core/eventEmitter';
 
 const CONFIG_KEY = 'accounts';
 

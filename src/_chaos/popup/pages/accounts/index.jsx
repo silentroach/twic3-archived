@@ -4,7 +4,7 @@ import Toolbar from '../../components/toolbar';
 import AccountList from './components/accountList';
 import Message from '../../../message';
 
-import device from 'device';
+import device from 'core/device';
 import i18n from 'i18n';
 
 const HINT_KEY = device.platform === device.platforms.OSX

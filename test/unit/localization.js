@@ -1,4 +1,4 @@
-import Localization from '../../src/base/localization';
+import Localization from 'core/localization';
 
 class FakeBackend {
 	constructor() {

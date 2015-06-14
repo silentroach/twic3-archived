@@ -27,7 +27,12 @@ export default {
 	webpack: {
 		cache: true,
 		resolve: {
-			extensions: ['', '.js', '.jsx', '.styl']
+			extensions: ['', '.js', '.jsx', '.styl'],
+			root: [
+				path.resolve(__dirname, '../src/chrome'),
+				path.resolve(__dirname, '../src/base'),
+				path.resolve(__dirname, '../src/_chaos')
+			]
 		},
 		module: {
 			preLoaders: [
@@ -44,14 +49,7 @@ export default {
 				{
 					test: /\.jsx?$/,
 					include: path.resolve('src'),
-					loader: 'babel?' + babelConfigSerialized,
-					resolve: {
-						root: [
-							path.resolve(__dirname, '../src/chrome'),
-							path.resolve(__dirname, '../src/base'),
-							path.resolve(__dirname, '../src/_chaos')
-						]
-					}
+					loader: 'babel?' + babelConfigSerialized
 				},
 				{
 					test: /\.styl$/,

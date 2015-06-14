@@ -1,4 +1,4 @@
-import Entities from '../../src/_chaos/background/entities';
+import Entities from 'core/entities';
 
 describe('Entities', function() {
 

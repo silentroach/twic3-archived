@@ -1,4 +1,4 @@
-import Localization from 'localization';
+import Localization from 'core/localization';
 
 class ChromeLocalizationBackend {
 	translate(...args) {
