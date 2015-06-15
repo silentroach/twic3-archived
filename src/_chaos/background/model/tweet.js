@@ -72,7 +72,7 @@ export default class Tweet extends ModelJSON {
 		return parser;
 	}
 
-	static getHomeTimeline(db, userId, count = 20) {
+	static getHomeTimeline(db, userId, count = 50 /* @todo 50 -> 10 */) {
 		const ids = [];
 
 		return db.getIndex(Tweet.getCollectionName(), 'timeline')
