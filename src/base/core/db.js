@@ -68,7 +68,7 @@ export default class DB {
 		});
 	}
 
-	getStore(collectionName, mode) {
+	getStore(collectionName, mode = DB.MODE_READ_ONLY) {
 		return this.getDB()
 			.then(function(db) {
 				const objectStore = db
