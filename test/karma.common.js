@@ -10,7 +10,7 @@ const babelConfigSerialized = JSON.stringify(babelConfig);
 
 export default {
 	colors: true,
-	frameworks: ['mocha', 'sinon-chai'],
+	frameworks: ['mocha', 'sinon', 'chai-as-promised', 'chai'],
 	singleRun: true,
 	files: [
 		'karma.config.js',
