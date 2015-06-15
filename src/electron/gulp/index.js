@@ -8,6 +8,8 @@ module.exports = function(gulp, config) {
 	// ---
 
 	require('./package')(gulp, config);
+	require('./application')(gulp, config);
+	require('./mainwindow')(gulp, config);
 
 	// ---
 
@@ -19,7 +21,11 @@ module.exports = function(gulp, config) {
 		'build:electron',
 		gulp.series(
 			'build:electron:mkdirp',
-			'build:electron:package'
+			gulp.parallel(
+				'build:electron:package',
+				'build:electron:application',
+				'build:electron:mainwindow'
+			)
 		)
 	);
 

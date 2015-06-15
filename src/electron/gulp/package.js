@@ -9,7 +9,7 @@ module.exports = function(gulp, config) {
 		const appInfo = {
 			productName: config.package.name,
 			version: config.package.version,
-			main: 'index.js'
+			main: 'application.js'
 		};
 
 		fs.writeFile(targetPath, JSON.stringify(appInfo, null, '  '), {}, callback);
