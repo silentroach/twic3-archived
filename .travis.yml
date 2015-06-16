@@ -20,4 +20,4 @@ before_script:
 script: npm run ci-travis
 
 after_success:
-  cat "`find ./test -name 'lcov.info'`" | node_modules/.bit/coveralls
+  cat "`find ./test -name 'lcov.info'`" | node_modules/.bin/coveralls

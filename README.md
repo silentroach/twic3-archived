@@ -1,5 +1,6 @@
 [![Travis](https://img.shields.io/travis/silentroach/twic.svg?style=flat-square&label=travis)](https://travis-ci.org/silentroach/twic)
 [![AppVeyor](https://img.shields.io/appveyor/ci/silentroach/twic.svg?style=flat-square&label=appveyor)](https://ci.appveyor.com/project/silentroach/twic)
+[![Coveralls](https://img.shields.io/coveralls/silentroach/twic.svg?style=flat-square&label=coverage)](https://coveralls.io/r/silentroach/twic)
 [![David](https://img.shields.io/david/silentroach/twic.svg?style=flat-square&label=deps)](https://david-dm.org/silentroach/twic)
 [![David](https://img.shields.io/david/dev/silentroach/twic.svg?style=flat-square&label=dev-deps)](https://david-dm.org/silentroach/twic#info=devDependencies)
 
