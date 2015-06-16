@@ -130,4 +130,16 @@ describe('Entities', function() {
 		);
 	});
 
+	it('should not parse entities if it is not array', function() {
+		const entities = new Entities();
+
+		entities
+			.parseUrls(null)
+			.parseHashtags(undefined)
+			.parseMentions(0)
+			.parseMedia({5: false});
+
+		assert.equal(entities.getCount(), 0);
+	});
+
 });

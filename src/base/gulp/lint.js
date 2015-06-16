@@ -8,6 +8,7 @@ module.exports = function(gulp, config) {
 			'src/**/*.*(js|jsx)',
 			'gulp/*.js',
 			'test/**/*.js',
+			'!test/coverage/**',
 			'!src/base/vendor/*'
 		])
 		.pipe(gulpEslint())

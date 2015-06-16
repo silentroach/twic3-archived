@@ -26,6 +26,10 @@ describe('DB', function() {
 				instance.createObjectStore('temp');
 			});
 
+			db.registerMigration(1, function(instance) {
+				instance.createObjectStore('temp5');
+			});
+
 			db.registerMigration(2, function(instance) {
 				instance.deleteObjectStore('temp');
 			});
@@ -37,6 +41,10 @@ describe('DB', function() {
 
 		afterEach(function() {
 			db.remove();
+		});
+
+		it('should call all migrations for same versions', function() {
+			return assert.isFulfilled(db.getStore('temp5'));
 		});
 
 		it('should fullfill store access', function() {

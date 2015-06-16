@@ -1,5 +1,6 @@
 node_modules
 build/*
 src/**/vendor/*
+test/coverage
 !src/**/vendor/.gitkeep
 !src/**/gulp/vendor/*

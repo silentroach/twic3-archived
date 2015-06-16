@@ -31,7 +31,7 @@ export default class Entities {
 		let changedCount = 0;
 
 		if (!Array.isArray(entityList)) {
-			return changedCount;
+			return this;
 		}
 
 		entityList.forEach(entityData => {

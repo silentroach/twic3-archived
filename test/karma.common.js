@@ -49,7 +49,11 @@ export default {
 				{
 					test: /\.jsx?$/,
 					include: path.resolve('src'),
-					loader: 'babel?' + babelConfigSerialized
+					loader: 'isparta',
+					query: {
+						noAutoWrap: false,
+						babel: babelConfig
+					}
 				},
 				{
 					test: /\.styl$/,

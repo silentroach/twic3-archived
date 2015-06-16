@@ -7,6 +7,28 @@ describe('EventEmitter', function() {
 		em = new EventEmitter();
 	});
 
+	it('should throw an error if listener is not a function', function() {
+		assert.throws(function() {
+			em.on('test', true);
+		});
+
+		assert.throws(function() {
+			em.off('test', true);
+		});
+	});
+
+	it('should call function once if it added twice', function() {
+		var callback = sinon.spy();
+
+		em.on('test', callback);
+		em.on('test', callback);
+
+		em.emit('test');
+
+		assert(callback.called);
+		assert(callback.calledOnce);
+	});
+
 	it('should call handler once if it is passed via once method', function() {
 		var callback = sinon.spy();
 

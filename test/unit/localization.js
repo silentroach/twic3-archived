@@ -38,8 +38,8 @@ describe('Localization', function() {
 		localization.plural(50, ['single', 'two', 'multiple']);
 		assert.equal(backend.lastKey, 'multiple', 50);
 
-		localization.plural(21, ['single', 'two', 'multiple']);
-		assert.equal(backend.lastKey, 'single', 21);
+		localization.plural(22, ['single', 'two', 'multiple']);
+		assert.equal(backend.lastKey, 'two', 22);
 	});
 
 });

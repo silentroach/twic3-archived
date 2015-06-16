@@ -9,6 +9,11 @@ export default function(config) {
 				flags: ['--no-sandbox']
 			}
 		},
-		browsers: ['ChromeTravis']
+		reporters: ['mocha', 'coverage', 'coveralls'],
+		browsers: ['ChromeTravis'],
+		coverageReporter: {
+			type: 'lcov',
+			dir: 'coverage/'
+		}
 	});
 }

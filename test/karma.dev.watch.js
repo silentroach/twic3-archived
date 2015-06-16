@@ -5,7 +5,7 @@ export default function(config) {
 		...common,
 		singleRun: false,
 		logLevel: config.LOG_INFO,
-		reporters: ['mocha', 'clear-screen'],
+		reporters: ['mocha', 'coverage', 'clear-screen'],
 		browsers: ['Chrome']
 	});
 }
