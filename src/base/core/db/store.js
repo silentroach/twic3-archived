@@ -1,4 +1,4 @@
-import DBIndex from './index';
+import DBIndex from './idx';
 
 export default class DBStore {
 	constructor(store) {

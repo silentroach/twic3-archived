@@ -1,4 +1,4 @@
-import Watcher from '../watcher';
+import Watcher from 'core/watcher';
 
 const CONFIG_CHECK_TIMEOUT = 1000 * 60 * 60;
 

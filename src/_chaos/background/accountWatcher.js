@@ -1,4 +1,4 @@
-import Watcher from './watcher';
+import Watcher from 'core/watcher';
 import TwitterStream from './twitter/stream';
 
 const STREAM_CHECK_TIMEOUT = 1000 * 60;
