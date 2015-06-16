@@ -26,7 +26,7 @@ class App extends React.Component {
 		var Page = this.state && this.state.page ? this.state.page : null;
 
 		return (
-			<div id="content">
+			<div id="content" onClick={this.handleLinkClick.bind(this)}>
 				<Toolbar>
 					<ToolbarIcon href="#accounts" title="Тест" />
 					<ToolbarIcon href="#about" title={i18n.translate('toolbar.about')} />
@@ -69,10 +69,17 @@ class App extends React.Component {
 
 	// hack to open links in background tab if modifier key is pressed
 	handleLinkClick(event) {
-		const target = event.target;
+		if (!event[device.modifierKey]) {
+			return;
+		}
 
+		let target = event.target;
+		if ('A' !== target.nodeName) {
+			target = target.parentElement;
+		}
+
+		// @todo wtf? think about this
 		if ('A' !== target.nodeName
-			|| !event[device.modifierKey]
 			|| '_blank' !== target.getAttribute('target')
 		) {
 			return;
@@ -93,12 +100,10 @@ class App extends React.Component {
 
 	componentWillUnmount() {
 		window.onhashchange = null;
-		document.onclick = null;
 	}
 
 	componentWillMount() {
 		window.onhashchange = this.handleHashChange.bind(this);
-		document.onclick = this.handleLinkClick.bind(this);
 	}
 }
 

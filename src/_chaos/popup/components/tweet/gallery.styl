@@ -29,11 +29,14 @@ getImageHeight(count)
 		&:last-child
 			margin-right 0
 
-		img
-			object-position center
-			object-fit cover
+		a
+			display block
 
-			border 1px solid rgba(0, 0, 0, .05)
+			img
+				object-position center
+				object-fit cover
+
+				border 1px solid rgba(0, 0, 0, .05)
 
 	for i in 1..5
 		&.gallery-{i} img
