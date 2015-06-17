@@ -4,13 +4,13 @@ describe('Vendor modules', function() {
 
 		it('module should be loaded correctly', function() {
 			assert.doesNotThrow(function() {
-				require('../../src/base/vendor/twitter-text');
+				require('vendor/twitter-text');
 			});
 		});
 
 		it('should extract correct regexps', function() {
 			const tt = require('twitter-text');
-			const generated = require('../../src/base/vendor/twitter-text');
+			const generated = require('vendor/twitter-text');
 
 			assert.equal(tt.regexen.extractUrl.source, generated.url.source);
 			assert.equal(tt.regexen.validHashtag.source, generated.hash.source);

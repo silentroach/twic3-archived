@@ -3,10 +3,12 @@ import Localization from 'core/localization';
 class FakeBackend {
 	constructor() {
 		this.lastKey = null;
+		this.lastArgs = null;
 	}
 
-	translate(key) {
+	translate(key, ...args) {
 		this.lastKey = key;
+		this.lastArgs = args;
 
 		return true;
 	}
@@ -26,6 +28,12 @@ describe('Localization', function() {
 		localization.translate('test.me.multiple');
 
 		assert.equal(backend.lastKey, 'test_me_multiple');
+	});
+
+	it('should proxy arguments to translate backend', function() {
+		localization.translate('something', 5, 'test');
+
+		assert.deepEqual(backend.lastArgs, [5, 'test']);
 	});
 
 	it('should return correct plural values', function() {

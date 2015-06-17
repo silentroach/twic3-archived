@@ -14,14 +14,12 @@ export default {
 	singleRun: true,
 	files: [
 		'karma.config.js',
-		'karma/**/*.js',
-		'karma/**/*.jsx',
-		'unit/**/*.js'
+		'src/**/*.js',
+		'src/**/*.jsx'
 	],
 	preprocessors: {
-		'karma/**/*.js': 'webpack',
-		'karma/**/*.jsx': 'webpack',
-		'unit/**/*.js': 'webpack'
+		'src/**/*.js': 'webpack',
+		'src/**/*.jsx': 'webpack'
 	},
 	reporters: ['mocha'],
 	webpack: {
@@ -43,7 +41,7 @@ export default {
 				},
 				{
 					test: /\.jsx?$/,
-					include: path.resolve('test/unit/'),
+					include: path.resolve('test/src/'),
 					loader: 'babel?' + babelConfigSerialized
 				},
 				{
