@@ -1,4 +1,4 @@
-import OAuthToken from './oauthToken';
+import Token from 'core/struct/token';
 import EventEmitter from 'core/eventEmitter';
 
 export default class Account extends EventEmitter {
@@ -30,7 +30,7 @@ export default class Account extends EventEmitter {
 
 		account.userId = data.userId;
 		if (data.token) {
-			account.token = OAuthToken.load(data.token);
+			account.token = Token.unserialize(data.token);
 		}
 
 		return account;

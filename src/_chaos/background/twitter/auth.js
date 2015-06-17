@@ -1,7 +1,7 @@
 import qs from 'qs';
 
 import RequestOAuth from '../request/OAuth';
-import OAuthToken from '../oauthToken';
+import Token from 'core/struct/token';
 
 const AUTH_URL = 'https://api.twitter.com/oauth/';
 
@@ -27,7 +27,7 @@ function getRequestToken() {
 				throw new Error('Wrong request token response');
 			}
 
-			return new OAuthToken(data.oauth_token, data.oauth_token_secret);
+			return new Token(data.oauth_token, data.oauth_token_secret);
 		});
 }
 
@@ -72,7 +72,7 @@ class TwitterAuth {
 					throw new Error('Invalid access token response');
 				}
 
-				token = new OAuthToken(data.oauth_token, data.oauth_token_secret);
+				token = new Token(data.oauth_token, data.oauth_token_secret);
 
 				return [token, data.user_id];
 			});
