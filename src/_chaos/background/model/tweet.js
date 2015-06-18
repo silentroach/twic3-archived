@@ -1,5 +1,5 @@
 import ModelJSON from '../modelJSON';
-import Parser from '../parser';
+import Parser from 'core/http/response/parser';
 
 import Entities from 'core/entities';
 

@@ -1,4 +1,4 @@
-import Parser from '../../src/_chaos/background/parser';
+import Parser from 'core/http/response/parser';
 
 describe('Parser', function() {
 	it('should not return empty values', function() {
@@ -42,15 +42,15 @@ describe('Parser', function() {
 			}]
 		});
 
-		var result = parser.process(obj);
+		const result = parser.process(obj);
 
 		assert.equal(typeof result, 'object');
 		assert.property(result, 'test');
 	});
 
 	it('should return empty object if source is not an object', function() {
-		var parser = new Parser();
-		var testReply = parser.process([]);
+		const parser = new Parser();
+		let testReply = parser.process([]);
 
 		assert.equal(typeof testReply, 'object');
 		assert.equal(Object.keys(testReply).length, 0);
@@ -67,11 +67,11 @@ describe('Parser', function() {
 	});
 
 	it('should convert types', function() {
-		var boolSource = 1;
-		var strSource = 10;
-		var intSource = '50';
-		var dateSource = 'Tue Mar 10 2015 09:26:06 GMT+0300 (MSK)';
-		var parser = new Parser({
+		const boolSource = 1;
+		const strSource = 10;
+		const intSource = '50';
+		const dateSource = 'Tue Mar 10 2015 09:26:06 GMT+0300 (MSK)';
+		const parser = new Parser({
 			'bool': Parser.TYPE_BOOLEAN,
 			'str': Parser.TYPE_STRING,
 			'int': Parser.TYPE_INT,
@@ -79,7 +79,7 @@ describe('Parser', function() {
 			'date': Parser.TYPE_DATE
 		});
 
-		var result = parser.process({
+		const result = parser.process({
 			'bool': boolSource,
 			'int': intSource,
 			'str': strSource,
@@ -100,11 +100,11 @@ describe('Parser', function() {
 	});
 
 	it('should rename fields', function() {
-		var parser = new Parser({
+		const parser = new Parser({
 			'something': [Parser.TYPE_INT, 'id']
 		});
 
-		var result = parser.process({
+		const result = parser.process({
 			'something': '5'
 		});
 
@@ -115,7 +115,7 @@ describe('Parser', function() {
 	});
 
 	it('should use callback to convert data', function() {
-		var parser = new Parser({
+		const parser = new Parser({
 			'something': [Parser.TYPE_STRING, function(original) {
 				return {
 					somethingDifferent: original,
@@ -124,7 +124,7 @@ describe('Parser', function() {
 			}]
 		});
 
-		var result = parser.process({
+		const result = parser.process({
 			'something': 'SiLeNt'
 		});
 

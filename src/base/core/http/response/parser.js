@@ -1,4 +1,4 @@
-const RULES_FIELD = Symbol('parser');
+const rulesField = Symbol('parser');
 
 function processRecord(fieldName, data, rules, object) {
 	let result = { };
@@ -68,7 +68,7 @@ function processRecord(fieldName, data, rules, object) {
 
 export default class Parser {
 	constructor(map = { }) {
-		this[RULES_FIELD] = map;
+		this[rulesField] = map;
 	}
 
 	process(object) {
@@ -98,8 +98,8 @@ export default class Parser {
 		}
 
 		// not Object.keys cause it can be inherited
-		for (let key in this[RULES_FIELD]) {
-			processData(key, object[key], this[RULES_FIELD][key]);
+		for (let key in this[rulesField]) {
+			processData(key, object[key], this[rulesField][key]);
 		}
 
 		return result;
