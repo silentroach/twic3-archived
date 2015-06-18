@@ -142,4 +142,10 @@ describe('Entities', function() {
 		assert.equal(entities.getCount(), 0);
 	});
 
+	it('should return null on getAdditionalData if nothing was found instead of array', function() {
+		const entities = new Entities();
+
+		assert.strictEqual(entities.getAdditionalData(), null);
+	});
+
 });

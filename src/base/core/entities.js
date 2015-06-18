@@ -28,7 +28,7 @@ export default class Entities {
 
 	/** @private */ parseData(entityList, type) {
 		const TypeClass = TYPES_MAP[type];
-		let changedCount = 0;
+		let typeCounter = this[COUNTERS_FIELD][type] || 0;
 
 		if (!Array.isArray(entityList)) {
 			return this;
@@ -39,7 +39,7 @@ export default class Entities {
 			const startIdx = entity.indices[0];
 
 			if (entity) {
-				++changedCount;
+				++typeCounter;
 
 				// can be multiple media entities with same indices
 				if (TYPE_MEDIA === type) {
@@ -54,9 +54,7 @@ export default class Entities {
 			}
 		});
 
-		if (changedCount) {
-			this[COUNTERS_FIELD][type] = (this[COUNTERS_FIELD][type] || 0) + changedCount;
-		}
+		this[COUNTERS_FIELD][type] = typeCounter;
 
 		return this;
 	}
