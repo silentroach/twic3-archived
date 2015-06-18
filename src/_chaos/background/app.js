@@ -61,15 +61,6 @@ export default class App {
 					accountList.save(app.config);
 				});
 
-				// ---
-				if (accountList.length) {
-					console.log('twitter/api/token exported for debug');
-					window.token = accountList.accounts[0].token;
-					window.twitter = app.twitter;
-					window.api = app.twitter.api;
-				}
-				// ---
-
 				app.listen();
 			});
 	}
