@@ -1,4 +1,4 @@
-import Account from './account';
+import Account from 'core/struct/account';
 import EventEmitter from 'core/eventEmitter';
 
 const CONFIG_KEY = 'accounts';
@@ -62,16 +62,6 @@ export default class AccountList extends EventEmitter {
 		return null;
 	}
 
-	getByScreenName(screenName) {
-		for (let account of this) {
-			if (screenName === account.screenName) {
-				return account;
-			}
-		}
-
-		return null;
-	}
-
 	save(config) {
 		return config
 			.set(CONFIG_KEY, this.accounts.map(account => account.serialize()));
@@ -85,7 +75,7 @@ export default class AccountList extends EventEmitter {
 			.then(function(data) {
 				if (Array.isArray(data)) {
 					data.forEach(function(accountData) {
-						list.add(Account.load(accountData));
+						list.add(Account.unserialize(accountData));
 					});
 				}
 

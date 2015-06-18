@@ -1,4 +1,3 @@
-import React from 'react';
 import PureComponent from 'react-pure-render/component';
 
 import './userNotFound.styl';

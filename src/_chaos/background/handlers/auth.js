@@ -1,4 +1,4 @@
-import Account from '../account';
+import Account from 'core/struct/account';
 import Message from '../../message';
 import MessageHandler from '../messageHandler';
 
@@ -22,10 +22,7 @@ export default class AuthHandler extends MessageHandler {
 
 				account = app.accounts.getByUserId(user.id);
 				if (!account) {
-					account = new Account();
-					account.userId = user.id;
-					account.token = token;
-
+					account = new Account(user.id, token);
 					app.accounts.add(account);
 				} else {
 					account.token = token;

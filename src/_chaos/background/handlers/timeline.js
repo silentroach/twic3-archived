@@ -1,4 +1,3 @@
-import Account from '../account';
 import Message from '../../message';
 import MessageHandler from '../messageHandler';
 

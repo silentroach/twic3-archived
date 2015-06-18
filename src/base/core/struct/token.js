@@ -7,8 +7,7 @@ export default class Token extends Struct {
 	constructor(token, secret) {
 		super();
 
-		this[tokenField] = token;
-		this[secretField] = secret;
+		this.unserialize([token, secret]);
 	}
 
 	get token() {
