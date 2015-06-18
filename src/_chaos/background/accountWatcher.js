@@ -103,7 +103,7 @@ export default class AccountWatcher extends Watcher {
 				// do not add retweet to timeline if we already have its source
 				// @todo also check we have no retweets for the same source yet (tweet.retweeted index)
 				if (tweet.retweetedId) {
-					return this.twitter
+					return watcher.twitter
 						.getTweetById(tweet.retweetedId)
 						.then(function(retweet) {
 							if (retweet
