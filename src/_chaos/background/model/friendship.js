@@ -1,4 +1,5 @@
 import Model from '../model';
+import DB from 'core/db';
 
 export default class Friendship extends Model {
 	static getCollectionName() {
@@ -24,14 +25,12 @@ export default class Friendship extends Model {
 
 	static flush(db, userId) {
 		return db
-			.updateByCursor(
-				Friendship.getCollectionName(),
-				'userId',
-				IDBKeyRange.only(userId),
-				function(store, cursor) {
-					store.delete(cursor.primaryKey);
-					cursor.continue();
-				}
-			);
+			.getStore(Friendship.getCollectionName(), DB.MODE_READ_WRITE)
+			.then(function(store) {
+				return store.getIndex('userId');
+			})
+			.then(function(idx) {
+				return idx.deleteByValue(userId);
+			});
 	}
 }

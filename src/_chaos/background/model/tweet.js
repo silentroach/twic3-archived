@@ -75,58 +75,37 @@ export default class Tweet extends ModelJSON {
 	}
 
 	static getHomeTimeline(db, userId) {
-		const ids = [];
-
-		return db.getIndex(Tweet.getCollectionName(), 'timeline')
-			.then(function(idx) {
-				return new Promise(function(resolve, reject) {
-					const cursor = idx.openKeyCursor(IDBKeyRange.only(userId), 'prev');
-
-					cursor.onsuccess = function(event) {
-						const cursor = event.target.result;
-						if (cursor) {
-							ids.push(cursor.primaryKey);
-
-							if (ids.length >= TIMELINE_TWEETS_BATCH) {
-								resolve();
-							} else {
-								cursor.continue();
-							}
-						} else {
-							resolve();
-						}
-					};
-
-					cursor.onerror = function(event) {
-						reject(event);
-					};
-				});
+		return db
+			.getStore(Tweet.getCollectionName())
+			.then(function(store) {
+				return store.getIndex('timeline');
 			})
-			.then(function() {
+			.then(function(idx) {
+				return idx.getIdsByValue(userId, TIMELINE_TWEETS_BATCH, false);
+			})
+			.then(function(ids) {
 				return Promise.all(
-					ids.map(id => {
-						return Tweet.getById(db, id);
-					})
+					ids.map(id => Tweet.getById(db, id))
 				);
 			});
 	}
 
 	// @todo rethink
 	static getLastTimelineId(db, userId) {
-		return db.getIndex(Tweet.getCollectionName(), 'timeline')
+		return db
+			.getStore(Tweet.getCollectionName())
+			.then(function(store) {
+				return store.getIndex('timeline');
+			})
 			.then(function(idx) {
-				return new Promise(function(resolve, reject) {
-					const cursor = idx.openKeyCursor(IDBKeyRange.only(userId), 'prev');
+				return idx.getIdsByValue(userId, 1, false);
+			})
+			.then(function(ids) {
+				if (Array.isArray(ids) && ids.length) {
+					return ids.pop();
+				}
 
-					cursor.onsuccess = function(event) {
-						const cursor = event.target.result;
-						resolve(cursor ? cursor.primaryKey : null);
-					};
-
-					cursor.onerror = function(event) {
-						reject(event);
-					};
-				});
+				return null;
 			});
 	}
 

@@ -1,6 +1,6 @@
 import 'vendor/babel-helpers';
 
-import DB from './db';
+import DB from 'core/db';
 import Twitter from './twitter';
 import Config from 'core/config';
 

@@ -1,4 +1,4 @@
-import DB from './db';
+import DB from 'core/db';
 
 const IS_CHANGED_FIELD = Symbol('changed');
 const UPDATE_TIME_FIELD_NAME = 'updateTime';
