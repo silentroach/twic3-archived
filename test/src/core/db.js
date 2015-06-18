@@ -5,9 +5,9 @@ describe('DB', function() {
 	it('should register last migration version', function() {
 		const db = new DB('test');
 
-		db.registerMigration(2, (instance) => 0);
-		db.registerMigration(4, (instance) => 0);
-		db.registerMigration(1, (instance) => 0);
+		db.registerMigration(2, () => true);
+		db.registerMigration(4, () => true);
+		db.registerMigration(1, () => true);
 
 		assert.equal(db.getVersion(), 4);
 

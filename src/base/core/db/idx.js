@@ -1,4 +1,5 @@
 import DBIndexCursor from './cursor';
+import { promisify } from './request';
 
 export default class DBIndex {
 	constructor(index) {
@@ -6,17 +7,7 @@ export default class DBIndex {
 	}
 
 	getByValue(value) {
-		const request = this.index.get(value);
-
-		return new Promise(function(resolve, reject) {
-			request.onerror = function(event) {
-				reject(event);
-			};
-
-			request.onsuccess = function(event) {
-				resolve(request.result);
-			};
-		});
+		return promisify(this.index.get(value));
 	}
 
 	getCursor(range, ...args) {

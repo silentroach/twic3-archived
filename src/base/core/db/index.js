@@ -77,6 +77,7 @@ export default class DB {
 
 				return new DBStore(objectStore);
 			});
+			// @todo wrap? -> .transaction can throw an error if collection doesn't exists
 	}
 }
 

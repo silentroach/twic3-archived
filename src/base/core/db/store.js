@@ -1,4 +1,5 @@
 import DBIndex from './idx';
+import { promisify } from './request';
 
 export default class DBStore {
 	constructor(store) {
@@ -10,44 +11,14 @@ export default class DBStore {
 	}
 
 	getById(id) {
-		const request = this.store.get(id);
-
-		return new Promise(function(resolve, reject) {
-			request.onerror = function(error) {
-				reject(error);
-			};
-
-			request.onsuccess = function() {
-				resolve(request.result);
-			};
-		});
+		return promisify(this.store.get(id));
 	}
 
 	deleteById(id) {
-		const request = this.store.delete(id);
-
-		return new Promise(function(resolve, reject) {
-			request.onerror = function(error) {
-				reject(error);
-			};
-
-			request.onsuccess = function() {
-				resolve();
-			};
-		});
+		return promisify(this.store.delete(id));
 	}
 
 	put(data) {
-		const request = this.store.put(data);
-
-		return new Promise(function(resolve, reject) {
-			request.onerror = function(error) {
-				reject(error);
-			};
-
-			request.onsuccess = function() {
-				resolve();
-			};
-		});
+		return promisify(this.store.put(data));
 	}
 }
