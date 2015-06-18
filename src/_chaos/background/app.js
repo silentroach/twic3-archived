@@ -1,4 +1,4 @@
-import AccountList from './accountList';
+import AccountList from 'core/struct/accountList';
 import AccountWatcher from './accountWatcher';
 import ConfigWatcher from './twitter/configWatcher';
 import Message from '../message';
@@ -12,6 +12,8 @@ import AccountListHandler from './handlers/accountList';
 import AuthHandler from './handlers/auth';
 import TimelineHandler from './handlers/timeline';
 /** ---------------- */
+
+const CONFIG_ACCOUNTS_KEY = 'accounts';
 
 export default class App {
 	constructor(config, twitter) {
@@ -43,23 +45,21 @@ export default class App {
 			this.messageHandlers[handler.getMessageType()] = handler;
 		});
 
-		AccountList
-			.load(this.config)
-			.then(function(accountList) {
-				console.log('account list loaded', accountList);
+		this.config
+			.get(CONFIG_ACCOUNTS_KEY)
+			.then(data => {
+				this.accounts = AccountList.unserialize(data);
 
-				accountList.map(account => {
+				console.log('account list loaded', this.accounts);
+
+				this.accounts.map(account => {
 					const watcher = new AccountWatcher(app.twitter, account);
 					if (account.isAuthorized()) {
 						watcher.start();
 					}
 				});
 
-				app.accounts = accountList;
-
-				accountList.on('change', function() {
-					accountList.save(app.config);
-				});
+				this.accounts.on('change', () => this.accounts.save(this.config));
 
 				app.listen();
 			});
