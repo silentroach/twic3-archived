@@ -63,6 +63,8 @@ const parser = new Parser({
 	}]
 });
 
+const TIMELINE_TWEETS_BATCH = 'production' !== process.env.NODE_ENV ? 50 : 10;
+
 export default class Tweet extends ModelJSON {
 	static getCollectionName() {
 		return 'tweets';
@@ -72,7 +74,7 @@ export default class Tweet extends ModelJSON {
 		return parser;
 	}
 
-	static getHomeTimeline(db, userId, count = 50 /* @todo 50 -> 10 */) {
+	static getHomeTimeline(db, userId) {
 		const ids = [];
 
 		return db.getIndex(Tweet.getCollectionName(), 'timeline')
@@ -85,7 +87,7 @@ export default class Tweet extends ModelJSON {
 						if (cursor) {
 							ids.push(cursor.primaryKey);
 
-							if (ids.length >= count) {
+							if (ids.length >= TIMELINE_TWEETS_BATCH) {
 								resolve();
 							} else {
 								cursor.continue();
