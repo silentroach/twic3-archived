@@ -1,5 +1,5 @@
 import './vendor/sprite.styl';
-import './index.styl';
+import styles from './index.styl';
 
 import React from 'react';
 import PureComponent from 'react-pure-render/component';
@@ -18,7 +18,7 @@ export default class Map extends PureComponent {
 		].join('&');
 
 		return (
-			<a href={'https://www.google.com/maps/@' + [coords, '15z'].join(',')} className="map" target="_blank">
+			<a href={'https://www.google.com/maps/@' + [coords, '15z'].join(',')} className={styles.map} target="_blank">
 				<div className="marker">
 					<i className="ei-location ei-location-dims" />
 				</div>

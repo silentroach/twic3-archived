@@ -4,7 +4,7 @@ const gulpSVG = require('gulp-svg-sprite');
 
 module.exports = function(gulp, config) {
 
-	function renderSVGSprite(icons, destination, filename = 'sprite.svg') {
+	function renderSVGSprite(icons, destination) {
 		if (!Array.isArray(icons)) {
 			icons = [icons];
 		}
@@ -15,7 +15,7 @@ module.exports = function(gulp, config) {
 				mode: {
 					css: {
 						prefix: '.%s',
-						sprite: filename,
+						sprite: 'sprite.svg',
 						dest: '',
 						bust: false,
 						render: {
