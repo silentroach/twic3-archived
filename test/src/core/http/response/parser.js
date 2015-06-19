@@ -5,7 +5,9 @@ describe('Parser', function() {
 		const obj = {
 			'undef': undefined,
 			'null': null,
-			'val': '5'
+			'notanumber': NaN,
+			'val': '5',
+			'undefcallback': 5
 		};
 
 		const parser = new Parser({
@@ -13,7 +15,11 @@ describe('Parser', function() {
 			'null': [Parser.TYPE_INT, (originalValue) => {
 				assert.fail('called', 'not called');
 			}],
-			'val': Parser.TYPE_INT
+			'notanumber': Parser.TYPE_INT,
+			'val': Parser.TYPE_INT,
+			'undefcallback': [Parser.TYPE_INT, originalValue => {
+				return null;
+			}]
 		});
 
 		const result = parser.process(obj);
@@ -21,6 +27,8 @@ describe('Parser', function() {
 		assert.equal(typeof result, 'object');
 		assert.notProperty(result, 'undef');
 		assert.notProperty(result, 'null');
+		assert.notProperty(result, 'notanumber');
+		assert.notProperty(result, 'undefcallback');
 		assert.property(result, 'val');
 		assert.equal(result.val, 5);
 	});
@@ -135,6 +143,20 @@ describe('Parser', function() {
 
 		assert.strictEqual(result.somethingDifferent, 'SiLeNt');
 		assert.strictEqual(result.somethingLowered, 'silent');
+	});
+
+	it('should throw an error if callback did not return object', function() {
+		const parser = new Parser({
+			'something': [Parser.TYPE_STRING, function(original) {
+				return true;
+			}]
+		});
+
+		assert.throws(function() {
+			parser.process({
+				'something': 5
+			});
+		});
 	});
 
 	it('should not pass string to object if it is empty', function() {
