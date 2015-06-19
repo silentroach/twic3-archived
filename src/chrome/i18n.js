@@ -6,6 +6,12 @@ class ChromeLocalizationBackend {
 			chrome, args
 		);
 	}
+
+	getLanguage() {
+		return chrome.i18n.getUILanguage()
+			.split('-')
+			.shift();
+	}
 }
 
 export default new Localization(

@@ -1,9 +1,10 @@
 import Localization from 'core/localization';
 
 class FakeBackend {
-	constructor() {
+	constructor(language) {
 		this.lastKey = null;
 		this.lastArgs = null;
+		this.language = language;
 	}
 
 	translate(key, ...args) {
@@ -12,15 +13,20 @@ class FakeBackend {
 
 		return true;
 	}
+
+	getLanguage() {
+		return this.language;
+	}
 }
 
 describe('Localization', function() {
 
+	const language = 'ru';
 	let localization;
 	let backend;
 
 	beforeEach(function() {
-		backend = new FakeBackend();
+		backend = new FakeBackend(language);
 		localization = new Localization(backend);
 	});
 
@@ -48,6 +54,10 @@ describe('Localization', function() {
 
 		localization.plural(22, ['single', 'two', 'multiple']);
 		assert.equal(backend.lastKey, 'two', 22);
+	});
+
+	it('should return backend language', function() {
+		assert.equal(localization.getLanguage(), language);
 	});
 
 });

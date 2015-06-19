@@ -5,6 +5,10 @@ export default class Localization {
 		this[backendSymbol] = backend;
 	}
 
+	getLanguage() {
+		return this[backendSymbol].getLanguage();
+	}
+
 	translate(originalKey, ...args) {
 		const backend = this[backendSymbol];
 		const key = originalKey.replace(/\./g, '_');
@@ -15,12 +19,12 @@ export default class Localization {
 	plural(number, endings) {
 		const mod10 = number % 10;
 		const mod100 = number % 100;
-		let res = '';
+		let part = 2;
 
 		if (1 === mod10
 			&& 11 !== mod100
 		) {
-			res = this.translate(endings[0]);
+			part = 0;
 		} else
 		if (mod10 >= 2
 			&& mod10 <= 4
@@ -28,11 +32,9 @@ export default class Localization {
 				|| mod100 >= 20
 			)
 		) {
-			res = this.translate(endings[1]);
-		} else {
-			res = this.translate(endings[2]);
+			part = 1;
 		}
 
-		return [number, res].join(' ');
+		return this.translate(endings[part]);
 	}
 }
