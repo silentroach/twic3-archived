@@ -11,8 +11,8 @@ export default class Limits {
 		var oldReset;
 
 		if (remains && reset) {
-			remains = parseInt(remains, 10);
-			reset = parseInt(reset, 10);
+			remains = Number(remains);
+			reset = Number(reset);
 
 			// avoiding race condition
 			if (undefined !== this.limits[path]) {

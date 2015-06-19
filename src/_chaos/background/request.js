@@ -1,6 +1,8 @@
 import Response from './response';
 import EventEmitter from 'core/eventEmitter';
 
+import { encodeUrlPart } from 'core/http/encoder';
+
 const XHR_FIELD = Symbol('xhr');
 
 export default class Request extends EventEmitter {
@@ -30,15 +32,6 @@ export default class Request extends EventEmitter {
 		return this.data;
 	}
 
-	encode(str) {
-		return encodeURIComponent(str)
-			.replace(/\!/g, '%21')
-			.replace(/\*/g, '%2A')
-			.replace(/'/g, '%27')
-			.replace(/\(/g, '%28')
-			.replace(/\)/g, '%29');
-	}
-
 	abort() {
 		if (this[XHR_FIELD] instanceof XMLHttpRequest) {
 			this[XHR_FIELD].abort();
@@ -59,8 +52,8 @@ export default class Request extends EventEmitter {
 			for (let key of Object.keys(requestData)) {
 				dataParams.push(
 					[
-						request.encode(key),
-						request.encode(requestData[key])
+						encodeUrlPart(key),
+						encodeUrlPart(requestData[key])
 					].join('=')
 				);
 			}

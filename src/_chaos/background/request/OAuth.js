@@ -3,6 +3,8 @@ import hmacsha1 from 'hmacsha1';
 import Request from '../request';
 import keys from 'keys';
 
+import { encodeUrlPart } from 'core/http/encoder';
+
 var timestampOffset = 0;
 
 const NONCE_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
@@ -63,7 +65,7 @@ export default class RequestOAuth extends Request {
 	}
 
 	sign(token = null) {
-		var hashDataEncoded = [this.method, this.encode(this.url)].join('&');
+		var hashDataEncoded = [this.method, encodeUrlPart(this.url)].join('&');
 		var hashData = [];
 		var data;
 
@@ -86,17 +88,17 @@ export default class RequestOAuth extends Request {
 
 		Object.keys(data).sort().forEach(key => hashData.push(
 			[
-				this.encode(key),
-				this.encode(data[key])
+				encodeUrlPart(key),
+				encodeUrlPart(data[key])
 			].join('=')
 		));
 
-		hashDataEncoded = [hashDataEncoded, this.encode(hashData.join('&'))].join('&');
+		hashDataEncoded = [hashDataEncoded, encodeUrlPart(hashData.join('&'))].join('&');
 
 		this.setOAuthData(
 			'oauth_signature',
 			hmacsha1(
-				[this.encode(keys.CONSUMER_SECRET), token ? this.encode(token.secret) : ''].join('&'),
+				[encodeUrlPart(keys.CONSUMER_SECRET), token ? encodeUrlPart(token.secret) : ''].join('&'),
 				hashDataEncoded
 			)
 		);
