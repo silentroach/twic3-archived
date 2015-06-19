@@ -55,7 +55,7 @@ module.exports = function(gulp, config) {
 
 	if (!config.production) {
 		baseWebpackConfig.debug = true;
-		baseWebpackConfig.devtool = '#source-map';
+		baseWebpackConfig.devtool = '#cheap-module-source-map';
 	}
 
 	// ---
