@@ -4,7 +4,7 @@ import Map from 'ui/map';
 
 const TestUtils = React.addons.TestUtils;
 
-describe('Components.Map', function() {
+describe('UI.Map', function() {
 
 	it('should render correct link', function() {
 		const component = TestUtils.renderIntoDocument(

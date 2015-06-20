@@ -35,7 +35,7 @@ describe('EventEmitter', function() {
 		em.once('test', callback);
 
 		em.emit('test');
-		em.emit('test');
+		em.emit('test', 5);
 
 		assert(callback.called);
 		assert(callback.calledOnce);
