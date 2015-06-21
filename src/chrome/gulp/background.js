@@ -5,35 +5,49 @@ const webpack = require('webpack');
 
 module.exports = function(gulp, config) {
 
-	const webpackConfig = config.webpack();
+	function getWebpackConfig(isWatch = false) {
+		const webpackConfig = config.webpack();
 
-	webpackConfig.entry = {
-		'index': 'background/index.js',
-		'vendor': [
-			'vendor/babel-helpers',
-			'vendor/twitter-text',
-			'hmacsha1',
-			'lodash.merge',
-			'qs'
-		]
-	};
+		if (isWatch) {
+			webpackConfig.watch = true;
+		}
 
-	webpackConfig.output = {
-		filename: 'background.js'
-	};
+		webpackConfig.entry = {
+			'index': 'background/index.js',
+			'vendor': [
+				'vendor/babel-helpers',
+				'vendor/twitter-text',
+				'hmacsha1',
+				'lodash.merge',
+				'qs'
+			]
+		};
 
-	webpackConfig.resolve = {
-		root: [
-			path.resolve(config.paths.src, 'chrome'),
-			path.resolve(config.paths.src, 'base'),
-			path.resolve(config.paths.src, '_chaos')
-		],
-		extensions: ['', '.js', '.jsx']
-	};
+		webpackConfig.output = {
+			filename: 'background.js'
+		};
+
+		webpackConfig.resolve = {
+			root: [
+				path.resolve(config.paths.src, 'chrome'),
+				path.resolve(config.paths.src, 'base'),
+				path.resolve(config.paths.src, '_chaos')
+			],
+			extensions: ['', '.js', '.jsx']
+		};
+
+		return webpackConfig;
+	}
 
 	gulp.task('build:chrome:background', function() {
 		return gulp.src('src/_chaos/background/index.js')
-			.pipe(gulpWebpack(webpackConfig, webpack))
+			.pipe(gulpWebpack(getWebpackConfig(), webpack))
+			.pipe(gulp.dest(config.paths.build.chrome));
+	});
+
+	gulp.task('watch:chrome:background', function() {
+		return gulp.src('src/_chaos/background/index.js')
+			.pipe(gulpWebpack(getWebpackConfig(true), webpack))
 			.pipe(gulp.dest(config.paths.build.chrome));
 	});
 

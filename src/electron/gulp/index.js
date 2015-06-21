@@ -29,4 +29,13 @@ module.exports = function(gulp, config) {
 		)
 	);
 
+	gulp.task(
+		'watch:electron',
+		gulp.parallel(
+			'watch:electron:package',
+			'watch:electron:application',
+			'watch:electron:mainwindow'
+		)
+	);
+
 };

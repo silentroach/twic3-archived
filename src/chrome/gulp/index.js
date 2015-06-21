@@ -33,4 +33,14 @@ module.exports = function(gulp, config) {
 		)
 	);
 
+	gulp.task(
+		'watch:chrome',
+		gulp.parallel(
+			'watch:chrome:i18n',
+			'watch:chrome:manifest',
+			'watch:chrome:background',
+			'watch:chrome:popup'
+		)
+	);
+
 };

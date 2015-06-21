@@ -8,41 +8,58 @@ const webpack = require('webpack');
 module.exports = function(gulp, config) {
 
 	const targetPath = path.resolve(config.paths.build.electron, 'mainwindow');
-	const webpackConfig = config.webpack();
 
-	webpackConfig.entry = {
-		'index': 'mainwindow/index.jsx',
-		'vendor': [
-			'vendor/babel-helpers',
-			'react',
-			'react-pure-render/component',
-			'moment',
-			'normalize.stylus/index.styl'
-		]
-	};
+	const htmlSourcePath = path.resolve(config.paths.src, 'electron/mainwindow/index.jade');
 
-	webpackConfig.output = {
-		filename: 'index.js',
-		path: targetPath,
-		publicPath: '/mainwindow/'
-	};
+	function getWebpackConfig(isWatch = false) {
+		const webpackConfig = config.webpack();
 
-	webpackConfig.resolve = {
-		root: [
-			path.resolve(config.paths.src, 'electron'),
-			path.resolve(config.paths.src, 'base')
-		],
-		extensions: ['', '.js', '.jsx']
-	};
+		if (isWatch) {
+			webpackConfig.isWatch = true;
+		}
+
+		webpackConfig.entry = {
+			'index': 'mainwindow/index.jsx',
+			'vendor': [
+				'vendor/babel-helpers',
+				'react',
+				'react-pure-render/component',
+				'moment',
+				'normalize.stylus/index.styl'
+			]
+		};
+
+		webpackConfig.output = {
+			filename: 'index.js',
+			path: targetPath,
+			publicPath: '/mainwindow/'
+		};
+
+		webpackConfig.resolve = {
+			root: [
+				path.resolve(config.paths.src, 'electron'),
+				path.resolve(config.paths.src, 'base')
+			],
+			extensions: ['', '.js', '.jsx']
+		};
+
+		return webpackConfig;
+	}
 
 	gulp.task('build:electron:mainwindow:content', function() {
 		return gulp.src('src/electron/mainwindow/index.jsx')
-			.pipe(gulpWebpack(webpackConfig, webpack))
+			.pipe(gulpWebpack(getWebpackConfig(), webpack))
+			.pipe(gulp.dest(targetPath));
+	});
+
+	gulp.task('watch:electron:mainwindow:content', function() {
+		return gulp.src('src/electron/mainwindow/index.jsx')
+			.pipe(gulpWebpack(getWebpackConfig(true), webpack))
 			.pipe(gulp.dest(targetPath));
 	});
 
 	gulp.task('build:electron:mainwindow:html', function() {
-		return gulp.src(path.resolve(config.paths.src, 'electron/mainwindow/index.jade'))
+		return gulp.src(htmlSourcePath)
 			.pipe(gulpJade({
 				pretty: true,
 				locals: {
@@ -53,11 +70,23 @@ module.exports = function(gulp, config) {
 			.pipe(gulp.dest(targetPath));
 	});
 
+	gulp.task('watch:electron:mainwindow:html', function() {
+		gulp.watch(htmlSourcePath, gulp.task('build:electron:mainwindow:html'));
+	});
+
 	gulp.task(
 		'build:electron:mainwindow',
 		gulp.parallel(
 			'build:electron:mainwindow:html',
 			'build:electron:mainwindow:content'
+		)
+	);
+
+	gulp.task(
+		'watch:electron:mainwindow',
+		gulp.parallel(
+			'watch:electron:mainwindow:content',
+			'watch:electron:mainwindow:html'
 		)
 	);
 

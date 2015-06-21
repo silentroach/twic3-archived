@@ -6,14 +6,17 @@ const mkdirp = require('mkdirp');
 
 module.exports = function(gulp, config) {
 
-	const localesPath = path.resolve(config.paths.build.chrome, '_locales');
+	const targetPath = path.resolve(config.paths.build.chrome, '_locales');
+
+	const sourcePath = path.resolve(config.paths.src, 'chrome/i18n');
+	const sourceBasePath = path.resolve(config.paths.src, 'base/i18n');
 
 	gulp.task('build:chrome:i18n:mkdir', function(callback) {
-		mkdirp(localesPath, callback);
+		mkdirp(targetPath, callback);
 	});
 
 	gulp.task('build:chrome:i18n:generate', function(callback) {
-		const translations = require(path.resolve(config.paths.src, 'chrome/i18n/index.js'));
+		const translations = require(path.resolve(sourcePath, 'index.js'));
 		const parsed = { };
 
 		function parse(data, prefix) {
@@ -56,7 +59,7 @@ module.exports = function(gulp, config) {
 		Promise.all(
 			_.map(parsed, function(values, key) {
 				return new Promise(function(resolve) {
-					const localePath = path.resolve(localesPath, key);
+					const localePath = path.resolve(targetPath, key);
 
 					mkdirp(localePath, function() {
 						fs.writeFile(
@@ -82,6 +85,13 @@ module.exports = function(gulp, config) {
 			'build:chrome:i18n:generate'
 		)
 	);
+
+	gulp.task('watch:chrome:i18n', function() {
+		return gulp.watch([
+			path.resolve(sourcePath, './**/*.js'),
+			path.resolve(sourceBasePath, './**/*.js')
+		], gulp.task('build:chrome:i18n:generate'));
+	});
 
 };
 

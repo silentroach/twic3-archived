@@ -8,36 +8,47 @@ const webpack = require('webpack');
 module.exports = function(gulp, config) {
 
 	const popupTargetPath = path.resolve(config.paths.build.chrome, 'popup');
-	const webpackConfig = config.webpack();
 
-	webpackConfig.entry = {
-		'index': 'popup/index.jsx',
-		'vendor': [
-			'vendor/babel-helpers',
-			'react',
-			'react-pure-render/component',
-			'moment',
-			'normalize.stylus/index.styl'
-		]
-	};
+	const htmlSourcePath = path.resolve(config.paths.src, 'chrome/popup/index.jade');
 
-	webpackConfig.output = {
-		filename: 'index.js',
-		path: popupTargetPath,
-		publicPath: '/popup/'
-	};
+	function getWebpackConfig(isWatch = false) {
+		const webpackConfig = config.webpack();
 
-	webpackConfig.resolve = {
-		root: [
-			path.resolve(config.paths.src, 'chrome'),
-			path.resolve(config.paths.src, 'base'),
-			path.resolve(config.paths.src, '_chaos')
-		],
-		extensions: ['', '.js', '.jsx']
-	};
+		if (isWatch) {
+			webpackConfig.watch = true;
+		}
+
+		webpackConfig.entry = {
+			'index': 'popup/index.jsx',
+			'vendor': [
+				'vendor/babel-helpers',
+				'react',
+				'react-pure-render/component',
+				'moment',
+				'normalize.stylus/index.styl'
+			]
+		};
+
+		webpackConfig.output = {
+			filename: 'index.js',
+			path: popupTargetPath,
+			publicPath: '/popup/'
+		};
+
+		webpackConfig.resolve = {
+			root: [
+				path.resolve(config.paths.src, 'chrome'),
+				path.resolve(config.paths.src, 'base'),
+				path.resolve(config.paths.src, '_chaos')
+			],
+			extensions: ['', '.js', '.jsx']
+		};
+
+		return webpackConfig;
+	}
 
 	gulp.task('build:chrome:popup:html', function() {
-		return gulp.src(path.resolve(config.paths.src, 'chrome/popup/index.jade'))
+		return gulp.src(htmlSourcePath)
 			.pipe(gulpJade({
 				pretty: true
 			}))
@@ -45,9 +56,19 @@ module.exports = function(gulp, config) {
 			.pipe(gulp.dest(popupTargetPath));
 	});
 
+	gulp.task('watch:chrome:popup:html', function() {
+		gulp.watch(htmlSourcePath, gulp.task('build:chrome:popup:html'));
+	});
+
 	gulp.task('build:chrome:popup:content', function() {
 		return gulp.src('src/_chaos/popup/index.js')
-			.pipe(gulpWebpack(webpackConfig, webpack))
+			.pipe(gulpWebpack(getWebpackConfig(), webpack))
+			.pipe(gulp.dest(popupTargetPath));
+	});
+
+	gulp.task('watch:chrome:popup:content', function() {
+		return gulp.src('src/_chaos/popup/index.js')
+			.pipe(gulpWebpack(getWebpackConfig(true), webpack))
 			.pipe(gulp.dest(popupTargetPath));
 	});
 
@@ -56,6 +77,14 @@ module.exports = function(gulp, config) {
 		gulp.parallel(
 			'build:chrome:popup:html',
 			'build:chrome:popup:content'
+		)
+	);
+
+	gulp.task(
+		'watch:chrome:popup',
+		gulp.parallel(
+			'watch:chrome:popup:html',
+			'watch:chrome:popup:content'
 		)
 	);
 

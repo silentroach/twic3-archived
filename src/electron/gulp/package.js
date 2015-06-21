@@ -15,4 +15,8 @@ module.exports = function(gulp, config) {
 		fs.writeFile(targetPath, JSON.stringify(appInfo, null, '  '), {}, callback);
 	});
 
+	gulp.task('watch:electron:package', function() {
+		gulp.watch(__filename, gulp.task('build:electron:package'));
+	});
+
 };

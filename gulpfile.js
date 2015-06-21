@@ -25,3 +25,14 @@ gulp.task(
 		)
 	)
 );
+
+gulp.task(
+	'watch',
+	gulp.series(
+		'build',
+		gulp.parallel(
+			'watch:chrome',
+			'watch:electron'
+		)
+	)
+);

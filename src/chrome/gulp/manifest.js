@@ -49,4 +49,8 @@ module.exports = function(gulp, config) {
 		);
 	});
 
+	gulp.task('watch:chrome:manifest', function() {
+		gulp.watch(__filename, gulp.task('build:chrome:manifest'));
+	});
+
 };
