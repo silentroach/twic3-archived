@@ -32,4 +32,4 @@ export default class Device {
 
 Device.WINDOWS = 'windows';
 Device.OSX = 'osx';
-Device.LINUX = 'linux;'
+Device.LINUX = 'linux';
