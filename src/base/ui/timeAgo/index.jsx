@@ -1,10 +1,6 @@
 import React from 'react';
 import PureComponent from 'react-pure-render/component';
 
-import moment from '../moment';
-
-import './timeAgo.styl';
-
 export default class TimeAgo extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -19,12 +15,12 @@ export default class TimeAgo extends PureComponent {
 
 	render() {
 		return (
-			<div className="timeago" title={this.state.hint}>{this.state.text}</div>
+			<span title={this.state.hint}>{this.state.text}</span>
 		);
 	}
 
 	recalculateText() {
-		const momentObject = moment(this.props.timestamp);
+		const momentObject = this.props.moment(this.props.timestamp);
 
 		this.setState({
 			text: momentObject.fromNow(),
@@ -76,5 +72,6 @@ export default class TimeAgo extends PureComponent {
 }
 
 TimeAgo.propTypes = {
-	timestamp: React.PropTypes.number
+	timestamp: React.PropTypes.number.isRequired,
+	moment: React.PropTypes.func.isRequired
 };

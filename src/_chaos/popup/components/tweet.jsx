@@ -3,11 +3,13 @@ import React from 'react';
 import './tweet.styl';
 
 import Avatar from 'ui/avatar';
-import TimeAgo from './timeAgo';
+import TimeAgo from 'ui/timeAgo';
 
 import Gallery from './tweet/gallery';
 
 import i18n from 'i18n';
+
+import moment from '../moment';
 
 export default class Tweet extends React.Component {
 	render() {
@@ -67,7 +69,7 @@ export default class Tweet extends React.Component {
 
 					<a href={tweetLink} className="tweet-time" target="_blank">
 						{/* will show retweet date even if it is retweet */}
-						<TimeAgo timestamp={tweet.createTime} />
+						<TimeAgo timestamp={tweet.createTime} moment={moment} />
 					</a>
 				</div>
 				<div className="clearer" />
