@@ -23,9 +23,9 @@ All translation files are in [src/base/i18n](/src/base/i18n) folder in simple JS
 All you need to start develop is to install [Node.js](https://nodejs.org) and run:
 
 	# npm install
-	# npm run build
+	# npm run watch
 
-It will install all dependencies, and build development sources to build folder.
+It will install all dependencies, build development sources to build folder and start to watch changes.
 
 Please respect the [EditorConfig](http://editorconfig.org) project settings and eslint rules.
 
