@@ -6,7 +6,7 @@ if ('production' !== process.env.NODE_ENV) {
 
 import Message from '../message';
 import i18n from 'i18n';
-import device from 'core/device';
+import device from 'device';
 
 import Toolbar from './components/toolbar';
 import ToolbarIcon from './components/toolbarIcon';

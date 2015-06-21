@@ -1,21 +1,35 @@
-var device = {
-	platforms: {
-		WINDOWS: 'windows',
-		OSX: 'osx',
-		LINUX: 'linux'
+const platformField = Symbol('platform');
+
+const modifierDefault = 'ctrlKey';
+const modifierOSX = 'metaKey';
+
+export default class Device {
+	constructor(userAgent) {
+		let platform = Device.WINDOWS;
+
+		if (userAgent.indexOf('Mac') >= 0) {
+			platform = Device.OSX;
+		} else
+		if (userAgent.indexOf('Windows') < 0) {
+			platform = Device.LINUX;
+		}
+
+		this[platformField] = platform;
 	}
-};
 
-device.platform = device.platforms.WINDOWS;
+	get platform() {
+		return this[platformField];
+	}
 
-if (navigator.appVersion.indexOf('Mac') >= 0) {
-	device.platform = device.platforms.OSX;
-} else
-if (navigator.appVersion.indexOf('Windows') < 0) {
-	device.platform = device.platforms.LINUX;
+	get modifierKey() {
+		return this.isOSX() ? modifierOSX : modifierDefault;
+	}
+
+	isOSX() {
+		return Device.OSX === this[platformField];
+	}
 }
 
-device.modifierKey = device.platform === device.platforms.OSX
-	? 'metaKey' : 'ctrlKey';
-
-export default device;
+Device.WINDOWS = 'windows';
+Device.OSX = 'osx';
+Device.LINUX = 'linux;'

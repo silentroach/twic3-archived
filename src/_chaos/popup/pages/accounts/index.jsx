@@ -4,11 +4,10 @@ import Toolbar from '../../components/toolbar';
 import AccountList from './components/accountList';
 import Message from '../../../message';
 
-import device from 'core/device';
+import device from 'device';
 import i18n from 'i18n';
 
-const HINT_KEY = device.platform === device.platforms.OSX
-	? 'osx' : 'default';
+const HINT_KEY = device.isOSX() ? 'osx' : 'default';
 
 // we can cache account users to prevent flicker
 // cause it will never been modified in current popup session
