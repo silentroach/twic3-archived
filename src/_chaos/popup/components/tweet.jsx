@@ -61,7 +61,7 @@ export default class Tweet extends React.Component {
 				{retweetInfo}
 
 				<a className="tweet-avatar" href={'#users/' + tweetData.user.id} title={'@' + tweetData.user.screenName}>
-					<Avatar template={tweetData.user.avatar} border={true} />
+					<Avatar template={tweetData.user.avatar} border />
 				</a>
 				<div className="tweet-content">
 					{tweetText}

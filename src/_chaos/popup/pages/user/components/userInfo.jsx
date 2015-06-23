@@ -13,7 +13,7 @@ export default class UserInfo extends React.Component {
 
 		return (
 			<div id="profile" className="page">
-				<Avatar template={user.avatar} type={Avatar.TYPE_BIG} border={true} />
+				<Avatar template={user.avatar} type={Avatar.TYPE_BIG} border />
 				<div className="profile-badges">
 					{user.isProtected     // @todo move to ul
 						&& <i className="ei-lock ei-lock-dims"
