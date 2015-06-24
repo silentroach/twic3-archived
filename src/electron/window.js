@@ -16,6 +16,7 @@ export default class Window extends eventEmitter {
 
 		const windowSettings = {
 			show: false,
+			frame: false,
 			'web-preferences': {
 				javascript: true,
 				// ---

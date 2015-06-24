@@ -21,7 +21,7 @@ function showMainWindow() {
 		wnd = new Window(
 			'file://' + path.resolve(resourcesPath, 'mainwindow/index.html'),
 			{
-				width: 300,
+				width: 350,
 				height: 600
 			}
 		);
