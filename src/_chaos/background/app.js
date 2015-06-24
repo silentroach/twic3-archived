@@ -1,7 +1,8 @@
-import AccountList from 'core/struct/accountList';
+import Application from 'app';
 import AccountWatcher from './accountWatcher';
 import ConfigWatcher from './twitter/configWatcher';
 import Message from '../message';
+import Twitter from './twitter';
 
 import i18n from 'i18n';
 import connection from 'core/connection';
@@ -13,22 +14,18 @@ import AuthHandler from './handlers/auth';
 import TimelineHandler from './handlers/timeline';
 /** ---------------- */
 
-const CONFIG_ACCOUNTS_KEY = 'accounts';
+export default class App extends Application {
+	constructor(config) {
+		super(config);
 
-export default class App {
-	constructor(config, twitter) {
-		const app = this;
-
-		this.config = config;
-		this.twitter = twitter;
-
-		this.accounts = null;
+		this.twitter = new Twitter(this.db);
 
 		this.messageHandlers = { };
 	}
 
 	start() {
 		const app = this;
+
 		const twitterConfigWatcher = new ConfigWatcher(this.config, this.twitter);
 		twitterConfigWatcher.start();
 
@@ -45,28 +42,20 @@ export default class App {
 			this.messageHandlers[handler.getMessageType()] = handler;
 		});
 
-		this.config
-			.get(CONFIG_ACCOUNTS_KEY)
-			.then(data => {
-				this.accounts = AccountList.unserialize(data);
-
-				console.log('account list loaded', this.accounts);
-
+		return super()
+			.then(() => {
 				this.accounts.map(account => {
 					const watcher = new AccountWatcher(app.twitter, account);
 					if (account.isAuthorized()) {
 						watcher.start();
 					}
 				});
-
-				this.accounts.on('change', () => this.accounts.save(this.config));
-
-				app.listen();
 			});
 	}
 
 	listen() {
-		console.log('listening for messages...');
+		super();
+
 		chrome.runtime.onMessage.addListener(this.handleMessage.bind(this));
 	}
 
