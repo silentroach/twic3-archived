@@ -26,6 +26,7 @@ describe('Entities', function() {
 
 		const output = entities.processText(text);
 
+		assert.strictEqual(entities.getAdditionalData(), null, 'additional data must be null for this case');
 		assert.equal(entities.getUrlCount(), 2);
 		assert.equal(entities.getCount(), 2);
 		assert.equal(
