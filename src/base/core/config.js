@@ -1,53 +1,43 @@
 import EventEmitter from './eventEmitter';
 
-const STORAGE_FIELD = Symbol('storage');
-
+const BACKEND_FIELD = Symbol('backend');
 const CHANGE_EVENT = 'change';
 
+const emitChangesField = Symbol('emitChanges');
+
 export default class Config extends EventEmitter {
-	constructor(storage) {
+	constructor(backend) {
 		super();
 
-		const config = this;
+		this[BACKEND_FIELD] = backend;
 
-		this[STORAGE_FIELD] = storage.sync;
+		backend.on('change', changes => this[emitChangesField].call(this, changes));
+	}
 
-		storage.onChanged.addListener((changes, namespace) => {
-			if ('sync' !== namespace) {
-				return;
-			}
+	[emitChangesField](changes) {
+		for (let key of Object.keys(changes)) {
+			this.emit(
+				[CHANGE_EVENT, key].join('.'),
+				changes[key]
+			);
+		}
 
-			for (let key in changes) {
-				config.emit(
-					[CHANGE_EVENT, key].join('.'),
-					changes[key].newValue
-				);
-			}
-
-			config.emit(CHANGE_EVENT);
-		});
+		this.emit(CHANGE_EVENT);
 	}
 
 	get(key) {
-		const config = this;
-
-		return new Promise(function(resolve) {
-			config[STORAGE_FIELD].get(key, function(items) {
-				resolve(items[key]);
-			});
-		});
+		return this[BACKEND_FIELD].get(key);
 	}
 
 	set(key, value) {
-		const config = this;
-		const storeObj = { };
+		return this[BACKEND_FIELD]
+			.set(key, value)
+			.then(() => {
+				this[emitChangesField].call(this, {
+					[key]: value
+				});
 
-		storeObj[key] = value;
-
-		return new Promise(function(resolve) {
-			config[STORAGE_FIELD].set(storeObj, function() {
-				resolve();
+				return value;
 			});
-		});
 	}
 }

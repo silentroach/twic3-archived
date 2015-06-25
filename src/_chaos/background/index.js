@@ -1,11 +1,10 @@
 import 'vendor/babel-helpers';
 
-import Config from 'core/config';
 import App from './app';
 
-const app = new App(
-	new Config(chrome.storage)
-);
+import config from 'config';
+
+const app = new App(config);
 
 app
 	.start()
