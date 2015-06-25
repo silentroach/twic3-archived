@@ -5,6 +5,9 @@ const migrationsField = Symbol('migrations');
 const versionField = Symbol('version');
 const nameField = Symbol('name');
 
+const upgradeField = Symbol('upgrade');
+const getDBField = Symbol('getDB');
+
 export default class DB {
 	constructor(name) {
 		this[instanceField] = null;
@@ -33,7 +36,7 @@ export default class DB {
 		return this[versionField];
 	}
 
-	/** @protected */ getDB() {
+	[getDBField]() {
 		const self = this;
 
 		return new Promise(function(resolve, reject) {
@@ -41,7 +44,7 @@ export default class DB {
 				resolve(self[instanceField]);
 			} else {
 				const request = indexedDB.open(self[nameField], self[versionField]);
-				request.onupgradeneeded = self.upgrade.bind(self);
+				request.onupgradeneeded = self[upgradeField].bind(self);
 				request.onsuccess = function(event) {
 					self[instanceField] = request.result;
 					resolve(self[instanceField]);
@@ -51,7 +54,7 @@ export default class DB {
 		});
 	}
 
-	/** @private */ upgrade(event) {
+	[upgradeField](event) {
 		const migrations = this[migrationsField];
 		const instance = event.target.result;
 		const currentVersion = event.oldVersion;
@@ -69,7 +72,7 @@ export default class DB {
 	}
 
 	getStore(collectionName, mode = DB.MODE_READ_ONLY) {
-		return this.getDB()
+		return this[getDBField]()
 			.then(function(db) {
 				const objectStore = db
 					.transaction(collectionName, mode)
