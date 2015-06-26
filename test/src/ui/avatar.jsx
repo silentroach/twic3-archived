@@ -4,7 +4,7 @@ import Avatar from 'ui/avatar';
 
 const TestUtils = React.addons.TestUtils;
 
-describe('UI.Avatar', function() {
+describe('UI', () => describe('Avatar', () => {
 
 	it('should render avatar to img with correct src', function() {
 		const pathTemplate = 'file://somepath{size}.jpg';
@@ -37,4 +37,4 @@ describe('UI.Avatar', function() {
 		assert.include(node.getAttribute('class'), 'border');
 	});
 
-});
+}));

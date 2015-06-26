@@ -1,6 +1,6 @@
 import EntityMention from 'core/entity/mention';
 
-describe('Entity.Mention', function() {
+describe('Entity', () => describe('#mention', () => {
 
 	const indices = [1, 10];
 	const id = 10;
@@ -32,4 +32,4 @@ describe('Entity.Mention', function() {
 		);
 	});
 
-});
+}));

@@ -1,6 +1,6 @@
 import EntityMedia from 'core/entity/media';
 
-describe('Entity.Media', function() {
+describe('Entity', () => describe('#media', () => {
 
 	const indices = [10, 15];
 	const type = 'photo';
@@ -56,4 +56,4 @@ describe('Entity.Media', function() {
 		);
 	});
 
-});
+}));

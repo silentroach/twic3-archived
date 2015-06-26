@@ -1,6 +1,6 @@
 import EntityUrl from 'core/entity/url';
 
-describe('Entity.Url', function() {
+describe('Entity', () => describe('#url', () => {
 
 	it('should parse data', function() {
 		const indices = [1, 10];
@@ -51,4 +51,4 @@ describe('Entity.Url', function() {
 		assert.equal(entity.displayUrl, 'https://somelink.com/withtrailing/slash');
 	});
 
-});
+}));

@@ -4,7 +4,7 @@ import Loader from 'ui/loader';
 
 const TestUtils = React.addons.TestUtils;
 
-describe('UI.Loader', function() {
+describe('UI', () => describe('Loader', () => {
 
 	it('should be hidden by default and visible after some timeout', function(done) {
 		const component = TestUtils.renderIntoDocument(
@@ -26,4 +26,4 @@ describe('UI.Loader', function() {
 		}, 250);
 	});
 
-});
+}));

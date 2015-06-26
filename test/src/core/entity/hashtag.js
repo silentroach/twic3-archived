@@ -1,6 +1,6 @@
 import EntityHashtag from 'core/entity/hashtag';
 
-describe('Entity.Hashtag', function() {
+describe('Entity', () => describe('#hashtag', () => {
 
 	const indices = [1, 10];
 	const text = 'twicext';
@@ -25,4 +25,4 @@ describe('Entity.Hashtag', function() {
 		);
 	});
 
-});
+}));

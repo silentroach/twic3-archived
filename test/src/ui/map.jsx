@@ -4,7 +4,7 @@ import Map from 'ui/map';
 
 const TestUtils = React.addons.TestUtils;
 
-describe('UI.Map', function() {
+describe('UI', () => describe('Map', () => {
 
 	it('should render correct link', function() {
 		const component = TestUtils.renderIntoDocument(
@@ -60,4 +60,4 @@ describe('UI.Map', function() {
 		assert.include(imageNode.src, 'language=' + locale);
 	});
 
-});
+}));
