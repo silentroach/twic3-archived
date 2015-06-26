@@ -1,5 +1,5 @@
 import Model from '../model';
-import DB from 'core/db';
+import { TransactionModes } from 'core/db';
 
 export default class Friendship extends Model {
 	static getCollectionName() {
@@ -25,7 +25,7 @@ export default class Friendship extends Model {
 
 	static flush(db, userId) {
 		return db
-			.getStore(Friendship.getCollectionName(), DB.MODE_READ_WRITE)
+			.getStore(Friendship.getCollectionName(), TransactionModes.READ_WRITE)
 			.then(function(store) {
 				return store.getIndex('userId');
 			})

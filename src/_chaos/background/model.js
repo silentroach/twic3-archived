@@ -1,4 +1,4 @@
-import DB from 'core/db';
+import { TransactionModes } from 'core/db';
 
 const IS_CHANGED_FIELD = Symbol('changed');
 const UPDATE_TIME_FIELD_NAME = 'updateTime';
@@ -63,7 +63,7 @@ export default class Model {
 
 		console.log('saving to', collectionName, storeObject);
 
-		return db.getStore(collectionName, DB.MODE_READ_WRITE)
+		return db.getStore(collectionName, TransactionModes.READ_WRITE)
 			.then(function(store) {
 				return store.put(storeObject);
 			})
@@ -78,7 +78,7 @@ export default class Model {
 	}
 
 	static deleteById(db, id) {
-		return db.getStore(this.getCollectionName(), DB.MODE_READ_WRITE)
+		return db.getStore(this.getCollectionName(), TransactionModes.READ_WRITE)
 			.then(function(store) {
 				return store.deleteById(id);
 			});
@@ -87,7 +87,7 @@ export default class Model {
 	static getByIndex(db, index, value) {
 		const ClassRef = this;
 
-		return db.getStore(ClassRef.getCollectionName(), DB.MODE_READ_ONLY)
+		return db.getStore(ClassRef.getCollectionName())
 			.then(function(store) {
 				return store
 					.getIndex(index)
@@ -108,7 +108,7 @@ export default class Model {
 	static getById(db, id) {
 		const ClassRef = this;
 
-		return db.getStore(ClassRef.getCollectionName(), DB.MODE_READ_ONLY)
+		return db.getStore(ClassRef.getCollectionName())
 			.then(function(store) {
 				return store.getById(id);
 			})

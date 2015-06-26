@@ -1,3 +1,4 @@
+import { Directions } from 'core/db/idx';
 import ModelJSON from '../modelJSON';
 import Parser from 'core/http/response/parser';
 
@@ -81,7 +82,7 @@ export default class Tweet extends ModelJSON {
 				return store.getIndex('timeline');
 			})
 			.then(function(idx) {
-				return idx.getIdsByValue(userId, TIMELINE_TWEETS_BATCH, false);
+				return idx.getIdsByValue(userId, TIMELINE_TWEETS_BATCH, Directions.BACKWARD);
 			})
 			.then(function(ids) {
 				return Promise.all(
@@ -98,7 +99,7 @@ export default class Tweet extends ModelJSON {
 				return store.getIndex('timeline');
 			})
 			.then(function(idx) {
-				return idx.getIdsByValue(userId, 1, false);
+				return idx.getIdsByValue(userId, 1, Directions.BACKWARD);
 			})
 			.then(function(ids) {
 				if (Array.isArray(ids) && ids.length) {

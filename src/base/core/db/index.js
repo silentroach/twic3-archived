@@ -8,6 +8,11 @@ const nameField = Symbol('name');
 const upgradeField = Symbol('upgrade');
 const getDBField = Symbol('getDB');
 
+export const TransactionModes = {
+	READ_WRITE: 'readwrite',
+	READ_ONLY: 'readonly'
+};
+
 export default class DB {
 	constructor(name) {
 		this[instanceField] = null;
@@ -71,7 +76,7 @@ export default class DB {
 		});
 	}
 
-	getStore(collectionName, mode = DB.MODE_READ_ONLY) {
+	getStore(collectionName, mode = TransactionModes.READ_ONLY) {
 		return this[getDBField]()
 			.then(function(db) {
 				const objectStore = db
@@ -83,6 +88,3 @@ export default class DB {
 			// @todo wrap? -> .transaction can throw an error if collection doesn't exists
 	}
 }
-
-DB.MODE_READ_WRITE = 'readwrite';
-DB.MODE_READ_ONLY = 'readonly';

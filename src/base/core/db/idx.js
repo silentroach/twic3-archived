@@ -2,8 +2,10 @@ import { promisify } from './request';
 
 const indexField = Symbol('index');
 
-const DIRECTION_FORWARD = 'next';
-const DIRECTION_BACKWARD = 'prev';
+export const Directions = {
+	FORWARD: 'next',
+	BACKWARD: 'prev'
+};
 
 export default class DBIndex {
 	constructor(index, store) {
@@ -38,11 +40,10 @@ export default class DBIndex {
 		});
 	}
 
-	getIdsByValue(value, count, isForward = true) {
+	getIdsByValue(value, count, direction = Directions.FORWARD) {
 		const ids = [];
 		const cursor = this[indexField].openKeyCursor(
-			IDBKeyRange.only(value),
-			isForward ? DIRECTION_FORWARD : DIRECTION_BACKWARD
+			IDBKeyRange.only(value), direction
 		);
 
 		return new Promise(function(resolve, reject) {
