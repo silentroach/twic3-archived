@@ -14,11 +14,12 @@ module.exports = function(gulp, config) {
 		externalHelpers: true,
 		cacheDirectory: true,
 		blacklist: ['useStrict', 'es6.constants'],
-		optional: ['utility.inlineEnvironmentVariables']
+		optional: ['utility.inlineEnvironmentVariables'],
+		plugins: []
 	};
 
 	if (config.production) {
-		babelOptions.optional.push('minification.removeDebugger');
+		babelOptions.plugins.push('remove-console', 'remove-debugger');
 	} else {
 		babelOptions.optional.push('validation.react');
 	}

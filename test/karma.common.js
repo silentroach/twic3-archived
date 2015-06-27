@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import path from 'path';
 
 const babelConfig = {
@@ -6,7 +7,12 @@ const babelConfig = {
 	loose: 'all'
 };
 
-const babelConfigSerialized = JSON.stringify(babelConfig);
+// remove console calls from base sources, not from tests
+const babelSourcesConfig = _.assign(
+	_.clone(babelConfig), {
+		plugins: ['remove-console']
+	}
+);
 
 export default {
 	colors: true,
@@ -36,13 +42,8 @@ export default {
 			preLoaders: [
 				{
 					test: /\.jsx?$/,
-					include: path.resolve('test/karma/'),
-					loader: 'babel?' + babelConfigSerialized
-				},
-				{
-					test: /\.jsx?$/,
 					include: path.resolve('test/src/'),
-					loader: 'babel?' + babelConfigSerialized
+					loader: 'babel?' + JSON.stringify(babelConfig)
 				},
 				{
 					test: /\.jsx?$/,
@@ -50,7 +51,7 @@ export default {
 					loader: 'isparta',
 					query: {
 						noAutoWrap: false,
-						babel: babelConfig
+						babel: babelSourcesConfig
 					}
 				},
 				{
