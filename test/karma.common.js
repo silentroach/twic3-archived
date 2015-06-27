@@ -7,13 +7,6 @@ const babelConfig = {
 	loose: 'all'
 };
 
-// remove console calls from base sources, not from tests
-const babelSourcesConfig = _.assign(
-	_.clone(babelConfig), {
-		plugins: ['remove-console']
-	}
-);
-
 export default {
 	colors: true,
 	frameworks: ['mocha', 'sinon', 'chai-as-promised', 'chai'],
@@ -51,7 +44,7 @@ export default {
 					loader: 'isparta',
 					query: {
 						noAutoWrap: false,
-						babel: babelSourcesConfig
+						babel: babelConfig
 					}
 				},
 				{

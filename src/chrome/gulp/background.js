@@ -36,6 +36,11 @@ module.exports = function(gulp, config) {
 			extensions: ['', '.js', '.jsx']
 		};
 
+		console.log(require('util').inspect(webpackConfig, {
+			depth: 15,
+			colors: true
+		}));
+
 		return webpackConfig;
 	}
 
