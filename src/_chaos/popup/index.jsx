@@ -28,7 +28,7 @@ class App extends React.Component {
 		return (
 			<div id="content" onClick={this.handleLinkClick.bind(this)}>
 				<Toolbar>
-					<ToolbarIcon href="#accounts" title="Тест" />
+					<ToolbarIcon href="#accounts" title="Accounts" />
 					<ToolbarIcon href="#about" title={i18n.translate('toolbar.about')} />
 				</Toolbar>
 				{Page ? <Page params={this.state.pageParams} /> : ''}
