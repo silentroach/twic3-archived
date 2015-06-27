@@ -34,7 +34,7 @@ export default class EntityMedia extends Entity {
 		this.sizes = { };
 
 		for (let key of Object.keys(sizes)) {
-			let info = sizes[key];
+			const info = sizes[key];
 			this.sizes[key] = [info.w, info.h];
 		}
 	}

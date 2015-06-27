@@ -14,8 +14,8 @@ mini   => 24x24
 
 export default class Avatar extends PureComponent {
 	render() {
+		const classes = ['avatar'];
 		let size = ''; // original
-		let classes = ['avatar'];
 
 		if (this.props.border) {
 			classes.push('avatar-bordered');
