@@ -21,3 +21,6 @@ script: npm run ci-travis
 
 after_success:
   cat "`find ./test -name 'lcov.info'`" | node_modules/.bin/coveralls
+
+notifications:
+  slack: twicext:0M7YDkmlguonwh4KoMGC8qcB
