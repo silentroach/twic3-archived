@@ -1,5 +1,9 @@
 import connection from '../connection';
 
+const STATE_STARTED = 1;
+const STATE_DISCONNECTED = 2;
+const STATE_STOPPED = 3;
+
 // time to wait before triggering [start] after connection is on
 const AFTER_CONNECT_WAIT = 10 * 1000;
 
@@ -7,20 +11,20 @@ export default class Watcher {
 	constructor() {
 		let timeout;
 
-		this.state = Watcher.STATE_STOPPED;
+		this.state = STATE_STOPPED;
 
 		connection.on('change', (connected) => {
 			clearTimeout(timeout);
 
 			if (!connected
-				&& this.state !== Watcher.STATE_STOPPED
-				&& this.state !== Watcher.STATE_DISCONNECTED
+				&& this.state !== STATE_STOPPED
+				&& this.state !== STATE_DISCONNECTED
 			) {
 				this.stop();
-				this.state = Watcher.STATE_DISCONNECTED;
+				this.state = STATE_DISCONNECTED;
 			} else
 			if (connected
-				&& this.state === Watcher.STATE_DISCONNECTED
+				&& this.state === STATE_DISCONNECTED
 			) {
 				const state = connected;
 				timeout = setTimeout(() => {
@@ -33,16 +37,16 @@ export default class Watcher {
 	}
 
 	stop() {
-		this.state = Watcher.STATE_STOPPED;
+		this.state = STATE_STOPPED;
 	}
 
 	start() {
 		if (!connection.connected) {
-			this.state = Watcher.STATE_DISCONNECTED;
+			this.state = STATE_DISCONNECTED;
 			return false;
 		}
 
-		this.state = Watcher.STATE_STARTED;
+		this.state = STATE_STARTED;
 
 		return true;
 	}
@@ -52,7 +56,3 @@ export default class Watcher {
 		this.start();
 	}
 }
-
-Watcher.STATE_STARTED = 1;
-Watcher.STATE_DISCONNECTED = 2;
-Watcher.STATE_STOPPED = 3;
