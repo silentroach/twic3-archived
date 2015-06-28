@@ -17,8 +17,8 @@ describe('EventEmitter', function() {
 		});
 	});
 
-	it('should call function once if it added twice', function() {
-		var callback = sinon.spy();
+	it('should call function once if it was added twice', function() {
+		const callback = sinon.spy();
 
 		em.on('test', callback);
 		em.on('test', callback);
@@ -30,7 +30,7 @@ describe('EventEmitter', function() {
 	});
 
 	it('should call handler once if it is passed via once method', function() {
-		var callback = sinon.spy();
+		const callback = sinon.spy();
 
 		em.once('test', callback);
 
@@ -42,7 +42,7 @@ describe('EventEmitter', function() {
 	});
 
 	it('should not handle event if it is off', function() {
-		var callback = sinon.spy();
+		const callback = sinon.spy();
 
 		em.on('test', callback);
 		em.off('test');
@@ -56,4 +56,31 @@ describe('EventEmitter', function() {
 
 		assert(!callback.called);
 	});
+
+	it('should remove correct event on off', function() {
+		const callback = sinon.spy();
+		const callbackNext = sinon.spy();
+
+		em.on('test', callback);
+		em.on('test', callbackNext);
+
+		em.off('test', callback);
+
+		em.emit('test');
+
+		assert(!callback.called);
+		assert(callbackNext.calledOnce);
+	});
+
+	it('should continue chain on off not found callbacks', function() {
+		const callback = sinon.spy();
+		const callbackNotFound = function() { };
+
+		em.on('test', callback);
+
+		const chain = em.off('test', callback).off('test', callback).off('test', callbackNotFound).off('test');
+
+		assert(chain instanceof EventEmitter);
+	});
+
 });
