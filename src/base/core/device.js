@@ -3,15 +3,21 @@ const platformField = Symbol('platform');
 const modifierDefault = 'ctrlKey';
 const modifierOSX = 'metaKey';
 
+export const Platforms = {
+	Windows: 'windows',
+	OSX: 'osx',
+	Linux: 'linux'
+};
+
 export default class Device {
 	constructor(userAgent) {
-		let platform = Device.WINDOWS;
+		let platform = Platforms.Windows;
 
 		if (userAgent.indexOf('Mac') >= 0) {
-			platform = Device.OSX;
+			platform = Platforms.OSX;
 		} else
 		if (userAgent.indexOf('Windows') < 0) {
-			platform = Device.LINUX;
+			platform = Platforms.Linux;
 		}
 
 		this[platformField] = platform;
@@ -26,10 +32,6 @@ export default class Device {
 	}
 
 	isOSX() {
-		return Device.OSX === this[platformField];
+		return Platforms.OSX === this[platformField];
 	}
 }
-
-Device.WINDOWS = 'windows';
-Device.OSX = 'osx';
-Device.LINUX = 'linux';
