@@ -1,6 +1,6 @@
 const path = require('path');
 
-const gulpWebpack = require('gulp-webpack');
+const gulpWebpack = require('webpack-stream');
 const gulpJade = require('gulp-jade');
 const gulpRename = require('gulp-rename');
 const webpack = require('webpack');

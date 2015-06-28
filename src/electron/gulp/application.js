@@ -1,6 +1,6 @@
 const path = require('path');
 
-const gulpWebpack = require('gulp-webpack');
+const gulpWebpack = require('webpack-stream');
 const webpack = require('webpack');
 
 module.exports = function(gulp, config) {
