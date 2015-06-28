@@ -1,14 +1,14 @@
 import { Directions } from 'core/db/idx';
 import ModelJSON from '../modelJSON';
-import Parser from 'core/http/response/parser';
+import { FieldTypes, Parser } from 'core/http/response/parser';
 
 import Entities from 'core/entities';
 
 import textUtils from '../twitter/text';
 
 const parser = new Parser({
-	'id_str': [Parser.TYPE_STRING, 'id'],
-	'text': [Parser.TYPE_STRING, (original, tweetJSON) => {
+	'id_str': [FieldTypes.String, 'id'],
+	'text': [FieldTypes.String, (original, tweetJSON) => {
 		const entities = new Entities();
 		const data = { };
 
@@ -44,20 +44,20 @@ const parser = new Parser({
 
 		return data;
 	}],
-	'created_at': [Parser.TYPE_DATE, 'createTime'],
-	'user': [Parser.TYPE_UNDEFINED, (original, tweetJSON) => {
+	'created_at': [FieldTypes.Date, 'createTime'],
+	'user': [FieldTypes.Undefined, (original, tweetJSON) => {
 		const userInfo = original;
 
 		return {
 			userId: original.id_str
 		};
 	}],
-	'in_reply_to_status_id_str': [Parser.TYPE_STRING, (original, tweetJSON) => {
+	'in_reply_to_status_id_str': [FieldTypes.String, (original, tweetJSON) => {
 		return {
 			replyToId: tweetJSON['in_reply_to_status_id_str']
 		};
 	}],
-	'retweeted_status': [Parser.TYPE_UNDEFINED, (original, tweetJSON) => {
+	'retweeted_status': [FieldTypes.Undefined, (original, tweetJSON) => {
 		return {
 			retweetedId: original['id_str']
 		};

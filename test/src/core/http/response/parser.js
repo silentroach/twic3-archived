@@ -1,4 +1,4 @@
-import Parser from 'core/http/response/parser';
+import { FieldTypes, Parser } from 'core/http/response/parser';
 
 describe('Parser', function() {
 	it('should not return empty values', function() {
@@ -11,13 +11,13 @@ describe('Parser', function() {
 		};
 
 		const parser = new Parser({
-			'undef': Parser.TYPE_INT,
-			'null': [Parser.TYPE_INT, (originalValue) => {
+			'undef': FieldTypes.Int,
+			'null': [FieldTypes.Int, (originalValue) => {
 				assert.fail('called', 'not called');
 			}],
-			'notanumber': Parser.TYPE_INT,
-			'val': Parser.TYPE_INT,
-			'undefcallback': [Parser.TYPE_INT, originalValue => {
+			'notanumber': FieldTypes.Int,
+			'val': FieldTypes.Int,
+			'undefcallback': [FieldTypes.Int, originalValue => {
 				return null;
 			}]
 		});
@@ -40,7 +40,7 @@ describe('Parser', function() {
 		};
 
 		const parser = new Parser({
-			test: [Parser.TYPE_INT, (originalValue, originalJSON) => {
+			test: [FieldTypes.Int, (originalValue, originalJSON) => {
 				assert.deepEqual(originalJSON, obj);
 				assert.equal(originalValue, testval);
 
@@ -80,11 +80,11 @@ describe('Parser', function() {
 		const intSource = '50';
 		const dateSource = 'Tue Mar 10 2015 09:26:06 GMT+0300 (MSK)';
 		const parser = new Parser({
-			'bool': Parser.TYPE_BOOLEAN,
-			'str': Parser.TYPE_STRING,
-			'int': Parser.TYPE_INT,
-			'something': Parser.TYPE_INT,
-			'date': Parser.TYPE_DATE
+			'bool': FieldTypes.Boolean,
+			'str': FieldTypes.String,
+			'int': FieldTypes.Int,
+			'something': FieldTypes.Int,
+			'date': FieldTypes.Date
 		});
 
 		const result = parser.process({
@@ -109,7 +109,7 @@ describe('Parser', function() {
 
 	it('should rename fields', function() {
 		const parser = new Parser({
-			'something': [Parser.TYPE_INT, 'id']
+			'something': [FieldTypes.Int, 'id']
 		});
 
 		const result = parser.process({
@@ -124,7 +124,7 @@ describe('Parser', function() {
 
 	it('should use callback to convert data', function() {
 		const parser = new Parser({
-			'something': [Parser.TYPE_STRING, function(original) {
+			'something': [FieldTypes.String, function(original) {
 				return {
 					somethingDifferent: original,
 					somethingLowered: original.toLowerCase()
@@ -147,7 +147,7 @@ describe('Parser', function() {
 
 	it('should throw an error if callback did not return object', function() {
 		const parser = new Parser({
-			'something': [Parser.TYPE_STRING, function(original) {
+			'something': [FieldTypes.String, function(original) {
 				return true;
 			}]
 		});
@@ -161,8 +161,8 @@ describe('Parser', function() {
 
 	it('should not pass string to object if it is empty', function() {
 		const parser = new Parser({
-			'empty': Parser.TYPE_STRING,
-			'not': Parser.TYPE_STRING
+			'empty': FieldTypes.String,
+			'not': FieldTypes.String
 		});
 
 		const result = parser.process({

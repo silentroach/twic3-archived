@@ -1,13 +1,5 @@
 import Model from './model';
 
-function prepareValue(value, type) {
-	if (null === value
-		|| undefined === value
-	) {
-		return undefined;
-	}
-}
-
 export default class ModelJSON extends Model {
 	static getJSONMap() {
 		return { };

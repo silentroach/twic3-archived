@@ -1,5 +1,13 @@
 const rulesField = Symbol('parser');
 
+export const FieldTypes = {
+	Undefined: 0,
+	Int: 1,
+	String: 2,
+	Boolean: 3,
+	Date: 4
+};
+
 function processRecord(fieldName, data, rules, object) {
 	let result = { };
 	let type;
@@ -28,14 +36,14 @@ function processRecord(fieldName, data, rules, object) {
 
 	if (undefined !== data) {
 		switch (type) {
-			case Parser.TYPE_INT:
+			case FieldTypes.Int:
 				data = Number(data);
 				if (Number.isNaN(data)) {
 					data = undefined;
 				}
 
 				break;
-			case Parser.TYPE_STRING:
+			case FieldTypes.String:
 				if ('string' === typeof data
 					&& '' === data.trim()
 				) {
@@ -45,10 +53,10 @@ function processRecord(fieldName, data, rules, object) {
 				}
 
 				break;
-			case Parser.TYPE_BOOLEAN:
+			case FieldTypes.Boolean:
 				data = Boolean(data);
 				break;
-			case Parser.TYPE_DATE:
+			case FieldTypes.Date:
 				data = new Date(data).getTime();
 				break;
 		}
@@ -66,7 +74,7 @@ function processRecord(fieldName, data, rules, object) {
 	return result;
 }
 
-export default class Parser {
+export class Parser {
 	constructor(map = { }) {
 		this[rulesField] = map;
 	}
@@ -105,9 +113,3 @@ export default class Parser {
 		return result;
 	}
 }
-
-Parser.TYPE_UNDEFINED = 0;
-Parser.TYPE_INT = 1;
-Parser.TYPE_STRING = 2;
-Parser.TYPE_BOOLEAN = 3;
-Parser.TYPE_DATE = 4;

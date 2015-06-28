@@ -1,5 +1,5 @@
 import ModelJSON from '../modelJSON';
-import Parser from 'core/http/response/parser';
+import { FieldTypes, Parser } from 'core/http/response/parser';
 
 import Entities from 'core/entities';
 
@@ -13,15 +13,15 @@ const COORDS_REGEXP = /-?[\d.]+/g;
  */
 
 const commonParserRules = {
-	'id_str': [Parser.TYPE_STRING, 'id'],
-	'name': Parser.TYPE_STRING,
-	'screen_name': [Parser.TYPE_STRING, (original) => {
+	'id_str': [FieldTypes.String, 'id'],
+	'name': FieldTypes.String,
+	'screen_name': [FieldTypes.String, (original) => {
 		return {
 			screenName: original,
 			screenNameNormalized: original.toLowerCase()
 		};
 	}],
-	'location': [Parser.TYPE_STRING, (original) => {
+	'location': [FieldTypes.String, (original) => {
 		const data = {
 			location: original
 		};
@@ -46,22 +46,22 @@ const commonParserRules = {
 
 		return data;
 	}],
-	'created_at': [Parser.TYPE_DATE, 'registerTime'],
-	'protected': [Parser.TYPE_BOOLEAN, 'isProtected'],
-	'profile_image_url_https': [Parser.TYPE_STRING, (original) => {
+	'created_at': [FieldTypes.Date, 'registerTime'],
+	'protected': [FieldTypes.Boolean, 'isProtected'],
+	'profile_image_url_https': [FieldTypes.String, (original) => {
 		return {
 			avatar: original.replace(/_normal\./, '{size}.')
 		};
 	}],
-	'verified': [Parser.TYPE_BOOLEAN, 'isVerified'],
-	'geo_enabled': [Parser.TYPE_BOOLEAN, 'isGeoEnabled'],
-	'followers_count': [Parser.TYPE_INT, 'followersCount'],
-	'friends_count': [Parser.TYPE_INT, 'friendsCount']
+	'verified': [FieldTypes.Boolean, 'isVerified'],
+	'geo_enabled': [FieldTypes.Boolean, 'isGeoEnabled'],
+	'followers_count': [FieldTypes.Int, 'followersCount'],
+	'friends_count': [FieldTypes.Int, 'friendsCount']
 };
 
 const fullParserRules = Object.create(commonParserRules);
 
-fullParserRules.description = [Parser.TYPE_STRING, (description, userJSON) => {
+fullParserRules.description = [FieldTypes.String, (description, userJSON) => {
 	return {
 		description: textUtils.processLineBreaks(
 			description
@@ -69,7 +69,7 @@ fullParserRules.description = [Parser.TYPE_STRING, (description, userJSON) => {
 	};
 }];
 
-fullParserRules.url = [Parser.TYPE_STRING, (url, userJSON) => {
+fullParserRules.url = [FieldTypes.String, (url, userJSON) => {
 	if (userJSON.entities && userJSON.entities.url) {
 		const entities = new Entities();
 		entities.parseUrls(userJSON.entities.url.urls);
