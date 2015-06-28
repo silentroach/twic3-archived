@@ -74,6 +74,7 @@
     "chai-as-promised": "5.1.0",
     "coveralls": "2.11.2",
     "eslint": "0.24.0",
+    "eslint-plugin-react": "2.5.2",
     "gulp-eslint": "0.14.0",
     "gulp-todo": "*",
     "husky": "0.x",

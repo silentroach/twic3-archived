@@ -4,7 +4,7 @@
 	},
 	"rules": {
 		"quotes": [2, "single"],
-		"strict": 0,
+		"strict": [2, "never"],
 		"no-console": 0,
 		"no-unused-vars": 0,
 		"yoda": 0,
@@ -22,6 +22,7 @@
 		"one-var": [2, {
 			"initialized": "never"
 		}],
-		"no-unreachable": 1
+		"no-unreachable": 1,
+		"semi": [2, "always"]
 	}
 }

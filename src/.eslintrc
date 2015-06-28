@@ -1,5 +1,8 @@
 {
 	"parser": "babel-eslint",
+	"plugins": [
+		"react"
+	],
 	"globals": {
 		"process": true,
 	},
@@ -7,6 +10,13 @@
 		"browser": true
 	},
 	"rules": {
-		"complexity": [1, 15]
+		"complexity": [1, 15],
+
+		// react
+		"react/jsx-no-undef": 2,
+		"react/jsx-quotes": [2, "double"],
+		"react/jsx-uses-react": 2,
+		"react/jsx-uses-vars": 2,
+		//"react/prop-types": 2
 	}
 }
