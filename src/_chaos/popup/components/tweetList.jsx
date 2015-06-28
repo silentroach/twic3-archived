@@ -12,7 +12,7 @@ export default class TweetList extends React.Component {
 			<section className="tweetlist">
 				{
 					(this.props.tweets || []).map(tweet =>
-						<Tweet data={tweet} key={tweet.id} />
+						<Tweet data={tweet} watcherId={this.props.ownerId} key={tweet.id} />
 					)
 				}
 			</section>
@@ -21,6 +21,7 @@ export default class TweetList extends React.Component {
 }
 
 TweetList.propTypes = {
+	ownerId: React.PropTypes.string,
 	tweets: React.PropTypes.array
 };
 

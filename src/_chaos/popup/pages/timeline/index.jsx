@@ -14,7 +14,7 @@ export default class TimelinePage extends React.Component {
 	}
 
 	render() {
-		return <TweetList tweets={this.state.data} />;
+		return <TweetList tweets={this.state.data} ownerId={this.state.userId} />;
 	}
 
 	fetchTimeline(userId) {
@@ -28,7 +28,8 @@ export default class TimelinePage extends React.Component {
 			.send()
 			.then(function(reply) {
 				page.setState({
-					data: reply
+					data: reply,
+					userId
 				});
 			});
 	}

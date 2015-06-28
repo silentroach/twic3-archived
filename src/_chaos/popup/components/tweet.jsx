@@ -13,6 +13,7 @@ import moment from '../moment';
 
 export default class Tweet extends React.Component {
 	render() {
+		const classes = ['tweet'];
 		const tweet = this.props.data;
 		const tweetData = tweet.retweeted ? tweet.retweeted : tweet;
 
@@ -32,7 +33,13 @@ export default class Tweet extends React.Component {
 			tweetText = <div className="tweet-text" dangerouslySetInnerHTML={{ __html: tweetData.text }} />;
 		}
 
+		if (this.props.watcherId === tweet.user.id) {
+			classes.push('tweet-me');
+		}
+
 		if (tweet.retweeted) {
+			// @todo + tweet-retweet class?
+
 			// @todo userlink component?
 			const userLink = React.renderToStaticMarkup(
 				<a href={['#users', tweet.user.id].join('/')}>{'@' + tweet.user.screenName}</a>
@@ -57,7 +64,7 @@ export default class Tweet extends React.Component {
 		}
 
 		return (
-			<article className="tweet">
+			<article className={classes.join(' ')}>
 				{retweetInfo}
 
 				<a className="tweet-avatar" href={'#users/' + tweetData.user.id} title={'@' + tweetData.user.screenName}>
@@ -77,3 +84,7 @@ export default class Tweet extends React.Component {
 		);
 	}
 }
+
+Tweet.propTypes = {
+	watcherId: React.PropTypes.string
+};
