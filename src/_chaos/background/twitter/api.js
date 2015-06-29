@@ -9,6 +9,8 @@ const STREAM_URL = 'https://userstream.twitter.com/1.1/';
 
 const TIMELINE_LIMIT = 100;
 
+const getUserInfoField = Symbol('getUserInfoField');
+
 export default class TwitterAPI {
 	constructor() {
 		this.limits = { };
@@ -46,7 +48,7 @@ export default class TwitterAPI {
 			});
 	}
 
-	getUserInfoByParam(param, value) {
+	[getUserInfoField](param, value) {
 		var path = BASE_URL + 'users/show.json';
 		var limits = this.getLimits();
 		var req = new RequestOAuth(path);
@@ -71,11 +73,11 @@ export default class TwitterAPI {
 	}
 
 	getUserInfoById(userId) {
-		return this.getUserInfoByParam('user_id', userId);
+		return this[getUserInfoField]('user_id', userId);
 	}
 
 	getUserInfoByScreenName(screenName) {
-		return this.getUserInfoByParam('screen_name', screenName);
+		return this[getUserInfoField]('screen_name', screenName);
 	}
 
 	getHomeTimeline(token, sinceId = null) {
