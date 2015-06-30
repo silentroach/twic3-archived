@@ -3,11 +3,18 @@ import hmacsha1 from 'hmacsha1';
 import Request from '../request';
 import keys from 'app/keys';
 
-import { encodeUrlPart } from 'core/http/encoder';
-
 var timestampOffset = 0;
 
 const NONCE_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
+
+export function encodeUrlPart(str) {
+	return encodeURIComponent(str)
+		.replace(/\!/g, '%21')
+		.replace(/\*/g, '%2A')
+		.replace(/'/g, '%27')
+		.replace(/\(/g, '%28')
+		.replace(/\)/g, '%29');
+}
 
 function getNonce() {
 	var result = [];

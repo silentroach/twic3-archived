@@ -1,7 +1,7 @@
+import qs from 'qs';
+
 import Response from './response';
 import EventEmitter from 'core/eventEmitter';
-
-import { encodeUrlPart } from 'core/http/encoder';
 
 const XHR_FIELD = Symbol('xhr');
 
@@ -43,22 +43,11 @@ export default class Request extends EventEmitter {
 		const request = this;
 
 		return new Promise(function(resolve, reject) {
-			var requestData = request.getData();
-			var dataParams = [];
 			var req = request[XHR_FIELD] = new XMLHttpRequest();
 			var url = request.url;
 			var data;
 
-			for (let key of Object.keys(requestData)) {
-				dataParams.push(
-					[
-						encodeUrlPart(key),
-						encodeUrlPart(requestData[key])
-					].join('=')
-				);
-			}
-
-			data = dataParams.join('&');
+			data = qs.stringify(request.getData());
 
 			if ('GET' === request.method
 				&& data.length > 0
