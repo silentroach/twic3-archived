@@ -52,7 +52,7 @@
     "gulp-util": "3.0.6",
     "hmacsha1": "1.0.0",
     "js-string-escape": "1.0.0",
-    "lodash.merge": "3.3.1",
+    "lodash.merge": "3.3.2",
     "mkdirp": "0.5.1",
     "moment": "2.10.3",
     "normalize.stylus": "0.1.0",
@@ -60,7 +60,7 @@
     "qs": "3.1.0",
     "react": "0.13.3",
     "react-pure-render": "1.0.2",
-    "rimraf": "2.4.0",
+    "rimraf": "2.4.1",
     "style-loader": "0.12.3",
     "stylus-loader": "1.0.0",
     "through2": "2.0.0",
@@ -69,12 +69,12 @@
     "webpack-stream": "2.0.0"
   },
   "devDependencies": {
-    "babel-eslint": "3.1.19",
+    "babel-eslint": "3.1.20",
     "chai": "3.0.0",
     "chai-as-promised": "5.1.0",
     "coveralls": "2.11.2",
     "eslint": "0.24.0",
-    "eslint-plugin-react": "2.5.2",
+    "eslint-plugin-react": "2.6.3",
     "gulp-eslint": "0.14.0",
     "gulp-todo": "*",
     "husky": "0.x",
@@ -91,7 +91,7 @@
     "karma-mocha-reporter": "1.0.2",
     "karma-sinon": "1.0.4",
     "karma-webpack": "1.5.1",
-    "lodash": "3.9.3",
+    "lodash": "3.10.0",
     "mocha": "2.2.5",
     "sinon": "1.15.4"
   }
