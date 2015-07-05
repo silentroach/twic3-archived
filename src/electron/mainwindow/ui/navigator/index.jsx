@@ -1,9 +1,9 @@
 import React from 'react';
 
-import './index.styl';
+import styles from './index.styl';
 
 export default class Navigator extends React.Component {
 	render() {
-		return <div className="navigator" />;
+		return <div className={styles.navigator} />;
 	}
 }
