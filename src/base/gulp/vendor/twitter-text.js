@@ -13,7 +13,7 @@ module.exports = function(gulp, config) {
 			' * @preserve Many thanks to Twitter for their Twitter Text project',
 			' *   https://github.com/twitter/twitter-text-js',
 			' */',
-			'var regexps = { };'
+			'const regexps = { };'
 		];
 
 		_.forEach({

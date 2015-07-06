@@ -23,7 +23,7 @@ module.exports = function(gulp, config) {
 
 				fs.writeFile(
 					path.resolve(config.paths.vendor.root, 'contributors.js'),
-					'var contributors = ' + JSON.stringify(contributors) + ';\nexport default contributors;',
+					'export default ' + JSON.stringify(contributors, null, 2) + ';',
 					{},
 					callback
 				);
