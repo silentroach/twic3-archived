@@ -1,7 +1,7 @@
 import React from 'react';
 import PureComponent from 'react-pure-render/component';
 
-import './contributors.styl';
+import styles from './contributors.styl';
 
 import i18n from 'i18n';
 
@@ -34,7 +34,7 @@ export default class CommitterList extends PureComponent {
 		return (
 			<div>
 				<h2>{i18n.translate('pages.about.contributors')}</h2>
-				<ul className="contributorList">
+				<ul className={styles.contributors}>
 					{this.props.list.map(function(committer, idx) {
 						var url = 'mailto:' + committer.email;
 
