@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const qs = require('qs');
 const webpack = require('webpack');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -24,6 +25,14 @@ module.exports = function(gulp, config) {
 		babelOptions.optional.push('validation.react');
 	}
 
+	const cssLoaderQuery = {
+		sourceMap: null
+	};
+
+	if (!config.production) {
+		cssLoaderQuery.localIdentName = '[local]_[hash:base64:7]';
+	}
+
 	const baseWebpackConfig = {
 		module: {
 			loaders: [
@@ -44,7 +53,7 @@ module.exports = function(gulp, config) {
 					loader: ExtractTextPlugin.extract(
 						'style-loader',
 						[
-							'css-loader?sourceMap',
+							'css-loader?' + qs.stringify(cssLoaderQuery, { strictNullHandling: true }),
 							'autoprefixer-loader?' + JSON.stringify(autoprefixerOptions),
 							'stylus-loader'
 						].join('!')
