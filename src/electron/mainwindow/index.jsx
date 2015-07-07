@@ -5,14 +5,17 @@ import './index.styl';
 
 import device from 'app/device';
 
+import Container from 'ui/container';
 import Navigator from './ui/navigator';
 
 class App extends React.Component {
 	render() {
-		return <Navigator />;
+		return (
+			<Container platform={device.platform}>
+				<Navigator />
+			</Container>
+		);
 	}
 }
-
-document.body.classList.add(device.platform);
 
 React.render(<App />, document.body);

@@ -11,6 +11,7 @@ import device from 'app/device';
 import Toolbar from './components/toolbar';
 import ToolbarIcon from './components/toolbarIcon';
 
+import Container from 'ui/container';
 import AccountsPage from './pages/accounts';
 import AboutPage from './pages/about';
 import UserPage from './pages/user';
@@ -26,13 +27,15 @@ class App extends React.Component {
 		var Page = this.state && this.state.page ? this.state.page : null;
 
 		return (
-			<div id="content" onClick={this.handleLinkClick.bind(this)}>
-				<Toolbar>
-					<ToolbarIcon href="#accounts" title="Accounts" />
-					<ToolbarIcon href="#about" title={i18n.translate('toolbar.about')} />
-				</Toolbar>
-				{Page ? <Page params={this.state.pageParams} /> : ''}
-			</div>
+			<Container platform={device.platform}>
+				<div id="content" onClick={this.handleLinkClick.bind(this)}>
+					<Toolbar>
+						<ToolbarIcon href="#accounts" title="Accounts" />
+						<ToolbarIcon href="#about" title={i18n.translate('toolbar.about')} />
+					</Toolbar>
+					{Page ? <Page params={this.state.pageParams} /> : ''}
+				</div>
+			</Container>
 		);
 	}
 
@@ -106,7 +109,5 @@ class App extends React.Component {
 		window.onhashchange = this.handleHashChange.bind(this);
 	}
 }
-
-document.body.classList.add(device.platform);
 
 React.render(<App />, document.body);

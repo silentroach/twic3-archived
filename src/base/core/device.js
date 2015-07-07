@@ -4,9 +4,9 @@ const modifierDefault = 'ctrlKey';
 const modifierOSX = 'metaKey';
 
 export const Platforms = {
-	Windows: 'windows',
-	OSX: 'osx',
-	Linux: 'linux'
+	Windows: 0,
+	OSX: 1,
+	Linux: 2
 };
 
 export default class Device {
