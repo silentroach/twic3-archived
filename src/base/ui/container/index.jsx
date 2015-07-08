@@ -18,8 +18,8 @@ export default class Platform extends React.Component {
 			</div>
 		);
 	}
-}
 
-Platform.propTypes = {
-	platform: React.PropTypes.number.isRequired
-};
+	static propTypes = {
+		platform: React.PropTypes.number.isRequired
+	}
+}

@@ -41,18 +41,19 @@ export default class Avatar extends PureComponent {
 			/>
 		);
 	}
+
+	static propTypes = {
+		template: React.PropTypes.string,
+		type: React.PropTypes.number,
+		border: React.PropTypes.bool
+	}
+
+	static defaultProps = {
+		type: Avatar.TYPE_DEFAULT,
+		border: false
+	}
 }
 
+// @todo move to exports
 Avatar.TYPE_DEFAULT = 0;
 Avatar.TYPE_BIG = 1;
-
-Avatar.propTypes = {
-	template: React.PropTypes.string,
-	type: React.PropTypes.number,
-	border: React.PropTypes.bool
-};
-
-Avatar.defaultProps = {
-	type: Avatar.TYPE_DEFAULT,
-	border: false
-};

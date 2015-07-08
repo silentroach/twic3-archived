@@ -26,17 +26,17 @@ export default class Map extends PureComponent {
 			</a>
 		);
 	}
+
+	static propTypes = {
+		locale: React.PropTypes.string,
+		coords: React.PropTypes.array,
+		width: React.PropTypes.number,
+		height: React.PropTypes.number
+	}
+
+	static defaultProps = {
+		locale: 'en_US',
+		width: 380,
+		height: 200
+	}
 }
-
-Map.propTypes = {
-	locale: React.PropTypes.string,
-	coords: React.PropTypes.array,
-	width: React.PropTypes.number,
-	height: React.PropTypes.number
-};
-
-Map.defaultProps = {
-	locale: 'en_US',
-	width: 380,
-	height: 200
-};

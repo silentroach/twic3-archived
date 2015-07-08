@@ -69,9 +69,9 @@ export default class TimeAgo extends PureComponent {
 			clearInterval(this.timer);
 		}
 	}
-}
 
-TimeAgo.propTypes = {
-	timestamp: React.PropTypes.number.isRequired,
-	moment: React.PropTypes.func.isRequired
-};
+	static propTypes = {
+		timestamp: React.PropTypes.number.isRequired,
+		moment: React.PropTypes.func.isRequired
+	}
+}

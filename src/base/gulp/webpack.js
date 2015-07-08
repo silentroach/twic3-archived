@@ -15,7 +15,7 @@ module.exports = function(gulp, config) {
 		externalHelpers: true,
 		cacheDirectory: !config.production,
 		blacklist: ['useStrict', 'es6.constants'],
-		optional: ['utility.inlineEnvironmentVariables'],
+		optional: ['es7.classProperties', 'utility.inlineEnvironmentVariables'],
 		plugins: []
 	};
 

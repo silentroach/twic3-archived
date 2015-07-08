@@ -38,8 +38,8 @@ export default class Loader extends PureComponent {
 	componentWillUnmount() {
 		clearTimeout(this.timer);
 	}
-}
 
-Loader.propTypes = {
-	title: React.PropTypes.string
-};
+	static propTypes = {
+		title: React.PropTypes.string
+	}
+}
