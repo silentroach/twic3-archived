@@ -3,11 +3,12 @@ import './index.styl';
 import React from 'react';
 import PureComponent from 'react-pure-render/component';
 
-/** sizes
-normal => 48x48
-bigger => 73x73
-mini   => 24x24
-{wo}   => original size
+/** sizes:
+
+	normal => 48x48
+	bigger => 73x73
+	mini   => 24x24
+	{wo}   => original size
 */
 
 // @todo do not show image until loaded, maybe loader is ok after some timeout
@@ -43,7 +44,7 @@ export default class Avatar extends PureComponent {
 	}
 
 	static propTypes = {
-		template: React.PropTypes.string,
+		template: React.PropTypes.string.isRequired,
 		type: React.PropTypes.number,
 		border: React.PropTypes.bool
 	}

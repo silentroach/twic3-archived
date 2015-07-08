@@ -1,5 +1,8 @@
 {
 	"globals": {
 		"chrome": true
+	},
+	"rules": {
+		"react/prop-types": 0 // just for _chaos
 	}
 }

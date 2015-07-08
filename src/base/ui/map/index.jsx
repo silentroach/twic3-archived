@@ -28,8 +28,8 @@ export default class Map extends PureComponent {
 	}
 
 	static propTypes = {
+		coords: React.PropTypes.array.isRequired,
 		locale: React.PropTypes.string,
-		coords: React.PropTypes.array,
 		width: React.PropTypes.number,
 		height: React.PropTypes.number
 	}
