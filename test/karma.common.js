@@ -3,7 +3,7 @@ import path from 'path';
 
 const babelConfig = {
 	optional: 'runtime',
-	stage: 1,
+	stage: 0,
 	loose: 'all'
 };
 
