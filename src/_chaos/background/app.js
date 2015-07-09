@@ -81,27 +81,50 @@ export default class App extends Application {
 
 	handleMessage(message, sender, sendResponse) {
 		const msg = new Message(message.type, message.data);
+		let isAsync = false;
+		let isReplySent = false;
 		let handler;
-		let reply;
 
 		console.log('message received', msg);
+
+		function reply(data) {
+			isReplySent = true;
+			sendResponse(data);
+		}
 
 		if (undefined === this.messageHandlers[msg.type]) {
 			console.error('unknown message type', msg.type);
 		} else {
-			let handlerReply = this.messageHandlers[msg.type].handle(msg.data);
+			let handlerReply;
 
-			if (handlerReply instanceof Promise) {
-				handlerReply.then(function(response) {
-					sendResponse(response);
-				});
+			try {
+				handlerReply = this.messageHandlers[msg.type].handle(msg.data);
 
-				reply = true;
-			} else {
-				reply = handlerReply;
+				if (handlerReply instanceof Promise) {
+					isAsync = true;
+
+					handlerReply
+						.then(function(response) {
+							reply(response);
+						})
+						.catch(function(error) {
+							console.error('Handler error', error);
+							// @todo some error handling?
+							reply();
+						});
+				} else {
+					reply(handlerReply);
+				}
+			} catch (e) {
+				// @todo some error handling?
+				reply();
 			}
 		}
 
-		return reply;
+		if (!isAsync) {
+			reply();
+		}
+
+		return isAsync;
 	}
 }

@@ -69,9 +69,6 @@ export default class AccountsPage extends React.Component {
 	}
 
 	componentWillMount() {
-		var accountPage = this;
-		var msg;
-
 		// @todo tried with {add,remove}EventListener, but it doesnt work :{
 		document.onkeydown = this.handleKeyDown.bind(this);
 		document.onkeyup = this.handleKeyUp.bind(this);
@@ -80,13 +77,17 @@ export default class AccountsPage extends React.Component {
 			return;
 		}
 
-		msg = new Message(Message.TYPE_ACCOUNT_USERS);
+		const msg = new Message(Message.TYPE_ACCOUNT_USERS);
 
 		msg
 			.send()
-			.then(function(users) {
+			.then((users) => {
+				if (!Array.isArray(users)) {
+					return;
+				}
+
 				usersCache = users;
-				accountPage.setState({
+				this.setState({
 					users: usersCache
 				});
 			});
