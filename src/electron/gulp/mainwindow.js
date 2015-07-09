@@ -12,11 +12,9 @@ module.exports = function(gulp, config) {
 	const htmlSourcePath = path.resolve(config.paths.src, 'electron/mainwindow/index.jade');
 
 	function getWebpackConfig(isWatch = false) {
-		const webpackConfig = config.webpack();
-
-		if (isWatch) {
-			webpackConfig.isWatch = true;
-		}
+		const webpackConfig = config.webpack({
+			watch: isWatch
+		});
 
 		webpackConfig.entry = {
 			'index': 'mainwindow/index.jsx',

@@ -12,11 +12,9 @@ module.exports = function(gulp, config) {
 	const htmlSourcePath = path.resolve(config.paths.src, 'chrome/popup/index.jade');
 
 	function getWebpackConfig(isWatch = false) {
-		const webpackConfig = config.webpack();
-
-		if (isWatch) {
-			webpackConfig.watch = true;
-		}
+		const webpackConfig = config.webpack({
+			watch: isWatch
+		});
 
 		webpackConfig.entry = {
 			'index': 'popup/index.jsx',

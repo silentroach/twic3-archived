@@ -34,6 +34,9 @@ module.exports = function(gulp, config) {
 	}
 
 	const baseWebpackConfig = {
+		stats: {
+			colors: true
+		},
 		module: {
 			loaders: [
 				{
@@ -73,6 +76,7 @@ module.exports = function(gulp, config) {
 	config.webpack = function(opts) {
 		const options = _.assign({
 			vendor: true,
+			watch: false,
 			target: 'web'
 		}, opts);
 
@@ -97,6 +101,13 @@ module.exports = function(gulp, config) {
 					compress: { screw_ie8: true }
 				})
 			);
+		}
+
+		if (options.watch) {
+			webpackConfig.watch = true;
+
+			webpackConfig.stats.reasons = true;
+			webpackConfig.stats.modules = true;
 		}
 
 		webpackConfig.plugins = plugins;

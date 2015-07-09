@@ -6,11 +6,9 @@ const webpack = require('webpack');
 module.exports = function(gulp, config) {
 
 	function getWebpackConfig(isWatch = false) {
-		const webpackConfig = config.webpack();
-
-		if (isWatch) {
-			webpackConfig.watch = true;
-		}
+		const webpackConfig = config.webpack({
+			watch: isWatch
+		});
 
 		webpackConfig.entry = {
 			'index': 'background/index.js',

@@ -8,12 +8,9 @@ module.exports = function(gulp, config) {
 	function getWebpackConfig(isWatch = false) {
 		const webpackConfig = config.webpack({
 			vendor: false,
-			target: 'atom'
+			target: 'atom',
+			watch: isWatch
 		});
-
-		if (isWatch) {
-			webpackConfig.watch = true;
-		}
 
 		webpackConfig.entry = {
 			'index': 'application.js'
