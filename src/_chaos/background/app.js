@@ -43,14 +43,12 @@ export default class App extends Application {
 		});
 
 		return super()
-			.then(() => {
-				this.accounts.map(account => {
-					const watcher = new AccountWatcher(app.twitter, account);
-					if (account.isAuthorized()) {
-						watcher.start();
-					}
-				});
-			});
+			.then(() => this.accounts.map(account => {
+				const watcher = new AccountWatcher(app.twitter, account);
+				if (account.isAuthorized()) {
+					watcher.start();
+				}
+			}));
 	}
 
 	listen() {
