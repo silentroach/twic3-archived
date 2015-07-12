@@ -4,7 +4,7 @@
 	</pattern>
 
 	<text x="9" y="34" fill="url(#diagonalHatch)" style="stroke: rgba(93, 92, 93, 0.5); stroke-width: 1px"
-		font-family="Tahoma" font-weight="bold" font-size="43"
+		font-family="Tahoma" font-weight="bold" font-size="44"
 		shape-rendering="crispEdges"
 	>
 		t
