@@ -13,22 +13,17 @@ export default class AuthHandler extends MessageHandler {
 		app.twitter
 			.authorize(messageData ? messageData.screenName : null)
 			.then(function([token, user]) {
-				var account;
-
 				console.info('user authenticated', token, user);
 
-				// fetching timeline in a background
-				app.twitter.getHomeTimeline(token);
+				const accounts = app.accounts;
+				let account = accounts.getByUserId(user.id);
 
-				account = app.accounts.getByUserId(user.id);
 				if (!account) {
 					account = new Account(user.id, token);
-					app.accounts.add(account);
+					accounts.add(account);
 				} else {
 					account.token = token;
 				}
-
-				app.accounts.save(app.config);
 			})
 			.catch(function(e) {
 				console.error('authentication failed', e);

@@ -18,6 +18,8 @@ export default class AccountList extends Struct {
 		account.on('change', () => this.emit('change'));
 		this[listField].set(account.userId, account);
 
+		this.emit('change');
+
 		return this;
 	}
 

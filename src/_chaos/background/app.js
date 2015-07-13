@@ -42,9 +42,13 @@ export default class App extends Application {
 			this.messageHandlers[handler.getMessageType()] = handler;
 		});
 
+		return super();
+	}
+
+	loadAccounts() {
 		return super()
 			.then(() => this.accounts.map(account => {
-				const watcher = new AccountWatcher(app.twitter, account);
+				const watcher = new AccountWatcher(this.twitter, account);
 				if (account.isAuthorized()) {
 					watcher.start();
 				}

@@ -16,7 +16,7 @@ module.exports = function(gulp, config) {
 				'vendor/babel-helpers',
 				'vendor/twitter-text',
 				'hmacsha1',
-				'lodash.merge',
+				'lodash.merge', 'lodash.throttle',
 				'qs'
 			]
 		};
