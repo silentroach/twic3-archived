@@ -78,7 +78,11 @@ describe('EventEmitter', function() {
 
 		em.on('test', callback);
 
-		const chain = em.off('test', callback).off('test', callback).off('test', callbackNotFound).off('test');
+		const chain = em
+			.off('test', callbackNotFound)
+			.off('test', callback)
+			.off('test', callback)
+			.off('test');
 
 		assert(chain instanceof EventEmitter);
 	});
