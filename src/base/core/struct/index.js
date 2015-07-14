@@ -2,11 +2,15 @@ import EventEmitter from 'core/eventEmitter';
 
 export default class Struct extends EventEmitter {
 	serialize() {
-		console.error('no [serialize] method defined');
+		if ('production' !== process.env.NODE_ENV) {
+			throw new Error('no [serialize] method defined');
+		}
 	}
 
 	unserialize(data) {
-		console.error('no [unserialize] method defined');
+		if ('production' !== process.env.NODE_ENV) {
+			throw new Error('no [unserialize] method defined');
+		}
 	}
 
 	static unserialize(data) {

@@ -10,7 +10,9 @@ export default class Entity {
 	}
 
 	render() {
-		console.error('entity render function undefined');
+		if ('production' !== process.env.NODE_ENV) {
+			throw new Error('Entity render function undefined');
+		}
 	}
 
 	getAdditionalData() {

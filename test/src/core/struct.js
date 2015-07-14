@@ -22,9 +22,18 @@ class FakeStruct extends Struct {
 	}
 }
 
-describe('Struct', function() {
+describe('Struct', () => {
 
-	it('should serialize/deserialize data', function() {
+	describe('base', () => {
+		let struct;
+
+		before(() => struct = new Struct());
+
+		it('should throw an error on [serialize] call', () => assert.throws(() => struct.serialize()));
+		it('should throw an error on [unserialize] call', () => assert.throws(() => struct.unserialize()));
+	});
+
+	it('should serialize/deserialize data', () => {
 		const value = Math.random();
 		const struct = new FakeStruct(value);
 
@@ -36,7 +45,7 @@ describe('Struct', function() {
 		);
 	});
 
-	it('should deserialize with static call', function() {
+	it('should deserialize with static call', () => {
 		const value = Math.random();
 		const struct = new FakeStruct(value);
 		const serialized = struct.serialize();
