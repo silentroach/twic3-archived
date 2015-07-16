@@ -13,7 +13,7 @@ export const TransactionModes = {
 	READ_ONLY: 'readonly'
 };
 
-export default class DB {
+export class DB {
 	constructor(name) {
 		this[instanceField] = null;
 		this[migrationsField] = { };

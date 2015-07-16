@@ -1,4 +1,4 @@
-import DB from 'core/db';
+import { DB } from 'core/db';
 
 describe('DB', function() {
 
