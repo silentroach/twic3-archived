@@ -1,6 +1,6 @@
 import React from 'react/addons';
 
-import Loader from 'ui/loader';
+import Loader from 'client/ui/loader';
 
 const TestUtils = React.addons.TestUtils;
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar from 'ui/avatar';
+import Avatar from 'client/ui/avatar';
 
 import Message from '../../../../message.js';
 import i18n from 'i18n';

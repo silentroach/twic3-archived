@@ -2,8 +2,8 @@ import React from 'react';
 
 import styles from './tweet.styl';
 
-import Avatar from 'ui/avatar';
-import TimeAgo from 'ui/timeAgo';
+import Avatar from 'client/ui/avatar';
+import TimeAgo from 'client/ui/timeAgo';
 
 import Gallery from './tweet/gallery';
 

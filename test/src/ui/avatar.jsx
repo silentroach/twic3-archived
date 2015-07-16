@@ -1,6 +1,6 @@
 import React from 'react/addons';
 
-import Avatar from 'ui/avatar';
+import Avatar from 'client/ui/avatar';
 
 const TestUtils = React.addons.TestUtils;
 

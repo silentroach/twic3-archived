@@ -34,14 +34,14 @@ module.exports = function(gulp, config) {
 	gulp.task('build:vendor:icons-map', function() {
 		return renderSVGSprite(
 			'ei-location.svg',
-			path.resolve(config.paths.src, 'base/ui/map/vendor')
+			path.resolve(config.paths.src, 'base/client/ui/map/vendor')
 		);
 	});
 
 	gulp.task('build:vendor:icons-loader', function() {
 		return renderSVGSprite(
 			'ei-spinner.svg',
-			path.resolve(config.paths.src, 'base/ui/loader/vendor')
+			path.resolve(config.paths.src, 'base/client/ui/loader/vendor')
 		);
 	});
 

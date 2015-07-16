@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const phantom = require('phantom');
 
@@ -6,7 +7,7 @@ const gutil = require('gulp-util');
 
 module.exports = function(gulp, config) {
 
-	const imagesPath = path.resolve(config.paths.src, 'base/images');
+	const imagesPath = path.resolve(config.paths.src, 'base/client/images');
 	const targetPath = path.resolve(config.paths.build.chrome, 'images');
 
 	const images = {
@@ -48,7 +49,7 @@ module.exports = function(gulp, config) {
 	};
 
 	function render(sourcePath, targetPath, settings) {
-		return new Promise(function(resolve) {
+		return new Promise(resolve => {
 			gutil.log(
 				gutil.colors.magenta(
 					'[src]/' + path.relative(config.paths.src, sourcePath)
@@ -58,6 +59,10 @@ module.exports = function(gulp, config) {
 					'[build:chrome]/' + path.relative(config.paths.build.chrome, targetPath)
 				)
 			);
+
+			if (!fs.existsSync(sourcePath)) {
+				throw new Error('File ' + sourcePath + ' not found');
+			}
 
 			phantom.create(function(phantomInstance) {
 				phantomInstance.createPage(function(page) {

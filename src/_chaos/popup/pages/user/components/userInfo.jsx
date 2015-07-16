@@ -2,8 +2,8 @@ import React from 'react';
 
 import './userInfo.styl';
 
-import Avatar from 'ui/avatar';
-import Map from 'ui/map';
+import Avatar from 'client/ui/avatar';
+import Map from 'client/ui/map';
 
 import i18n from 'i18n';
 

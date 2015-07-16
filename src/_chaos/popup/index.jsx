@@ -11,7 +11,7 @@ import device from 'app/device';
 import Toolbar from './components/toolbar';
 import ToolbarIcon from './components/toolbarIcon';
 
-import Container from 'ui/container';
+import Container from 'client/ui/container';
 import AccountsPage from './pages/accounts';
 import AboutPage from './pages/about';
 import UserPage from './pages/user';
@@ -19,7 +19,7 @@ import TimelinePage from './pages/timeline';
 
 import 'normalize.stylus/index.styl';
 import 'vendor/evil-icons/sprite.styl';
-import 'ui/base.styl';
+import 'client/ui/base.styl';
 import './index.styl';
 
 class App extends React.Component {

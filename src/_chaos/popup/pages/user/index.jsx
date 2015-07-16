@@ -4,7 +4,7 @@ import Message from '../../../message';
 
 import UserNotFound from './components/userNotFound';
 import UserInfo from './components/userInfo';
-import Loader from 'ui/loader';
+import Loader from 'client/ui/loader';
 
 import i18n from 'i18n';
 
