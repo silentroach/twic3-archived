@@ -42,21 +42,18 @@ export default class DB {
 	}
 
 	[getDBField]() {
-		const self = this;
+		if (this[instanceField]) {
+			return this[instanceField];
+		}
 
-		return new Promise(function(resolve, reject) {
-			if (self[instanceField]) {
-				resolve(self[instanceField]);
-			} else {
-				const request = indexedDB.open(self[nameField], self[versionField]);
-				request.onupgradeneeded = self[upgradeField].bind(self);
-				request.onsuccess = function(event) {
-					self[instanceField] = request.result;
-					resolve(self[instanceField]);
-				};
-				request.onerror = reject;
-			}
+		this[instanceField] = new Promise((resolve, reject) => {
+			const request = indexedDB.open(this[nameField], this[versionField]);
+			request.onupgradeneeded = this[upgradeField].bind(this);
+			request.onsuccess = (event) => resolve(request.result);
+			request.onerror = reject;
 		});
+
+		return this[instanceField];
 	}
 
 	[upgradeField](event) {

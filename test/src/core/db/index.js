@@ -58,6 +58,12 @@ describe('DB', function() {
 			return assert.isFulfilled(db.getStore('temp2'));
 		});
 
+		it('should use the same getDB promise for multiple calls', () => {
+			return assert.isFulfilled(
+				db.getStore('temp5').then(() => db.getStore('temp2'))
+			);
+		});
+
 		it('should reject non-existant store access', function() {
 			return assert.isRejected(db.getStore('temp'));
 		});
