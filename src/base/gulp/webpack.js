@@ -98,7 +98,10 @@ module.exports = function(gulp, config) {
 				// ---
 				new webpack.optimize.UglifyJsPlugin({
 					mangle: { screw_ie8: true },
-					compress: { screw_ie8: true }
+					compressor: {
+						screw_ie8: true,
+						warnings: false
+					}
 				})
 			);
 		}
