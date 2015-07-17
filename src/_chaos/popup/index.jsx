@@ -1,9 +1,6 @@
 import React from 'react';
 
-if ('production' !== process.env.NODE_ENV) {
-	window.React = React;
-}
-
+import BaseApp from 'client/app';
 import Message from '../message';
 import i18n from 'i18n';
 import device from 'app/device';
@@ -17,12 +14,10 @@ import AboutPage from './pages/about';
 import UserPage from './pages/user';
 import TimelinePage from './pages/timeline';
 
-import 'normalize.stylus/index.styl';
 import 'vendor/evil-icons/sprite.styl';
-import 'client/ui/base.styl';
 import './index.styl';
 
-class App extends React.Component {
+class App extends BaseApp {
 	render() {
 		var Page = this.state && this.state.page ? this.state.page : null;
 
@@ -39,35 +34,25 @@ class App extends React.Component {
 		);
 	}
 
-	handleHashChange(event) {
-		const url = event ? event.newURL : window.location.href;
-		const hashPos = url.indexOf('#');
-		const hash = hashPos ? url.substr(hashPos) : '';
-		const hashParts = hash.split('/');
-		const pageName = (hashParts.shift() || '').substr(1);
-		let page;
+	getPageClassByName(pagename) {
+		let PageClass;
 
-		console.info('Handling page change to', pageName || 'default', hashParts);
-
-		switch (pageName) {
+		switch (pagename) {
 			case 'about':
-				page = AboutPage;
+				PageClass = AboutPage;
 				break;
 			case 'users':
-				page = UserPage;
+				PageClass = UserPage;
 				break;
 			case 'timeline':
-				page = TimelinePage;
+				PageClass = TimelinePage;
 				break;
 			default:
-				page = AccountsPage;
+				PageClass = AccountsPage;
 				break;
 		}
 
-		this.setState({
-			page: page,
-			pageParams: hashParts
-		});
+		return PageClass;
 	}
 
 	// hack to open links in background tab if modifier key is pressed
@@ -95,18 +80,6 @@ class App extends React.Component {
 			url: target.getAttribute('href'),
 			active: false
 		});
-	}
-
-	componentDidMount() {
-		this.handleHashChange();
-	}
-
-	componentWillUnmount() {
-		window.onhashchange = null;
-	}
-
-	componentWillMount() {
-		window.onhashchange = this.handleHashChange.bind(this);
 	}
 }
 
