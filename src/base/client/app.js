@@ -5,7 +5,7 @@ if ('production' !== process.env.NODE_ENV) {
 }
 
 import 'normalize.stylus/index.styl';
-import 'client/ui/base.styl';
+import './ui/base.styl';
 
 const handleChange = Symbol('handleChange');
 
@@ -22,7 +22,9 @@ export default class App extends React.Component {
 		const PageClass = this.getPageClassByName(pageName);
 
 		if (!PageClass) {
-			throw new Error('Can\'t found page class');
+			if ('production' !== process.env.NODE_ENV) {
+				throw new Error('Can\'t found page class');
+			}
 		}
 
 		this.setState({
