@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './tweet.styl';
+import './tweet.styl';
 
 import Avatar from 'client/ui/avatar';
 import TimeAgo from 'client/ui/timeAgo';
@@ -13,7 +13,7 @@ import moment from '../moment';
 
 export default class Tweet extends React.Component {
 	render() {
-		const classes = [styles.tweet];
+		const classes = ['tweet'];
 		const tweet = this.props.data;
 		const tweetData = tweet.retweeted ? tweet.retweeted : tweet;
 
