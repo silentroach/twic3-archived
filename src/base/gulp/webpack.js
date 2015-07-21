@@ -16,6 +16,7 @@ module.exports = function(gulp, config) {
 		cacheDirectory: !config.production,
 		blacklist: ['useStrict', 'es6.constants'],
 		optional: ['es7.classProperties', 'utility.inlineEnvironmentVariables'],
+		stage: 0,
 		plugins: []
 	};
 
