@@ -42,7 +42,7 @@
     "babel-plugin-remove-debugger": "1.0.1",
     "babel-runtime": "5.8.3",
     "css-loader": "0.15.5",
-    "evil-icons": "1.7.6",
+    "evil-icons": "1.7.7",
     "extract-text-webpack-plugin": "0.8.2",
     "file-loader": "0.8.4",
     "gulp": "git://github.com/gulpjs/gulp#4.0",
