@@ -5,10 +5,11 @@ import PureComponent from 'react-pure-render/component';
 
 /** sizes:
 
-	normal => 48x48
-	bigger => 73x73
-	mini   => 24x24
-	{wo}   => original size
+	normal  => 48x48
+	bigger  => 73x73
+	mini    => 24x24
+	400x400 => 400x400
+	{wo}    => original size (not always work)
 */
 
 // @todo do not show image until loaded, maybe loader is ok after some timeout
@@ -16,7 +17,7 @@ import PureComponent from 'react-pure-render/component';
 export default class Avatar extends PureComponent {
 	render() {
 		const classes = ['avatar'];
-		let size = ''; // original
+		let sizePostfix = '_400x400'; // original
 
 		if (this.props.border) {
 			classes.push('avatar-bordered');
@@ -27,18 +28,18 @@ export default class Avatar extends PureComponent {
 				classes.push('avatar-big');
 
 				if (window.devicePixelRatio < 2) {
-					size = '_bigger';
+					sizePostfix = '_bigger';
 				}
 				break;
 			default:
-				size = window.devicePixelRatio >= 2 ? '_bigger' : '_normal';
+				sizePostfix = window.devicePixelRatio >= 2 ? '_bigger' : '_normal';
 				break;
 		}
 
 		return (
 			<img
 				className={classes.join(' ')}
-				src={this.props.template.replace(/{size}/, size)}
+				src={this.props.template.replace(/{size}/, sizePostfix)}
 			/>
 		);
 	}
