@@ -36,3 +36,5 @@ We use [Mocha](http://mochajs.org) and [Karma](http://karma-runner.github.io) to
 To check your contribution code you need just to run
 
 	# npm run test
+
+It will run automatically on git push by pre-push hook.
