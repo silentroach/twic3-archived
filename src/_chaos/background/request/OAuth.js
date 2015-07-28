@@ -1,7 +1,7 @@
 import hmacsha1 from 'hmacsha1';
 
 import Request from '../request';
-import keys from 'app/keys';
+import keys from 'core/twitter/keys'; // temp
 
 var timestampOffset = 0;
 
@@ -81,7 +81,7 @@ export default class RequestOAuth extends Request {
 		}
 
 		this
-			.setOAuthData('oauth_consumer_key', keys.CONSUMER_KEY)
+			.setOAuthData('oauth_consumer_key', keys.key)
 			.setOAuthData('oauth_signature_method', 'HMAC-SHA1')
 			.setOAuthData('oauth_version', '1.0')
 			.setOAuthData('oauth_timestamp', Math.round((Date.now() - timestampOffset) / 1000))
@@ -105,7 +105,7 @@ export default class RequestOAuth extends Request {
 		this.setOAuthData(
 			'oauth_signature',
 			hmacsha1(
-				[encodeUrlPart(keys.CONSUMER_SECRET), token ? encodeUrlPart(token.secret) : ''].join('&'),
+				[encodeUrlPart(keys.secret), token ? encodeUrlPart(token.secret) : ''].join('&'),
 				hashDataEncoded
 			)
 		);
