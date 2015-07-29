@@ -47,11 +47,13 @@ export default class Client {
 				resolve(new Response(xhr));
 			};
 
-			if ('GET' === request.method) {
+			if ('GET' === request.method
+				&& queryString
+			) {
 				url = [url, queryString].join('?');
 			}
 
-			xhr.open(request.method, request.url, /* async */ true);
+			xhr.open(request.method, url, /* async */ true);
 
 			request.headers.forEach((value, key) => xhr.setRequestHeader(key, value));
 
