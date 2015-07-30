@@ -9,7 +9,24 @@ import i18n from 'i18n';
 
 export default class UserInfo extends React.Component {
 	render() {
+		let locationContent, mapContent;
 		const user = this.props.user;
+
+		if (user.location) {
+			locationContent = <li>{user.location}</li>;
+		}
+
+		if (user.coords) {
+			mapContent = (
+				<li className="map">
+					<Map
+						coords={user.coords}
+						locale={chrome.app.getDetails().current_locale}
+						width={380} height={200}
+					/>
+				</li>
+			);
+		}
 
 		return (
 			<div id="profile" className="page">
@@ -36,15 +53,8 @@ export default class UserInfo extends React.Component {
 							__html: user.description
 						}}
 					/> : ''}
-					{user.location ? <li>{user.location}</li> : ''}
-					{user.coords
-						? <Map
-							coords={user.coords}
-							locale={chrome.app.getDetails().current_locale}
-							width={380} height={200}
-						/>
-						: ''
-					}
+					{locationContent}
+					{mapContent}
 				</ul>
 			</div>
 		);
