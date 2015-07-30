@@ -9,15 +9,36 @@ import i18n from 'i18n';
 
 export default class UserInfo extends React.Component {
 	render() {
-		let locationContent, mapContent;
 		const user = this.props.user;
+		let url, description, location, map;
+
+		let name = (
+			<li>
+				{user.name ? user.name : ''}
+				{user.name !== user.screenName ? ' [' + user.screenName + ']' : ''}
+			</li>
+		);
+
+		if (user.url) {
+			url = <li dangerouslySetInnerHTML={{__html: user.url }} />;
+		}
+
+		if (user.description) {
+			description = (
+				<li id="info-description"
+					dangerouslySetInnerHTML={{
+						__html: user.description
+					}}
+				/>
+			);
+		}
 
 		if (user.location) {
-			locationContent = <li>{user.location}</li>;
+			location = <li>{user.location}</li>;
 		}
 
 		if (user.coords) {
-			mapContent = (
+			map = (
 				<li className="map">
 					<Map
 						coords={user.coords}
@@ -32,7 +53,7 @@ export default class UserInfo extends React.Component {
 			<div id="profile" className="page">
 				<Avatar template={user.avatar} type={Avatar.TYPE_BIG} border />
 				<div className="profile-badges">
-					{user.isProtected     // @todo move to ul
+					{user.isProtected // @todo move to ul
 						&& <i className="ei-lock ei-lock-dims"
 							title={i18n.translate('pages.user.protected')} />
 					}
@@ -43,18 +64,11 @@ export default class UserInfo extends React.Component {
 				</div>
 
 				<ul id="info">
-					<li>
-						{user.name ? user.name : ''}
-						{user.name !== user.screenName ? ' [' + user.screenName + ']' : ''}
-					</li>
-					{user.url ? <li dangerouslySetInnerHTML={{__html: user.url }} /> : ''}
-					{user.description ? <li id="info-description"
-						dangerouslySetInnerHTML={{
-							__html: user.description
-						}}
-					/> : ''}
-					{locationContent}
-					{mapContent}
+					{name}
+					{url}
+					{description}
+					{location}
+					{map}
 				</ul>
 			</div>
 		);
