@@ -13,7 +13,7 @@ module.exports = function(gulp, config) {
 		});
 
 		webpackConfig.entry = {
-			'index': 'application.js'
+			'index': 'index.js'
 		};
 
 		webpackConfig.output = {

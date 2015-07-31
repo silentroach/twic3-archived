@@ -5,6 +5,8 @@ import path from 'path';
 
 import Window from './window';
 
+import application from 'application';
+
 const resourcesPath = 'production' === process.env.NODE_ENV
 	? path.resolve(__dirname) : path.resolve('./build/electron');
 
