@@ -1,6 +1,6 @@
 import 'vendor/babel-helpers';
 
-import App from './app';
+import App from 'background/app.js'; // temporary pointing to chaos
 
 import config from './config';
 
