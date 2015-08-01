@@ -18,7 +18,9 @@
 		"curly": 2,
 		"eqeqeq": 2,
 		"no-extra-bind": 2,
-		"indent": [2, "tab"],
+		"indent": [2, "tab", {
+			"SwitchCase": 1
+		}],
 		"one-var": [2, {
 			"initialized": "never"
 		}],
