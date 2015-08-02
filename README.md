@@ -6,17 +6,13 @@
 
 Twitter client written with [ES6](https://babeljs.io) and [React](http://facebook.github.io/react).
 
-## Inside
-
-Project is written in ES6 + Stylus.
-
 ## Contribute
 
 Feel free to help me build awesome Twitter client.
 
 ### Localization
 
-All translation files are in [src/base/i18n](/src/base/i18n) folder in simple JSON format.
+All translation files are in [src/base/i18n](/src/base/i18n) folder in simple format.
 
 ### Develop
 
@@ -25,9 +21,9 @@ All you need to start develop is to install [Node.js](https://nodejs.org) and ru
 	# npm install
 	# npm run watch
 
-It will install all dependencies, build development sources to build folder and start to watch changes.
+It will install all dependencies and then will build development sources to `build` folder and will start to watch all the code changes.
 
-Please respect the [EditorConfig](http://editorconfig.org) project settings and eslint rules.
+Please respect the [EditorConfig](http://editorconfig.org) project settings and `eslint` rules.
 
 ### Test
 
@@ -37,4 +33,4 @@ To check your contribution code you need just to run
 
 	# npm run test
 
-It will run automatically on git push by pre-push hook.
+Also it will run automatically on `git push` by pre-push hook.
