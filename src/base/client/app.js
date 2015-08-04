@@ -10,6 +10,14 @@ import './ui/base.styl';
 const handleChange = Symbol('handleChange');
 
 export default class App extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			PageClass: null
+		};
+	}
+
 	[handleChange](event) {
 		const url = event ? event.newURL : window.location.href;
 		const hashPos = url.indexOf('#');
@@ -28,7 +36,7 @@ export default class App extends React.Component {
 		}
 
 		this.setState({
-			page: PageClass,
+			PageClass,
 			pageParams: hashParts
 		});
 	}

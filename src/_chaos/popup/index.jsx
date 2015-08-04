@@ -54,33 +54,6 @@ class App extends BaseApp {
 
 		return PageClass;
 	}
-
-	// hack to open links in background tab if modifier key is pressed
-	handleLinkClick(event) {
-		if (!event[device.modifierKey]) {
-			return;
-		}
-
-		let target = event.target;
-		if ('A' !== target.nodeName) {
-			target = target.parentElement;
-		}
-
-		// @todo wtf? think about this
-		if ('A' !== target.nodeName
-			|| '_blank' !== target.getAttribute('target')
-		) {
-			return;
-		}
-
-		event.preventDefault();
-		event.stopPropagation();
-
-		chrome.tabs.create({
-			url: target.getAttribute('href'),
-			active: false
-		});
-	}
 }
 
 React.render(<App />, document.body);
