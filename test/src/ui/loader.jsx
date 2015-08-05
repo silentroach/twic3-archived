@@ -6,11 +6,12 @@ const TestUtils = React.addons.TestUtils;
 
 describe('UI', () => describe('Loader', () => {
 
-	it('should be hidden by default and visible after some timeout', function(done) {
-		const component = TestUtils.renderIntoDocument(
-			<Loader />
-		);
+	let component;
 
+	beforeEach(() => component = TestUtils.renderIntoDocument(<Loader />));
+	afterEach(() => React.unmountComponentAtNode(React.findDOMNode(component).parentNode));
+
+	it('should be hidden by default and visible after some timeout', function(done) {
 		assert.ok(component);
 
 		const div = TestUtils.findRenderedDOMComponentWithTag(component, 'div');
