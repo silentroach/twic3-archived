@@ -77,6 +77,7 @@ export default class TwitterStream extends EventEmitter {
 			}
 		});
 
+		// @todo handle 503 (service unavailable)
 		this.request.on('done', function() {
 			stream.request = null;
 			stream.emit('done');

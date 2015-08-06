@@ -1,16 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 
 import { Platforms } from 'core/device';
 
-import './index.styl';
+import styles from './index.styl';
 
 const classMap = {
-	[Platforms.Windows]: 'windows',
-	[Platforms.OSX]: 'osx',
-	[Platforms.Linux]: 'linux'
+	[Platforms.Windows]: styles.windows,
+	[Platforms.OSX]: styles.osx,
+	[Platforms.Linux]: styles.linux
 };
 
-export default class Platform extends Component {
+export default class Container extends React.Component {
 	render() {
 		return (
 			<div className={classMap[this.props.platform]}>
@@ -20,6 +20,6 @@ export default class Platform extends Component {
 	}
 
 	static propTypes = {
-		platform: PropTypes.number.isRequired
+		platform: React.PropTypes.number.isRequired
 	}
 }
