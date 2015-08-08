@@ -42,7 +42,7 @@ module.exports = function(gulp, config) {
 			loaders: [
 				{
 					test: /\.jsx?$/,
-					exclude: /node_modules/,
+					exclude: /node_modules\/(?!twic\-)/,
 					loader: 'babel-loader',
 					query: babelOptions
 				},
