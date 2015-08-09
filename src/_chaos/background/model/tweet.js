@@ -1,4 +1,4 @@
-import { Directions } from 'core/db/idx';
+import { IndexDirections } from 'twic-db';
 import ModelJSON from '../modelJSON';
 import { FieldTypes, Parser } from 'core/http/response/parser';
 
@@ -79,10 +79,9 @@ export default class Tweet extends ModelJSON {
 		return db
 			.getStore(Tweet.getCollectionName())
 			.then(function(store) {
-				return store.getIndex('timeline');
-			})
-			.then(function(idx) {
-				return idx.getIdsByValue(userId, TIMELINE_TWEETS_BATCH, Directions.BACKWARD);
+				return store
+					.getIndex('timeline')
+					.getIdsByValue(userId, TIMELINE_TWEETS_BATCH, IndexDirections.BACKWARD);
 			})
 			.then(function(ids) {
 				return Promise.all(
@@ -96,10 +95,9 @@ export default class Tweet extends ModelJSON {
 		return db
 			.getStore(Tweet.getCollectionName())
 			.then(function(store) {
-				return store.getIndex('timeline');
-			})
-			.then(function(idx) {
-				return idx.getIdsByValue(userId, 1, Directions.BACKWARD);
+				return store
+					.getIndex('timeline')
+					.getIdsByValue(userId, 1, IndexDirections.BACKWARD);
 			})
 			.then(function(ids) {
 				if (Array.isArray(ids) && ids.length) {

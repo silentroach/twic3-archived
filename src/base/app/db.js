@@ -1,6 +1,6 @@
-import { DB } from 'core/db';
+import { Database } from 'twic-db';
 
-const db = new DB('twic');
+const db = new Database('twic');
 
 db.registerMigration(1, instance => {
 	let objectStore = instance.createObjectStore('users', { keyPath: 'id' });
