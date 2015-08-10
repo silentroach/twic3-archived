@@ -1,5 +1,4 @@
 import Model from '../model';
-import { TransactionModes } from 'core/db';
 
 export default class Friendship extends Model {
 	static getCollectionName() {
@@ -25,12 +24,11 @@ export default class Friendship extends Model {
 
 	static flush(db, userId) {
 		return db
-			.getStore(Friendship.getCollectionName(), TransactionModes.READ_WRITE)
+			.getStore(Friendship.getCollectionName())
 			.then(function(store) {
-				return store.getIndex('userId');
-			})
-			.then(function(idx) {
-				return idx.deleteByValue(userId);
+				return store
+					.getIndex('userId')
+					.deleteByValue(userId);
 			});
 	}
 }

@@ -1,5 +1,3 @@
-import { TransactionModes } from 'core/db';
-
 const IS_CHANGED_FIELD = Symbol('changed');
 const UPDATE_TIME_FIELD_NAME = 'updateTime';
 
@@ -63,13 +61,9 @@ export default class Model {
 
 		console.log('saving to', collectionName, storeObject);
 
-		return db.getStore(collectionName, TransactionModes.READ_WRITE)
-			.then(function(store) {
-				return store.put(storeObject);
-			})
-			.then(function() {
-				return object;
-			});
+		return db.getStore(collectionName)
+			.then(store => store.put(storeObject))
+			.then(() => object);
 	}
 
 	isOutdated() {
@@ -78,10 +72,8 @@ export default class Model {
 	}
 
 	static deleteById(db, id) {
-		return db.getStore(this.getCollectionName(), TransactionModes.READ_WRITE)
-			.then(function(store) {
-				return store.deleteById(id);
-			});
+		return db.getStore(this.getCollectionName())
+			.then(store => store.deleteById(id));
 	}
 
 	static getByIndex(db, index, value) {
