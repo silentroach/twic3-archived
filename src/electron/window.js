@@ -2,11 +2,11 @@ import BrowserWindow from 'browser-window';
 
 import objectMerge from 'lodash.merge';
 
-import eventEmitter from 'core/eventEmitter';
+import EventEmitter from 'twic-eventemitter';
 
 const instanceField = Symbol('instance');
 
-export default class Window extends eventEmitter {
+export default class Window extends EventEmitter {
 	constructor(url, settings) {
 		super();
 

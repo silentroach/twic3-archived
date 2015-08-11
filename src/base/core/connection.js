@@ -1,4 +1,4 @@
-import EventEmitter from './eventEmitter';
+import EventEmitter from 'twic-eventemitter';
 
 let connected = navigator.onLine;
 

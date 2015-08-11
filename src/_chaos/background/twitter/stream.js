@@ -1,4 +1,4 @@
-import EventEmitter from 'core/eventEmitter';
+import EventEmitter from 'twic-eventemitter';
 import OAuthStreamRequest from '../request/OAuthStream';
 
 // @todo check 420 error (too much requests)

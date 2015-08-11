@@ -1,4 +1,4 @@
-import EventEmitter from 'core/eventEmitter';
+import EventEmitter from 'twic-eventemitter';
 import Config from 'core/config';
 
 class ElectronStorageBackend extends EventEmitter {
