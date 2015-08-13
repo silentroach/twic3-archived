@@ -49,7 +49,7 @@ export default {
 				},
 				{
 					test: /\.js$/,
-					exclude: /node_modules\/(?!twic\-)/,
+					exclude: /node_modules\/(?!@twic)/,
 					include: path.resolve('node_modules'),
 					loader: 'babel?' + JSON.stringify(babelConfig)
 				},

@@ -1,4 +1,4 @@
-import EventEmitter from 'twic-eventemitter';
+import EventEmitter from '@twic/eventemitter';
 
 export default class Struct extends EventEmitter {
 	serialize() {

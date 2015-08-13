@@ -1,4 +1,4 @@
-import { IndexDirections } from 'twic-db';
+import { IndexDirections } from '@twic/db';
 import ModelJSON from '../modelJSON';
 import { FieldTypes, Parser } from 'core/http/response/parser';
 

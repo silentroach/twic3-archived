@@ -1,4 +1,4 @@
-import EventEmitter from 'twic-eventemitter';
+import EventEmitter from '@twic/eventemitter';
 
 const xhrField = Symbol('xhr');
 

@@ -1,7 +1,7 @@
 import qs from 'qs';
 
 import Response from './response';
-import EventEmitter from 'twic-eventemitter';
+import EventEmitter from '@twic/eventemitter';
 
 const XHR_FIELD = Symbol('xhr');
 

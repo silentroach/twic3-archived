@@ -1,6 +1,6 @@
 import throttle from 'lodash.throttle';
 
-import EventEmitter from 'twic-eventemitter';
+import EventEmitter from '@twic/eventemitter';
 import AccountList from 'core/struct/accountList';
 
 import db from './db';

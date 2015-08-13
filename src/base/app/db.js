@@ -1,4 +1,4 @@
-import { Database } from 'twic-db';
+import { Database } from '@twic/db';
 
 const db = new Database('twic');
 

@@ -2,7 +2,7 @@ import BrowserWindow from 'browser-window';
 
 import objectMerge from 'lodash.merge';
 
-import EventEmitter from 'twic-eventemitter';
+import EventEmitter from '@twic/eventemitter';
 
 const instanceField = Symbol('instance');
 

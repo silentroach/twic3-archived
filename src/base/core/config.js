@@ -1,4 +1,4 @@
-import EventEmitter from 'twic-eventemitter';
+import EventEmitter from '@twic/eventemitter';
 
 const BACKEND_FIELD = Symbol('backend');
 const CHANGE_EVENT = 'change';
