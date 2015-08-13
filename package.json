@@ -76,6 +76,7 @@
     "chai": "3.2.0",
     "chai-as-promised": "5.1.0",
     "eslint": "1.1.0",
+    "eslint-config-twic": "1.0.0",
     "eslint-plugin-react": "3.2.1",
     "gulp-eslint": "1.0.0",
     "gulp-todo": "*",
