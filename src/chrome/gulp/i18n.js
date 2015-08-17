@@ -19,9 +19,9 @@ module.exports = function(gulp, config) {
 		const translations = require(path.resolve(sourcePath, 'index.js'));
 		const parsed = { };
 
-		function parse(data, prefix) {
-			_.forEach(data, function(value, key) {
-				var data;
+		function parse(inputData, prefix) {
+			_.forEach(inputData, function(value, key) {
+				let data;
 
 				if (_.isPlainObject(value)) {
 					parse(value, [prefix, key].filter(function(val) {
@@ -38,9 +38,9 @@ module.exports = function(gulp, config) {
 							placeholders: { }
 						};
 
-						_.forEach(value[1], function(value, key) {
-							data.placeholders[key] = {
-								content: value
+						_.forEach(value[1], function(val, valueKey) {
+							data.placeholders[valueKey] = {
+								content: val
 							};
 						});
 					} else {

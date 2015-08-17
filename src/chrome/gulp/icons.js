@@ -48,7 +48,7 @@ module.exports = function(gulp, config) {
 		}
 	};
 
-	function render(sourcePath, targetPath, settings) {
+	function render(sourcePath, renderPath, settings) {
 		return new Promise(resolve => {
 			gutil.log(
 				gutil.colors.magenta(
@@ -56,7 +56,7 @@ module.exports = function(gulp, config) {
 				),
 				'->',
 				gutil.colors.yellow(
-					'[build:chrome]/' + path.relative(config.paths.build.chrome, targetPath)
+					'[build:chrome]/' + path.relative(config.paths.build.chrome, renderPath)
 				)
 			);
 
@@ -75,7 +75,7 @@ module.exports = function(gulp, config) {
 						page.set('clipRect', clipRect);
 						page.set('zoomFactor', settings.zoom ? settings.zoom : 1);
 
-						page.render(targetPath, function() {
+						page.render(renderPath, function() {
 							phantomInstance.exit();
 							resolve();
 						});
@@ -89,8 +89,8 @@ module.exports = function(gulp, config) {
 		Promise.all(
 			_.map(images, function(target, sourceImage) {
 				return Promise.all(
-					_.map(target, function(settings, targetPath) {
-						return render(sourceImage, targetPath, settings);
+					_.map(target, function(settings, targetFilePath) {
+						return render(sourceImage, targetFilePath, settings);
 					})
 				);
 			})

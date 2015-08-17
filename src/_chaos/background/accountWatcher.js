@@ -92,11 +92,11 @@ export default class AccountWatcher extends Watcher {
 		}
 	}
 
-	handleTweet(tweet) {
+	handleTweet(tweetData) {
 		const watcher = this;
 
-		this.twitter
-			.updateTweet(tweet, null, true)
+		return this.twitter
+			.updateTweet(tweetData, null, true)
 			.then(function(tweet) {
 				watcher.homeTimelineLastTweetId = tweet.id;
 
@@ -130,7 +130,7 @@ export default class AccountWatcher extends Watcher {
 					return null;
 				}
 
-				tweet
+				return tweet
 					.addTimelineUserId(watcher.account.userId)
 					.save(watcher.twitter.db);  // @todo rethink this shit
 			});

@@ -10,7 +10,7 @@ module.exports = function(gulp, config) {
 		}
 
 		return gulp
-			.src(icons.map(path => 'node_modules/evil-icons/assets/icons/' + path))
+			.src(icons.map(iconFilePath => 'node_modules/evil-icons/assets/icons/' + iconFilePath))
 			.pipe(gulpSVG({
 				mode: {
 					css: {

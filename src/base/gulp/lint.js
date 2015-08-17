@@ -1,4 +1,3 @@
-const gulp = require('gulp');
 const gulpEslint = require('gulp-eslint');
 
 module.exports = function(gulp, config) {

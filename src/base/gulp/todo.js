@@ -1,4 +1,3 @@
-const gulp = require('gulp');
 const gulpTodos = require('gulp-todo');
 const through = require('through2');
 

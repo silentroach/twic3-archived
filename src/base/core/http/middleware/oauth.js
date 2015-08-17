@@ -30,9 +30,9 @@ function sign(request, key, secret, token = null) {
 
 	const hashData = Array.from(request.query.keys())
 		.sort()
-		.map(key => [
-			encodeURIComponent(key),
-			encodeURIComponent(request.query.get(key))
+		.map(dataKey => [
+			encodeURIComponent(dataKey),
+			encodeURIComponent(request.query.get(dataKey))
 		].join('='));
 
 	hashDataEncoded = [hashDataEncoded, encodeURIComponent(hashData.join('&'))].join('&');
@@ -42,7 +42,7 @@ function sign(request, key, secret, token = null) {
 		hashDataEncoded
 	);
 
-	Object.keys(oauthData).forEach(key => request.query.set(key, oauthData[key]));
+	Object.keys(oauthData).forEach(dataKey => request.query.set(dataKey, oauthData[dataKey]));
 }
 
 export default function (key, secret, token = null) {

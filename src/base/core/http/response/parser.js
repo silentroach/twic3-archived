@@ -100,8 +100,8 @@ export class Parser {
 				throw new Error('Parsed results is not an object');
 			}
 
-			for (let key in parsedResults) {
-				result[key] = parsedResults[key];
+			for (let resultsKey in parsedResults) {
+				result[resultsKey] = parsedResults[resultsKey];
 			}
 		}
 
