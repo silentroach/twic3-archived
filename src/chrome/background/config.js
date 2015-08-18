@@ -1,5 +1,5 @@
 import EventEmitter from '@twic/eventemitter';
-import Config from 'core/config';
+import Config from '@twic/config';
 
 class ChromeSyncStorageBackend extends EventEmitter {
 	constructor() {
