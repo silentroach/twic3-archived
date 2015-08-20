@@ -5,7 +5,7 @@ import Message from '../message';
 import Twitter from './twitter';
 
 import i18n from 'i18n';
-import connection from 'core/connection';
+import connection from '@twic/connection';
 
 /** message handlers */
 import UserInfoHandler from './handlers/userInfo';

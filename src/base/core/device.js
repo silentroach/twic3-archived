@@ -1,7 +1,4 @@
-const platformField = Symbol('platform');
-
-const modifierDefault = 'ctrlKey';
-const modifierOSX = 'metaKey';
+const propPlatform = Symbol('platform');
 
 export const Platforms = {
 	Windows: 0,
@@ -20,18 +17,18 @@ export default class Device {
 			platform = Platforms.Linux;
 		}
 
-		this[platformField] = platform;
+		this[propPlatform] = platform;
 	}
 
 	get platform() {
-		return this[platformField];
+		return this[propPlatform];
 	}
 
 	get modifierKey() {
-		return this.isOSX() ? modifierOSX : modifierDefault;
+		return this.isOSX() ? 'metaKey' : 'ctrlKey';
 	}
 
 	isOSX() {
-		return Platforms.OSX === this[platformField];
+		return Platforms.OSX === this[propPlatform];
 	}
 }

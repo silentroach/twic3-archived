@@ -3,7 +3,7 @@ import PureComponent from 'react-pure-render/component';
 
 import i18n from 'i18n';
 import Message from '../../../../message.js';
-import connection from 'core/connection';
+import connection from '@twic/connection';
 
 import './accountAdd.styl';
 

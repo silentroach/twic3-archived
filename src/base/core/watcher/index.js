@@ -1,4 +1,4 @@
-import connection from '../connection';
+import connection from '@twic/connection';
 
 const STATE_STARTED = 1;
 const STATE_DISCONNECTED = 2;
