@@ -14,7 +14,6 @@ module.exports = function(gulp, config) {
 			'index': 'background/index.js',
 			'vendor': [
 				'vendor/babel-helpers',
-				'vendor/twitter-text',
 				'hmacsha1',
 				'lodash.merge', 'lodash.throttle',
 				'qs'

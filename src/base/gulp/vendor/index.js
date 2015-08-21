@@ -9,7 +9,6 @@ module.exports = function(gulp, config) {
 	// ---
 	require('./icons')(gulp, config);
 	require('./babel')(gulp, config);
-	require('./twitter-text')(gulp, config);
 	require('./contributors')(gulp, config);
 	// ---
 
@@ -18,7 +17,6 @@ module.exports = function(gulp, config) {
 		gulp.parallel(
 			'build:vendor:icons',
 			'build:vendor:babel',
-			'build:vendor:twitter-text',
 			'build:vendor:contributors'
 		)
 	);
