@@ -34,7 +34,7 @@ export default class EntityMedia extends Entity {
 		this.sizes = { };
 
 		for (let key of Object.keys(sizes)) {
-			const info = sizes[key];
+			let info = sizes[key];
 			this.sizes[key] = [info.w, info.h];
 		}
 	}
@@ -74,9 +74,13 @@ export default class EntityMedia extends Entity {
 			gallery: [
 				{
 					url: this.url,
-					imageUrl: this.imageUrl,
-					sizes: this.sizes,
-					type: this.type
+					preview: Object.keys(this.sizes)
+						.map(alias => {
+							return {
+								url: [this.imageUrl, alias].join(':'),
+								size: this.sizes[alias]
+							};
+						})
 				}
 			]
 		};

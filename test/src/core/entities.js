@@ -112,19 +112,17 @@ describe('Entities', function() {
 			{
 				gallery: [
 					{
-						imageUrl,
 						url,
-						sizes: {
-							alias: [10, 10]
-						},
-						type
+						preview: [{
+							url: [imageUrl, 'alias'].join(':'),
+							size: [10, 10]
+						}]
 					}, {
-						imageUrl,
 						url,
-						sizes: {
-							alias: [20, 20]
-						},
-						type
+						preview: [{
+							url: [imageUrl, 'alias'].join(':'),
+							size: [20, 20]
+						}]
 					}
 				]
 			}

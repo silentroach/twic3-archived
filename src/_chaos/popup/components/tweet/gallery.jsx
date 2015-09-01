@@ -17,25 +17,24 @@ export default class Gallery extends React.Component {
 			<ul className={classNames.join(' ')}>
 				{
 					this.props.items.map((item, key) => {
-						let minSize, minSizeAlias;
+						let info;
 
-						for (let alias of Object.keys(item.sizes)) {
-							let sizes = item.sizes[alias];
-
-							if (sizes[0] >= MAX_WIDTH
-								&& (sizes[0] < minSize
-									|| undefined === minSize
-								)
-							) {
-								minSize = sizes[0];
-								minSizeAlias = alias;
-							}
-						}
+						item.preview
+							.sort((a, b) => a.size[0] - b.size[0])
+							.reverse()
+							.forEach(previewElement => {
+								if (undefined === info
+									|| previewElement.size[0] >= MAX_WIDTH
+										&& previewElement.size[0] < info.size[0]
+								) {
+									info = previewElement;
+								}
+							});
 
 						return (
 							<li className="gallery-item" key={key}>
 								<a target="_blank" href={item.url} key={key}>
-									<img src={item.imageUrl + (minSizeAlias ? ':' + minSizeAlias : '')} />
+									<img src={info.url} />
 								</a>
 							</li>
 						);

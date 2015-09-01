@@ -16,6 +16,9 @@ describe('Entity', () => describe('#media', () => {
 		const sizes = {
 			alias: {
 				h: 10, w: 10, resize: 'fit'
+			},
+			alias2: {
+				h: 20, w: 20, resize: 'crop'
 			}
 		};
 
@@ -33,7 +36,8 @@ describe('Entity', () => describe('#media', () => {
 
 		it('should parse data', function() {
 			assert.deepEqual(entity.sizes, {
-				alias: [10, 10]
+				alias: [10, 10],
+				alias2: [20, 20]
 			});
 			assert.deepEqual(entity.indices, indices);
 			assert.equal(entity.url, url);
@@ -51,12 +55,14 @@ describe('Entity', () => describe('#media', () => {
 				{
 					gallery: [
 						{
-							imageUrl: fullUrl,
 							url,
-							sizes: {
-								alias: [10, 10]
-							},
-							type
+							preview: [{
+								url: [fullUrl, 'alias'].join(':'),
+								size: [10, 10]
+							}, {
+								url: [fullUrl, 'alias2'].join(':'),
+								size: [20, 20]
+							}]
 						}
 					]
 				}
