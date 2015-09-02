@@ -51,4 +51,26 @@ describe('Entity', () => describe('#url', () => {
 		assert.equal(entity.displayUrl, 'https://somelink.com/withtrailing/slash');
 	});
 
+	describe('data extracting', () => {
+
+		describe('instagram', () => {
+
+			it('should extract gallery item', () => {
+				const entity = EntityUrl.parse({
+					indices: [1, 10],
+					url: 'somelink',
+					'display_url': 'https://somelink.com',
+					'expanded_url': 'https://instagram.com/p/7HlC8KFJBY/'
+				});
+
+				const additionalData = entity.getAdditionalData();
+
+				assert(additionalData);
+				assert.property(additionalData, 'gallery');
+			});
+
+		});
+
+	});
+
 }));

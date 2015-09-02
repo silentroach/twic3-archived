@@ -1,5 +1,7 @@
 import Entity from './';
 
+import extractAdditionalData from './extract';
+
 /** example input:
 
 display_url: "soundcloud.com/hwls/elizabeth…"
@@ -38,5 +40,9 @@ export default class EntityUrl extends Entity {
 		element.target = '_blank';
 
 		return element.outerHTML;
+	}
+
+	getAdditionalData() {
+		return extractAdditionalData(this.expandedUrl);
 	}
 }
