@@ -64,7 +64,7 @@ const parser = new Parser({
 	}]
 });
 
-const TIMELINE_TWEETS_BATCH = 'production' !== process.env.NODE_ENV ? 50 : 10;
+const TIMELINE_TWEETS_BATCH = 'production' !== process.env.NODE_ENV ? 20 : 10;
 
 export default class Tweet extends ModelJSON {
 	static getCollectionName() {

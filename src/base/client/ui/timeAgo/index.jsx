@@ -23,7 +23,7 @@ export default class TimeAgo extends PureComponent {
 		const momentObject = this.props.moment(this.props.timestamp);
 
 		this.setState({
-			text: momentObject.fromNow(),
+			text: momentObject.fromNow(true),
 			hint: momentObject.calendar()
 		});
 	}
