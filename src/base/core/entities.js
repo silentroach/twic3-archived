@@ -2,6 +2,7 @@ import EntityMention from './entity/mention';
 import EntityMedia from './entity/media';
 import EntityUrl from './entity/url';
 import EntityHashtag from './entity/hashtag';
+import EntitySymbol from './entity/symbol';
 
 import objectMerge from 'lodash.merge';
 
@@ -12,12 +13,14 @@ const TYPE_MENTION = 'mention';
 const TYPE_MEDIA = 'media';
 const TYPE_HASH = 'hash';
 const TYPE_URL = 'url';
+const TYPE_SYMBOL = 'symbol';
 
 const TYPES_MAP = {
 	[TYPE_MENTION]: EntityMention,
 	[TYPE_MEDIA]: EntityMedia,
 	[TYPE_HASH]: EntityHashtag,
-	[TYPE_URL]: EntityUrl
+	[TYPE_URL]: EntityUrl,
+	[TYPE_SYMBOL]: EntitySymbol
 };
 
 export default class Entities {
@@ -57,6 +60,10 @@ export default class Entities {
 		this[COUNTERS_FIELD][type] = typeCounter;
 
 		return this;
+	}
+
+	parseSymbols(entityList) {
+		return this.parseData(entityList, TYPE_SYMBOL);
 	}
 
 	parseMentions(entityList) {
@@ -147,7 +154,8 @@ export default class Entities {
 		return this.getUrlCount()
 			+ this.getHashCount()
 			+ this.getMediaCount()
-			+ this.getMentionsCount();
+			+ this.getMentionsCount()
+			+ this.getSymbolsCount();
 	}
 
 	getUrlCount() {
@@ -164,5 +172,9 @@ export default class Entities {
 
 	getMentionsCount() {
 		return this[COUNTERS_FIELD][TYPE_MENTION] || 0;
+	}
+
+	getSymbolsCount() {
+		return this[COUNTERS_FIELD][TYPE_SYMBOL] || 0;
 	}
 }

@@ -136,7 +136,8 @@ describe('Entities', function() {
 			.parseUrls(null)
 			.parseHashtags(undefined)
 			.parseMentions(0)
-			.parseMedia({5: false});
+			.parseMedia({5: false})
+			.parseSymbols(false);
 
 		assert.equal(entities.getCount(), 0);
 	});

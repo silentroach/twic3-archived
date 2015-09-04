@@ -16,7 +16,8 @@ const parser = new Parser({
 			entities
 				.parseMentions(tweetJSON.entities.user_mentions)
 				.parseUrls(tweetJSON.entities.urls)
-				.parseHashtags(tweetJSON.entities.hashtags);
+				.parseHashtags(tweetJSON.entities.hashtags)
+				.parseSymbols(tweetJSON.entities.symbols);
 		}
 
 		if (tweetJSON.extended_entities) {
