@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 
-import './tweet.styl';
+import styles from './tweet.styl';
 
 import Avatar from 'client/ui/avatar';
 import TimeAgo from 'client/ui/timeAgo';
@@ -11,11 +11,15 @@ import i18n from 'i18n';
 
 import moment from '../moment';
 
-export default class Tweet extends React.Component {
+export default class Tweet extends Component {
 	render() {
-		const classes = ['tweet'];
+		const classes = [styles.container];
 		const tweet = this.props.data;
 		const tweetData = tweet.retweeted ? tweet.retweeted : tweet;
+
+		if (this.props.className) {
+			classes.push(this.props.className);
+		}
 
 		// using tweetdata for link cause retweets are redirected to source
 		const tweetLink = [
@@ -27,52 +31,28 @@ export default class Tweet extends React.Component {
 
 		let retweetInfo;
 		let gallery;
-		let tweetText;
-
-		if (tweetData.text) {
-			tweetText = <div className="tweet-text" dangerouslySetInnerHTML={{ __html: tweetData.text }} />;
-		}
 
 		if (this.props.watcherId === tweet.user.id) {
-			classes.push('tweet-me');
-		}
-
-		if (tweet.retweeted) {
-			// @todo + tweet-retweet class?
-
-			// @todo userlink component?
-			const userLink = React.renderToStaticMarkup(
-				<a href={['#users', tweet.user.id].join('/')}>{'@' + tweet.user.screenName}</a>
-			);
-
-			retweetInfo = (
-				<div className="tweet-retweet-info">
-					<i className="ei-retweet ei-retweet-dims" />
-					<span
-						dangerouslySetInnerHTML={{
-							__html: i18n.translate('components.tweet.retweeted', userLink)
-						}}
-					/>
-				</div>
-			);
-		}
-
-		if (tweetData.additional) {
-			if (tweetData.additional.gallery) {
-				gallery = <Gallery items={tweetData.additional.gallery} />;
-			}
+			classes.push(styles.statusMy);
 		}
 
 		return (
 			<article className={classes.join(' ')}>
-				{retweetInfo}
+				{tweet.retweeted ? this.renderRetweetInfo(tweet) : null}
 
 				<a className="tweet-avatar" href={'#users/' + tweetData.user.id} title={'@' + tweetData.user.screenName}>
 					<Avatar template={tweetData.user.avatar} border />
 				</a>
 				<div className="tweet-content">
-					{tweetText}
-					{gallery}
+					{tweetData.text
+						? <div className="tweet-text" dangerouslySetInnerHTML={{ __html: tweetData.text }} />
+						: null
+					}
+
+					{tweetData.additional && tweetData.additional.gallery
+						? <Gallery items={tweetData.additional.gallery} />
+						: null
+					}
 
 					<a href={tweetLink} className="tweet-time" target="_blank">
 						{/* will show retweet date even if it is retweet */}
@@ -83,8 +63,25 @@ export default class Tweet extends React.Component {
 			</article>
 		);
 	}
+
+	renderRetweetInfo(tweet) {
+		const userLink = React.renderToStaticMarkup(
+			<a href={['#users', tweet.user.id].join('/')}>{'@' + tweet.user.screenName}</a>
+		);
+
+		retweetInfo = (
+			<div className="tweet-retweet-info">
+				<i className="ei-retweet ei-retweet-dims" />
+				<span
+					dangerouslySetInnerHTML={{
+						__html: i18n.translate('components.tweet.retweeted', userLink)
+					}}
+				/>
+			</div>
+		);
+	}
 }
 
 Tweet.propTypes = {
-	watcherId: React.PropTypes.string
+	watcherId: PropTypes.string
 };

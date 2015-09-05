@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './tweetList.styl';
+import styles from './tweetList.styl';
 
 import Tweet from './tweet';
 
@@ -9,10 +9,10 @@ export default class TweetList extends React.Component {
 		const list = (this.props.tweets || []).map(tweet => <Tweet data={tweet} />);
 
 		return (
-			<section className="tweetlist">
+			<section className={styles.wrapper}>
 				{
 					(this.props.tweets || []).map(tweet =>
-						<Tweet data={tweet} watcherId={this.props.ownerId} key={tweet.id} />
+						<Tweet className={styles.tweet} data={tweet} watcherId={this.props.ownerId} key={tweet.id} />
 					)
 				}
 			</section>

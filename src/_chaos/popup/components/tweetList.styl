@@ -1,12 +1,12 @@
-.tweetlist
+:local(.wrapper)
 	margin-bottom 1px
 
-	.tweet
-		border-top 1px solid rgba(192, 192, 192, .5)
+:local(.tweet)
+	border-top 1px solid rgba(192, 192, 192, .5)
 
-		// just to avoid scrollbar intersection in os x
-		.osx &
-			padding-right: 12px;
+	// just to avoid scrollbar intersection in OS X
+	.osx &
+		padding-right: 12px;
 
-		&:first-child
-			border-top initial
+	&:first-child
+		border-top initial
