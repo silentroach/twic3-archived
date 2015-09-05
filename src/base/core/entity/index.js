@@ -1,12 +1,12 @@
-const INDICES_FIELD = Symbol('indices');
+const propIndices = Symbol('indices');
 
 export default class Entity {
 	constructor(indices) {
-		this[INDICES_FIELD] = indices;
+		this[propIndices] = indices;
 	}
 
 	get indices() {
-		return this[INDICES_FIELD];
+		return this[propIndices];
 	}
 
 	render() {
