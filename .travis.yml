@@ -18,6 +18,3 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 
 script: npm run ci-travis
-
-notifications:
-  slack: twicext:0M7YDkmlguonwh4KoMGC8qcB

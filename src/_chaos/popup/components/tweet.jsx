@@ -69,7 +69,7 @@ export default class Tweet extends Component {
 			<a href={['#users', tweet.user.id].join('/')}>{'@' + tweet.user.screenName}</a>
 		);
 
-		retweetInfo = (
+		return (
 			<div className="tweet-retweet-info">
 				<i className="ei-retweet ei-retweet-dims" />
 				<span
