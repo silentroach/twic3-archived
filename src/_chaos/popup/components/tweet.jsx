@@ -32,15 +32,17 @@ export default class Tweet extends Component {
 		let retweetInfo;
 		let gallery;
 
-		if (this.props.watcherId === tweet.user.id) {
-			classes.push(styles.statusMy);
-		}
+		if (this.props.watcherId) {
+			if (this.props.watcherId === tweet.user.id) {
+				classes.push(styles.statusMy);
+			}
 
-		if (tweetData.additional
-			&& Array.isArray(tweetData.additional.mentionedIds)
-			&& tweetData.additional.mentionedIds.indexOf(this.props.watcherId) >= 0
-		) {
-			classes.push(styles.statusMentioned);
+			if (tweetData.additional
+				&& Array.isArray(tweetData.additional.mentionedIds)
+				&& tweetData.additional.mentionedIds.indexOf(this.props.watcherId) >= 0
+			) {
+				classes.push(styles.statusMentioned);
+			}
 		}
 
 		return (
