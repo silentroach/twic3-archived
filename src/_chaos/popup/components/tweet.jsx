@@ -36,6 +36,13 @@ export default class Tweet extends Component {
 			classes.push(styles.statusMy);
 		}
 
+		if (tweetData.additional
+			&& Array.isArray(tweetData.additional.mentionedIds)
+			&& tweetData.additional.mentionedIds.indexOf(this.props.watcherId) >= 0
+		) {
+			classes.push(styles.statusMentioned);
+		}
+
 		return (
 			<article className={classes.join(' ')}>
 				{tweet.retweeted ? this.renderRetweetInfo(tweet) : null}

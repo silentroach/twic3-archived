@@ -36,4 +36,10 @@ export default class EntityMention extends Entity {
 
 		return element.outerHTML;
 	}
+
+	getAdditionalData() {
+		return {
+			mentionedIds: [this.id]
+		};
+	}
 }

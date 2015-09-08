@@ -32,4 +32,8 @@ describe('Entity', () => describe('#mention', () => {
 		);
 	});
 
+	it('should export additional data', () => {
+		assert.deepEqual(entity.getAdditionalData(), { mentionedIds: [10] });
+	});
+
 }));
