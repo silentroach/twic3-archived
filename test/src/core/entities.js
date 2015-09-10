@@ -163,8 +163,6 @@ describe('Entities', () => {
 
 		entities.parseUrls(urlEntitiesData);
 
-		const output = entities.processText(text);
-
 		assert.equal(
 			entities.processText(text),
 			'Testing tweets with emoticon 😳 and link - to test entities are calculated by <a href="https://t.co/jogwn5JR3t" class="tweet-link" title="https://twitter.com" target="_blank">twitter.com</a> wrong'

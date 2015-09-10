@@ -23,11 +23,10 @@ const TYPES_MAP = {
 	[TYPE_SYMBOL]: EntitySymbol
 };
 
-const emoticonsRegexp = new RegExp([
-	'\ud83c[\udf00-\udfff]', // U+1F300 to U+1F3FF
-	'\ud83d[\udc00-\ude4f]', // U+1F400 to U+1F64F
-	'\ud83d[\ude80-\udeff]'  // U+1F680 to U+1F6FF
-].join('|'), 'g');
+// U+1F300 to U+1F3FF
+// U+1F400 to U+1F64F
+// U+1F680 to U+1F6FF
+const emoticonsRegexp = /\ud83c[\udf00-\udfff]|\ud83d[\udc00-\ude4f]|\ud83d[\ude80-\udeff]/g;
 
 export default class Entities {
 	constructor() {
@@ -112,7 +111,8 @@ export default class Entities {
 		const entitiesPos = this.getEntitiesPositions(true);
 		const emoticons = [];
 
-		let output = input.replace(emoticonsRegexp, (match, offset, string) => {
+		// replacing two-byte emoticons with private use unicode symbol
+		let output = input.replace(emoticonsRegexp, match => {
 			emoticons.push(match);
 			return '\u0091';
 		});
@@ -124,6 +124,7 @@ export default class Entities {
 			output = self.processTextByEntity(output, entity);
 		});
 
+		// bringing back emoticons
 		return output.replace(/\u0091/g, () => {
 			return emoticons.shift();
 		});
