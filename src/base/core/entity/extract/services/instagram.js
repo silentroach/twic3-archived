@@ -7,7 +7,7 @@ const sizes = [
 ];
 
 export default function instagram(path, domain, url) {
-	const [, shortCode] = /\/p\/(\w+)/.exec(path);
+	const [, shortCode] = /\/p\/([\w-]+)/.exec(path);
 
 	if (!shortCode) {
 		return null;
