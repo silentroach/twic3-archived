@@ -1,8 +1,8 @@
 import Entities from 'core/entities';
 
-describe('Entities', function() {
+describe('Entities', () => {
 
-	it('should render entities to text with urls', function() {
+	it('should render entities to text with urls', () => {
 		const text = 'Write markdown, extract metadata, commonmark-helpers is out! https://t.co/QjTIqiPqzs and article about release https://t.co/AY663NwHtW';
 		const urlEntitiesData = [
 			{
@@ -35,7 +35,7 @@ describe('Entities', function() {
 		);
 	});
 
-	it('should render entities to text with hashes and mentions', function() {
+	it('should render entities to text with hashes and mentions', () => {
 		const text = 'RT @GoT_Dany: Jon Snow on Mother\'s Day. #HappyMothersDay';
 
 		const hashEntitiesData = [
@@ -70,7 +70,7 @@ describe('Entities', function() {
 		);
 	});
 
-	it('should return merged additional data', function() {
+	it('should return merged additional data', () => {
 		const imageUrl = 'http://twitter.com/sBOkw1ynch/photo/1';
 		const url = 'http://t.co/sBOkw1ynch/test.jpg';
 		const type = 'photo';
@@ -129,7 +129,7 @@ describe('Entities', function() {
 		);
 	});
 
-	it('should not parse entities if it is not array', function() {
+	it('should not parse entities if it is not array', () => {
 		const entities = new Entities();
 
 		entities
@@ -142,10 +142,33 @@ describe('Entities', function() {
 		assert.equal(entities.getCount(), 0);
 	});
 
-	it('should return null on getAdditionalData if nothing was found instead of array', function() {
+	it('should return null on getAdditionalData if nothing was found instead of array', () => {
 		const entities = new Entities();
 
 		assert.strictEqual(entities.getAdditionalData(), null);
+	});
+
+	it('should process emoticons correctly', () => {
+		const text = 'Testing tweets with emoticon \ud83d\ude33 and link - to test entities are calculated by https:\/\/t.co\/jogwn5JR3t wrong';
+		const urlEntitiesData = [
+			{
+				url: 'https:\/\/t.co\/jogwn5JR3t',
+				'expanded_url': 'https:\/\/twitter.com',
+				'display_url': 'twitter.com',
+				indices: [77,100]
+			}
+		];
+
+		const entities = new Entities();
+
+		entities.parseUrls(urlEntitiesData);
+
+		const output = entities.processText(text);
+
+		assert.equal(
+			entities.processText(text),
+			'Testing tweets with emoticon 😳 and link - to test entities are calculated by <a href="https://t.co/jogwn5JR3t" class="tweet-link" title="https://twitter.com" target="_blank">twitter.com</a> wrong'
+		);
 	});
 
 });

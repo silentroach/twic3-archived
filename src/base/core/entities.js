@@ -23,6 +23,12 @@ const TYPES_MAP = {
 	[TYPE_SYMBOL]: EntitySymbol
 };
 
+const emoticonsRegexp = new RegExp([
+	'\ud83c[\udf00-\udfff]', // U+1F300 to U+1F3FF
+	'\ud83d[\udc00-\ude4f]', // U+1F400 to U+1F64F
+	'\ud83d[\ude80-\udeff]'  // U+1F680 to U+1F6FF
+].join('|'), 'g');
+
 export default class Entities {
 	constructor() {
 		this[MAP_FIELD] = { };
@@ -104,8 +110,12 @@ export default class Entities {
 	processText(input) {
 		const self = this;
 		const entitiesPos = this.getEntitiesPositions(true);
+		const emoticons = [];
 
-		let output = input;
+		let output = input.replace(emoticonsRegexp, (match, offset, string) => {
+			emoticons.push(match);
+			return '\u0091';
+		});
 
 		entitiesPos.forEach(function(pos) {
 			const entry = self[MAP_FIELD][pos];
@@ -114,7 +124,9 @@ export default class Entities {
 			output = self.processTextByEntity(output, entity);
 		});
 
-		return output;
+		return output.replace(/\u0091/g, () => {
+			return emoticons.shift();
+		});
 	}
 
 	getAdditionalData() {
