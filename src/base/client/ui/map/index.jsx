@@ -19,7 +19,7 @@ export default class Map extends PureComponent {
 
 		return (
 			<a href={'https://www.google.com/maps/@' + [coords, '15z'].join(',')} className={styles.map} target="_blank">
-				<div className="marker">
+				<div className={styles.marker}>
 					<i className="ei-location ei-location-dims" />
 				</div>
 				<img src={imageSource} />
