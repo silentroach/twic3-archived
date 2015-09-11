@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import BaseApp from 'client/app';
 import Message from '../message';
@@ -16,6 +17,8 @@ import TimelinePage from './pages/timeline';
 
 import 'vendor/evil-icons/sprite.styl';
 import './index.styl';
+
+window.ReactDOM = ReactDOM;
 
 class App extends BaseApp {
 	render() {
@@ -83,4 +86,4 @@ class App extends BaseApp {
 	}
 }
 
-React.render(<App />, document.body);
+ReactDOM.render(<App />, document.getElementById('content'));

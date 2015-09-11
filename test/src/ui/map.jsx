@@ -1,8 +1,7 @@
-import React from 'react/addons';
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
 
 import Map from 'client/ui/map';
-
-const TestUtils = React.addons.TestUtils;
 
 describe('UI', () => describe('Map', () => {
 
@@ -15,9 +14,7 @@ describe('UI', () => describe('Map', () => {
 
 		const link = TestUtils.findRenderedDOMComponentWithTag(component, 'a');
 		assert.ok(link);
-
-		const linkNode = link.getDOMNode();
-		assert.equal(linkNode.target, '_blank');
+		assert.equal(link.target, '_blank');
 	});
 
 	it('should render correct image source', function() {
@@ -32,15 +29,12 @@ describe('UI', () => describe('Map', () => {
 		const img = TestUtils.findRenderedDOMComponentWithTag(component, 'img');
 		assert.ok(img);
 
-		const imageNode = img.getDOMNode();
-
 		assert.include(
-			imageNode.src, 'scale=' + window.devicePixelRatio,
+			img.src, 'scale=' + window.devicePixelRatio,
 			'Should user window.devicePixelRatio as scale param'
 		);
-
 		assert.include(
-			imageNode.src, 'size=' + [width, height].join('x'),
+			img.src, 'size=' + [width, height].join('x'),
 			'Should use width and height params as size'
 		);
 	});
@@ -55,9 +49,7 @@ describe('UI', () => describe('Map', () => {
 
 		const image = TestUtils.findRenderedDOMComponentWithTag(component, 'img');
 		assert.ok(image);
-
-		const imageNode = image.getDOMNode();
-		assert.include(imageNode.src, 'language=' + locale);
+		assert.include(image.src, 'language=' + locale);
 	});
 
 }));

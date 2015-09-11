@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import 'client/ui/base.styl';
 import './index.styl';
@@ -18,4 +19,4 @@ class App extends React.Component {
 	}
 }
 
-React.render(<App />, document.body);
+ReactDOM.render(<App />, document.getElementById('content'));

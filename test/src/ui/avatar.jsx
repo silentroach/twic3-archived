@@ -1,8 +1,7 @@
-import React from 'react/addons';
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
 
 import Avatar from 'client/ui/avatar';
-
-const TestUtils = React.addons.TestUtils;
 
 describe('UI', () => describe('Avatar', () => {
 
@@ -14,12 +13,11 @@ describe('UI', () => describe('Avatar', () => {
 
 		assert.ok(component);
 
-		const div = TestUtils.findRenderedDOMComponentWithTag(component, 'img');
-		assert.ok(div);
+		const img = TestUtils.findRenderedDOMComponentWithTag(component, 'img');
+		assert.ok(img);
 
-		const node = div.getDOMNode();
-		assert.include(node.src, 'somepath');
-		assert.notInclude(node.src, '{size}', 'size component replace');
+		assert.include(img.src, 'somepath');
+		assert.notInclude(img.src, '{size}', 'size component replace');
 	});
 
 	it('should be bordered if property is set', function() {
@@ -30,11 +28,10 @@ describe('UI', () => describe('Avatar', () => {
 
 		assert.ok(component);
 
-		const div = TestUtils.findRenderedDOMComponentWithTag(component, 'img');
-		assert.ok(div);
+		const img = TestUtils.findRenderedDOMComponentWithTag(component, 'img');
+		assert.ok(img);
 
-		const node = div.getDOMNode();
-		assert.include(node.getAttribute('class'), 'border');
+		assert.include(img.getAttribute('class'), 'border');
 	});
 
 }));
