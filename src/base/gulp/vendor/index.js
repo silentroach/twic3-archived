@@ -10,11 +10,13 @@ module.exports = function(gulp, config) {
 	require('./icons')(gulp, config);
 	require('./babel')(gulp, config);
 	require('./contributors')(gulp, config);
+	require('./moment')(gulp, config);
 	// ---
 
 	gulp.task(
 		'build:vendor',
 		gulp.parallel(
+			'build:vendor:moment',
 			'build:vendor:icons',
 			'build:vendor:babel',
 			'build:vendor:contributors'

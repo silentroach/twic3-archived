@@ -1,4 +1,10 @@
 module.exports = {
+	// moment.js locales
+	moment: {
+		en: 'en',
+		ru: 'ru'
+	},
+
 	toolbar: {
 		about: {
 			en: 'About',

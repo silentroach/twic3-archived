@@ -19,6 +19,8 @@ module.exports = function(gulp, config) {
 		const translations = require(path.resolve(sourcePath, 'index.js'));
 		const parsed = { };
 
+		delete translations.moment;
+
 		function parse(inputData, prefix) {
 			_.forEach(inputData, function(value, key) {
 				let data;
