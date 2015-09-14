@@ -18,11 +18,11 @@ module.exports = function(gulp, config) {
 			vendor: false
 		});
 
-		const modules = ['moment'];
-		Array.prototype.push.apply(modules, locales.map(locale => ['moment', 'locale', locale].join('/')));
-
 		webpackConfig.entry = {
-			'moment': modules
+			'moment': [
+				'moment',
+				...locales.map(locale => ['moment', 'locale', locale].join('/'))
+			]
 		};
 
 		webpackConfig.output = {
