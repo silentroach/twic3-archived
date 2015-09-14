@@ -22,10 +22,11 @@ module.exports = function(gulp, config) {
 			'index': 'mainwindow/index.jsx',
 			'vendor': [
 				'vendor/babel-helpers',
-				'vendor/moment',
-
 				'react',
 				'react-pure-render/component',
+
+				'moment', // en locale is included
+				'moment/locale/ru',
 
 				'normalize.stylus/index.styl'
 			]
@@ -44,6 +45,11 @@ module.exports = function(gulp, config) {
 			],
 			extensions: ['', '.js', '.jsx']
 		};
+
+		// to avoid extra languages for moment.js
+		webpackConfig.plugins.push(
+			new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+		);
 
 		return webpackConfig;
 	}
