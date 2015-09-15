@@ -1,15 +1,15 @@
 import React from 'react';
 
-import './gallery.styl';
+import styles from './gallery.styl';
 
 const MAX_WIDTH = 100 * window.devicePixelRatio;
 
 export default class Gallery extends React.Component {
 	render() {
-		const classNames = ['gallery'];
+		const classNames = [styles.container];
 		const classCount = this.props.items.length < 5 ? this.props.items.length : 5;
 
-		classNames.push('gallery-' + classCount);
+		classNames.push([styles.container, 'count', classCount].join('-'));
 
 		// @todo try to calculate gallery images sizes
 
@@ -32,7 +32,7 @@ export default class Gallery extends React.Component {
 							});
 
 						return (
-							<li className="gallery-item" key={key}>
+							<li key={key}>
 								<a target="_blank" href={item.url} key={key}>
 									<img src={info.url} />
 								</a>

@@ -18,9 +18,9 @@ getImageHeight(count)
 
 // --------------------------
 
-.gallery
+:local(.container)
 
-	.gallery-item
+	li
 		display inline-block
 		margin-right $item-margin
 		vertical-align top
@@ -39,6 +39,6 @@ getImageHeight(count)
 				border 1px solid rgba(0, 0, 0, .05)
 
 	for i in 1..5
-		&.gallery-{i} img
+		&-count-{i} img
 			max-width getImageWidth(i)
 			max-height getImageHeight(i)
