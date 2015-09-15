@@ -1,49 +1,60 @@
+$avatar-margin = 56px
+$margin = .25rem
+
 :local(.container)
-	padding 6px 6px 4px 6px
+	padding $margin
 	clear both
 	display box
-
-	.tweet-retweet-info
-		display flex
-		margin-left 56px
-		margin-bottom .25em
-		font-size 8pt
-		color #808080
-
-		a
-			color #808080
-
-		i
-			display inline-block
-			zoom .3
-			// @todo think about this shit
-			margin-right 14px
-			margin-left -64px
-
-	.tweet-avatar
-		float left
-
-	.tweet-content
-		display block
-		margin-left 56px
-
-		.tweet-text
-			margin-bottom .5em
-			user-select initial
-			word-wrap break-word /* split long words */
-
-			.tweet-link,
-			.tweet-link-hashtag,
-			.tweet-link-symbol,
-			.tweet-link-mention
-				white-space nowrap
-
-		.tweet-time
-			color gray
-			font-size .8em
 
 :local(.statusMy)
 	background-color #ecf3e5
 
 :local(.statusMentioned)
 	background-color #e5ecf3
+
+:local(.row)
+	margin-left $avatar-margin
+	margin-bottom $margin
+
+:local(.retweetInfo)
+	display flex
+	font-size 8pt
+	color #808080
+
+	a
+		color #808080
+
+	i
+		display inline-block
+		zoom .3
+		// @todo think about this shit
+		margin-right 14px
+		margin-left -64px
+
+:local(.header)
+	color black
+
+	:local(.userInfo)
+		color #5f5f5f !important
+
+		.avatar
+			float left
+			margin-left -($avatar-margin)
+			margin-top 1px
+
+:local(.time)
+	font-size 8pt
+	margin-bottom 0
+
+	a
+		color gray
+
+:local(.text)
+	user-select initial
+	word-wrap break-word /* split long words */
+
+	.tweet-link,
+	.tweet-link-hashtag,
+	.tweet-link-symbol,
+	.tweet-link-mention
+		white-space nowrap

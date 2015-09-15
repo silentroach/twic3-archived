@@ -47,39 +47,64 @@ export default class Tweet extends Component {
 
 		return (
 			<article className={classes.join(' ')}>
-				{tweet.retweeted ? this.renderRetweetInfo(tweet) : null}
+				{this.renderRetweetInfo(tweet)}
 
-				<a className="tweet-avatar" href={'#users/' + tweetData.user.id} title={'@' + tweetData.user.screenName}>
-					<Avatar template={tweetData.user.avatar} border />
-				</a>
-				<div className="tweet-content">
+				<div className={styles.row}>
+					<div className={styles.header}>
+						<a className={styles.userInfo} href={'#users/' + tweetData.user.id} title={'@' + tweetData.user.screenName}>
+							<Avatar template={tweetData.user.avatar} border />
+						</a>
+					</div>
+
 					{tweetData.text
-						? <div className="tweet-text" dangerouslySetInnerHTML={{ __html: tweetData.text }} />
+						? <div className={styles.text} dangerouslySetInnerHTML={{ __html: tweetData.text }} />
 						: null
 					}
+				</div>
 
-					{tweetData.additional && tweetData.additional.gallery
-						? <Gallery items={tweetData.additional.gallery} />
-						: null
-					}
+				{this.renderAdditionalData(tweetData)}
 
-					<a href={tweetLink} className="tweet-time" target="_blank">
+				<div className={[styles.row, styles.time].join(' ')}>
+					<a href={tweetLink} target="_blank">
 						{/* will show retweet date even if it is retweet */}
 						<TimeAgo timestamp={tweet.createTime} moment={moment} />
 					</a>
 				</div>
+
 				<div className="clearer" />
 			</article>
 		);
 	}
 
+	renderGallery(data) {
+		return (
+			<div className={styles.row}>
+				<Gallery items={data} />
+			</div>
+		);
+	}
+
+	renderAdditionalData(data) {
+		if (!data.additional) {
+			return null;
+		}
+
+		if (data.additional.gallery) {
+			return this.renderGallery(data.additional.gallery);
+		}
+	}
+
 	renderRetweetInfo(tweet) {
+		if (!tweet.retweeted) {
+			return null;
+		}
+
 		const userLink = React.renderToStaticMarkup(
 			<a href={['#users', tweet.user.id].join('/')}>{'@' + tweet.user.screenName}</a>
 		);
 
 		return (
-			<div className="tweet-retweet-info">
+			<div className={[styles.row, styles.retweetInfo].join(' ')}>
 				<i className="ei-retweet ei-retweet-dims" />
 				<span
 					dangerouslySetInnerHTML={{
