@@ -89,7 +89,8 @@ module.exports = function(gulp, config) {
 	gulp.task('watch:chrome:i18n', function() {
 		return gulp.watch([
 			path.resolve(sourcePath, './**/*.js'),
-			path.resolve(sourceBasePath, './**/*.js')
+			path.resolve(sourceBasePath, './**/*.js'),
+			__filename
 		], gulp.task('build:chrome:i18n:generate'));
 	});
 

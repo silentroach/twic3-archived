@@ -37,10 +37,18 @@ module.exports = function(gulp, config) {
 			.pipe(gulp.dest(config.paths.build.electron));
 	});
 
-	gulp.task('watch:electron:application', function() {
+	gulp.task('watch:electron:application:content', function() {
 		return gulp.src('src/electron/application.js')
 			.pipe(gulpWebpack(getWebpackConfig(true), webpack))
 			.pipe(gulp.dest(config.paths.build.electron));
 	});
+
+	gulp.task(
+		'watch:electron:application',
+		gulp.parallel(
+			'watch:electron:application:content',
+			() => gulp.watch(__filename, gulp.task('build:electron:application'))
+		)
+	);
 
 };

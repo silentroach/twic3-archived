@@ -90,7 +90,8 @@ module.exports = function(gulp, config) {
 		'watch:chrome:popup',
 		gulp.parallel(
 			'watch:chrome:popup:html',
-			'watch:chrome:popup:content'
+			'watch:chrome:popup:content',
+			() => gulp.watch(__filename, gulp.task('build:chrome:popup'))
 		)
 	);
 

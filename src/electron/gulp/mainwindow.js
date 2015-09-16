@@ -94,7 +94,8 @@ module.exports = function(gulp, config) {
 		'watch:electron:mainwindow',
 		gulp.parallel(
 			'watch:electron:mainwindow:content',
-			'watch:electron:mainwindow:html'
+			'watch:electron:mainwindow:html',
+			() => gulp.watch(__filename, gulp.task('build:electron:mainwindow'))
 		)
 	);
 

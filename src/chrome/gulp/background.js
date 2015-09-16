@@ -42,10 +42,18 @@ module.exports = function(gulp, config) {
 			.pipe(gulp.dest(config.paths.build.chrome));
 	});
 
-	gulp.task('watch:chrome:background', function() {
+	gulp.task('watch:chrome:background:content', function() {
 		return gulp.src('src/_chaos/background/index.js')
 			.pipe(gulpWebpack(getWebpackConfig(true), webpack))
 			.pipe(gulp.dest(config.paths.build.chrome));
 	});
+
+	gulp.task(
+		'watch:chrome:background',
+		gulp.parallel(
+			'watch:chrome:background:content',
+			() => gulp.watch(__filename, gulp.task('build:chrome:background'))
+		)
+	);
 
 };
