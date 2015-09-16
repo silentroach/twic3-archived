@@ -90,6 +90,9 @@ export default class Entities {
 	/** @private */ processTextByEntity(text, entity) {
 		const indices = entity.indices;
 
+		// @todo context based replacements?
+		// example: should remove trailing slashes from urls if there is a non-letter after it
+
 		return [
 			text.substr(0, indices[0]),
 			entity.render(),

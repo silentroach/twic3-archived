@@ -169,4 +169,35 @@ describe('Entities', () => {
 		);
 	});
 
+	it('complex 1', () => {
+		// @todo fixtures
+		const text = '@andrey_sitnik напоминает циклы миры, https://t.co/1L7eFSGK1RХолдеман,_Джо Там было показано общество выживающее на спутниках/астероидах';
+
+		const entities = new Entities();
+
+		entities.parseUrls([
+			{
+				url: 'https://t.co/1L7eFSGK1R',
+				'expanded_url': 'https://ru.wikipedia.org/wiki/',
+				'display_url': 'ru.wikipedia.org/wiki/',
+				indices:  [38, 61]
+			}
+		]);
+
+		entities.parseMentions([
+			{
+				'screen_name': 'andrey_sitnik',
+				name: 'Андрей Ситник',
+				id: 62229769,
+				'id_str': '62229769',
+				indices:  [0, 14]
+			}
+		]);
+
+		assert.equal(
+			entities.processText(text),
+			'<a class="tweet-link-mention" href="#users/62229769" title="Андрей Ситник">@andrey_sitnik</a> напоминает циклы миры, <a href="https://t.co/1L7eFSGK1R" class="tweet-link" title="https://ru.wikipedia.org/wiki/" target="_blank">ru.wikipedia.org/wiki/</a>Холдеман,_Джо Там было показано общество выживающее на спутниках/астероидах'
+		);
+	});
+
 });

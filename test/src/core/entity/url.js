@@ -40,17 +40,6 @@ describe('Entity', () => describe('#url', () => {
 		);
 	});
 
-	it('should remove trailing slashes from display url', function() {
-		const entity = EntityUrl.parse({
-			indices: [1, 10],
-			url: 'somelink',
-			'display_url': 'https://somelink.com/withtrailing/slash/',
-			'expanded_url': 'don\'t bother'
-		});
-
-		assert.equal(entity.displayUrl, 'https://somelink.com/withtrailing/slash');
-	});
-
 	describe('data extracting', () => {
 
 		describe('instagram', () => {
