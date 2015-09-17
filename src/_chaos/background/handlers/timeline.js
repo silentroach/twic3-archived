@@ -56,7 +56,7 @@ export default class AuthHandler extends MessageHandler {
 							const data = getTweetData(tweet);
 
 							if (tweet.retweetedId) {
-								data.retweet = getTweetData(retweeted[tweet.retweetedId]);
+								data.retweeted = getTweetData(retweeted[tweet.retweetedId]);
 							}
 
 							return data;
