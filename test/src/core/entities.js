@@ -170,7 +170,6 @@ describe('Entities', () => {
 	});
 
 	it('complex 1', () => {
-		// @todo fixtures
 		const text = '@andrey_sitnik напоминает циклы миры, https://t.co/1L7eFSGK1RХолдеман,_Джо Там было показано общество выживающее на спутниках/астероидах';
 
 		const entities = new Entities();

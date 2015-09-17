@@ -7,17 +7,10 @@ export default class UserInfoHandler extends MessageHandler {
 	}
 
 	handle(messageData) {
-		let method;
-		let value;
-
 		if (undefined !== messageData.id) {
-			method = this.app.twitter.getUserById;
-			value = messageData.id;
+			return this.app.twitter.getUserById(messageData.id);
 		} else {
-			method = this.app.twitter.getUserByScreenName;
-			value = messageData.screenName;
+			return this.app.twitter.getUserByScreenName(messageData.screenName);
 		}
-
-		return method.call(this.app.twitter, value);
 	}
 }
