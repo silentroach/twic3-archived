@@ -1,3 +1,5 @@
+import uniq from 'lodash.uniq';
+
 import Message from '../../message';
 import MessageHandler from '../messageHandler';
 
@@ -6,35 +8,22 @@ export default class AuthHandler extends MessageHandler {
 		return Message.TYPE_TIMELINE;
 	}
 
-	getTweetData(tweet) {
-		const handler = this;
-		const data = tweet.getData();
+	getIdsHash(data) {
+		const hash = { };
+		data.forEach(element => hash[element.id] = element);
+		return hash;
+	}
 
-		return Promise.all([
-			undefined === tweet.retweetedId
-				? Promise.resolve()
-				: handler.app.twitter
-					.getTweetById(tweet.retweetedId)
-					.then(function(retweet) {
-						if (!retweet) {
-							return Promise.resolve();
-						}
+	getRetweetDataByIds(ids) {
+		return Promise.all(
+			ids.map(id => this.app.twitter.getTweetById(id))
+		).then(data => this.getIdsHash(data));
+	}
 
-						return handler.getTweetData(retweet)
-							.then(function(retweetData) {
-								if (retweetData) {
-									data.retweeted = retweetData;
-								}
-							});
-					}),
-			handler.app.twitter
-				.getUserById(tweet.userId, true)
-				.then(function(user) {
-					data.user = user;
-				})
-		]).then(function() {
-			return data;
-		});
+	getUserInfoByIds(ids) {
+		return Promise.all(
+			ids.map(id => this.app.twitter.getUserById(id, true))
+		).then(data => this.getIdsHash(data));
 	}
 
 	handle(messageData) {
@@ -43,10 +32,37 @@ export default class AuthHandler extends MessageHandler {
 
 		return this.app.twitter
 			.getCachedHomeTimeline(userId)
-			.then(function(tweets) {
-				return Promise.all(
-					tweets.map(tweet => handler.getTweetData(tweet))
+			.then(tweets => {
+				const retweetIds = uniq(
+					tweets
+						.map(tweet => tweet.retweetedId)
+						.filter(id => id)
 				);
+
+				return this.getRetweetDataByIds(retweetIds).then(retweeted => {
+					const userIds = uniq([
+						...tweets.map(tweet => tweet.userId),
+						...Object.keys(retweeted).map(id => retweeted[id].userId)
+					]);
+
+					return this.getUserInfoByIds(userIds).then(users => {
+						function getTweetData(tweet) {
+							const data = tweet.getData();
+							data.user = users[tweet.userId];
+							return data;
+						}
+
+						return tweets.map(tweet => {
+							const data = getTweetData(tweet);
+
+							if (tweet.retweetedId) {
+								data.retweet = getTweetData(retweeted[tweet.retweetedId]);
+							}
+
+							return data;
+						});
+					});
+				});
 			});
 	}
 }

@@ -15,7 +15,7 @@ module.exports = function(gulp, config) {
 			'vendor': [
 				'vendor/babel-helpers',
 				'hmacsha1',
-				'lodash.merge', 'lodash.throttle',
+				'lodash.merge', 'lodash.throttle', 'lodash.uniq',
 				'qs'
 			]
 		};
