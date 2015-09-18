@@ -1,19 +1,22 @@
-import common from './karma.common';
+const common = require('./karma.common');
 
-export default function(config) {
-	config.set({
-		...common,
-		customLaunchers: {
-			ChromeTravis: {
-				base: 'Chrome',
-				flags: ['--no-sandbox']
+module.exports = function(config) {
+	config.set(
+		Object.assign(
+			common, {
+				customLaunchers: {
+					ChromeTravis: {
+						base: 'Chrome',
+						flags: ['--no-sandbox']
+					}
+				},
+				reporters: ['mocha', 'coverage', 'coveralls'],
+				browsers: ['ChromeTravis'],
+				coverageReporter: {
+					type: 'lcov',
+					dir: 'coverage/'
+				}
 			}
-		},
-		reporters: ['mocha', 'coverage', 'coveralls'],
-		browsers: ['ChromeTravis'],
-		coverageReporter: {
-			type: 'lcov',
-			dir: 'coverage/'
-		}
-	});
-}
+		)
+	);
+};

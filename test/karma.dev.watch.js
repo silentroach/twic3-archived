@@ -1,11 +1,14 @@
-import common from './karma.common';
+const common = require('./karma.common');
 
-export default function(config) {
-	config.set({
-		...common,
-		singleRun: false,
-		logLevel: config.LOG_INFO,
-		reporters: ['mocha', 'coverage', 'clear-screen'],
-		browsers: ['Chrome']
-	});
-}
+module.exports = function(config) {
+	config.set(
+		Object.assign(
+			common, {
+				singleRun: false,
+				logLevel: config.LOG_INFO,
+				reporters: ['mocha', 'coverage', 'clear-screen'],
+				browsers: ['Chrome']
+			}
+		)
+	);
+};

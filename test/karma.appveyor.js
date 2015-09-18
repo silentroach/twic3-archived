@@ -1,17 +1,20 @@
-import common from './karma.common';
+const common = require('./karma.common');
 
 // same as Travis, but without coveralls
 
-export default function(config) {
-	config.set({
-		...common,
-		customLaunchers: {
-			ChromeAppveyor: {
-				base: 'Chrome',
-				flags: ['--no-sandbox']
+module.exports = function(config) {
+	config.set(
+		Object.assign(
+			common, {
+				customLaunchers: {
+					ChromeAppveyor: {
+						base: 'Chrome',
+						flags: ['--no-sandbox']
+					}
+				},
+				reporters: ['mocha'],
+				browsers: ['ChromeAppveyor']
 			}
-		},
-		reporters: ['mocha'],
-		browsers: ['ChromeAppveyor']
-	});
-}
+		)
+	);
+};

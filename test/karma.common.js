@@ -1,5 +1,4 @@
-import _ from 'lodash';
-import path from 'path';
+const path = require('path');
 
 const babelConfig = {
 	optional: 'runtime',
@@ -7,7 +6,7 @@ const babelConfig = {
 	loose: 'all'
 };
 
-export default {
+module.exports = {
 	colors: true,
 	frameworks: ['mocha', 'sinon', 'chai-as-promised', 'chai'],
 	singleRun: true,
