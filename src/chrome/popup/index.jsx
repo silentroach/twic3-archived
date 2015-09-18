@@ -64,4 +64,7 @@ export default class ChromePopup extends App {
 	}
 }
 
-ReactDOM.render(<ChromePopup />, document.getElementById('content'));
+ReactDOM.render(
+	<ChromePopup />,
+	document.getElementById('content')
+);
