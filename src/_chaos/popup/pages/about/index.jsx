@@ -10,10 +10,8 @@ import contributorList from 'vendor/contributors';
 
 export default class AboutPage extends PureComponent {
 	render() {
-		const classes = ['page', styles.about];
-
 		return (
-			<div id="about" className={classes.join(' ')}>
+			<div id="about" className={styles.about}>
 				<h1>{i18n.translate('manifest.description')}</h1>
 				<ContributorList list={contributorList} />
 			</div>
