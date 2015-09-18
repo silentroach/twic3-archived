@@ -1,19 +1,17 @@
 import React from 'react';
 
-import './toolbar.styl';
-
-const CLASSNAME = 'toolbar';
+import styles from './toolbar.styl';
 
 export default class Toolbar extends React.Component {
 	render() {
-		var classes = [CLASSNAME];
+		var classes = [styles.toolbar];
 
 		switch (this.props.position) {
 			case Toolbar.POSITION_TOP:
-				classes.push([CLASSNAME, 'top'].join('-'));
+				classes.push(styles.positionTop);
 				break;
 			case Toolbar.POSITION_BOTTOM:
-				classes.push([CLASSNAME, 'bottom'].join('-'));
+				classes.push(styles.positionBottom);
 				break;
 		}
 
