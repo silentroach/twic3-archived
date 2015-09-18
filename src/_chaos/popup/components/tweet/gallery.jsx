@@ -1,10 +1,11 @@
 import React from 'react';
+import PureComponent from 'react-pure-render/component';
 
 import styles from './gallery.styl';
 
 const MAX_WIDTH = 100 * window.devicePixelRatio;
 
-export default class Gallery extends React.Component {
+export default class Gallery extends PureComponent {
 	render() {
 		const classNames = [styles.container];
 		const classCount = this.props.items.length < 5 ? this.props.items.length : 5;

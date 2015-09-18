@@ -1,8 +1,9 @@
 import React from 'react';
+import PureComponent from 'react-pure-render/component';
 
 import styles from './toolbar.styl';
 
-export default class Toolbar extends React.Component {
+export default class Toolbar extends PureComponent {
 	render() {
 		var classes = [styles.toolbar];
 
