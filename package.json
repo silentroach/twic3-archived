@@ -79,7 +79,7 @@
     "eslint-plugin-react": "3.4.2",
     "gulp-eslint": "1.0.0",
     "gulp-todo": "^3.3.0",
-    "isparta-loader": "1.0.0",
+    "isparta-loader": "0.2.0",
     "karma": "0.13.9",
     "karma-chai": "0.1.0",
     "karma-chai-as-promised": "0.1.2",
