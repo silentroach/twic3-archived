@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function(gulp, config) {
+module.exports = (gulp, config) => {
 
-	gulp.task('build:chrome:manifest', function(callback) {
+	gulp.task('build:chrome:manifest', callback => {
 		/*eslint camelcase: 0*/
 		const manifest = {
 			manifest_version: 2,
@@ -49,7 +49,7 @@ module.exports = function(gulp, config) {
 		);
 	});
 
-	gulp.task('watch:chrome:manifest', function() {
+	gulp.task('watch:chrome:manifest', () => {
 		gulp.watch(__filename, gulp.task('build:chrome:manifest'));
 	});
 

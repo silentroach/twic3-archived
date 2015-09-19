@@ -13,7 +13,7 @@ module.exports = function(gulp, config) {
 
 	// @todo maybe reuse something with chrome/popup?
 
-	function getWebpackConfig(isWatch = false) {
+	function getWebpackConfig(isWatch) {
 		const webpackConfig = config.webpack({
 			watch: isWatch
 		});

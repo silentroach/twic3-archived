@@ -5,7 +5,7 @@ const webpack = require('webpack');
 
 module.exports = function(gulp, config) {
 
-	function getWebpackConfig(isWatch = false) {
+	function getWebpackConfig(isWatch) {
 		const webpackConfig = config.webpack({
 			vendor: false,
 			target: 'atom',

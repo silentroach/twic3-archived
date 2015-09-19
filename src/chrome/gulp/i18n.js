@@ -1,21 +1,23 @@
+'use strict';
+
 const path = require('path');
 const fs = require('fs');
 
 const _ = require('lodash');
 const mkdirp = require('mkdirp');
 
-module.exports = function(gulp, config) {
+module.exports = (gulp, config) => {
 
 	const targetPath = path.resolve(config.paths.build.chrome, '_locales');
 
 	const sourcePath = path.resolve(config.paths.src, 'chrome/i18n');
 	const sourceBasePath = path.resolve(config.paths.src, 'base/i18n');
 
-	gulp.task('build:chrome:i18n:mkdir', function(callback) {
+	gulp.task('build:chrome:i18n:mkdir', callback => {
 		mkdirp(targetPath, callback);
 	});
 
-	gulp.task('build:chrome:i18n:generate', function(callback) {
+	gulp.task('build:chrome:i18n:generate', callback => {
 		const translations = require(path.resolve(sourcePath, 'index.js'));
 		const parsed = { };
 
@@ -73,9 +75,9 @@ module.exports = function(gulp, config) {
 					});
 				});
 			})
-		).then(function() {
-			callback();
-		}).catch(callback);
+		)
+		.then(callback)
+		.catch(callback);
 	});
 
 	gulp.task(
@@ -86,7 +88,7 @@ module.exports = function(gulp, config) {
 		)
 	);
 
-	gulp.task('watch:chrome:i18n', function() {
+	gulp.task('watch:chrome:i18n', () => {
 		return gulp.watch([
 			path.resolve(sourcePath, './**/*.js'),
 			path.resolve(sourceBasePath, './**/*.js'),

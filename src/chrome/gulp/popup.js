@@ -5,13 +5,12 @@ const gulpJade = require('gulp-jade');
 const gulpRename = require('gulp-rename');
 const webpack = require('webpack');
 
-module.exports = function(gulp, config) {
+module.exports = (gulp, config) => {
 
 	const popupTargetPath = path.resolve(config.paths.build.chrome, 'popup');
-
 	const htmlSourcePath = path.resolve(config.paths.src, 'chrome/popup/index.jade');
 
-	function getWebpackConfig(isWatch = false) {
+	function getWebpackConfig(isWatch) {
 		const webpackConfig = config.webpack({
 			watch: isWatch
 		});
@@ -53,7 +52,7 @@ module.exports = function(gulp, config) {
 		return webpackConfig;
 	}
 
-	gulp.task('build:chrome:popup:html', function() {
+	gulp.task('build:chrome:popup:html', () => {
 		return gulp.src(htmlSourcePath)
 			.pipe(gulpJade({
 				pretty: true
@@ -62,17 +61,17 @@ module.exports = function(gulp, config) {
 			.pipe(gulp.dest(popupTargetPath));
 	});
 
-	gulp.task('watch:chrome:popup:html', function() {
+	gulp.task('watch:chrome:popup:html', () => {
 		gulp.watch(htmlSourcePath, gulp.task('build:chrome:popup:html'));
 	});
 
-	gulp.task('build:chrome:popup:content', function() {
+	gulp.task('build:chrome:popup:content', () => {
 		return gulp.src('src/_chaos/popup/index.js')
 			.pipe(gulpWebpack(getWebpackConfig(), webpack))
 			.pipe(gulp.dest(popupTargetPath));
 	});
 
-	gulp.task('watch:chrome:popup:content', function() {
+	gulp.task('watch:chrome:popup:content', () => {
 		return gulp.src('src/_chaos/popup/index.js')
 			.pipe(gulpWebpack(getWebpackConfig(true), webpack))
 			.pipe(gulp.dest(popupTargetPath));

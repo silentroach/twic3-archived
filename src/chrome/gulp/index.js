@@ -1,7 +1,7 @@
 const mkdirp = require('mkdirp');
 const path = require('path');
 
-module.exports = function(gulp, config) {
+module.exports = (gulp, config) => {
 
 	config.paths.build.chrome = path.resolve(config.paths.build.root, 'chrome');
 
@@ -15,7 +15,7 @@ module.exports = function(gulp, config) {
 
 	// ---
 
-	gulp.task('build:chrome:mkdirp', function(callback) {
+	gulp.task('build:chrome:mkdirp', callback => {
 		mkdirp(config.paths.build.chrome, callback);
 	});
 

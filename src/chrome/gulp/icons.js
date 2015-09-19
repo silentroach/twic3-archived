@@ -5,7 +5,7 @@ const phantom = require('phantom');
 const _ = require('lodash');
 const gutil = require('gulp-util');
 
-module.exports = function(gulp, config) {
+module.exports = (gulp, config) => {
 
 	const imagesPath = path.resolve(config.paths.src, 'base/client/images');
 	const targetPath = path.resolve(config.paths.build.chrome, 'images');
@@ -85,20 +85,18 @@ module.exports = function(gulp, config) {
 		});
 	}
 
-	gulp.task('build:chrome:icons', function(callback) {
+	gulp.task('build:chrome:icons', callback => {
 		Promise.all(
-			_.map(images, function(target, sourceImage) {
+			_.map(images, (target, sourceImage) => {
 				return Promise.all(
-					_.map(target, function(settings, targetFilePath) {
+					_.map(target, (settings, targetFilePath) => {
 						return render(sourceImage, targetFilePath, settings);
 					})
 				);
 			})
-		).then(function() {
-			callback();
-		}).catch(function(e) {
-			callback(e);
-		});
+		)
+		.then(callback)
+		.catch(callback);
 	});
 
 };

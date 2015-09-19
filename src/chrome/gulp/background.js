@@ -3,9 +3,9 @@ const path = require('path');
 const gulpWebpack = require('webpack-stream');
 const webpack = require('webpack');
 
-module.exports = function(gulp, config) {
+module.exports = (gulp, config) => {
 
-	function getWebpackConfig(isWatch = false) {
+	function getWebpackConfig(isWatch) {
 		const webpackConfig = config.webpack({
 			watch: isWatch
 		});
@@ -36,13 +36,13 @@ module.exports = function(gulp, config) {
 		return webpackConfig;
 	}
 
-	gulp.task('build:chrome:background', function() {
+	gulp.task('build:chrome:background', () => {
 		return gulp.src('src/_chaos/background/index.js')
 			.pipe(gulpWebpack(getWebpackConfig(), webpack))
 			.pipe(gulp.dest(config.paths.build.chrome));
 	});
 
-	gulp.task('watch:chrome:background:content', function() {
+	gulp.task('watch:chrome:background:content', () => {
 		return gulp.src('src/_chaos/background/index.js')
 			.pipe(gulpWebpack(getWebpackConfig(true), webpack))
 			.pipe(gulp.dest(config.paths.build.chrome));
