@@ -27,9 +27,7 @@
     "build": "gulp build",
     "watch": "gulp watch",
     "production": "NODE_ENV=production gulp production",
-    "todo": "gulp todo",
-    "postmerge": "npm install",
-    "prepush": "npm test"
+    "todo": "gulp todo"
   },
   "dependencies": {
     "@twic/config": "1.0.0",
@@ -82,7 +80,6 @@
     "eslint-plugin-react": "3.3.2",
     "gulp-eslint": "1.0.0",
     "gulp-todo": "^3.3.0",
-    "husky": "^0.10.0",
     "isparta-loader": "0.2.0",
     "karma": "0.13.9",
     "karma-chai": "0.1.0",
