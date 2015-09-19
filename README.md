@@ -18,12 +18,22 @@ All translation files are in [src/base/i18n](/src/base/i18n) folder in simple fo
 
 All you need to start develop is to install [Node.js](https://nodejs.org) and run:
 
-	# npm install
-	# npm run watch
+	$ npm install
+	$ npm run watch
 
 It will install all dependencies and then will build development sources to `build` folder and will start to watch all the code changes.
 
 Please respect the [EditorConfig](http://editorconfig.org) project settings and `eslint` rules.
+
+### Try
+
+To try built Chrome extension, you should go to chrome://extensions and press the button
+"Load unpacked extension" and select the `build/chrome` folder.
+
+To try Electron version, you can use `electron-prebuilt` package:
+
+	$ npm -g install electron-prebuilt
+	$ electron build/electron
 
 ### Test
 
@@ -31,6 +41,6 @@ We use [Mocha](http://mochajs.org) and [Karma](http://karma-runner.github.io) to
 
 To check your contribution code you need just to run
 
-	# npm run test
+	$ npm run test
 
 Also it will run automatically on `git push` by pre-push hook.
