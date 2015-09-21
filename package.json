@@ -32,7 +32,7 @@
     "@twic/config": "1.0.0",
     "@twic/connection": "1.0.0",
     "@twic/db": "1.0.1",
-    "@twic/eventemitter": "1.0.1",
+    "@twic/eventemitter": "1.0.2",
     "autoprefixer-loader": "3.1.0",
     "babel": "5.8.23",
     "babel-core": "5.8.25",
@@ -62,7 +62,7 @@
     "react-dom": "0.14.0-rc1",
     "react-pure-render": "1.0.2",
     "rimraf": "2.4.3",
-    "style-loader": "0.12.3",
+    "style-loader": "0.12.4",
     "stylus-loader": "1.0.0",
     "through2": "2.0.0",
     "twitter-regexps": "1.1.1",
@@ -91,7 +91,7 @@
     "karma-sinon": "1.0.4",
     "karma-webpack": "1.7.0",
     "lodash": "3.10.1",
-    "mocha": "2.3.2",
+    "mocha": "2.3.3",
     "react-addons-test-utils": "0.14.0-rc1",
     "sinon": "1.16.1"
   }
