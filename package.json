@@ -29,8 +29,8 @@
     "todo": "gulp todo"
   },
   "dependencies": {
-    "@twic/config": "1.0.0",
-    "@twic/connection": "1.0.0",
+    "@twic/config": "1.0.1",
+    "@twic/connection": "1.0.1",
     "@twic/db": "1.0.1",
     "@twic/eventemitter": "1.0.2",
     "autoprefixer-loader": "3.1.0",
