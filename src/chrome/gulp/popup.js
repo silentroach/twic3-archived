@@ -20,6 +20,7 @@ module.exports = (gulp, config) => {
 			'vendor': [
 				'vendor/babel-helpers',
 				'react',
+				'react-dom',
 				'react-pure-render/component',
 
 				'moment', // en locale is included

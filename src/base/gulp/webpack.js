@@ -15,7 +15,7 @@ module.exports = function(gulp, config) {
 		externalHelpers: true,
 		cacheDirectory: !config.production,
 		blacklist: ['useStrict', 'es6.constants'],
-		optional: ['es7.classProperties', 'utility.inlineEnvironmentVariables'],
+		optional: ['es7.classProperties'],
 		stage: 0,
 		plugins: []
 	};
@@ -95,6 +95,12 @@ module.exports = function(gulp, config) {
 		if (config.production) {
 			/*eslint camelcase: 0*/
 			plugins.push(
+				new webpack.DefinePlugin({
+					'process.env': {
+						NODE_ENV: '"production"'
+					}
+				}),
+				// ---
 				new webpack.optimize.DedupePlugin(),
 				// ---
 				new webpack.optimize.UglifyJsPlugin({
