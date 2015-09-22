@@ -12,13 +12,12 @@ module.exports = {
 	singleRun: true,
 	files: [
 		'karma.config.js',
-		'src/**/*.js',
-		'src/**/*.jsx'
+		'src/**/*.js'
 	],
 	preprocessors: {
-		'src/**/*.js': 'webpack',
-		'src/**/*.jsx': 'webpack'
+		'src/**/*.js': ['webpack', 'sourcemap']
 	},
+	urlRoot: '/karma/',
 	reporters: ['mocha'],
 	webpack: {
 		cache: true,
@@ -30,10 +29,11 @@ module.exports = {
 				path.resolve(__dirname, '../src/_chaos')
 			]
 		},
+		devtool: 'inline-source-map',
 		module: {
 			preLoaders: [
 				{
-					test: /\.jsx?$/,
+					test: /\.js$/,
 					include: path.resolve('test/src/'),
 					loader: 'babel?' + JSON.stringify(babelConfig)
 				},
