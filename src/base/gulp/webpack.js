@@ -7,7 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = function(gulp, config) {
 
 	const autoprefixerOptions = {
-		'browsers': 'Chrome >= 40'
+		'browsers': 'last 3 Chrome versions'
 	};
 
 	const babelOptions = {
