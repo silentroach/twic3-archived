@@ -95,8 +95,8 @@ module.exports = (gulp, config) => {
 				);
 			})
 		)
-		.then(callback)
-		.catch(callback);
+		.then(() => callback())
+		.catch(e => callback(e));
 	});
 
 };
