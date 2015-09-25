@@ -6,9 +6,6 @@ import EntitySymbol from './entity/symbol';
 
 import objectMerge from 'lodash.merge';
 
-const MAP_FIELD = Symbol('map');
-const COUNTERS_FIELD = Symbol('counters');
-
 const TYPE_MENTION = 'mention';
 const TYPE_MEDIA = 'media';
 const TYPE_HASH = 'hash';
@@ -28,15 +25,22 @@ const TYPES_MAP = {
 // U+1F680 to U+1F6FF
 const emoticonsRegexp = /\ud83c[\udf00-\udfff]|\ud83d[\udc00-\ude4f]|\ud83d[\ude80-\udeff]/g;
 
+const propMap = Symbol('map');
+const propCounters = Symbol('counters');
+
+const methodParseData = Symbol('parseData');
+const methodProcessByEntity = Symbol('processTextByEntity');
+const methodGetEntitiesPosition = Symbol('getEntitiesPositions');
+
 export default class Entities {
 	constructor() {
-		this[MAP_FIELD] = { };
-		this[COUNTERS_FIELD] = { };
+		this[propMap] = { };
+		this[propCounters] = { };
 	}
 
-	/** @private */ parseData(entityList, type) {
+	[methodParseData](entityList, type) {
 		const TypeClass = TYPES_MAP[type];
-		let typeCounter = this[COUNTERS_FIELD][type] || 0;
+		let typeCounter = this[propCounters][type] || 0;
 
 		if (!Array.isArray(entityList)) {
 			return this;
@@ -51,43 +55,43 @@ export default class Entities {
 
 				// can be multiple media entities with same indices
 				if (TYPE_MEDIA === type) {
-					if (undefined === this[MAP_FIELD][startIdx]) {
-						this[MAP_FIELD][startIdx] = [];
+					if (undefined === this[propMap][startIdx]) {
+						this[propMap][startIdx] = [];
 					}
 
-					this[MAP_FIELD][startIdx].push(entity);
+					this[propMap][startIdx].push(entity);
 				} else {
-					this[MAP_FIELD][startIdx] = entity;
+					this[propMap][startIdx] = entity;
 				}
 			}
 		});
 
-		this[COUNTERS_FIELD][type] = typeCounter;
+		this[propCounters][type] = typeCounter;
 
 		return this;
 	}
 
 	parseSymbols(entityList) {
-		return this.parseData(entityList, TYPE_SYMBOL);
+		return this[methodParseData](entityList, TYPE_SYMBOL);
 	}
 
 	parseMentions(entityList) {
-		return this.parseData(entityList, TYPE_MENTION);
+		return this[methodParseData](entityList, TYPE_MENTION);
 	}
 
 	parseMedia(entityList) {
-		return this.parseData(entityList, TYPE_MEDIA);
+		return this[methodParseData](entityList, TYPE_MEDIA);
 	}
 
 	parseUrls(entityList) {
-		return this.parseData(entityList, TYPE_URL);
+		return this[methodParseData](entityList, TYPE_URL);
 	}
 
 	parseHashtags(entityList) {
-		return this.parseData(entityList, TYPE_HASH);
+		return this[methodParseData](entityList, TYPE_HASH);
 	}
 
-	/** @private */ processTextByEntity(text, entity) {
+	[methodProcessByEntity](text, entity) {
 		const indices = entity.indices;
 
 		// @todo context based replacements?
@@ -100,18 +104,15 @@ export default class Entities {
 		].join('');
 	}
 
-	/** @private */ getEntitiesPositions(reversed = false) {
+	[methodGetEntitiesPosition](reversed = false) {
 		return Object
-			.keys(this[MAP_FIELD])
+			.keys(this[propMap])
 			.map(Number)
-			.sort(function(a, b) {
-				return reversed ? b - a : a - b;
-			});
+			.sort((a, b) => reversed ? b - a : a - b);
 	}
 
 	processText(input) {
-		const self = this;
-		const entitiesPos = this.getEntitiesPositions(true);
+		const entitiesPos = this[methodGetEntitiesPosition](true);
 		const emoticons = [];
 
 		// replacing two-byte emoticons with private use unicode symbol
@@ -120,29 +121,26 @@ export default class Entities {
 			return '\u0091';
 		});
 
-		entitiesPos.forEach(function(pos) {
-			const entry = self[MAP_FIELD][pos];
+		entitiesPos.forEach(pos => {
+			const entry = this[propMap][pos];
 			const entity = Array.isArray(entry) ? entry[0] : entry;
 
-			output = self.processTextByEntity(output, entity);
+			output = this[methodProcessByEntity](output, entity);
 		});
 
 		// bringing back emoticons
-		return output.replace(/\u0091/g, () => {
-			return emoticons.shift();
-		});
+		return output.replace(/\u0091/g, () => emoticons.shift());
 	}
 
 	getAdditionalData() {
-		const self = this;
-		const entitiesPos = this.getEntitiesPositions();
+		const entitiesPos = this[methodGetEntitiesPosition]();
 		let result = { };
 
-		entitiesPos.forEach(function(pos) {
-			const entry = self[MAP_FIELD][pos];
+		entitiesPos.forEach(pos => {
+			const entry = this[propMap][pos];
 			const entities = Array.isArray(entry) ? entry : [entry];
 
-			entities.forEach(function(entity) {
+			entities.forEach(entity => {
 				const additionalData = entity.getAdditionalData();
 
 				if (additionalData) {
@@ -175,22 +173,22 @@ export default class Entities {
 	}
 
 	getUrlCount() {
-		return this[COUNTERS_FIELD][TYPE_URL] || 0;
+		return this[propCounters][TYPE_URL] || 0;
 	}
 
 	getHashCount() {
-		return this[COUNTERS_FIELD][TYPE_HASH] || 0;
+		return this[propCounters][TYPE_HASH] || 0;
 	}
 
 	getMediaCount() {
-		return this[COUNTERS_FIELD][TYPE_MEDIA] || 0;
+		return this[propCounters][TYPE_MEDIA] || 0;
 	}
 
 	getMentionsCount() {
-		return this[COUNTERS_FIELD][TYPE_MENTION] || 0;
+		return this[propCounters][TYPE_MENTION] || 0;
 	}
 
 	getSymbolsCount() {
-		return this[COUNTERS_FIELD][TYPE_SYMBOL] || 0;
+		return this[propCounters][TYPE_SYMBOL] || 0;
 	}
 }
