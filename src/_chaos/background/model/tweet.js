@@ -4,7 +4,7 @@ import { FieldTypes, Parser } from 'core/http/response/parser';
 
 import Entities from 'core/entities';
 
-import textUtils from '../twitter/text';
+import { processLineBreaks } from '../twitter/text';
 
 const parser = new Parser({
 	'id_str': [FieldTypes.String, 'id'],
@@ -28,7 +28,7 @@ const parser = new Parser({
 			// @todo make tweet text empty if there is nothing more than media links
 		//}
 
-		let text = textUtils.processLineBreaks(
+		let text = processLineBreaks(
 			entities.processText(original)
 		);
 

@@ -3,7 +3,7 @@ import { FieldTypes, Parser } from 'core/http/response/parser';
 
 import Entities from 'core/entities';
 
-import textUtils from '../twitter/text';
+import { processLineBreaks } from '../twitter/text';
 
 const COORDS_REGEXP = /-?[\d.]+/g;
 
@@ -63,7 +63,7 @@ const fullParserRules = Object.create(commonParserRules);
 
 fullParserRules.description = [FieldTypes.String, (description, userJSON) => {
 	return {
-		description: textUtils.processLineBreaks(
+		description: processLineBreaks(
 			description
 		)
 	};
