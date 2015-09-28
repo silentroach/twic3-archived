@@ -4,4 +4,4 @@ export function processLineBreaks(input) {
 		.replace(/\n{2,}/g, '\n\n')  // convert 3+ breaks to 2
 		.trim()
 		.replace(/\n/g, '<br />');
-};
+}
