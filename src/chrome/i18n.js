@@ -1,4 +1,4 @@
-import Localization from 'core/localization';
+import i18n from '@twic/i18n';
 
 const language = chrome.i18n.getUILanguage()
 	.split('-')
@@ -16,6 +16,6 @@ class ChromeLocalizationBackend {
 	}
 }
 
-export default new Localization(
+export default new i18n(
 	new ChromeLocalizationBackend()
 );
